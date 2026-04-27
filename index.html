@@ -5,10 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
-<meta name="apple-mobile-web-app-title" content="Movement Plan"/>
+<meta name="apple-mobile-web-app-title" content="Body OS"/>
 <meta name="mobile-web-app-capable" content="yes"/>
 <meta name="theme-color" content="#0f0c1a"/>
-<title>Movement Plan</title>
+<title>Body OS</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <style>
 :root{
@@ -19,29 +19,68 @@
   --text:#f0eeff;--text2:#a09cc0;--text3:#5f5a80;
   --border:rgba(139,92,246,0.18);--border2:rgba(99,102,241,0.1);
   --green:#34d399;--green-dim:rgba(52,211,153,0.12);
-  --coral:#fb7185;--radius:16px;--radius-sm:10px;
+  --amber:#fbbf24;--amber-dim:rgba(251,191,36,0.12);
+  --coral:#fb7185;--coral-dim:rgba(251,113,133,0.12);
+  --radius:16px;--radius-sm:10px;
+  --nav-h:62px;
 }
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
-html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-size:16px;min-height:100vh;}
-body{padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);}
-.wrap{max-width:640px;margin:0 auto;padding:20px 18px 60px;position:relative;z-index:1;}
-.orb{position:fixed;top:-140px;right:-100px;width:420px;height:420px;background:radial-gradient(circle,rgba(139,92,246,.2) 0%,transparent 70%);pointer-events:none;z-index:0;}
-.orb2{position:fixed;bottom:-100px;left:-120px;width:340px;height:340px;background:radial-gradient(circle,rgba(99,102,241,.14) 0%,transparent 70%);pointer-events:none;z-index:0;}
-.app-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:0;}
-.app-title{font-size:11px;font-weight:600;color:var(--text3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px;}
-.date-display{font-family:'DM Serif Display',serif;font-size:26px;font-weight:400;color:var(--text);line-height:1.2;margin:4px 0 3px;}
-.phase-name{font-size:12px;color:var(--text3);letter-spacing:.04em;}
-.sind{font-size:12px;min-height:16px;text-align:right;margin-top:6px;}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;margin:0;padding:0;}
+html{background:var(--bg);}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-size:16px;min-height:100vh;padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom));}
+.orb{position:fixed;top:-140px;right:-100px;width:420px;height:420px;background:radial-gradient(circle,rgba(139,92,246,.18) 0%,transparent 70%);pointer-events:none;z-index:0;}
+.orb2{position:fixed;bottom:60px;left:-120px;width:340px;height:340px;background:radial-gradient(circle,rgba(99,102,241,.12) 0%,transparent 70%);pointer-events:none;z-index:0;}
+
+/* ── BOTTOM NAV ── */
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;height:calc(var(--nav-h) + env(safe-area-inset-bottom));padding-bottom:env(safe-area-inset-bottom);background:rgba(15,12,26,0.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid var(--border2);display:flex;z-index:100;}
+.nav-btn{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;border:none;background:transparent;color:var(--text3);cursor:pointer;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:.03em;padding:8px 0;transition:color .15s;}
+.nav-btn.on{color:var(--indigo-light);}
+.nav-btn svg{width:22px;height:22px;}
+.nav-dot{width:4px;height:4px;border-radius:50%;background:var(--indigo-light);margin-top:1px;opacity:0;transition:opacity .15s;}
+.nav-btn.on .nav-dot{opacity:1;}
+
+/* ── SECTIONS ── */
+.section{display:none;max-width:640px;margin:0 auto;padding:20px 18px 20px;position:relative;z-index:1;}
+.section.on{display:block;}
+
+/* ── SHARED COMPONENTS ── */
+.app-eyebrow{font-size:11px;font-weight:600;color:var(--text3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px;}
+.serif{font-family:'DM Serif Display',serif;font-weight:400;}
+.page-title{font-family:'DM Serif Display',serif;font-size:26px;color:var(--text);line-height:1.2;margin:4px 0 3px;}
+.page-sub{font-size:12px;color:var(--text3);letter-spacing:.04em;margin-bottom:0;}
+.slbl{font-size:10px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;margin:1.5rem 0 .6rem;display:flex;align-items:center;gap:8px;}
+.slbl::after{content:'';flex:1;height:1px;background:var(--border2);}
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:10px;}
+.card-body{padding:14px 16px;}
+.card-row{display:flex;gap:12px;align-items:flex-start;padding:12px 16px;border-bottom:1px solid var(--border2);}
+.card-row:last-child{border-bottom:none;}
 .ph-badge{display:inline-flex;align-items:center;font-size:11px;font-weight:600;padding:4px 11px;border-radius:20px;letter-spacing:.04em;}
 .ph-1{background:var(--green-dim);color:var(--green);border:1px solid rgba(52,211,153,.2);}
 .ph-2{background:var(--indigo-dim);color:var(--indigo-light);border:1px solid rgba(99,102,241,.2);}
 .ph-3{background:var(--violet-dim);color:#c084fc;border:1px solid rgba(139,92,246,.2);}
-.ph-4{background:rgba(251,113,133,.1);color:var(--coral);border:1px solid rgba(251,113,133,.2);}
+.ph-4{background:var(--coral-dim);color:var(--coral);border:1px solid rgba(251,113,133,.2);}
 .type-badge{display:inline-flex;font-size:11px;font-weight:500;padding:4px 11px;border-radius:20px;margin-left:6px;letter-spacing:.03em;}
 .badge-yoga{background:var(--green-dim);color:var(--green);border:1px solid rgba(52,211,153,.2);}
 .badge-gym{background:var(--sky-dim);color:var(--sky);border:1px solid rgba(56,189,248,.2);}
 .badge-yin{background:var(--violet-dim);color:#c084fc;border:1px solid rgba(139,92,246,.2);}
 .badge-rest{background:var(--bg3);color:var(--text3);border:1px solid var(--border2);}
+.badge-jaw{background:var(--amber-dim);color:var(--amber);border:1px solid rgba(251,191,36,.2);}
+.badge-posture{background:var(--sky-dim);color:var(--sky);border:1px solid rgba(56,189,248,.2);}
+.badge-sleep{background:var(--violet-dim);color:#c084fc;border:1px solid rgba(139,92,246,.2);}
+.cb{width:22px;height:22px;border:1.5px solid var(--bg4);border-radius:6px;cursor:pointer;flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center;transition:all .12s;background:var(--bg3);}
+.cb.on{background:linear-gradient(135deg,var(--indigo),var(--violet));border-color:transparent;}
+.cb.on::after{content:'';display:block;width:5px;height:9px;border:2px solid white;border-top:none;border-left:none;transform:rotate(45deg) translate(-1px,-1px);}
+.item-label{font-size:14px;line-height:1.4;font-weight:500;color:var(--text);}
+.item-label.done{text-decoration:line-through;color:var(--text3);font-weight:400;}
+.item-sub{font-size:12px;color:var(--text2);margin-top:4px;line-height:1.55;}
+.kids{background:rgba(0,0,0,.2);border-top:1px solid var(--border2);}
+.kid-row{display:flex;gap:12px;align-items:flex-start;padding:10px 14px 10px 36px;border-bottom:1px solid var(--border2);position:relative;}
+.kid-row::before{content:'';position:absolute;left:20px;top:0;bottom:0;width:1px;background:var(--border);}
+.kid-row:last-child{border-bottom:none;}
+.kid-label{font-size:13px;line-height:1.4;color:var(--text);}
+.kid-label.done{text-decoration:line-through;color:var(--text3);}
+.kid-why{font-size:12px;color:var(--text2);margin-top:3px;line-height:1.5;}
+
+/* ── MOVEMENT ── */
 .pip-row{display:flex;gap:3px;margin:10px 0 0;}
 .pip{height:3px;flex:1;border-radius:2px;background:var(--bg4);}
 .pip.done{background:linear-gradient(90deg,var(--indigo),var(--violet));}
@@ -55,87 +94,134 @@ body{padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-i
 .prog-wrap{height:4px;background:var(--bg4);border-radius:2px;margin:.85rem 0 5px;overflow:hidden;}
 .prog-fill{height:100%;background:linear-gradient(90deg,var(--indigo),var(--violet));border-radius:2px;transition:width .35s cubic-bezier(.4,0,.2,1);}
 .prog-lbl{font-size:12px;color:var(--text3);}
-.slbl{font-size:10px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;margin:1.5rem 0 .6rem;display:flex;align-items:center;gap:8px;}
-.slbl::after{content:'';flex:1;height:1px;background:var(--border2);}
 .group-wrap{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:10px;overflow:hidden;}
 .act-row{display:flex;gap:12px;align-items:flex-start;padding:13px 14px;border-bottom:1px solid var(--border2);}
 .act-row:last-child{border-bottom:none;}
-.cb{width:22px;height:22px;border:1.5px solid var(--bg4);border-radius:6px;cursor:pointer;flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center;transition:all .12s;background:var(--bg3);}
-.cb.on{background:linear-gradient(135deg,var(--indigo),var(--violet));border-color:transparent;}
-.cb.on::after{content:'';display:block;width:5px;height:9px;border:2px solid white;border-top:none;border-left:none;transform:rotate(45deg) translate(-1px,-1px);}
 .act-label{font-size:15px;line-height:1.4;font-weight:500;color:var(--text);}
 .act-label.done{text-decoration:line-through;color:var(--text3);font-weight:400;}
 .act-why{font-size:12.5px;color:var(--text2);margin-top:5px;line-height:1.6;}
-.kids{background:rgba(0,0,0,.2);border-top:1px solid var(--border2);}
-.kid-row{display:flex;gap:12px;align-items:flex-start;padding:11px 14px 11px 36px;border-bottom:1px solid var(--border2);position:relative;}
-.kid-row::before{content:'';position:absolute;left:20px;top:0;bottom:0;width:1px;background:var(--border);}
-.kid-row:last-child{border-bottom:none;}
-.kid-label{font-size:13.5px;line-height:1.4;color:var(--text);}
-.kid-label.done{text-decoration:line-through;color:var(--text3);}
-.kid-why{font-size:12px;color:var(--text2);margin-top:3px;line-height:1.55;}
-.rest-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:28px 20px;text-align:center;margin-top:8px;}
-.rest-icon{font-size:36px;margin-bottom:12px;}
-.rest-title{font-family:'DM Serif Display',serif;font-size:20px;font-weight:400;margin-bottom:8px;color:var(--text);}
-.rest-sub{font-size:14px;color:var(--text2);line-height:1.7;}
+.move-kids{background:rgba(0,0,0,.2);border-top:1px solid var(--border2);}
+.move-kid-row{display:flex;gap:12px;align-items:flex-start;padding:11px 14px 11px 36px;border-bottom:1px solid var(--border2);position:relative;}
+.move-kid-row::before{content:'';position:absolute;left:20px;top:0;bottom:0;width:1px;background:var(--border);}
+.move-kid-row:last-child{border-bottom:none;}
 .week-grid{display:flex;flex-direction:column;gap:10px;margin-top:14px;}
 .week-card{border:1px solid var(--border);border-radius:var(--radius);padding:15px 16px;background:var(--bg2);}
 .week-card.today{border-color:rgba(99,102,241,.5);background:linear-gradient(135deg,rgba(99,102,241,.07),rgba(139,92,246,.04));}
 .wc-head{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
 .wc-day{font-family:'DM Serif Display',serif;font-size:15px;color:var(--text);}
 .today-dot{width:6px;height:6px;border-radius:50%;background:var(--indigo-light);flex-shrink:0;}
-.wc-acts{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:5px;}
-.wc-acts li{font-size:13.5px;color:var(--text2);padding-left:14px;position:relative;line-height:1.5;}
+.wc-acts{list-style:none;display:flex;flex-direction:column;gap:5px;}
+.wc-acts li{font-size:13px;color:var(--text2);padding-left:14px;position:relative;line-height:1.5;}
 .wc-acts li::before{content:'·';position:absolute;left:4px;color:var(--text3);}
 .wc-acts li strong{color:var(--text);font-weight:500;}
 .wc-rest{font-size:13px;color:var(--text3);font-style:italic;}
-.setup-wrap{padding-top:30px;}
+.rest-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:28px 20px;text-align:center;margin-top:8px;}
+.rest-title{font-family:'DM Serif Display',serif;font-size:20px;margin-bottom:8px;}
+.rest-sub{font-size:14px;color:var(--text2);line-height:1.7;}
+.sind{font-size:12px;min-height:16px;text-align:right;}
+.link-btn{background:none;border:none;color:var(--text3);font-size:13px;cursor:pointer;text-decoration:underline;display:block;margin:1.5rem auto 0;text-align:center;font-family:'DM Sans',sans-serif;}
+
+/* ── JAW TIMER ── */
+.jaw-timer-wrap{padding:0 16px 14px;}
+.timer-display{font-family:'DM Serif Display',serif;font-size:40px;text-align:center;color:var(--text);margin:8px 0;}
+.timer-bar-wrap{height:4px;background:var(--bg4);border-radius:2px;overflow:hidden;margin-bottom:12px;}
+.timer-bar-fill{height:100%;background:linear-gradient(90deg,var(--amber),var(--coral));border-radius:2px;transition:width .5s linear;}
+.timer-btn{width:100%;padding:10px;font-size:14px;font-family:'DM Sans',sans-serif;font-weight:600;border:none;border-radius:var(--radius-sm);cursor:pointer;transition:opacity .15s;}
+.timer-btn.start{background:linear-gradient(135deg,var(--indigo),var(--violet));color:white;}
+.timer-btn.pause{background:var(--bg4);color:var(--text2);}
+.timer-btn.done-btn{background:var(--green-dim);color:var(--green);border:1px solid rgba(52,211,153,.3);}
+.jaw-steps{padding:4px 0 8px;}
+.jaw-step{display:flex;gap:10px;align-items:flex-start;padding:9px 16px;border-bottom:1px solid var(--border2);}
+.jaw-step:last-child{border-bottom:none;}
+.step-num{font-size:11px;font-weight:600;color:var(--amber);background:var(--amber-dim);border-radius:50%;width:20px;height:20px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.step-text{font-size:13px;color:var(--text);line-height:1.4;}
+.step-dur{font-size:11px;color:var(--text3);margin-top:2px;}
+
+/* ── POSTURE BLOCK ── */
+.posture-cue-card{background:linear-gradient(135deg,rgba(56,189,248,.08),rgba(99,102,241,.06));border:1px solid rgba(56,189,248,.2);border-radius:var(--radius);padding:16px;margin-bottom:10px;}
+.posture-cue-title{font-size:14px;font-weight:600;color:var(--sky);margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+.posture-list{list-style:none;display:flex;flex-direction:column;gap:7px;}
+.posture-list li{font-size:13px;color:var(--text2);padding-left:16px;position:relative;line-height:1.5;}
+.posture-list li::before{content:'→';position:absolute;left:0;color:var(--indigo-light);font-size:11px;top:2px;}
+.posture-list li strong{color:var(--text);font-weight:500;}
+
+/* ── NIGHT ROUTINE ── */
+.night-card{background:linear-gradient(135deg,rgba(139,92,246,.08),rgba(99,102,241,.05));border:1px solid rgba(139,92,246,.25);border-radius:var(--radius);overflow:hidden;margin-bottom:10px;}
+.night-header{padding:14px 16px 10px;border-bottom:1px solid rgba(139,92,246,.12);}
+.night-header-title{font-size:15px;font-weight:500;color:var(--text);display:flex;align-items:center;gap:8px;}
+
+/* ── HABITS PROGRESS ── */
+.habits-progress{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;margin-bottom:6px;display:flex;align-items:center;gap:12px;}
+.hp-rings{display:flex;gap:6px;}
+.hp-ring-wrap{display:flex;flex-direction:column;align-items:center;gap:3px;}
+.hp-ring-lbl{font-size:10px;color:var(--text3);font-weight:500;}
+.hp-info{flex:1;}
+.hp-title{font-size:14px;font-weight:500;color:var(--text);}
+.hp-sub{font-size:12px;color:var(--text3);margin-top:2px;}
+
+/* ── GUIDE ── */
+.guide-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:12px;}
+.guide-header{padding:16px 16px 12px;display:flex;align-items:flex-start;gap:12px;}
+.guide-icon{font-size:24px;flex-shrink:0;margin-top:2px;}
+.guide-title{font-family:'DM Serif Display',serif;font-size:18px;color:var(--text);margin-bottom:3px;}
+.guide-desc{font-size:13px;color:var(--text2);line-height:1.55;}
+.guide-items{border-top:1px solid var(--border2);}
+.guide-item{padding:11px 16px;border-bottom:1px solid var(--border2);display:flex;gap:10px;align-items:flex-start;}
+.guide-item:last-child{border-bottom:none;}
+.gi-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:6px;}
+.gi-text{font-size:13.5px;color:var(--text2);line-height:1.55;}
+.gi-text strong{color:var(--text);font-weight:500;}
+.gi-text em{color:var(--text3);font-style:normal;font-size:12px;}
+.warning-note{background:rgba(251,191,36,.07);border:1px solid rgba(251,191,36,.2);border-radius:var(--radius-sm);padding:12px 14px;font-size:13px;color:var(--amber);line-height:1.6;margin-bottom:12px;}
+
+/* ── SETUP ── */
 .setup-card{border:1px solid var(--border);border-radius:var(--radius);padding:28px;background:var(--bg2);}
 .setup-eyebrow{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--indigo-light);margin-bottom:10px;}
-.setup-card h2{font-family:'DM Serif Display',serif;font-size:28px;font-weight:400;margin:0 0 10px;color:var(--text);}
+.setup-card h2{font-family:'DM Serif Display',serif;font-size:28px;color:var(--text);margin:0 0 10px;}
 .setup-card p{font-size:14px;color:var(--text2);margin:0 0 22px;line-height:1.7;}
 .date-inp{width:100%;padding:12px 14px;font-size:15px;font-family:'DM Sans',sans-serif;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--bg3);color:var(--text);margin-bottom:14px;outline:none;}
-.date-inp:focus{border-color:rgba(99,102,241,.5);}
-.pri-btn{width:100%;padding:14px;font-size:15px;font-family:'DM Sans',sans-serif;font-weight:600;background:linear-gradient(135deg,var(--indigo),var(--violet));border:none;border-radius:var(--radius-sm);cursor:pointer;color:white;letter-spacing:.02em;}
-.link-btn{background:none;border:none;color:var(--text3);font-size:13px;cursor:pointer;text-decoration:underline;display:block;margin:1.5rem auto 0;text-align:center;font-family:'DM Sans',sans-serif;}
-@keyframes fadeUp{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+.pri-btn{width:100%;padding:14px;font-size:15px;font-family:'DM Sans',sans-serif;font-weight:600;background:linear-gradient(135deg,var(--indigo),var(--violet));border:none;border-radius:var(--radius-sm);cursor:pointer;color:white;}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
 .anim{animation:fadeUp .22s ease both;}
 </style>
 </head>
 <body>
 <div class="orb"></div><div class="orb2"></div>
-<div class="wrap">
-  <div id="vload" style="padding:4rem 0;text-align:center;color:var(--text3);font-size:15px;">Loading...</div>
-  <div id="vsetup" class="setup-wrap" style="display:none;">
+
+<!-- ══════════════ MOVEMENT SECTION ══════════════ -->
+<div id="sec-movement" class="section on">
+  <div id="mvmt-setup" style="padding-top:16px;display:none;">
     <div class="setup-card">
       <div class="setup-eyebrow">5-month program</div>
       <h2>Movement Plan</h2>
-      <p>Set your start date to anchor your 20-week schedule. May 4th is already in.</p>
+      <p>Set your start date to anchor the 20-week schedule. May 4th is pre-filled.</p>
       <input type="date" id="sinp" class="date-inp" value="2026-05-04"/>
       <button class="pri-btn" onclick="setupPlan()">Begin plan →</button>
     </div>
   </div>
-  <div id="vmain" style="display:none;">
-    <div class="app-header">
+  <div id="mvmt-main" style="display:none;">
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;">
       <div>
-        <div class="app-title">Movement Plan</div>
+        <div class="app-eyebrow">Body OS · Movement</div>
         <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
           <span id="pbadge" class="ph-badge ph-1">Phase 1</span>
           <span id="wlabel" style="font-size:12px;color:var(--text3);">Week 1 of 20</span>
           <span id="tbadge" class="type-badge"></span>
         </div>
-        <div id="ddisp" class="date-display"></div>
-        <div id="pname" class="phase-name"></div>
+        <div id="ddisp" class="page-title"></div>
+        <div id="pname" class="page-sub"></div>
       </div>
-      <div id="sind" class="sind"></div>
+      <div id="msind" class="sind" style="color:var(--green);"></div>
     </div>
     <div class="pip-row" id="pips"></div>
     <div style="display:flex;align-items:center;justify-content:space-between;">
       <div class="tab-row">
-        <button class="tab on" onclick="switchView('today',this)">Today</button>
-        <button class="tab" onclick="switchView('week',this)">This week</button>
+        <button class="tab on" onclick="switchMvmt('today',this)">Today</button>
+        <button class="tab" onclick="switchMvmt('week',this)">This week</button>
       </div>
     </div>
-    <div id="vtoday">
+    <div id="mvmt-today">
       <div class="nav-row">
         <button onclick="changeDay(-1)">← Prev</button>
         <button class="tbtn" onclick="goToday()">Today</button>
@@ -147,134 +233,442 @@ body{padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-i
       <div id="bwrap"></div>
       <div class="slbl" id="plbl">Today's practice</div>
       <div id="awrap"></div>
-      <button class="link-btn" onclick="showSetup()">Change start date</button>
+      <button class="link-btn" onclick="showMvmtSetup()">Change start date</button>
     </div>
-    <div id="vweek" style="display:none;">
+    <div id="mvmt-week" style="display:none;">
       <div class="week-grid" id="wgrid"></div>
-      <button class="link-btn" onclick="showSetup()">Change start date</button>
+      <button class="link-btn" onclick="showMvmtSetup()">Change start date</button>
     </div>
   </div>
 </div>
+
+<!-- ══════════════ HABITS SECTION ══════════════ -->
+<div id="sec-habits" class="section">
+  <div class="app-eyebrow">Body OS · Daily Habits</div>
+  <div class="page-title" id="habits-date">Today</div>
+  <div class="page-sub" id="habits-sub">Loading...</div>
+
+  <!-- Morning -->
+  <div class="slbl">🌅 Morning</div>
+
+  <div class="card" id="jaw-morning">
+    <div class="card-row">
+      <div class="cb" data-hid="jaw-m" onclick="toggleHabit('jaw-m',this)"></div>
+      <div style="flex:1;">
+        <div class="item-label" id="hlbl-jaw-m">Jaw exercise — 6 min</div>
+        <div class="item-sub">Dentist's sequence · First thing after waking</div>
+      </div>
+      <span class="ph-badge badge-jaw" style="font-size:10px;margin-top:2px;">6 min</span>
+    </div>
+    <div class="jaw-timer-wrap" id="jaw-timer-m"></div>
+    <div class="jaw-steps">
+      <div class="jaw-step"><div class="step-num">1</div><div><div class="step-text">Tongue to palate (N position) — hold, relax, repeat</div><div class="step-dur">1 min</div></div></div>
+      <div class="jaw-step"><div class="step-num">2</div><div><div class="step-text">Slow controlled jaw opening — no forcing, no clicking</div><div class="step-dur">1 min</div></div></div>
+      <div class="jaw-step"><div class="step-num">3</div><div><div class="step-text">Side-to-side glide — gentle, full range</div><div class="step-dur">1 min</div></div></div>
+      <div class="jaw-step"><div class="step-num">4</div><div><div class="step-text">Masseter self-massage — circular pressure each side</div><div class="step-dur">1 min (30s each)</div></div></div>
+      <div class="jaw-step"><div class="step-num">5</div><div><div class="step-text">Temple + SCM release — gentle fingertip circles</div><div class="step-dur">1 min</div></div></div>
+      <div class="jaw-step"><div class="step-num">6</div><div><div class="step-text">Relax and breathe — extended exhale, face completely soft</div><div class="step-dur">1 min</div></div></div>
+    </div>
+    <div style="padding:4px 16px 12px;font-size:11px;color:var(--text3);">⚠ Follow your dentist's specific sequence — these are general placeholders.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-row">
+      <div class="cb" data-hid="posture-m" onclick="toggleHabit('posture-m',this)"></div>
+      <div style="flex:1;">
+        <div class="item-label" id="hlbl-posture-m">Morning posture reset</div>
+        <div class="item-sub">10-second check before you start your day</div>
+      </div>
+      <span class="ph-badge badge-posture" style="font-size:10px;margin-top:2px;">10 sec</span>
+    </div>
+    <div class="posture-cue-card" style="margin:0 14px 14px;border-radius:var(--radius-sm);">
+      <div class="posture-cue-title">⬆ Quick reset cue</div>
+      <ul class="posture-list">
+        <li><strong>Feet flat</strong> on the floor, weight even</li>
+        <li><strong>Sit bones grounded</strong> — not slumped back into your tailbone</li>
+        <li><strong>Ribs over hips</strong> — stack them, don't splay forward</li>
+        <li><strong>Shoulders dropped</strong> back and down, away from ears</li>
+        <li><strong>Chin slightly tucked</strong> — ears over shoulders, not in front</li>
+        <li><strong>Jaw check:</strong> lips together, teeth slightly apart, tongue to roof</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Midday -->
+  <div class="slbl">☀️ Midday</div>
+
+  <div class="card" id="jaw-afternoon">
+    <div class="card-row">
+      <div class="cb" data-hid="jaw-a" onclick="toggleHabit('jaw-a',this)"></div>
+      <div style="flex:1;">
+        <div class="item-label" id="hlbl-jaw-a">Jaw exercise — 6 min</div>
+        <div class="item-sub">Dentist's sequence · Around midday</div>
+      </div>
+      <span class="ph-badge badge-jaw" style="font-size:10px;margin-top:2px;">6 min</span>
+    </div>
+    <div class="jaw-timer-wrap" id="jaw-timer-a"></div>
+  </div>
+
+  <div class="card">
+    <div class="card-row">
+      <div class="cb" data-hid="posture-a1" onclick="toggleHabit('posture-a1',this)"></div>
+      <div style="flex:1;">
+        <div class="item-label" id="hlbl-posture-a1">Midday posture + stand break</div>
+        <div class="item-sub">Get up and stand for 2 min, then reset your position</div>
+      </div>
+      <span class="ph-badge badge-posture" style="font-size:10px;margin-top:2px;">2 min</span>
+    </div>
+    <div class="posture-cue-card" style="margin:0 14px 14px;border-radius:var(--radius-sm);">
+      <div class="posture-cue-title">🧍 Standing reset</div>
+      <ul class="posture-list">
+        <li><strong>Weight even</strong> across both feet, hip-width apart</li>
+        <li><strong>Soft bend</strong> in knees — never locked</li>
+        <li><strong>Hips neutral</strong> — tuck your tailbone slightly if you have anterior tilt</li>
+        <li><strong>Chest open</strong> — imagine a string pulling the crown of your head up</li>
+        <li><strong>Arms relaxed</strong> at sides, shoulders not hunched</li>
+        <li><strong>Jaw check:</strong> unclench right now — you're probably clenching</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Afternoon -->
+  <div class="slbl">🌤 Afternoon</div>
+
+  <div class="card">
+    <div class="card-row">
+      <div class="cb" data-hid="posture-a2" onclick="toggleHabit('posture-a2',this)"></div>
+      <div style="flex:1;">
+        <div class="item-label" id="hlbl-posture-a2">Afternoon posture check</div>
+        <div class="item-sub">Your body has been slumping for hours by now</div>
+      </div>
+      <span class="ph-badge badge-posture" style="font-size:10px;margin-top:2px;">10 sec</span>
+    </div>
+    <div class="posture-cue-card" style="margin:0 14px 14px;border-radius:var(--radius-sm);">
+      <div class="posture-cue-title">💻 Desk / couch correction</div>
+      <ul class="posture-list">
+        <li><strong>Screen at eye level</strong> — if it's below, prop it or raise your chair</li>
+        <li><strong>Elbows at 90°</strong> — not reaching forward or winged out</li>
+        <li><strong>Low back support</strong> — small pillow or rolled towel at lumbar if on couch</li>
+        <li><strong>Don't cross your legs</strong> — it rotates your pelvis and compresses the hip</li>
+        <li><strong>Jaw check:</strong> are you tensing your face right now? Soften it.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Night -->
+  <div class="slbl">🌙 Night</div>
+
+  <div class="card" id="jaw-night-card">
+    <div class="card-row">
+      <div class="cb" data-hid="jaw-n" onclick="toggleHabit('jaw-n',this)"></div>
+      <div style="flex:1;">
+        <div class="item-label" id="hlbl-jaw-n">Jaw exercise — 6 min</div>
+        <div class="item-sub">Dentist's sequence · Before your night routine</div>
+      </div>
+      <span class="ph-badge badge-jaw" style="font-size:10px;margin-top:2px;">6 min</span>
+    </div>
+    <div class="jaw-timer-wrap" id="jaw-timer-n"></div>
+  </div>
+
+  <div class="night-card">
+    <div class="night-header">
+      <div class="night-header-title">🌙 Night routine</div>
+      <div style="font-size:12px;color:var(--text3);margin-top:3px;">Complete before bed — check off as you go</div>
+    </div>
+    <div class="card-row">
+      <div class="cb" data-hid="night-screens" onclick="toggleHabit('night-screens',this)"></div>
+      <div style="flex:1;"><div class="item-label" id="hlbl-night-screens">Screens off or night mode</div><div class="item-sub">30 min before bed — blue light delays melatonin by ~90 min</div></div>
+    </div>
+    <div class="card-row">
+      <div class="cb" data-hid="night-jaw-massage" onclick="toggleHabit('night-jaw-massage',this)"></div>
+      <div style="flex:1;"><div class="item-label" id="hlbl-night-jaw-massage">Jaw + face release massage</div><div class="item-sub">1–2 min circular pressure on masseter and temples — releases the day's tension before sleep</div></div>
+    </div>
+    <div class="card-row">
+      <div class="cb" data-hid="night-breathe" onclick="toggleHabit('night-breathe',this)"></div>
+      <div style="flex:1;"><div class="item-label" id="hlbl-night-breathe">5 min extended exhale breathing</div><div class="item-sub">4 sec in · 8 sec out — shifts your nervous system into parasympathetic before sleep</div></div>
+    </div>
+    <div class="card-row">
+      <div class="cb" data-hid="night-position" onclick="toggleHabit('night-position',this)"></div>
+      <div style="flex:1;"><div class="item-label" id="hlbl-night-position">Set your sleep position</div><div class="item-sub">Side: pillow between knees, painful shoulder faces up · Back: pillow under knees, let shoulders relax back</div></div>
+    </div>
+    <div class="card-row">
+      <div class="cb" data-hid="night-jaw-check" onclick="toggleHabit('night-jaw-check',this)"></div>
+      <div style="flex:1;"><div class="item-label" id="hlbl-night-jaw-check">Final jaw check</div><div class="item-sub">Lips together · teeth slightly apart · tongue to roof of mouth · jaw muscles soft — this is the position to fall asleep in</div></div>
+    </div>
+  </div>
+
+  <!-- Habits progress summary -->
+  <div id="habits-summary" style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;margin-top:6px;display:flex;justify-content:space-between;align-items:center;">
+    <div>
+      <div style="font-size:14px;font-weight:500;color:var(--text);">Today's habits</div>
+      <div style="font-size:12px;color:var(--text3);margin-top:2px;" id="habits-count">0 of 10 complete</div>
+    </div>
+    <div style="font-size:22px;font-family:'DM Serif Display',serif;color:var(--indigo-light);" id="habits-pct">0%</div>
+  </div>
+</div>
+
+<!-- ══════════════ GUIDE SECTION ══════════════ -->
+<div id="sec-guide" class="section">
+  <div class="app-eyebrow">Body OS · Reference Guide</div>
+  <div class="page-title" style="margin-bottom:16px;">Your body manual</div>
+
+  <div class="warning-note">📌 These are your reference cards — read them when you need a reminder, not just once. The goal is to internalize these until they become automatic.</div>
+
+  <!-- Sitting -->
+  <div class="guide-card">
+    <div class="guide-header">
+      <div class="guide-icon">🪑</div>
+      <div>
+        <div class="guide-title">Sitting posture</div>
+        <div class="guide-desc">The position you spend most of your day in — and the one doing the most long-term damage if unchecked.</div>
+      </div>
+    </div>
+    <div class="guide-items">
+      <div class="guide-item"><div class="gi-dot" style="background:var(--indigo-light);"></div><div class="gi-text"><strong>Sit on your sit bones, not your tailbone.</strong> Scoot forward slightly — you should feel two bony points under each glute, not your lower back rounding into the backrest. <em>Most people slump onto their sacrum all day.</em></div></div>
+      <div class="guide-item"><div class="gi-dot" style="background:var(--indigo-light);"></div><div class="gi-text"><strong>Feet flat on the floor, knees at ~90°.</strong> If your chair is too high, use a footrest or lower it. Feet should not be dangling or tucked under you.</div></div>
+      <div class="guide-item"><div class="gi-dot" style="background:var(--indigo-light);"></div><div class="gi-text"><strong>Screen at eye level.</strong> If you're looking down at a laptop, your neck is carrying a load it wasn't built to sustain for hours. Prop your screen or use an external monitor.</div></div>
+      <div class="guide-item"><div class="gi-dot" style="background:var(--indigo-light);"></div><div class="gi-text"><strong>Shoulders down, not braced.</strong> Don't hold them — let them drop. The yin yoga and band work are training your body to hold this naturally. For now just release the brace whenever you notice it.</div></div>
+      <div class="guide-item"><div class="gi-dot" style="background:var(--indigo-light);"></div><div class="gi-text"><strong>Chin tucked, not jutting.</strong> Your ears should stack over your shoulders. Every inch of forward head posture adds ~10 lbs of load on your cervical spine.</div></div>
+      <div class="guide-item"><div class="gi-dot" style="background:var(--indigo-light);"></div><div class="gi-text"><strong>No single position is correct for 8 hours.</strong> Shift, fidget, and stand regularly. The goal is position variety, not perfect static posture.</div></div>
+    </div>
+  </div>
+
+  <!-- Standing -->
+  <div class="guide-card">
+    <div class="guide-header">
+      <div class="guide-icon">🧍</div>
+      <div>
+        <div class="guide-title">Standing posture</div>
+        <div class="guide-desc">Standing is better than sitting — but bad standing still causes pain. This is the target shape.</div>
+      </div>
+    </div>
+    <div class="guide-items">
+      <div class="guide-item"><div class="gi-dot" style="background:var(--sky);"></div><div class="gi-text"><strong>Weight even across both feet.</strong> Most people load one hip. Stand hip-width apart, feel equal pressure in both heels and balls of feet.</div></div>
+      <div class="guide-item"><div class="gi-dot" style="background:var(--sky);"></div><div class="gi-text"><strong>Soft bend in knees.</strong> Locked knees compress the joints and shift your pelvis forward. A slight, almost imperceptible flex protects both.</div></div>
+      <div class="guide-item"><div class="gi-dot" style="background:var(--sky);"></div><div class="gi-text"><strong>Neutral pelvis — not anteriorly tilted.</strong> Swimmers often have anterior pelvic tilt (butt sticking out). Lightly engage your lower abs and tuck just slightly. Dragon pose is fixing this structurally.</div></div>
+      <div class="guide-item"><div class="gi-dot" style="background:var(--sky);"></div><div class="gi-text"><strong>Ribs stacked over hips, chest open.</strong> Imagine breathing into your back as well as your chest — this naturally lifts the ribcage without flaring it forward.</div></div>
+    </div>
+  </div>
+
+  <!-- Couch / Bed working -->
+  <div class="guide-card">
+    <div class="guide-header">
+      <div class="guide-icon">🛋️</div>
+      <div>
+        <div class="guide-title">Couch & bed working</div>
+        <div class="guide-desc">You're going to do it anyway — here's how to make it less damaging.</div>
+      </div>
+    </div>
+    <div class="guide-items">
+      <div class="guide-item"><div class="gi-dot" style="background:var(--violet);"></div><div class="gi-text"><strong>Back support is non-negotiable.</strong> Stack pillows or use a firm cushion behind your lumbar. Sitting on a soft couch with no back support collapses the entire spine within minutes.</div></div>
+      <div class="guide-item"><div class="gi-dot" style="background:var(--violet);"></div><div class="gi-text"><strong>Prop your screen up.</strong> Laptop on your lap = head hanging forward at 45°. Use a lap desk, a pillow stack, or even a box to get the screen closer to eye level.</div></div>
+      <div class="guide-item"><div class="gi-dot" style="background:var(--violet);"></div><div class="gi-text"><strong>Don't work lying on your side for long.</strong> 20 min here or there is fine. Extended side-lying work causes uneven neck loading and shoulder compression on the bottom arm.</div></div>
+      <div class="guide-item"><div class="gi-dot" style="background:var(--violet);"></div><div class="gi-text"><strong>Stand break every 45–60 min.</strong> Set a timer. Two minutes standing resets circulation and gives the spine traction. You'll come back more focused anyway.</div></div>
+    </div>
+  </div>
+
+  <!-- Sleep positions -->
+  <div class="guide-card">
+    <div class="guide-header">
+      <div class="guide-icon">🛏️</div>
+      <div>
+        <div class="guide-title">Sleeping positions</div>
+        <div class="guide-desc">You spend ~7 hours here. Position matters more than most people realize for back and shoulder pain.</div>
+      </div>
+    </div>
+    <div class="guide-items">
+      <div class="guide-item"><div class="gi-dot" style="background:var(--green);"></div><div class="gi-text"><strong>Best: side sleeping with pillow between knees.</strong> Keeps hips stacked and prevents spinal rotation. Make sure your pillow fills the full gap between ear and shoulder — too flat causes neck strain. <em>Painful shoulder faces UP, not into the mattress.</em></div></div>
+      <div class="guide-item"><div class="gi-dot" style="background:var(--green);"></div><div class="gi-text"><strong>Also good: back sleeping with pillow under knees.</strong> Decompresses the lumbar spine and releases hip flexors. Use a thinner pillow for your head than you would side sleeping. Shoulders naturally externally rotate — this is correct, even if it feels unfamiliar at first.</div></div>
+      <div class="guide-item"><div class="gi-dot" style="background:var(--coral);"></div><div class="gi-text"><strong>Avoid: stomach sleeping.</strong> Forces neck rotation for hours, compresses the lumbar spine, and locks shoulders in internal rotation — reinforcing exactly the swimmer's posture you're trying to undo.</div></div>
+      <div class="guide-item"><div class="gi-dot" style="background:var(--indigo-light);"></div><div class="gi-text"><strong>Pillow height matters.</strong> Side sleeper: firm, tall pillow to fill the head-shoulder gap. Back sleeper: thinner, softer pillow that lets your neck stay neutral. Most people use pillows that are too soft and too flat.</div></div>
+    </div>
+  </div>
+
+  <!-- Jaw resting state -->
+  <div class="guide-card">
+    <div class="guide-header">
+      <div class="guide-icon">🦷</div>
+      <div>
+        <div class="guide-title">Jaw resting state</div>
+        <div class="guide-desc">You already have this right — tongue on roof of mouth is the correct resting posture. The clenching is the stress response your breathing work is directly targeting.</div>
+      </div>
+    </div>
+    <div class="guide-items">
+      <div class="guide-item"><div class="gi-dot" style="background:var(--amber);"></div><div class="gi-text"><strong>Correct resting position (N position):</strong> Lips together, teeth slightly apart (1–2mm gap), tongue resting gently on the palate behind front teeth. You already do this naturally — reinforce it.</div></div>
+      <div class="guide-item"><div class="gi-dot" style="background:var(--amber);"></div><div class="gi-text"><strong>Daytime clenching trigger:</strong> Stress, concentration, and screen time. Do a jaw check every time you pick up your phone — are your teeth touching? They shouldn't be unless you're chewing or speaking.</div></div>
+      <div class="guide-item"><div class="gi-dot" style="background:var(--amber);"></div><div class="gi-text"><strong>Nighttime grinding:</strong> Almost always driven by cortisol and nervous system arousal. The box breathing and extended exhale in your daily practice are directly treating the underlying cause — not just managing the symptom. Give it 4–6 weeks of consistency.</div></div>
+      <div class="guide-item"><div class="gi-dot" style="background:var(--amber);"></div><div class="gi-text"><strong>Wear your night guard</strong> if your dentist provided one. It doesn't stop grinding but prevents the tooth damage while your nervous system work takes effect.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ BOTTOM NAV ══════════════ -->
+<nav class="bottom-nav">
+  <button class="nav-btn on" onclick="switchSection('movement',this)" id="navbtn-movement">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+    Movement
+    <div class="nav-dot"></div>
+  </button>
+  <button class="nav-btn" onclick="switchSection('habits',this)" id="navbtn-habits">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+    Habits
+    <div class="nav-dot"></div>
+  </button>
+  <button class="nav-btn" onclick="switchSection('guide',this)" id="navbtn-guide">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
+    Guide
+    <div class="nav-dot"></div>
+  </button>
+</nav>
+
 <script>
+// ── CONSTANTS ──
 const MTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
 const PNAMES=['Foundation','Build','Strengthen','Peak & Integrate'];
 const TOTAL=20;
-let SD=null,VD=new Date(),DD={completed:{}},saveTimer=null,curView='today';
+const HABIT_IDS=['jaw-m','posture-m','jaw-a','posture-a1','posture-a2','jaw-n','night-screens','night-jaw-massage','night-breathe','night-position','night-jaw-check'];
+
+// ── STATE ──
+let SD=null,VD=new Date(),movDD={completed:{}},habDD={completed:{}};
+let mvmtView='today',saveTimer=null,habSaveTimer=null;
 VD.setHours(0,0,0,0);
+
 const dk=d=>d.toISOString().split('T')[0];
 const dic=d=>{const x=Math.floor((d-SD)/86400000);return x<0?-1:(x%7)+1;};
 const wn=d=>{const x=Math.floor((d-SD)/86400000);return x<0?0:Math.floor(x/7)+1;};
 const gph=w=>w<=5?1:w<=10?2:w<=15?3:4;
 const wy=(item,ph)=>ph>=4?'':ph===3?(item.wb||''):ph===2?(item.wb||item.w||''):(item.w||'');
+
+// ── SECTION SWITCHING ──
+function switchSection(name, btn){
+  ['movement','habits','guide'].forEach(s=>{
+    document.getElementById('sec-'+s).classList.toggle('on',s===name);
+    document.getElementById('navbtn-'+s).classList.toggle('on',s===name);
+  });
+  if(name==='habits') renderHabits();
+}
+
+// ── MOVEMENT ──
 function sched(dn,ph){
   const d2=['20–25','30–35','35–40','40–45'][ph-1],d4=['30–35','35–40','40–45','45–50'][ph-1],plk=['30 sec','45 sec','60 sec','75 sec'][ph-1],yd=['30–40','40','45–50','50–60'][ph-1],cd=['30','35','40','45'][ph-1];
-  const br={id:'bg',text:'10 min breathing practice',w:'Your foundational stress-response tool. Daily practice retrains the autonomic nervous system toward parasympathetic dominance — the state where recovery and calm live.',wb:'Daily nervous system reset. Consistency here compounds over months.',kids:[
-    {id:'b1',text:'2 min nasal-only breathing',w:'Nasal breathing produces nitric oxide, improving oxygen delivery, and trains you away from the over-breathing pattern that worsens altitude response.',wb:'Trains oxygen efficiency. Core to altitude prep.'},
-    {id:'b2',text:'4 min box breathing — 4·4·4·4',w:'Your brain triggers breathing urges from CO₂ buildup, not low oxygen. Box breathing builds CO₂ tolerance so your body stays calm at altitude instead of panicking.',wb:'CO₂ tolerance training — core mechanism of altitude adaptation.'},
-    {id:'b3',text:'4 min extended exhale — 4 in · 8 out',w:'Doubling the exhale activates the vagus nerve and triggers parasympathetic state. The fastest non-pharmaceutical way to lower cortisol and heart rate.',wb:'Vagus nerve activation. Fastest cortisol reduction available.'},
+  const br={id:'bg',text:'10 min breathing practice',w:'Your foundational stress-response tool. Daily practice retrains the autonomic nervous system toward parasympathetic dominance.',wb:'Daily nervous system reset. Consistency compounds over months.',kids:[
+    {id:'b1',text:'2 min nasal-only breathing',w:'Produces nitric oxide, improves oxygen delivery, and trains away from the over-breathing that worsens altitude response.',wb:'Oxygen efficiency. Core to altitude prep.'},
+    {id:'b2',text:'4 min box breathing — 4·4·4·4',w:'Builds CO₂ tolerance so your body stays calm at altitude. Also directly reduces the daytime clenching driven by cortisol.',wb:'CO₂ tolerance + cortisol reduction.'},
+    {id:'b3',text:'4 min extended exhale — 4 in · 8 out',w:'Activates the vagus nerve and parasympathetic state. Fastest non-pharmaceutical cortisol reducer — directly addresses your jaw clenching pattern.',wb:'Vagus nerve activation. Reduces grinding at the source.'},
   ]};
   const D={
     1:{l:'Yoga + Breathwork',tc:'badge-yoga',groups:[
-      {id:'g1',text:`${yd} min vinyasa yoga`,w:'Movement vocabulary building. Low-stakes repetition is how the nervous system encodes new patterns — this phase is about showing up consistently, not intensity.',wb:'Building movement patterns. Quality over pace.',kids:[
-        {id:'g1a',text:'Chest opening — fish, camel, cobra',w:'Swimming overdevelops the pec minor and anterior deltoid, pulling shoulders forward. These poses systematically lengthen the anterior chain — the structural root of swimmer\'s posture.',wb:'Lengthens the anterior chain overloaded by swimming.'},
-        {id:'g1b',text:'Shoulder mobility — thread-the-needle, doorframe stretch',w:'Swimmers chronically overdevelop internal shoulder rotation. These moves restore external rotation and let shoulders sit back where they belong.',wb:'Restores shoulder rotation balance from swim-pattern dominance.'},
-        ...(ph>=3?[{id:'g1c',text:'Peak pose attempt — warrior III, half moon',w:'Tests integration of the mobility and strength built so far.',wb:'Integration checkpoint.'}]:[]),
-        ...(ph>=4?[{id:'g1d',text:'5 min yoga nidra to close',w:'Trains the brain to stay conscious while the body fully relaxes — deepens stress adaptation at the neurological level.',wb:''}]:[]),
+      {id:'g1',text:`${yd} min vinyasa yoga`,w:'Movement vocabulary building. Low-stakes repetition is how the nervous system encodes new patterns — show up consistently, not intensely.',wb:'Building movement patterns. Quality over pace.',kids:[
+        {id:'g1a',text:'Chest opening — fish, camel, cobra',w:'Lengthens the anterior chain overloaded by swimming — the root of your forward-rounded shoulder posture.',wb:'Anterior chain lengthening.'},
+        {id:'g1b',text:'Shoulder mobility — thread-the-needle, doorframe stretch',w:'Restores external rotation that swimming systematically underdevelops. Lets shoulders sit back where they belong.',wb:'Shoulder rotation balance.'},
+        ...(ph>=3?[{id:'g1c',text:'Peak pose — warrior III or half moon',w:'Integration checkpoint for mobility and strength built so far.',wb:'Integration.'}]:[]),
+        ...(ph>=4?[{id:'g1d',text:'5 min yoga nidra to close',w:'Deepens stress adaptation at the neurological level.',wb:''}]:[]),
       ]},
-      {id:'g2',text:'10 min pranayama',w:'Where yoga and altitude prep directly overlap. Controlled breathwork builds respiratory muscle endurance and reinforces your daily practice.',wb:'Respiratory training that compounds with daily breathwork.',kids:[
-        {id:'g2a',text:ph<=2?'Ujjayi breath (ocean breath)':'Kapalabhati or alternate nostril breathing',w:ph<=2?'Ujjayi creates mild airway resistance that strengthens the diaphragm and slows each breath cycle.':'Kapalabhati trains the diaphragm with rapid forceful exhales. Alternate nostril balances nervous system activation.',wb:'Diaphragm strength and respiratory control.'},
+      {id:'g2',text:'10 min pranayama',w:'Where yoga and altitude prep overlap. Builds respiratory muscle endurance and reinforces daily breathwork.',wb:'Respiratory training.',kids:[
+        {id:'g2a',text:ph<=2?'Ujjayi breath':'Kapalabhati or alternate nostril',w:ph<=2?'Mild airway resistance strengthens the diaphragm.':'Kapalabhati trains rapid diaphragm engagement.',wb:'Diaphragm strength.'},
       ]},
     ]},
     2:{l:'Gym: Posture + Cardio',tc:'badge-gym',groups:[
-      {id:'p1',text:'Posture correction circuit',w:'Yoga opens what\'s tight, but swimmer\'s posture also requires strengthening what\'s weak — the muscles that retract and stabilize the shoulder blades.',wb:'Strengthens the posterior chain that holds posture corrections in place.',kids:[
-        {id:'p1a',text:'Band pull-aparts — 3 × 15, palms down',w:'Trains rear deltoids and rhomboids — the muscles most opposed to your overdeveloped chest. Full squeeze at end range.',wb:'Rear delt and rhomboid activation.'},
-        {id:'p1b',text:'Wall angels — 3 × 10, slow',w:'Teaches correct scapular movement with real-time feedback. The wall tells you instantly if your lumbar or neck is cheating.',wb:'Scapular mobility with built-in postural feedback.'},
-        ...(ph>=2?[{id:'p1c',text:'Cable rows — 3 × 12, elbows tucked',w:'Adds resistance to scapular retraction. Feel the full retraction at end range, then control the return.',wb:'Loaded scapular retraction — primary upper-back strength.'},{id:'p1d',text:'Face pulls — 3 × 15, cable at forehead',w:'Trains shoulder external rotation — the exact movement swimmers systematically underdevelop.',wb:'Shoulder external rotation. Corrects swimmer\'s dominance pattern.'}]:[]),
-        ...(ph>=3?[{id:'p1e',text:'Single-arm dumbbell row — 3 × 10 each',w:'Surfaces side-to-side imbalances common in swimmers who favor a dominant side.',wb:'Corrects dominant-side imbalances.'}]:[]),
-        ...(ph>=4?[{id:'p1f',text:'Prone Y-T-W raises — 2 × 10 each shape',w:'Isolates lower trapezius and serratus anterior — deep postural stabilizers rarely trained conventionally.',wb:'Deep postural stabilizers — lower trap and serratus.'}]:[]),
+      {id:'p1',text:'Posture correction circuit',w:'Yoga opens what\'s tight; this strengthens what\'s weak. Without pulling work, posture reverts.',wb:'Posterior chain strength — holds posture corrections.',kids:[
+        {id:'p1a',text:'Band pull-aparts — 3 × 15',w:'Rear deltoids and rhomboids — directly opposed to your overdeveloped chest.',wb:'Rear delt + rhomboid activation.'},
+        {id:'p1b',text:'Wall angels — 3 × 10',w:'Scapular movement with real-time feedback from the wall.',wb:'Scapular mobility with feedback.'},
+        ...(ph>=2?[{id:'p1c',text:'Cable rows — 3 × 12',w:'Loaded scapular retraction — primary upper-back strength builder.',wb:'Loaded scapular retraction.'},{id:'p1d',text:'Face pulls — 3 × 15',w:'Shoulder external rotation — the movement swimmers systematically underdevelop.',wb:'External rotation correction.'}]:[]),
+        ...(ph>=3?[{id:'p1e',text:'Single-arm dumbbell row — 3 × 10 each',w:'Corrects side-to-side imbalances from dominant-side swim patterns.',wb:'Side imbalance correction.'}]:[]),
+        ...(ph>=4?[{id:'p1f',text:'Prone Y-T-W raises — 2 × 10 each',w:'Lower trap and serratus anterior — deep postural stabilizers.',wb:'Deep postural stabilizers.'}]:[]),
       ]},
-      {id:'p2',text:`Zone 2 cardio — ${d2} min`,w:'Zone 2 builds mitochondrial density in slow-twitch fibers — the aerobic foundation that determines how efficiently your body uses oxygen. Primary mechanism of altitude adaptation.',wb:'Mitochondrial density training. Core altitude adaptation mechanism.',kids:[]},
+      {id:'p2',text:`Zone 2 cardio — ${d2} min`,w:'Builds mitochondrial density — the aerobic foundation that determines oxygen efficiency. Primary altitude adaptation mechanism.',wb:'Mitochondrial density. Core altitude mechanism.',kids:[]},
     ]},
     3:{l:'Yin Yoga',tc:'badge-yin',groups:[
-      {id:'y1',text:ph>=3?'55–70 min yin yoga':'45–60 min yin yoga',w:'Yin targets connective tissue — fascia, ligaments, joint capsules — through long passive holds. Yin remodels the deeper structures that restrict your range of motion.',wb:'Remodels connective tissue and joint capsules. Deeper than stretching.',kids:[
-        {id:'y1a',text:'Dragon pose — 3–5 min each side',w:'The deepest hip flexor opener in yoga. Your iliopsoas is chronically shortened from swimming\'s kick pattern and prolonged sitting.',wb:'Targets iliopsoas — your most restricted swim-pattern muscle.'},
-        {id:'y1b',text:'Sphinx or seal — 3–5 min',w:'Passive thoracic extension directly reverses the forward flexion of swimmer\'s posture.',wb:'Passive thoracic extension. Reverses forward flexion structurally.'},
-        {id:'y1c',text:'Sleeping swan / yin pigeon — each side',w:'Deep external hip rotator stretch. The glutes and piriformis are often locked in swimmers.',wb:'Hip capsule and external rotator release.'},
-        ...(ph>=3?[{id:'y1d',text:'Close with 5 min extended exhale breathing',w:'Your nervous system is maximally receptive right after long yin holds. Pranayama here seals the parasympathetic state.',wb:'Seals the parasympathetic state opened by yin holds.'}]:[]),
-        ...(ph>=4?[{id:'y1e',text:'10 min yoga nidra or body scan',w:'Advanced nervous system training.',wb:''}]:[]),
+      {id:'y1',text:ph>=3?'55–70 min yin yoga':'45–60 min yin yoga',w:'Long passive holds remodel connective tissue — fascia, ligaments, joint capsules. Deeper than stretching.',wb:'Connective tissue remodeling.',kids:[
+        {id:'y1a',text:'Dragon pose — 3–5 min each side',w:'Deepest hip flexor opener. Your iliopsoas is chronically shortened from swimming and sitting.',wb:'Iliopsoas — most restricted swim-pattern muscle.'},
+        {id:'y1b',text:'Sphinx or seal — 3–5 min',w:'Passive thoracic extension reverses forward flexion structurally over time.',wb:'Thoracic extension. Reverses forward flexion.'},
+        {id:'y1c',text:'Sleeping swan / yin pigeon — each side',w:'Hip capsule and external rotator release.',wb:'Hip capsule release.'},
+        ...(ph>=3?[{id:'y1d',text:'Close with 5 min extended exhale breathing',w:'Nervous system is most receptive after long yin holds — seal the parasympathetic state.',wb:'Seals parasympathetic state.'}]:[]),
+        ...(ph>=4?[{id:'y1e',text:'10 min yoga nidra',w:'Advanced nervous system training.',wb:''}]:[]),
       ]},
     ]},
     4:{l:'Gym: Cardio Focus',tc:'badge-gym',groups:[
-      {id:'c1',text:`Zone 2 cardio — ${d4} min`,w:'Your primary altitude prep session. Sustained aerobic work forces cardiovascular adaptations — more mitochondria, more capillaries, better oxygen delivery.',wb:'Primary cardiovascular adaptation. Sustained aerobic volume drives altitude fitness.',kids:[]},
-      {id:'c2',text:'Altitude & breath training',w:'Structured breathwork during or after cardio compounds adaptation — training both cardiovascular and respiratory systems simultaneously.',wb:'Compounds cardio gains with respiratory adaptation.',kids:[
-        {id:'c2a',text:'Log your BOLT score',w:'Exhale normally, pinch nose, time until first urge to breathe. Higher BOLT = better CO₂ tolerance = easier altitude adjustment.',wb:'BOLT measures CO₂ tolerance — your altitude readiness marker.'},
-        ...(ph>=2?[{id:'c2b',text:'Nasal-only breathing throughout cardio',w:'Forces slower, more efficient mechanics and creates mild CO₂ accumulation that drives tolerance up.',wb:'Trains breathing efficiency under mild CO₂ load.'}]:[]),
-        ...(ph>=3?[{id:'c2c',text:'Breath hold intervals — 4 rounds',w:'Exhale, hold, pedal easy until first urge, rest 2 min, repeat. Mimics altitude hypoxia and triggers red blood cell adaptation.',wb:'Simulates altitude hypoxia. Triggers RBC adaptation.'}]:[]),
-        ...(ph>=4?[{id:'c2d',text:'CO₂ tolerance set — 6 rounds',w:'Exhale fully, hold, walk slowly, time each round. Progressive overload for your respiratory system.',wb:'Progressive CO₂ overload.'}]:[]),
+      {id:'c1',text:`Zone 2 cardio — ${d4} min`,w:'Primary altitude session. More mitochondria, more capillaries, better oxygen delivery.',wb:'Primary altitude adaptation.',kids:[]},
+      {id:'c2',text:'Altitude & breath training',w:'Breathwork after cardio compounds adaptation — trains cardiovascular and respiratory systems together.',wb:'Compounds cardio gains.',kids:[
+        {id:'c2a',text:'Log your BOLT score',w:'Exhale, pinch nose, time until first urge. Higher score = better CO₂ tolerance = easier altitude.',wb:'Altitude readiness marker.'},
+        ...(ph>=2?[{id:'c2b',text:'Nasal-only breathing throughout cardio',w:'Mild CO₂ accumulation drives tolerance up. Uncomfortable at first — that\'s the signal.',wb:'CO₂ load training.'}]:[]),
+        ...(ph>=3?[{id:'c2c',text:'Breath hold intervals — 4 rounds',w:'Mimics altitude hypoxia. Triggers red blood cell adaptation.',wb:'Altitude hypoxia simulation.'}]:[]),
+        ...(ph>=4?[{id:'c2d',text:'CO₂ tolerance set — 6 rounds',w:'Progressive respiratory overload.',wb:'Progressive CO₂ overload.'}]:[]),
       ]},
     ]},
     5:{l:'Yoga + Core',tc:'badge-yoga',groups:[
-      {id:'v1',text:`${cd} min vinyasa yoga`,w:'Flow practice tests how mobility work is integrating into full movement — expressing what you\'ve built.',wb:'Integration — mobility meeting full-body movement.',kids:[]},
-      {id:'v2',text:'Core circuit',w:'Swimmer\'s core is strong in flexion but weak in anti-rotation and extension. These train the functional core that holds posture upright all day.',wb:'Anti-rotation and extension core — functional, not cosmetic.',kids:[
-        {id:'v2a',text:'Dead bugs — 3 × 10 each side, back flat',w:'Trains deep core stability while opposite limbs move — mimics the coordination demands of swimming and standing posture.',wb:'Deep core with limb dissociation. Foundation of everything else.'},
-        {id:'v2b',text:'Bird dogs — 3 × 10 each side, 2 sec hold',w:'Anti-rotation stability. Hips must stay level as opposite arm and leg extend.',wb:'Anti-rotation spinal stability.'},
-        {id:'v2c',text:`Plank holds — 3 × ${plk}, breathe throughout`,w:'Trains the full chain to maintain neutral spine under sustained load. Breathe — don\'t hold.',wb:'Sustained spinal neutrality. Breathe — don\'t hold.'},
-        ...(ph>=2?[{id:'v2d',text:'Hollow body hold — 3 × 20 sec',w:'Gymnastic core foundation — lower back to floor, everything lifted. Transfers directly into arm balances.',wb:'Gymnastic core foundation. Transfers to arm balances.'}]:[]),
-        ...(ph>=3?[{id:'v2e',text:'Hanging knee raises — 3 × 10, no swing',w:'Shoulder girdle stability plus hip flexor end-range strength. The hang also decompresses the spine.',wb:'Shoulder stability + hip flexor end-range strength.'}]:[]),
-        ...(ph>=4?[{id:'v2f',text:'L-sit progression — 3 × max hold',w:'Triceps, hip flexors, core, and shoulder depression firing simultaneously.',wb:'Full-body isometric integration.'}]:[]),
+      {id:'v1',text:`${cd} min vinyasa yoga`,w:'Integration session — expressing mobility gains in full movement.',wb:'Integration.',kids:[]},
+      {id:'v2',text:'Core circuit',w:'Anti-rotation and extension core — the functional kind that holds posture upright all day.',wb:'Functional core.',kids:[
+        {id:'v2a',text:'Dead bugs — 3 × 10 each side',w:'Deep core stability with limb dissociation. Foundation of everything.',wb:'Deep core foundation.'},
+        {id:'v2b',text:'Bird dogs — 3 × 10 each side, 2 sec hold',w:'Anti-rotation spinal stability.',wb:'Anti-rotation stability.'},
+        {id:'v2c',text:`Plank holds — 3 × ${plk}`,w:'Neutral spine under sustained load. Breathe — don\'t hold.',wb:'Sustained spinal neutrality.'},
+        ...(ph>=2?[{id:'v2d',text:'Hollow body hold — 3 × 20 sec',w:'Gymnastic core foundation. Transfers to arm balances.',wb:'Gymnastic core.'}]:[]),
+        ...(ph>=3?[{id:'v2e',text:'Hanging knee raises — 3 × 10',w:'Shoulder stability + hip flexor end-range. Decompresses spine.',wb:'Shoulder + hip flexor.'}]:[]),
+        ...(ph>=4?[{id:'v2f',text:'L-sit — 3 × max hold',w:'Full-body isometric integration.',wb:'Isometric integration.'}]:[]),
       ]},
     ]},
   };
   return{br,day:D[dn]||null};
 }
-function allIds(sc){const ids=[];const col=g=>{ids.push(g.id);(g.kids||[]).forEach(k=>ids.push(k.id));};col(sc.br);(sc.day?.groups||[]).forEach(col);return ids;}
-function renderGrp(g,ph,accentBorder){
-  const chk=!!DD.completed[g.id],why=wy(g,ph),hasKids=g.kids&&g.kids.length>0;
-  let h=`<div class="group-wrap" ${accentBorder?`style="border-color:${accentBorder};"`:''}>`
-    +`<div class="act-row"><div class="cb${chk?' on':''}" data-id="${g.id}"></div><div style="flex:1;"><div class="act-label${chk?' done':''}" id="lbl${g.id}">${g.text}</div>${why?`<div class="act-why">${why}</div>`:''}</div></div>`;
-  if(hasKids){h+=`<div class="kids">`;g.kids.forEach(k=>{const kc=!!DD.completed[k.id],kw=wy(k,ph);h+=`<div class="kid-row"><div class="cb${kc?' on':''}" data-id="${k.id}"></div><div style="flex:1;"><div class="kid-label${kc?' done':''}" id="lbl${k.id}">${k.text}</div>${kw?`<div class="kid-why">${kw}</div>`:''}</div></div>`;});h+=`</div>`;}
-  h+=`</div>`;return h;
+
+function allMIds(sc){const ids=[];const col=g=>{ids.push(g.id);(g.kids||[]).forEach(k=>ids.push(k.id));};col(sc.br);(sc.day?.groups||[]).forEach(col);return ids;}
+
+function renderMGrp(g,ph,accent){
+  const chk=!!movDD.completed[g.id],why=wy(g,ph);
+  let h=`<div class="group-wrap"${accent?` style="border-color:${accent}"`:''}>`
+    +`<div class="act-row"><div class="cb${chk?' on':''}" data-mid="${g.id}"></div><div style="flex:1;"><div class="act-label${chk?' done':''}" id="mlbl${g.id}">${g.text}</div>${why?`<div class="act-why">${why}</div>`:''}</div></div>`;
+  if(g.kids&&g.kids.length){h+=`<div class="move-kids">`;g.kids.forEach(k=>{const kc=!!movDD.completed[k.id],kw=wy(k,ph);h+=`<div class="move-kid-row"><div class="cb${kc?' on':''}" data-mid="${k.id}"></div><div style="flex:1;"><div class="act-label${kc?' done':''}" id="mlbl${k.id}" style="font-size:13px;font-weight:400;">${k.text}</div>${kw?`<div class="act-why">${kw}</div>`:''}</div></div>`;});h+=`</div>`;}
+  return h+`</div>`;
 }
-function bindCbs(el){el.querySelectorAll('.cb').forEach(b=>b.addEventListener('click',function(){doToggle(this.dataset.id);}));}
-function doToggle(id){
-  DD.completed[id]=!DD.completed[id];const chk=DD.completed[id];
-  document.querySelectorAll(`[data-id="${id}"]`).forEach(el=>el.classList.toggle('on',chk));
-  const lbl=document.getElementById('lbl'+id);
-  if(lbl){lbl.className=(lbl.classList.contains('kid-label')?'kid-label':'act-label')+(chk?' done':'');}
-  const w=wn(VD),dn=dic(VD);if(dn>0)updateProgress(sched(dn,gph(w)));
-  triggerAutoSave();
+
+function bindMCbs(el){el.querySelectorAll('[data-mid]').forEach(b=>b.addEventListener('click',function(){toggleMove(this.dataset.mid);}));}
+
+function toggleMove(id){
+  movDD.completed[id]=!movDD.completed[id];const chk=movDD.completed[id];
+  document.querySelectorAll(`[data-mid="${id}"]`).forEach(el=>el.classList.toggle('on',chk));
+  const lbl=document.getElementById('mlbl'+id);if(lbl)lbl.className='act-label'+(chk?' done':'');
+  const w=wn(VD),dn=dic(VD);if(dn>0)updateMProgress(sched(dn,gph(w)));
+  triggerMoveSave();
 }
-function triggerAutoSave(){
+
+function triggerMoveSave(){
   clearTimeout(saveTimer);
-  const ind=document.getElementById('sind');ind.textContent='Saving...';ind.style.color='var(--text3)';
+  const ind=document.getElementById('msind');ind.textContent='Saving...';ind.style.color='var(--text3)';
   saveTimer=setTimeout(()=>{
-    try{localStorage.setItem('mpday_'+dk(VD),JSON.stringify(DD));ind.textContent='Saved ✓';ind.style.color='var(--green)';setTimeout(()=>{if(ind.textContent.startsWith('Saved'))ind.textContent='';},2000);}
+    try{localStorage.setItem('mpday_'+dk(VD),JSON.stringify(movDD));ind.textContent='Saved ✓';ind.style.color='var(--green)';setTimeout(()=>{ind.textContent='';},2000);}
     catch(e){ind.textContent='Error';ind.style.color='var(--coral)';}
   },500);
 }
-function updateProgress(sc){const ids=allIds(sc),tot=ids.length,done=ids.filter(i=>DD.completed[i]).length;document.getElementById('pfill').style.width=(tot>0?Math.round((done/tot)*100):0)+'%';document.getElementById('plabel').textContent=`${done} of ${tot} complete`;}
-function init(){
+
+function updateMProgress(sc){
+  const ids=allMIds(sc),tot=ids.length,done=ids.filter(i=>movDD.completed[i]).length;
+  document.getElementById('pfill').style.width=(tot>0?Math.round((done/tot)*100):0)+'%';
+  document.getElementById('plabel').textContent=`${done} of ${tot} complete`;
+}
+
+function initMovement(){
   VD=new Date();VD.setHours(0,0,0,0);
   const saved=localStorage.getItem('plan_start_date');
-  if(saved){SD=new Date(saved);SD.setHours(0,0,0,0);showMain();}else showSetup();
-  document.getElementById('vload').style.display='none';
+  if(saved){SD=new Date(saved);SD.setHours(0,0,0,0);showMvmtMain();}
+  else showMvmtSetup();
 }
-function showSetup(){document.getElementById('vsetup').style.display='block';document.getElementById('vmain').style.display='none';}
-function showMain(){document.getElementById('vsetup').style.display='none';document.getElementById('vmain').style.display='block';renderDay();}
-function setupPlan(){const v=document.getElementById('sinp').value;if(!v)return;SD=new Date(v);SD.setHours(0,0,0,0);localStorage.setItem('plan_start_date',v);VD=new Date();VD.setHours(0,0,0,0);showMain();}
-function renderDay(){
+function showMvmtSetup(){document.getElementById('mvmt-setup').style.display='block';document.getElementById('mvmt-main').style.display='none';}
+function showMvmtMain(){document.getElementById('mvmt-setup').style.display='none';document.getElementById('mvmt-main').style.display='block';renderMovement();}
+function setupPlan(){const v=document.getElementById('sinp').value;if(!v)return;SD=new Date(v);SD.setHours(0,0,0,0);localStorage.setItem('plan_start_date',v);VD=new Date();VD.setHours(0,0,0,0);showMvmtMain();}
+
+function renderMovement(){
   const week=wn(VD),ph=gph(week),dn=dic(VD);
-  DD={completed:{}};const saved=localStorage.getItem('mpday_'+dk(VD));if(saved){try{DD=JSON.parse(saved);}catch(e){}}
-  document.getElementById('sind').textContent='';
-  const dayNames=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-  document.getElementById('ddisp').textContent=dayNames[VD.getDay()]+', '+MTHS[VD.getMonth()]+' '+VD.getDate();
+  movDD={completed:{}};const sv=localStorage.getItem('mpday_'+dk(VD));if(sv){try{movDD=JSON.parse(sv);}catch(e){}}
+  document.getElementById('msind').textContent='';
+  const dN=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  document.getElementById('ddisp').textContent=dN[VD.getDay()]+', '+MTHS[VD.getMonth()]+' '+VD.getDate();
   if(dn===-1||week>TOTAL){
-    document.getElementById('pbadge').textContent='';document.getElementById('wlabel').textContent=week<1?'Before plan start':'Plan complete!';
+    document.getElementById('pbadge').textContent='';document.getElementById('wlabel').textContent=week<1?'Before start':'Done!';
     document.getElementById('pname').textContent='';document.getElementById('tbadge').textContent='';
     document.getElementById('pips').innerHTML='';document.getElementById('bwrap').innerHTML='';
-    document.getElementById('awrap').innerHTML=`<p style="font-size:15px;color:var(--text2);padding:1.5rem 0;">${week<1?'Navigate forward to your start date.':'5 months complete. The work is now who you are.'}</p>`;
+    document.getElementById('awrap').innerHTML=`<p style="font-size:15px;color:var(--text2);padding:1.5rem 0;">${week<1?'Navigate forward to start.':'5 months complete.'}</p>`;
     document.getElementById('pfill').style.width='0%';document.getElementById('plabel').textContent='';
-    if(curView==='week')renderWeek(ph,dn);return;
+    if(mvmtView==='week')renderWeek(ph,dn);return;
   }
   const pb=document.getElementById('pbadge');pb.textContent='Phase '+ph;pb.className='ph-badge ph-'+ph;
   document.getElementById('wlabel').textContent=`Week ${Math.min(week,TOTAL)} of ${TOTAL}`;
@@ -284,37 +678,133 @@ function renderDay(){
   const sc=sched(dn,ph);
   const tb=document.getElementById('tbadge');
   if(sc.day){tb.textContent=sc.day.l;tb.className='type-badge '+sc.day.tc;}else{tb.textContent='Rest';tb.className='type-badge badge-rest';}
-  const bwrap=document.getElementById('bwrap');bwrap.innerHTML=`<div class="anim">`+renderGrp(sc.br,ph,'rgba(99,102,241,.35)')+`</div>`;bindCbs(bwrap);
+  const bwrap=document.getElementById('bwrap');bwrap.innerHTML=`<div class="anim">`+renderMGrp(sc.br,ph,'rgba(99,102,241,.35)')+`</div>`;bindMCbs(bwrap);
   const awrap=document.getElementById('awrap');
   if(!sc.day){
     document.getElementById('plbl').textContent='Rest day';
-    awrap.innerHTML=`<div class="rest-card anim"><div class="rest-icon">🌙</div><div class="rest-title">Active Recovery</div><div class="rest-sub">A 20–30 min walk is all you need.<br/>Adaptation happens during rest, not training.</div></div>`;
+    awrap.innerHTML=`<div class="rest-card anim"><div style="font-size:36px;margin-bottom:12px;">🌙</div><div class="rest-title">Active Recovery</div><div class="rest-sub">A 20–30 min walk is all you need.<br/>Adaptation happens during rest, not training.</div></div>`;
   }else{
     document.getElementById('plbl').textContent=sc.day.l;
-    awrap.innerHTML=`<div class="anim">`+sc.day.groups.map(g=>renderGrp(g,ph)).join('')+`</div>`;bindCbs(awrap);
+    awrap.innerHTML=`<div class="anim">`+sc.day.groups.map(g=>renderMGrp(g,ph)).join('')+`</div>`;bindMCbs(awrap);
   }
-  updateProgress(sc);if(curView==='week')renderWeek(ph,dn);
+  updateMProgress(sc);if(mvmtView==='week')renderWeek(ph,dn);
 }
+
 function renderWeek(ph,todayDn){
   const S=[
-    {dn:1,l:'Yoga + Breathwork',tc:'badge-yoga',acts:[`<strong>Vinyasa yoga</strong> — ${['30–40','40','45–50','50–60'][ph-1]} min`,'<strong>Chest opening</strong> — fish, camel, cobra','<strong>Shoulder mobility</strong> — external rotation',`<strong>Pranayama</strong> — ${ph<=2?'ujjayi':'kapalabhati / alternate nostril'}`]},
-    {dn:2,l:'Gym: Posture + Cardio',tc:'badge-gym',acts:[ph>=2?'<strong>Posture circuit</strong> — bands, wall angels, rows, face pulls':'<strong>Posture circuit</strong> — pull-aparts, wall angels',...(ph>=3?['<strong>Single-arm rows</strong>']:[]),`<strong>Zone 2 cardio</strong> — ${['20–25','30–35','35–40','40–45'][ph-1]} min`]},
-    {dn:3,l:'Yin Yoga',tc:'badge-yin',acts:[`<strong>Yin session</strong> — ${ph>=3?'55–70':'45–60'} min`,'<strong>Dragon pose</strong> — hip flexors','<strong>Sphinx or seal</strong> — thoracic extension','<strong>Sleeping swan</strong> — hip capsule',...(ph>=3?['<strong>Pranayama close</strong>']:[])]},
-    {dn:4,l:'Gym: Cardio Focus',tc:'badge-gym',acts:[`<strong>Zone 2 cardio</strong> — ${['30–35','35–40','40–45','45–50'][ph-1]} min`,'<strong>BOLT score</strong> — log weekly',...(ph>=2?['<strong>Nasal-only</strong> — full session']:[]),...(ph>=3?['<strong>Breath holds</strong> — 4 rounds']:[]),...(ph>=4?['<strong>CO₂ set</strong> — 6 rounds']:[])]},
-    {dn:5,l:'Yoga + Core',tc:'badge-yoga',acts:[`<strong>Vinyasa</strong> — ${['30','35','40','45'][ph-1]} min`,'<strong>Dead bugs + bird dogs</strong>',`<strong>Planks</strong> — ${['30','45','60','75'][ph-1]} sec`,...(ph>=2?['<strong>Hollow body hold</strong>']:[]),...(ph>=3?['<strong>Hanging knee raises</strong>']:[])]},
+    {dn:1,l:'Yoga + Breathwork',tc:'badge-yoga',acts:[`<strong>Vinyasa</strong> — ${['30–40','40','45–50','50–60'][ph-1]} min`,'<strong>Chest opening</strong> + shoulder mobility',`<strong>Pranayama</strong> — ${ph<=2?'ujjayi':'kapalabhati'}`]},
+    {dn:2,l:'Gym: Posture + Cardio',tc:'badge-gym',acts:[ph>=2?'<strong>Posture circuit</strong> — rows, pull-aparts, face pulls':'<strong>Posture circuit</strong> — bands + wall angels',`<strong>Zone 2</strong> — ${['20–25','30–35','35–40','40–45'][ph-1]} min`]},
+    {dn:3,l:'Yin Yoga',tc:'badge-yin',acts:[`<strong>Yin</strong> — ${ph>=3?'55–70':'45–60'} min`,'<strong>Dragon</strong>, <strong>sphinx</strong>, <strong>sleeping swan</strong>']},
+    {dn:4,l:'Gym: Cardio Focus',tc:'badge-gym',acts:[`<strong>Zone 2</strong> — ${['30–35','35–40','40–45','45–50'][ph-1]} min`,'<strong>BOLT score</strong> log',...(ph>=2?['<strong>Nasal-only</strong> breathing']:[]),...(ph>=3?['<strong>Breath holds</strong>']:[])]},
+    {dn:5,l:'Yoga + Core',tc:'badge-yoga',acts:[`<strong>Vinyasa</strong> — ${['30','35','40','45'][ph-1]} min`,'<strong>Dead bugs</strong>, <strong>bird dogs</strong>, <strong>planks</strong>']},
     {dn:6,rest:true},{dn:7,rest:true},
   ];
   const DN=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
   document.getElementById('wgrid').innerHTML=S.map((s,i)=>{
     const iT=s.dn===todayDn;
-    if(s.rest)return`<div class="week-card${iT?' today':''}"><div class="wc-head"><span class="wc-day">${DN[i]}</span>${iT?'<div class="today-dot"></div>':''}<span class="type-badge badge-rest" style="font-size:11px;">Rest</span></div><div class="wc-rest">Active recovery — walk 20–30 min</div></div>`;
+    if(s.rest)return`<div class="week-card${iT?' today':''}"><div class="wc-head"><span class="wc-day">${DN[i]}</span>${iT?'<div class="today-dot"></div>':''}<span class="type-badge badge-rest" style="font-size:11px;">Rest</span></div><div class="wc-rest">Active recovery</div></div>`;
     return`<div class="week-card${iT?' today':''}"><div class="wc-head"><span class="wc-day">${DN[i]}</span>${iT?'<div class="today-dot"></div>':''}<span class="type-badge ${s.tc}" style="font-size:11px;">${s.l}</span></div><ul class="wc-acts">${s.acts.map(a=>`<li>${a}</li>`).join('')}</ul></div>`;
   }).join('');
 }
-function switchView(v,btn){curView=v;document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));btn.classList.add('on');document.getElementById('vtoday').style.display=v==='today'?'block':'none';document.getElementById('vweek').style.display=v==='week'?'block':'none';if(v==='week'){const w=wn(VD);renderWeek(gph(w),dic(VD));}}
-function changeDay(d){const x=new Date(VD);x.setDate(x.getDate()+d);VD=x;renderDay();}
-function goToday(){VD=new Date();VD.setHours(0,0,0,0);renderDay();}
-init();
+
+function switchMvmt(v,btn){mvmtView=v;document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));btn.classList.add('on');document.getElementById('mvmt-today').style.display=v==='today'?'block':'none';document.getElementById('mvmt-week').style.display=v==='week'?'block':'none';if(v==='week'){const w=wn(VD);renderWeek(gph(w),dic(VD));}}
+function changeDay(d){const x=new Date(VD);x.setDate(x.getDate()+d);VD=x;renderMovement();}
+function goToday(){VD=new Date();VD.setHours(0,0,0,0);renderMovement();}
+
+// ── HABITS ──
+const JAW_TOTAL = 6 * 60;
+let jawTimers = { m: null, a: null, n: null };
+let jawState  = {
+  m: { elapsed:0, running:false },
+  a: { elapsed:0, running:false },
+  n: { elapsed:0, running:false }
+};
+
+function renderTimer(slot){
+  const wrap = document.getElementById('jaw-timer-'+slot);
+  if(!wrap) return;
+  const st = jawState[slot];
+  const remaining = JAW_TOTAL - st.elapsed;
+  const mins = Math.floor(remaining/60).toString().padStart(2,'0');
+  const secs = (remaining%60).toString().padStart(2,'0');
+  const pct = Math.round((st.elapsed/JAW_TOTAL)*100);
+  const done = st.elapsed >= JAW_TOTAL;
+  wrap.innerHTML = `
+    <div class="timer-display">${done?'✓ Complete':`${mins}:${secs}`}</div>
+    <div class="timer-bar-wrap"><div class="timer-bar-fill" style="width:${pct}%"></div></div>
+    ${done
+      ? `<button class="timer-btn done-btn" onclick="resetTimer('${slot}')">Reset timer</button>`
+      : `<button class="timer-btn ${st.running?'pause':'start'}" onclick="toggleTimer('${slot}')">${st.running?'⏸ Pause':'▶ Start 6-min timer'}</button>`}`;
+}
+
+function toggleTimer(slot){
+  const st = jawState[slot];
+  if(st.elapsed >= JAW_TOTAL) return;
+  if(st.running){
+    clearInterval(jawTimers[slot]);st.running=false;
+  } else {
+    st.running=true;
+    jawTimers[slot]=setInterval(()=>{
+      st.elapsed++;renderTimer(slot);
+      if(st.elapsed>=JAW_TOTAL){clearInterval(jawTimers[slot]);st.running=false;}
+    },1000);
+  }
+  renderTimer(slot);
+}
+
+function resetTimer(slot){
+  clearInterval(jawTimers[slot]);
+  jawState[slot]={elapsed:0,running:false};
+  renderTimer(slot);
+}
+
+function renderHabits(){
+  const today = new Date();today.setHours(0,0,0,0);
+  const dN=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  document.getElementById('habits-date').textContent = dN[today.getDay()]+', '+MTHS[today.getMonth()]+' '+today.getDate();
+  habDD={completed:{}};
+  const sv=localStorage.getItem('habday_'+dk(today));
+  if(sv){try{habDD=JSON.parse(sv);}catch(e){}}
+  // render checkboxes
+  HABIT_IDS.forEach(id=>{
+    const chk=!!habDD.completed[id];
+    const cb=document.querySelector(`[data-hid="${id}"]`);
+    const lbl=document.getElementById('hlbl-'+id);
+    if(cb)cb.classList.toggle('on',chk);
+    if(lbl)lbl.className='item-label'+(chk?' done':'');
+  });
+  // timers
+  renderTimer('m');renderTimer('a');renderTimer('n');
+  updateHabitsCount();
+  const done=HABIT_IDS.filter(id=>habDD.completed[id]).length;
+  document.getElementById('habits-sub').textContent = `${done} of ${HABIT_IDS.length} habits complete today`;
+}
+
+function toggleHabit(id, el){
+  habDD.completed[id]=!habDD.completed[id];const chk=habDD.completed[id];
+  el.classList.toggle('on',chk);
+  const lbl=document.getElementById('hlbl-'+id);
+  if(lbl)lbl.className='item-label'+(chk?' done':'');
+  updateHabitsCount();triggerHabSave();
+}
+
+function updateHabitsCount(){
+  const done=HABIT_IDS.filter(id=>habDD.completed[id]).length;
+  const tot=HABIT_IDS.length;const pct=Math.round((done/tot)*100);
+  document.getElementById('habits-count').textContent=`${done} of ${tot} complete`;
+  document.getElementById('habits-pct').textContent=pct+'%';
+}
+
+function triggerHabSave(){
+  clearTimeout(habSaveTimer);
+  const today=new Date();today.setHours(0,0,0,0);
+  habSaveTimer=setTimeout(()=>{
+    try{localStorage.setItem('habday_'+dk(today),JSON.stringify(habDD));}catch(e){}
+  },500);
+}
+
+// ── BOOT ──
+initMovement();
 </script>
 </body>
 </html>
