@@ -249,6 +249,28 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;fon
 
 @keyframes fadeUp{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
 
+/* ── GUIDE CAROUSEL ── */
+.guide-carousel-header{display:flex;align-items:center;justify-content:space-between;padding:10px 0 8px;position:sticky;top:0;background:var(--bg);z-index:10;border-bottom:1px solid var(--border2);margin-bottom:12px;}
+.g-nav-btn{width:36px;height:36px;border-radius:50%;border:1px solid var(--border);background:var(--bg2);color:var(--text2);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;transition:all .15s;}
+.g-nav-btn:disabled{opacity:.25;cursor:not-allowed;}
+.g-nav-btn:not(:disabled):hover{background:var(--bg3);color:var(--text);}
+.g-card-meta{text-align:center;}
+.g-card-title{font-family:'DM Serif Display',serif;font-size:15px;color:var(--text);line-height:1.2;}
+.g-card-count{font-size:11px;color:var(--text3);margin-top:2px;}
+.guide-dot-row{display:flex;gap:5px;justify-content:center;margin-bottom:12px;}
+.g-dot{width:6px;height:6px;border-radius:50%;background:var(--bg4);cursor:pointer;transition:all .2s;}
+.g-dot.on{background:var(--indigo-light);width:18px;border-radius:3px;}
+.guide-panel{display:none;animation:fadeUp .22s ease both;}
+.guide-panel.on{display:block;}
+
+/* ── WEEKLY HABITS ── */
+.week-progress{display:flex;gap:3px;margin:6px 0 0;}
+.week-pip{flex:1;height:3px;border-radius:2px;background:var(--bg4);}
+.week-pip.filled{background:linear-gradient(90deg,var(--violet),var(--indigo));}
+.badge-weekly{background:var(--violet-dim);color:#c084fc;border:1px solid rgba(139,92,246,.2);}
+.badge-monthly{background:rgba(251,191,36,.1);color:var(--amber);border:1px solid rgba(251,191,36,.2);}
+
+
 /* ── NEW GUIDE VISUAL STYLES ── */
 .guide-summary{padding:10px 16px 12px;border-bottom:1px solid var(--border2);font-size:12.5px;color:var(--text2);line-height:1.65;font-style:italic;}
 .gi-grid{padding:10px 12px;display:flex;flex-direction:column;gap:7px;}
@@ -358,32 +380,44 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;fon
 
   <div class="card">
     <div class="card-row">
+      <div class="cb" data-hid="make-bed" onclick="toggleHabit('make-bed',this)"></div>
+      <div style="flex:1;"><div class="item-label" id="hlbl-make-bed">Make your bed</div><div class="item-sub">Sets the tone for the entire day. One completed task before anything else — the simplest momentum builder there is.</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-row">
       <div class="cb" data-hid="sunlight" onclick="toggleHabit('sunlight',this)"></div>
-      <div style="flex:1;">
-        <div class="item-label" id="hlbl-sunlight">10 min morning sunlight</div>
-        <div class="item-sub">Outside within the first hour of waking — no sunglasses. Anchors your cortisol curve and circadian rhythm. Directly reduces nighttime grinding.</div>
-      </div>
+      <div style="flex:1;"><div class="item-label" id="hlbl-sunlight">10 min morning sunlight</div><div class="item-sub">Outside within the first hour of waking — no sunglasses. Anchors your cortisol curve and circadian rhythm. Directly reduces nighttime grinding.</div></div>
     </div>
   </div>
 
   <div class="card">
     <div class="card-row">
       <div class="cb" data-hid="morning-water" onclick="toggleHabit('morning-water',this)"></div>
-      <div style="flex:1;">
-        <div class="item-label" id="hlbl-morning-water">16 oz water before coffee</div>
-        <div class="item-sub">You wake up dehydrated. Rehydrate first — coffee before water spikes cortisol on an empty, dry system.</div>
-      </div>
+      <div style="flex:1;"><div class="item-label" id="hlbl-morning-water">16 oz water before coffee</div><div class="item-sub">You wake up dehydrated. Rehydrate first — coffee before water spikes cortisol on an empty, dry system.</div></div>
       <span class="ph-badge badge-water" style="font-size:10px;margin-top:2px;">First</span>
     </div>
   </div>
 
   <div class="card">
     <div class="card-row">
+      <div class="cb" data-hid="skincare-am" onclick="toggleHabit('skincare-am',this)"></div>
+      <div style="flex:1;"><div class="item-label" id="hlbl-skincare-am">Morning skincare</div><div class="item-sub">Cleanse + moisturize + SPF. Sun protection is the single highest-ROI skincare step — especially in Denver at altitude where UV is 25% stronger.</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-row">
+      <div class="cb" data-hid="supps-am" onclick="toggleHabit('supps-am',this)"></div>
+      <div style="flex:1;"><div class="item-label" id="hlbl-supps-am">Vitamin D with breakfast</div><div class="item-sub">Fat-soluble — take with food. Deficiency is linked to bruxism, poor sleep, and low mood. Especially important in Denver winters with reduced UV.</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-row">
       <div class="cb" data-hid="jaw-m" onclick="toggleHabit('jaw-m',this)"></div>
-      <div style="flex:1;">
-        <div class="item-label" id="hlbl-jaw-m">Jaw exercise — 3 × 2 min</div>
-        <div class="item-sub">Dentist's sequence · Morning session</div>
-      </div>
+      <div style="flex:1;"><div class="item-label" id="hlbl-jaw-m">Jaw exercise — 3 × 2 min</div><div class="item-sub">Dentist's sequence · Morning session</div></div>
       <span class="ph-badge badge-jaw" style="font-size:10px;margin-top:2px;">6 min</span>
     </div>
     <div class="jaw-timer-wrap" id="jaw-timer-m"></div>
@@ -464,6 +498,23 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;fon
     </div>
   </div>
 
+  <div class="card">
+    <div class="card-row">
+      <div class="cb" data-hid="reading" onclick="toggleHabit('reading',this)"></div>
+      <div style="flex:1;"><div class="item-label" id="hlbl-reading">30 min reading</div><div class="item-sub">Screens off, book or e-reader only. Reading reduces stress cortisol by up to 68% in research — more than walking or listening to music. Schedule it like a meeting.</div></div>
+    </div>
+  </div>
+
+  <!-- EVENING -->
+  <div class="slbl">🌆 Evening</div>
+
+  <div class="card">
+    <div class="card-row">
+      <div class="cb" data-hid="dishes" onclick="toggleHabit('dishes',this)"></div>
+      <div style="flex:1;"><div class="item-label" id="hlbl-dishes">Dishes done before bed</div><div class="item-sub">Waking up to a clean kitchen has a measurable effect on morning mood and cortisol. Takes 5–10 min. Don't let it compound.</div></div>
+    </div>
+  </div>
+
   <!-- WATER TRACKER -->
   <div class="slbl">💧 Hydration</div>
   <div class="card">
@@ -500,6 +551,20 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;fon
     <div class="jaw-timer-wrap" id="jaw-timer-n"></div>
   </div>
 
+  <div class="card">
+    <div class="card-row">
+      <div class="cb" data-hid="skincare-pm" onclick="toggleHabit('skincare-pm',this)"></div>
+      <div style="flex:1;"><div class="item-label" id="hlbl-skincare-pm">Evening skincare</div><div class="item-sub">Cleanse + moisturize. Removing the day's buildup (sunscreen, oil, particles) is more important than the morning routine for long-term skin health.</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-row">
+      <div class="cb" data-hid="floss" onclick="toggleHabit('floss',this)"></div>
+      <div style="flex:1;"><div class="item-label" id="hlbl-floss">Floss</div><div class="item-sub">Extra important with bruxism — grinding stresses the gum line and the teeth. 2 min before brushing. Gum health directly affects cardiovascular health over time.</div></div>
+    </div>
+  </div>
+
   <div class="night-card">
     <div class="night-header">
       <div class="night-header-title">🌙 Night routine</div>
@@ -514,6 +579,10 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;fon
       <div style="flex:1;"><div class="item-label" id="hlbl-night-jaw-massage">Jaw + face release massage</div><div class="item-sub">1–2 min circular pressure on masseter and temples — releases accumulated day tension</div></div>
     </div>
     <div class="card-row">
+      <div class="cb" data-hid="supps-pm" onclick="toggleHabit('supps-pm',this)"></div>
+      <div style="flex:1;"><div class="item-label" id="hlbl-supps-pm">Magnesium glycinate 300–400mg</div><div class="item-sub">Before bed — promotes muscle relaxation and sleep quality. Research-linked to bruxism reduction. Take with water, not food.</div></div>
+    </div>
+    <div class="card-row">
       <div class="cb" data-hid="night-breathe" onclick="toggleHabit('night-breathe',this)"></div>
       <div style="flex:1;"><div class="item-label" id="hlbl-night-breathe">5 min extended exhale breathing</div><div class="item-sub">4 sec in · 8 sec out — shifts nervous system into parasympathetic before sleep</div></div>
     </div>
@@ -523,14 +592,31 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;fon
     </div>
     <div class="card-row">
       <div class="cb" data-hid="night-jaw-check" onclick="toggleHabit('night-jaw-check',this)"></div>
-      <div style="flex:1;"><div class="item-label" id="hlbl-night-jaw-check">Final jaw check</div><div class="item-sub">Lips together · teeth slightly apart · tongue to roof · jaw muscles soft. This is the correct starting position — grinding happens involuntarily during sleep regardless, driven by your nervous system, not your jaw position. The breathwork and exercises are addressing that root cause.</div></div>
+      <div style="flex:1;"><div class="item-label" id="hlbl-night-jaw-check">Final jaw check</div><div class="item-sub">Lips together · teeth slightly apart · tongue to roof · jaw muscles soft. This is the correct starting position — grinding happens involuntarily during sleep regardless, driven by your nervous system, not your jaw position.</div></div>
     </div>
   </div>
 
-  <div class="hab-summary">
+  <!-- WEEKLY -->
+  <div class="slbl">📅 Weekly</div>
+  <div style="font-size:12px;color:var(--text3);margin:-8px 0 10px;">These reset every Monday. Check them off as the week goes on.</div>
+
+  <div id="weekly-wrap">
+    <!-- rendered by JS -->
+  </div>
+  <div id="weekly-progress-wrap" style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:12px 16px;margin-top:4px;">
+    <div style="display:flex;justify-content:space-between;align-items:center;">
+      <div style="font-size:13px;font-weight:500;color:var(--text);">This week</div>
+      <div style="font-size:20px;font-family:'DM Serif Display',serif;color:var(--violet);" id="weekly-pct">0%</div>
+    </div>
+    <div class="week-progress" id="week-progress"></div>
+    <div style="font-size:11px;color:var(--text3);margin-top:4px;" id="weekly-count">0 of 6 complete</div>
+  </div>
+
+  <!-- DAILY SUMMARY -->
+  <div class="hab-summary" style="margin-top:10px;">
     <div>
-      <div style="font-size:14px;font-weight:500;color:var(--text);">Today's habits</div>
-      <div style="font-size:12px;color:var(--text3);margin-top:2px;" id="habits-count">0 of 12 complete</div>
+      <div style="font-size:14px;font-weight:500;color:var(--text);">Today's daily habits</div>
+      <div style="font-size:12px;color:var(--text3);margin-top:2px;" id="habits-count">0 of 18 complete</div>
     </div>
     <div style="font-size:24px;font-family:'DM Serif Display',serif;color:var(--indigo-light);" id="habits-pct">0%</div>
   </div>
@@ -539,141 +625,138 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;fon
 <!-- ═══════════ GUIDE ═══════════ -->
 <div id="sec-guide" class="section">
   <div class="app-eyebrow">Body OS · Reference Guide</div>
-  <div class="page-title" style="margin-bottom:14px;">Your body manual</div>
-  <div class="warn-note">📌 Read these when you need a reset. The goal is internalization — until the correct position is the one you default to without thinking.</div>
+  <div class="page-title" style="margin-bottom:10px;">Your body manual</div>
 
-  <!-- SITTING -->
-  <div class="guide-card">
-    <div class="guide-header"><div class="guide-icon">🪑</div><div><div class="guide-title">Sitting posture</div><div class="guide-desc">The position you're in most — and the one doing the most damage unchecked.</div></div></div>
-    <div class="guide-summary">The goal isn't rigid perfect posture for 8 hours. It's frequent small resets and position variety throughout the day.</div>
-    <div class="gi-grid">
-      <div class="gi-chip do"><div class="gi-chip-icon">🦴</div><div class="gi-chip-body"><span class="gi-badge gb-do">Do this</span><div class="gi-headline">Sit on your sit bones, not your tailbone</div><div class="gi-body">Scoot forward slightly — feel two bony points under each glute. The moment you slump back, your lumbar loads and your shoulders round forward.</div></div></div>
-      <div class="gi-chip do"><div class="gi-chip-icon">🖥</div><div class="gi-chip-body"><span class="gi-badge gb-do">Do this</span><div class="gi-headline">Screen at eye level</div><div class="gi-body">Looking down at a laptop adds ~10 lbs of load per inch of forward head. Prop your screen, use a stand, or get an external monitor. Non-negotiable if you work long hours.</div></div></div>
-      <div class="gi-chip do"><div class="gi-chip-icon">💆</div><div class="gi-chip-body"><span class="gi-badge gb-do">Do this</span><div class="gi-headline">Drop your shoulders, don't brace them</div><div class="gi-body">Actively releasing the brace trains the nervous system. The band work and yin are making this the natural default — for now, just notice and release.</div></div></div>
-      <div class="gi-chip note"><div class="gi-chip-icon">🔄</div><div class="gi-chip-body"><span class="gi-badge gb-note">Key insight</span><div class="gi-headline">No position is correct for 8 hours</div><div class="gi-body">Shift, fidget, stand. The research is clear — sustained static posture of any kind causes more harm than moderate movement. Variety is the goal.</div></div></div>
+  <div class="guide-carousel-header">
+    <button class="g-nav-btn" id="g-prev" onclick="goGuide(-1)">←</button>
+    <div class="g-card-meta">
+      <div class="g-card-title" id="g-card-title">Sitting posture</div>
+      <div class="g-card-count" id="g-card-count">1 of 8</div>
+    </div>
+    <button class="g-nav-btn" id="g-next" onclick="goGuide(1)">→</button>
+  </div>
+  <div class="guide-dot-row" id="guide-dots"></div>
+
+  <!-- PANEL 0: SITTING -->
+  <div class="guide-panel on" data-idx="0">
+    <div class="guide-card">
+      <div class="guide-header"><div class="guide-icon">🪑</div><div><div class="guide-title">Sitting posture</div><div class="guide-desc">The position you're in most — and the one doing the most damage unchecked.</div></div></div>
+      <div class="guide-summary">The goal isn't rigid perfect posture for 8 hours. It's frequent small resets and position variety throughout the day.</div>
+      <div class="gi-grid">
+        <div class="gi-chip do"><div class="gi-chip-icon">🦴</div><div class="gi-chip-body"><span class="gi-badge gb-do">Do this</span><div class="gi-headline">Sit on your sit bones, not your tailbone</div><div class="gi-body">Scoot forward slightly — feel two bony points under each glute. The moment you slump back, your lumbar loads and your shoulders round forward.</div></div></div>
+        <div class="gi-chip do"><div class="gi-chip-icon">🖥</div><div class="gi-chip-body"><span class="gi-badge gb-do">Do this</span><div class="gi-headline">Screen at eye level</div><div class="gi-body">Looking down at a laptop adds ~10 lbs of load per inch of forward head. Prop your screen, use a stand, or get an external monitor.</div></div></div>
+        <div class="gi-chip do"><div class="gi-chip-icon">💆</div><div class="gi-chip-body"><span class="gi-badge gb-do">Do this</span><div class="gi-headline">Drop your shoulders, don't brace them</div><div class="gi-body">Actively releasing the brace trains the nervous system. The band work and yin are making this the natural default — for now, just notice and release.</div></div></div>
+        <div class="gi-chip note"><div class="gi-chip-icon">🔄</div><div class="gi-chip-body"><span class="gi-badge gb-note">Key insight</span><div class="gi-headline">No position is correct for 8 hours</div><div class="gi-body">Shift, fidget, stand. Research is clear — sustained static posture causes more harm than moderate movement. Variety is the goal.</div></div></div>
+      </div>
     </div>
   </div>
 
-  <!-- STANDING -->
-  <div class="guide-card">
-    <div class="guide-header"><div class="guide-icon">🧍</div><div><div class="guide-title">Standing posture</div><div class="guide-desc">Better than sitting — but only if the mechanics are right.</div></div></div>
-    <div class="gi-grid">
-      <div class="gi-chip do"><div class="gi-chip-icon">⚖️</div><div class="gi-chip-body"><span class="gi-badge gb-do">Do this</span><div class="gi-headline">Weight even across both feet</div><div class="gi-body">Most people load one hip chronically. Stand hip-width apart, equal pressure in heels and balls of both feet. This alone fixes a lot.</div></div></div>
-      <div class="gi-chip do"><div class="gi-chip-icon">🦵</div><div class="gi-chip-body"><span class="gi-badge gb-do">Do this</span><div class="gi-headline">Soft knee bend — never locked</div><div class="gi-body">Locked knees compress the joint and push the pelvis forward. An almost imperceptible flex — the kind you wouldn't notice from outside — changes the whole chain above it.</div></div></div>
-      <div class="gi-chip note"><div class="gi-chip-icon">🏊</div><div class="gi-chip-body"><span class="gi-badge gb-note">Swimmer note</span><div class="gi-headline">Watch for anterior pelvic tilt</div><div class="gi-body">Butt sticking out, lower back arched. Common in swimmers from hip flexor tightness. Lightly engage lower abs to tuck. Dragon pose is correcting this structurally — the standing cue reinforces it.</div></div></div>
+  <!-- PANEL 1: STANDING -->
+  <div class="guide-panel" data-idx="1">
+    <div class="guide-card">
+      <div class="guide-header"><div class="guide-icon">🧍</div><div><div class="guide-title">Standing posture</div><div class="guide-desc">Better than sitting — but only if the mechanics are right.</div></div></div>
+      <div class="gi-grid">
+        <div class="gi-chip do"><div class="gi-chip-icon">⚖️</div><div class="gi-chip-body"><span class="gi-badge gb-do">Do this</span><div class="gi-headline">Weight even across both feet</div><div class="gi-body">Most people load one hip chronically. Stand hip-width apart, equal pressure in heels and balls of both feet. This alone fixes a lot.</div></div></div>
+        <div class="gi-chip do"><div class="gi-chip-icon">🦵</div><div class="gi-chip-body"><span class="gi-badge gb-do">Do this</span><div class="gi-headline">Soft knee bend — never locked</div><div class="gi-body">Locked knees compress the joint and push the pelvis forward. An almost imperceptible flex changes the whole chain above it.</div></div></div>
+        <div class="gi-chip note"><div class="gi-chip-icon">🏊</div><div class="gi-chip-body"><span class="gi-badge gb-note">Swimmer note</span><div class="gi-headline">Watch for anterior pelvic tilt</div><div class="gi-body">Butt sticking out, lower back arched. Common in swimmers from hip flexor tightness. Lightly engage lower abs. Dragon pose is correcting this structurally — the standing cue reinforces it.</div></div></div>
+        <div class="gi-chip tip"><div class="gi-chip-icon">🎯</div><div class="gi-chip-body"><span class="gi-badge gb-tip">Target shape</span><div class="gi-headline">Ribs stacked over hips, chest open</div><div class="gi-body">Imagine breathing into your back as well as your front — this naturally lifts the ribcage without flaring it forward. Ears over shoulders, shoulders over hips, hips over ankles.</div></div></div>
+      </div>
     </div>
   </div>
 
-  <!-- COUCH / BED -->
-  <div class="guide-card">
-    <div class="guide-header"><div class="guide-icon">🛋️</div><div><div class="guide-title">Couch & bed working</div><div class="guide-desc">You're going to do it — here's how to make it significantly less damaging.</div></div></div>
-    <div class="gi-grid">
-      <div class="gi-chip do"><div class="gi-chip-icon">🪵</div><div class="gi-chip-body"><span class="gi-badge gb-do">Do this</span><div class="gi-headline">Firm lumbar support, always</div><div class="gi-body">A rolled towel or firm pillow at the lower back. Without it a soft couch collapses your spine within 5 minutes. This single addition changes everything about couch working.</div></div></div>
-      <div class="gi-chip do"><div class="gi-chip-icon">📐</div><div class="gi-chip-body"><span class="gi-badge gb-do">Do this</span><div class="gi-headline">Prop your screen toward eye level</div><div class="gi-body">Laptop in lap = 45° neck angle for hours. A lap desk, pillow stack, or even a shoebox gets you closer. Imperfect is still dramatically better than nothing.</div></div></div>
-      <div class="gi-chip tip"><div class="gi-chip-icon">⏱</div><div class="gi-chip-body"><span class="gi-badge gb-tip">Habit trigger</span><div class="gi-headline">Stand break every 45–60 min</div><div class="gi-body">Set a timer. Two minutes upright resets circulation and spinal loading. Your concentration will also improve — brief movement breaks measurably increase focus.</div></div></div>
+  <!-- PANEL 2: COUCH/BED -->
+  <div class="guide-panel" data-idx="2">
+    <div class="guide-card">
+      <div class="guide-header"><div class="guide-icon">🛋️</div><div><div class="guide-title">Couch & bed working</div><div class="guide-desc">You're going to do it — here's how to make it significantly less damaging.</div></div></div>
+      <div class="gi-grid">
+        <div class="gi-chip do"><div class="gi-chip-icon">🪵</div><div class="gi-chip-body"><span class="gi-badge gb-do">Non-negotiable</span><div class="gi-headline">Firm lumbar support, always</div><div class="gi-body">A rolled towel or firm pillow at the lower back. Without it, a soft couch collapses your spine within 5 minutes. This single addition changes everything about couch working.</div></div></div>
+        <div class="gi-chip do"><div class="gi-chip-icon">📐</div><div class="gi-chip-body"><span class="gi-badge gb-do">Do this</span><div class="gi-headline">Prop your screen toward eye level</div><div class="gi-body">Laptop in lap = 45° neck angle for hours. A lap desk, pillow stack, or even a shoebox gets you closer. Imperfect is still dramatically better than nothing.</div></div></div>
+        <div class="gi-chip tip"><div class="gi-chip-icon">⏱</div><div class="gi-chip-body"><span class="gi-badge gb-tip">Habit trigger</span><div class="gi-headline">Stand break every 45–60 min</div><div class="gi-body">Set a timer. Two minutes upright resets circulation and spinal loading. Your concentration will also improve — brief movement breaks measurably increase focus.</div></div></div>
+        <div class="gi-chip avoid"><div class="gi-chip-icon">🚫</div><div class="gi-chip-body"><span class="gi-badge gb-avoid">Avoid</span><div class="gi-headline">Extended side-lying work</div><div class="gi-body">20 min here or there is fine. Extended sessions cause uneven neck loading and shoulder compression on the bottom arm. If you're watching something, fine — if you're working, find a better position.</div></div></div>
+      </div>
     </div>
   </div>
 
-  <!-- SLEEP POSITIONS -->
-  <div class="guide-card">
-    <div class="guide-header"><div class="guide-icon">🛏️</div><div><div class="guide-title">Sleep positions</div><div class="guide-desc">7 hours of bad position undoes a lot of good daily work. This one compounds.</div></div></div>
-    <div class="guide-summary">Your shoulder pain almost certainly comes from position — either sleeping on the painful side, or a pillow that's too flat for side sleeping.</div>
-    <div class="compare-wrap">
-      <div class="compare-card cc-do">
-        <span class="cc-label do">✓ Best</span>
-        <div class="cc-title">Side sleeping</div>
-        <div class="cc-body">Pillow between knees. Pillow fills full ear-to-shoulder gap. Painful shoulder faces <strong>up</strong>.</div>
+  <!-- PANEL 3: SLEEP POSITIONS -->
+  <div class="guide-panel" data-idx="3">
+    <div class="guide-card">
+      <div class="guide-header"><div class="guide-icon">🛏️</div><div><div class="guide-title">Sleep positions</div><div class="guide-desc">7 hours of bad position undoes a lot of good daily work.</div></div></div>
+      <div class="guide-summary">Your shoulder pain almost certainly comes from position — either sleeping on the painful side, or a pillow that's too flat for side sleeping.</div>
+      <div class="compare-wrap">
+        <div class="compare-card cc-do"><span class="cc-label do">✓ Best</span><div class="cc-title">Side sleeping</div><div class="cc-body">Pillow between knees. Pillow fills full ear-to-shoulder gap. Painful shoulder faces <strong>up</strong>.</div></div>
+        <div class="compare-card cc-ok"><span class="cc-label ok">↗ Also good</span><div class="cc-title">Back sleeping</div><div class="cc-body">Pillow under knees. Thinner head pillow. Shoulders externally rotate — that's correct, not wrong.</div></div>
       </div>
-      <div class="compare-card cc-ok">
-        <span class="cc-label ok">↗ Also good</span>
-        <div class="cc-title">Back sleeping</div>
-        <div class="cc-body">Pillow under knees. Thinner head pillow. Shoulders externally rotate — that's correct, not wrong.</div>
+      <div class="compare-full cc-avoid" style="border:1px solid rgba(251,113,133,.25);background:linear-gradient(90deg,rgba(251,113,133,.07),var(--bg3));margin:0 12px 10px;border-radius:var(--radius-sm);padding:11px 12px;">
+        <span class="cc-label av">✗ Avoid</span>
+        <div class="cc-title" style="color:var(--text);font-size:13px;font-weight:600;margin:3px 0;">Stomach sleeping</div>
+        <div class="cc-body" style="font-size:12px;color:var(--text2);">Forces hours of neck rotation, compresses lumbar, locks shoulders in internal rotation — directly reinforcing every pattern you're trying to undo.</div>
       </div>
-    </div>
-    <div class="compare-full cc-avoid" style="border:1px solid rgba(251,113,133,.25);background:linear-gradient(90deg,rgba(251,113,133,.07),var(--bg3));">
-      <span class="cc-label av">✗ Avoid</span>
-      <div class="cc-title" style="color:var(--text);font-size:13px;font-weight:600;margin:3px 0;">Stomach sleeping</div>
-      <div class="cc-body" style="font-size:12px;color:var(--text2);">Forces hours of neck rotation, compresses lumbar, locks shoulders in internal rotation — directly reinforcing every pattern you're trying to undo with this plan.</div>
-    </div>
-    <div class="gi-grid" style="padding-top:4px;">
-      <div class="gi-chip note"><div class="gi-chip-icon">🛌</div><div class="gi-chip-body"><span class="gi-badge gb-note">Pillow tip</span><div class="gi-headline">Your pillow is probably too flat</div><div class="gi-body">Side sleepers need a firm, tall pillow that fills the full head-to-shoulder gap. If your neck is bent downward during sleep you'll wake up in pain regardless of side choice.</div></div></div>
+      <div class="gi-grid" style="padding-top:4px;">
+        <div class="gi-chip note"><div class="gi-chip-icon">🛌</div><div class="gi-chip-body"><span class="gi-badge gb-note">Pillow tip</span><div class="gi-headline">Your pillow is probably too flat</div><div class="gi-body">Side sleepers need a firm, tall pillow that fills the full head-to-shoulder gap. If your neck is bent downward during sleep you'll wake up in pain regardless of position.</div></div></div>
+      </div>
     </div>
   </div>
 
-  <!-- JAW -->
-  <div class="guide-card">
-    <div class="guide-header"><div class="guide-icon">🦷</div><div><div class="guide-title">Jaw resting state</div><div class="guide-desc">You already have the position right. The work is training the system that drives clenching — not the position itself.</div></div></div>
-    <div class="guide-summary">Tongue on roof of mouth is correct whether awake or asleep. Grinding during sleep is NOT caused by jaw position — it's driven by nervous system arousal during sleep microarousals.</div>
-    <div class="gi-grid">
-      <div class="gi-chip do"><div class="gi-chip-icon">😌</div><div class="gi-chip-body"><span class="gi-badge gb-do">N position</span><div class="gi-headline">Lips together · teeth slightly apart · tongue to palate</div><div class="gi-body">You already do this naturally. The goal is making it fully automatic — especially during concentration, screen time, and driving, when most people clench without noticing.</div></div></div>
-      <div class="gi-chip note"><div class="gi-chip-icon">📱</div><div class="gi-chip-body"><span class="gi-badge gb-note">Habit anchor</span><div class="gi-headline">Jaw check every time you pick up your phone</div><div class="gi-body">Teeth should not be touching unless you're eating or speaking. This single micro-habit, repeated 50× a day, builds the awareness that stops daytime clenching.</div></div></div>
-      <div class="gi-chip key"><div class="gi-chip-icon">💨</div><div class="gi-chip-body"><span class="gi-badge gb-key">Root cause</span><div class="gi-headline">The breathwork IS the treatment for nighttime grinding</div><div class="gi-body">Box breathing and extended exhale lower the cortisol and autonomic arousal that trigger sleep bruxism. 4–6 weeks of daily consistency shows measurable change. The jaw exercises manage the symptom — this addresses the cause.</div></div></div>
+  <!-- PANEL 4: JAW -->
+  <div class="guide-panel" data-idx="4">
+    <div class="guide-card">
+      <div class="guide-header"><div class="guide-icon">🦷</div><div><div class="guide-title">Jaw resting state</div><div class="guide-desc">You already have the position right. The work is training the system that drives clenching.</div></div></div>
+      <div class="guide-summary">Tongue on roof of mouth is correct whether awake or asleep. Grinding during sleep is NOT caused by jaw position — it's driven by nervous system arousal during sleep microarousals.</div>
+      <div class="gi-grid">
+        <div class="gi-chip do"><div class="gi-chip-icon">😌</div><div class="gi-chip-body"><span class="gi-badge gb-do">N position</span><div class="gi-headline">Lips together · teeth slightly apart · tongue to palate</div><div class="gi-body">You already do this naturally. The goal is making it fully automatic — especially during concentration, screen time, and driving.</div></div></div>
+        <div class="gi-chip note"><div class="gi-chip-icon">📱</div><div class="gi-chip-body"><span class="gi-badge gb-note">Habit anchor</span><div class="gi-headline">Jaw check every time you pick up your phone</div><div class="gi-body">Teeth should not be touching unless you're eating or speaking. 50 micro-checks a day builds the awareness that stops daytime clenching.</div></div></div>
+        <div class="gi-chip key"><div class="gi-chip-icon">💨</div><div class="gi-chip-body"><span class="gi-badge gb-key">Root cause</span><div class="gi-headline">The breathwork IS the treatment</div><div class="gi-body">Box breathing and extended exhale lower the cortisol and autonomic arousal that trigger sleep bruxism. 4–6 weeks of daily consistency shows measurable change. Jaw exercises manage the symptom — breathwork addresses the cause.</div></div></div>
+      </div>
     </div>
   </div>
 
-  <!-- ORAL FIXATION -->
-  <div class="guide-card">
-    <div class="guide-header"><div class="guide-icon">🍬</div><div><div class="guide-title">Oral fixation — redirects</div><div class="guide-desc">The urge is real and valid. The goal is redirecting toward things that don't worsen your jaw.</div></div></div>
-    <div class="guide-summary">Oral fixation is often a displaced stress response — the same state driving the clenching. When the urge is strong, that's a signal to breathe before reaching for anything.</div>
-    <div class="quick-grid">
-      <div class="quick-card">
-        <div class="qc-icon">💧</div>
-        <div class="qc-label">Water</div>
-        <div class="qc-sub">Best option. Oral + hydration + hands busy.</div>
+  <!-- PANEL 5: ORAL FIXATION -->
+  <div class="guide-panel" data-idx="5">
+    <div class="guide-card">
+      <div class="guide-header"><div class="guide-icon">🍬</div><div><div class="guide-title">Oral fixation — redirects</div><div class="guide-desc">The urge is real. Redirect toward things that don't worsen your jaw.</div></div></div>
+      <div class="guide-summary">Oral fixation is often a displaced stress response — the same state driving the clenching. When the urge is strong, that's a signal to breathe first.</div>
+      <div class="quick-grid">
+        <div class="quick-card"><div class="qc-icon">💧</div><div class="qc-label">Water</div><div class="qc-sub">Best option. Oral + hydration + hands busy.</div></div>
+        <div class="quick-card"><div class="qc-icon">🍵</div><div class="qc-label">Herbal tea</div><div class="qc-sub">Calming, satisfying, adds to hydration.</div></div>
+        <div class="quick-card"><div class="qc-icon">🌿</div><div class="qc-label">Mints</div><div class="qc-sub">Low jaw load vs. gum. Sugar-free only.</div></div>
       </div>
-      <div class="quick-card">
-        <div class="qc-icon">🍵</div>
-        <div class="qc-label">Herbal tea</div>
-        <div class="qc-sub">Calming, satisfying, adds to hydration.</div>
+      <div class="gi-grid" style="padding-top:4px;">
+        <div class="gi-chip note"><div class="gi-chip-icon">🥕</div><div class="gi-chip-body"><span class="gi-badge gb-note">Limit</span><div class="gi-headline">Crunchy veg — occasional snack, not constant</div><div class="gi-body">Fine as a snack. Not an all-day habit — prolonged chewing loads the masseter, already overworked by bruxism.</div></div></div>
+        <div class="gi-chip avoid"><div class="gi-chip-icon">🚫</div><div class="gi-chip-body"><span class="gi-badge gb-avoid">Avoid</span><div class="gi-headline">Daily gum chewing</div><div class="gi-body">Exactly the repetitive masseter loading that worsens bruxism. Occasional use is fine. Daily is counterproductive to everything your jaw exercises are building.</div></div></div>
       </div>
-      <div class="quick-card">
-        <div class="qc-icon">🌿</div>
-        <div class="qc-label">Mints</div>
-        <div class="qc-sub">Low jaw load vs. gum. Sugar-free only.</div>
-      </div>
-    </div>
-    <div class="gi-grid" style="padding-top:4px;">
-      <div class="gi-chip note"><div class="gi-chip-icon">🥕</div><div class="gi-chip-body"><span class="gi-badge gb-note">Limit</span><div class="gi-headline">Crunchy veg — occasional, not constant</div><div class="gi-body">Carrots, celery, cucumber are fine as a snack. Not an all-day habit — prolonged chewing loads the masseter, the same muscle already overworked by bruxism.</div></div></div>
-      <div class="gi-chip avoid"><div class="gi-chip-icon">🚫</div><div class="gi-chip-body"><span class="gi-badge gb-avoid">Avoid</span><div class="gi-headline">Daily gum chewing</div><div class="gi-body">Feels harmless — it's exactly the repetitive masseter loading that worsens bruxism. Occasional use is fine. Daily is counterproductive to everything your jaw exercises are trying to achieve.</div></div></div>
     </div>
   </div>
 
-  <!-- HYDRATION -->
-  <div class="guide-card">
-    <div class="guide-header"><div class="guide-icon">💧</div><div><div class="guide-title">Hydration in Denver</div><div class="guide-desc">At 5,280 ft with low humidity, dehydration is faster and sneakier than at sea level.</div></div></div>
-    <div class="guide-summary">You lose water with every single exhale. At altitude, you breathe faster and each breath carries more vapor. Dehydration at altitude happens before thirst — drink on schedule.</div>
-    <div class="compare-wrap" style="grid-template-columns:1fr 1fr;">
-      <div class="compare-card cc-do" style="align-items:center;text-align:center;">
-        <span class="cc-label do">Denver goal</span>
-        <div style="font-family:'DM Serif Display',serif;font-size:32px;color:var(--teal);margin:4px 0;">12</div>
-        <div class="cc-body">cups / day<br>~96 oz / 3L</div>
+  <!-- PANEL 6: HYDRATION -->
+  <div class="guide-panel" data-idx="6">
+    <div class="guide-card">
+      <div class="guide-header"><div class="guide-icon">💧</div><div><div class="guide-title">Hydration in Denver</div><div class="guide-desc">At 5,280 ft with low humidity, dehydration is faster and sneakier than at sea level.</div></div></div>
+      <div class="guide-summary">You lose water with every single exhale. At altitude, you breathe faster and each breath carries more vapor. Drink on schedule — thirst lags dehydration.</div>
+      <div class="compare-wrap" style="grid-template-columns:1fr 1fr;">
+        <div class="compare-card cc-do" style="align-items:center;text-align:center;"><span class="cc-label do">Denver goal</span><div style="font-family:'DM Serif Display',serif;font-size:32px;color:var(--teal);margin:4px 0;">12</div><div class="cc-body">cups / day<br>~96 oz / 3L</div></div>
+        <div class="compare-card cc-note" style="align-items:center;text-align:center;"><span class="cc-label nt">Workout days</span><div style="font-family:'DM Serif Display',serif;font-size:32px;color:var(--amber);margin:4px 0;">+2</div><div class="cc-body">extra cups per<br>hour of exercise</div></div>
       </div>
-      <div class="compare-card cc-note" style="align-items:center;text-align:center;">
-        <span class="cc-label nt">Workout days</span>
-        <div style="font-family:'DM Serif Display',serif;font-size:32px;color:var(--amber);margin:4px 0;">+2</div>
-        <div class="cc-body">extra cups per<br>hour of exercise</div>
+      <div class="gi-grid" style="padding-top:4px;">
+        <div class="gi-chip tip"><div class="gi-chip-icon">🧂</div><div class="gi-chip-body"><span class="gi-badge gb-tip">Workout days</span><div class="gi-headline">Add electrolytes, not just water</div><div class="gi-body">Plain water at altitude is less effective without minerals. A pinch of sea salt in your bottle or an electrolyte tablet — not sugary sports drinks.</div></div></div>
+        <div class="gi-chip note"><div class="gi-chip-icon">☕</div><div class="gi-chip-body"><span class="gi-badge gb-note">Watch this</span><div class="gi-headline">Coffee and alcohol hit harder at altitude</div><div class="gi-body">Both are diuretics with amplified effect at elevation. For every coffee, drink an equal amount of water alongside it. Alcohol before bed also measurably increases grinding episodes.</div></div></div>
       </div>
-    </div>
-    <div class="gi-grid" style="padding-top:4px;">
-      <div class="gi-chip tip"><div class="gi-chip-icon">🧂</div><div class="gi-chip-body"><span class="gi-badge gb-tip">Workout days</span><div class="gi-headline">Add electrolytes, not just water</div><div class="gi-body">Plain water at altitude is less effective without minerals. A pinch of sea salt in your bottle or an electrolyte tablet — not sugary sports drinks.</div></div></div>
-      <div class="gi-chip note"><div class="gi-chip-icon">☕</div><div class="gi-chip-body"><span class="gi-badge gb-note">Watch this</span><div class="gi-headline">Coffee and alcohol hit harder at altitude</div><div class="gi-body">Both are diuretics with amplified effect at elevation. For every coffee, drink an equal amount of water alongside it. Alcohol before bed also measurably increases grinding episodes.</div></div></div>
     </div>
   </div>
 
-  <!-- BRUXISM RESEARCH -->
-  <div class="guide-card">
-    <div class="guide-header"><div class="guide-icon">🔬</div><div><div class="guide-title">Stopping the grind</div><div class="guide-desc">Sleep bruxism is centrally mediated — your nervous system during microarousals, not your jaw position. You can't consciously stop it, but you can reduce how often and how hard it fires.</div></div></div>
-    <div class="guide-summary">The most important insight: everything in this plan — breathwork, nasal training, morning sunlight, yin yoga, posture work — directly addresses the upstream causes of bruxism. It's not a side benefit. It's the mechanism.</div>
-    <div class="gi-grid">
-      <div class="gi-chip key"><div class="gi-chip-icon">🧠</div><div class="gi-chip-body"><span class="gi-badge gb-key">What it actually is</span><div class="gi-headline">A neurological event, not a positional one</div><div class="gi-body">Sleep bruxism is caused by microarousals triggering autonomic nervous system activation. Jaw position, tongue placement, occlusion — none of these cause it. Recent research has entirely moved away from peripheral/dental explanations.</div><div class="gi-source">Thomas et al., JADA 2024 — paradigm shift toward central neurological model</div></div></div>
-      <div class="gi-chip research"><div class="gi-chip-icon">😮‍💨</div><div class="gi-chip-body"><span class="gi-badge gb-research">RCT Evidence</span><div class="gi-headline">Respiratory training reduces grinding</div><div class="gi-body">A randomized controlled trial found 12 weeks of respiratory muscle training (inspiratory + expiratory) significantly reduced sleep bruxism in people with sleep-disordered breathing. Your breathwork plan is doing exactly this.</div><div class="gi-source">NIH-indexed RCT, 2024</div></div></div>
-      <div class="gi-chip research"><div class="gi-chip-icon">🫁</div><div class="gi-chip-body"><span class="gi-badge gb-research">Airway link</span><div class="gi-headline">Nasal breathing training is directly therapeutic</div><div class="gi-body">When the airway partially collapses during sleep, the jaw reflexively clenches to reopen it. Strong research links sleep bruxism and sleep-disordered breathing. Your nasal breathing training addresses this — not just for altitude.</div><div class="gi-source">Multiple studies on bruxism clustering around sleep respiratory events</div></div></div>
-      <div class="gi-chip note"><div class="gi-chip-icon">💊</div><div class="gi-chip-body"><span class="gi-badge gb-note">Worth trying</span><div class="gi-headline">Magnesium glycinate before bed — 300–400mg</div><div class="gi-body">~75% of Americans are below the RDA. Deficiency is linked to muscle hyperactivity, elevated cortisol, and poor sleep — all bruxism drivers. Magnesium glycinate is best absorbed. Evidence is promising, not definitive. Ask your doctor first.</div><div class="gi-source">Ploceniak 1990; Boyle et al. 2017 systematic review</div></div></div>
-      <div class="gi-chip note"><div class="gi-chip-icon">☀️</div><div class="gi-chip-body"><span class="gi-badge gb-note">Get tested</span><div class="gi-headline">Vitamin D deficiency linked to sleep bruxism</div><div class="gi-body">Low vitamin D correlates with sleep bruxism through calcium metabolism and sleep architecture. Especially relevant if you work indoors — Denver winters reduce UV exposure further.</div><div class="gi-source">Alkhatatbeh et al. 2021 case-control study</div></div></div>
-      <div class="gi-chip avoid"><div class="gi-chip-icon">🍷</div><div class="gi-chip-body"><span class="gi-badge gb-avoid">Avoid</span><div class="gi-headline">Alcohol before bed measurably increases grinding</div><div class="gi-body">Disrupts sleep architecture, increases microarousals, and consistently increases bruxism episode frequency in research. Even moderate evening drinking has a measurable effect. Highest-leverage behavioral change if this is a regular habit.</div></div></div>
-      <div class="gi-chip avoid"><div class="gi-chip-icon">💊</div><div class="gi-chip-body"><span class="gi-badge gb-avoid">Know this</span><div class="gi-headline">SSRIs and SNRIs increase bruxism</div><div class="gi-body">If you take antidepressants, they are a documented bruxism risk factor. Don't stop — but flag it with your prescribing doctor. Timing adjustments sometimes help significantly.</div></div></div>
-      <div class="gi-chip do"><div class="gi-chip-icon">😬</div><div class="gi-chip-body"><span class="gi-badge gb-do">Short-term</span><div class="gi-headline">Your night guard protects while the rest takes effect</div><div class="gi-body">The guard doesn't stop grinding but prevents tooth damage. Wear it every night — behavioral and breathwork changes take 4–8 weeks to show meaningful effect. The guard is your insurance in the meantime.</div></div></div>
-      <div class="gi-chip tip"><div class="gi-chip-icon">💉</div><div class="gi-chip-body"><span class="gi-badge gb-tip">If severe</span><div class="gi-headline">Botox (masseter injections) — ask your dentist</div><div class="gi-body">Botulinum toxin injected into the masseter has moderate evidence for reducing grinding force, with effects lasting 3–6 months. Doesn't eliminate grinding but dramatically reduces the damage. Worth discussing if you have significant tooth wear or TMJ pain.</div></div></div>
+  <!-- PANEL 7: BRUXISM RESEARCH -->
+  <div class="guide-panel" data-idx="7">
+    <div class="guide-card">
+      <div class="guide-header"><div class="guide-icon">🔬</div><div><div class="guide-title">Stopping the grind</div><div class="guide-desc">Sleep bruxism is centrally mediated — your nervous system during microarousals. You can't consciously stop it, but you can reduce how often and how hard it fires.</div></div></div>
+      <div class="guide-summary">Everything in this plan — breathwork, nasal training, morning sunlight, yin yoga — directly addresses the upstream causes of bruxism. It's the mechanism, not a side benefit.</div>
+      <div class="gi-grid">
+        <div class="gi-chip key"><div class="gi-chip-icon">🧠</div><div class="gi-chip-body"><span class="gi-badge gb-key">What it is</span><div class="gi-headline">A neurological event, not a positional one</div><div class="gi-body">Caused by microarousals triggering ANS activation. Jaw position, tongue, occlusion — none of these cause it. Research has entirely moved away from peripheral/dental explanations.<br><span style="font-size:11px;color:var(--text3);">Thomas et al., JADA 2024</span></div></div></div>
+        <div class="gi-chip research"><div class="gi-chip-icon">😮‍💨</div><div class="gi-chip-body"><span class="gi-badge gb-research">RCT Evidence</span><div class="gi-headline">Respiratory training reduces grinding</div><div class="gi-body">12 weeks of respiratory muscle training significantly reduced sleep bruxism. Your breathwork plan is doing exactly this.<br><span style="font-size:11px;color:var(--text3);">NIH-indexed RCT, 2024</span></div></div></div>
+        <div class="gi-chip research"><div class="gi-chip-icon">🫁</div><div class="gi-chip-body"><span class="gi-badge gb-research">Airway link</span><div class="gi-headline">Nasal breathing training is directly therapeutic</div><div class="gi-body">When the airway collapses during sleep, the jaw reflexively clenches to reopen it. Nasal training addresses this root cause — not just altitude.</div></div></div>
+        <div class="gi-chip note"><div class="gi-chip-icon">💊</div><div class="gi-chip-body"><span class="gi-badge gb-note">Worth trying</span><div class="gi-headline">Magnesium glycinate before bed — 300–400mg</div><div class="gi-body">~75% of Americans are below the RDA. Deficiency → muscle hyperactivity + elevated cortisol + poor sleep. Ask your doctor first.<br><span style="font-size:11px;color:var(--text3);">Ploceniak 1990; Boyle et al. 2017</span></div></div></div>
+        <div class="gi-chip avoid"><div class="gi-chip-icon">🍷</div><div class="gi-chip-body"><span class="gi-badge gb-avoid">High leverage</span><div class="gi-headline">Alcohol before bed measurably increases grinding</div><div class="gi-body">Disrupts sleep architecture, increases microarousals, consistently increases bruxism frequency. One of the highest-impact behavioral changes available.</div></div></div>
+        <div class="gi-chip do"><div class="gi-chip-icon">😬</div><div class="gi-chip-body"><span class="gi-badge gb-do">Insurance</span><div class="gi-headline">Wear your night guard every night</div><div class="gi-body">Doesn't stop grinding but prevents tooth damage. Behavioral and breathwork changes take 4–8 weeks. The guard protects you in the meantime.</div></div></div>
+        <div class="gi-chip tip"><div class="gi-chip-icon">💉</div><div class="gi-chip-body"><span class="gi-badge gb-tip">If severe</span><div class="gi-headline">Ask about Botox (masseter injections)</div><div class="gi-body">Moderate evidence for reducing grinding force, effects 3–6 months. Worth discussing with your dentist if you have significant tooth wear or TMJ pain.</div></div></div>
+      </div>
     </div>
   </div>
 </div>
@@ -700,11 +783,20 @@ const MTHS=['January','February','March','April','May','June','July','August','S
 const PNAMES=['Foundation','Build','Strengthen','Peak & Integrate'];
 const TOTAL=18;
 const WATER_GOAL=12;
-const HABIT_IDS=['sunlight','morning-water','jaw-m','posture-m','jaw-a','posture-a1','posture-a2','jaw-n','night-screens','night-jaw-massage','night-breathe','night-position','night-jaw-check'];
+const HABIT_IDS=['make-bed','sunlight','morning-water','skincare-am','supps-am','jaw-m','posture-m','jaw-a','posture-a1','posture-a2','reading','dishes','jaw-n','skincare-pm','floss','night-screens','night-jaw-massage','supps-pm','night-breathe','night-position','night-jaw-check'];
+const WEEKLY_IDS=['wk-laundry','wk-grooming','wk-sheets','wk-groceries','wk-planning','wk-social'];
+const WEEKLY_LABELS={
+  'wk-laundry':{label:'Laundry',sub:'Wash, dry, put away — not just wash.',icon:'👕'},
+  'wk-grooming':{label:'Grooming',sub:'Eyebrows, body hair, any regular maintenance.',icon:'✂️'},
+  'wk-sheets':{label:'Clean bedsheets',sub:'Weekly. Huge for sleep quality and skin health.',icon:'🛏️'},
+  'wk-groceries':{label:'Grocery shop',sub:'Plan meals first, then shop. Prevents last-minute bad choices.',icon:'🛒'},
+  'wk-planning':{label:'Weekly planning session',sub:'20 min Sunday — review the week ahead, set 3 priorities.',icon:'📋'},
+  'wk-social':{label:'Intentional connection',sub:'Call or see someone you care about. Easy to let slide in a new city.',icon:'📞'},
+};
 
 // ── STATE ──
-let SD=null,VD=new Date(),movDD={completed:{}},habDD={completed:{},water:0};
-let mvmtView='today',mSaveTimer=null,hSaveTimer=null;
+let SD=null,VD=new Date(),movDD={completed:{}},habDD={completed:{},water:0},weekHabDD={completed:{}};
+let mvmtView='today',mSaveTimer=null,hSaveTimer=null,wkSaveTimer=null,guideIdx=0;
 VD.setHours(0,0,0,0);
 
 const dk=d=>d.toISOString().split('T')[0];
@@ -720,6 +812,49 @@ function switchSection(name,btn){
     document.getElementById('navbtn-'+s).classList.toggle('on',s===name);
   });
   if(name==='habits')renderHabits();
+  if(name==='guide')initGuide();
+}
+
+// ══════════ GUIDE CAROUSEL ══════════
+const GUIDE_PANELS=[
+  {title:'Sitting posture'},{title:'Standing posture'},{title:'Couch & bed'},
+  {title:'Sleep positions'},{title:'Jaw resting state'},{title:'Oral fixation'},
+  {title:'Hydration in Denver'},{title:'Stopping the grind'}
+];
+function initGuide(){
+  renderGuide();
+  const wrap=document.querySelector('#sec-guide');
+  if(!wrap._swipe){
+    let tx=0;
+    wrap.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;},{passive:true});
+    wrap.addEventListener('touchend',e=>{
+      const diff=tx-e.changedTouches[0].clientX;
+      if(Math.abs(diff)>48)goGuide(diff>0?1:-1);
+    },{passive:true});
+    wrap._swipe=true;
+  }
+}
+function goGuide(dir){
+  guideIdx=Math.max(0,Math.min(GUIDE_PANELS.length-1,guideIdx+dir));
+  renderGuide();
+}
+function setGuide(i){guideIdx=i;renderGuide();}
+function renderGuide(){
+  document.querySelectorAll('.guide-panel').forEach((p,i)=>{
+    p.classList.toggle('on',i===guideIdx);
+  });
+  const titleEl=document.getElementById('g-card-title');
+  const countEl=document.getElementById('g-card-count');
+  const prevBtn=document.getElementById('g-prev');
+  const nextBtn=document.getElementById('g-next');
+  const dotsEl=document.getElementById('guide-dots');
+  if(titleEl)titleEl.textContent=GUIDE_PANELS[guideIdx].title;
+  if(countEl)countEl.textContent=(guideIdx+1)+' of '+GUIDE_PANELS.length;
+  if(prevBtn)prevBtn.disabled=guideIdx===0;
+  if(nextBtn)nextBtn.disabled=guideIdx===GUIDE_PANELS.length-1;
+  if(dotsEl){
+    dotsEl.innerHTML=GUIDE_PANELS.map((_,i)=>`<div class="g-dot${i===guideIdx?' on':''}" onclick="setGuide(${i})"></div>`).join('');
+  }
 }
 
 // ══════════ JAW TIMER — 3 rounds × 2 min ══════════
@@ -814,9 +949,55 @@ function renderHabits(){
   });
   renderTimers();
   renderWater();
+  renderWeeklyHabits();
   updateHabCount();
   const done=HABIT_IDS.filter(id=>habDD.completed[id]).length;
-  document.getElementById('habits-sub').textContent=`${done} of ${HABIT_IDS.length} habits complete`;
+  document.getElementById('habits-sub').textContent=`${done} of ${HABIT_IDS.length} daily + weekly habits`;
+}
+
+// ══════════ WEEKLY HABITS ══════════
+function getWeekKey(){
+  const d=new Date();d.setHours(0,0,0,0);
+  const day=d.getDay();const diff=d.getDate()-(day===0?6:day-1);
+  const mon=new Date(d);mon.setDate(diff);
+  return 'wkhab_'+dk(mon);
+}
+function renderWeeklyHabits(){
+  const wkey=getWeekKey();
+  weekHabDD={completed:{}};
+  const sv=localStorage.getItem(wkey);
+  if(sv){try{weekHabDD=JSON.parse(sv);}catch(e){}}
+  const wrap=document.getElementById('weekly-wrap');
+  if(!wrap)return;
+  wrap.innerHTML=WEEKLY_IDS.map(id=>{
+    const info=WEEKLY_LABELS[id];const chk=!!weekHabDD.completed[id];
+    return`<div class="card" style="margin-bottom:8px;"><div class="card-row"><div class="cb${chk?' on':''}" data-wid="${id}"></div><div style="flex:1;"><div class="item-label${chk?' done':''}" id="wlbl-${id}">${info.icon} ${info.label}</div><div class="item-sub">${info.sub}</div></div><span class="ph-badge badge-weekly" style="font-size:10px;margin-top:2px;">Weekly</span></div></div>`;
+  }).join('');
+  wrap.querySelectorAll('[data-wid]').forEach(el=>el.addEventListener('click',function(){toggleWeekly(this.dataset.wid,this);}));
+  updateWeeklyCount();
+}
+function toggleWeekly(id,el){
+  weekHabDD.completed[id]=!weekHabDD.completed[id];const chk=weekHabDD.completed[id];
+  el.classList.toggle('on',chk);
+  const lbl=document.getElementById('wlbl-'+id);
+  if(lbl)lbl.className='item-label'+(chk?' done':'');
+  updateWeeklyCount();triggerWkSave();
+}
+function updateWeeklyCount(){
+  const done=WEEKLY_IDS.filter(id=>weekHabDD.completed[id]).length;
+  const tot=WEEKLY_IDS.length;
+  const pct=Math.round((done/tot)*100);
+  const pctEl=document.getElementById('weekly-pct');
+  const countEl=document.getElementById('weekly-count');
+  const progEl=document.getElementById('week-progress');
+  if(pctEl)pctEl.textContent=pct+'%';
+  if(countEl)countEl.textContent=`${done} of ${tot} this week`;
+  if(progEl){let h='';for(let i=0;i<tot;i++){h+=`<div class="week-pip${i<done?' filled':''}"></div>`;}progEl.innerHTML=h;}
+}
+function triggerWkSave(){
+  clearTimeout(wkSaveTimer);
+  const wkey=getWeekKey();
+  wkSaveTimer=setTimeout(()=>{try{localStorage.setItem(wkey,JSON.stringify(weekHabDD));}catch(e){}},500);
 }
 
 function renderTimers(){renderTimer('m');renderTimer('a');renderTimer('n');}
@@ -832,10 +1013,8 @@ function toggleHabit(id,el){
 function updateHabCount(){
   const done=HABIT_IDS.filter(id=>habDD.completed[id]).length;
   const tot=HABIT_IDS.length;
-  document.getElementById('habits-count').textContent=`${done} of ${tot} complete`;
+  document.getElementById('habits-count').textContent=`${done} of ${tot} complete today`;
   document.getElementById('habits-pct').textContent=Math.round((done/tot)*100)+'%';
-  const sub=document.getElementById('habits-sub');
-  if(sub)sub.textContent=`${done} of ${tot} habits complete`;
 }
 
 // ══════════ WATER ══════════
