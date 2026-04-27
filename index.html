@@ -7,148 +7,134 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
 <meta name="apple-mobile-web-app-title" content="Movement Plan"/>
 <meta name="mobile-web-app-capable" content="yes"/>
-<meta name="theme-color" content="#ffffff"/>
+<meta name="theme-color" content="#0f0c1a"/>
 <title>Movement Plan</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <style>
-  :root {
-    --green:#1D9E75; --green-light:#E1F5EE; --green-dark:#085041;
-    --purple-light:#EEEDFE; --purple-dark:#3C3489;
-    --amber-light:#FAEEDA; --amber-dark:#633806;
-    --coral-light:#FAECE7; --coral-dark:#4A1B0C;
-    --blue-light:#E6F1FB; --blue-dark:#0C447C;
-    --bg:#ffffff; --bg2:#F7F7F7; --bg3:#EFEFEF;
-    --text:#111111; --text2:#555555; --text3:#999999;
-    --border:#E0E0E0; --border2:#EBEBEB;
-    --radius:12px; --radius-sm:8px;
-  }
-  @media(prefers-color-scheme:dark){
-    :root{
-      --bg:#111111; --bg2:#1C1C1E; --bg3:#2C2C2E;
-      --text:#F2F2F7; --text2:#AEAEB2; --text3:#636366;
-      --border:#3A3A3C; --border2:#2C2C2E;
-    }
-  }
-  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
-  html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:16px;min-height:100vh;}
-  body{padding:env(safe-area-inset-top,0) env(safe-area-inset-right,0) env(safe-area-inset-bottom,0) env(safe-area-inset-left,0);}
-  .wrap{max-width:640px;margin:0 auto;padding:16px 16px 40px;}
-  h1{font-size:20px;font-weight:600;margin:0 0 4px;}
-
-  /* Header */
-  .hdr{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:2px;}
-  .hdr-left h1{font-size:20px;font-weight:600;margin:0 0 2px;}
-  .sind{font-size:12px;color:var(--green);min-height:16px;text-align:right;margin-top:4px;}
-
-  /* Badges */
-  .ph-badge{display:inline-block;font-size:11px;font-weight:500;padding:3px 10px;border-radius:12px;}
-  .ph-1{background:var(--green-light);color:var(--green-dark);}
-  .ph-2{background:var(--purple-light);color:var(--purple-dark);}
-  .ph-3{background:var(--amber-light);color:var(--amber-dark);}
-  .ph-4{background:var(--coral-light);color:var(--coral-dark);}
-  .type-badge{display:inline-block;font-size:11px;padding:3px 10px;border-radius:12px;margin-left:6px;}
-
-  /* Pips */
-  .pip-row{display:flex;gap:3px;margin:8px 0 0;}
-  .pip{height:4px;flex:1;border-radius:2px;background:var(--bg3);}
-  .pip.done{background:var(--green);} .pip.now{background:var(--green);opacity:.45;}
-
-  /* Tabs */
-  .tab-row{display:flex;gap:6px;margin:14px 0 0;}
-  .tab{padding:7px 16px;font-size:13px;border:1px solid var(--border);border-radius:20px;cursor:pointer;background:transparent;color:var(--text2);}
-  .tab.on{background:var(--bg2);color:var(--text);font-weight:500;border-color:var(--border);}
-
-  /* Nav */
-  .nav-row{display:flex;gap:8px;margin:12px 0;}
-  .nav-row button{flex:1;padding:9px;font-size:14px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--bg2);color:var(--text);cursor:pointer;font-weight:500;}
-  .nav-row .tbtn{flex:0;padding:9px 16px;}
-
-  /* Progress */
-  .prog-wrap{height:5px;background:var(--bg3);border-radius:3px;margin:.75rem 0 4px;}
-  .prog-fill{height:100%;background:var(--green);border-radius:3px;transition:width .3s;}
-
-  /* Section label */
-  .slbl{font-size:11px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;margin:1.25rem 0 .5rem;}
-
-  /* Activity rows */
-  .act-row{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--border2);}
-  .act-row:last-child{border-bottom:none;}
-  .cb{width:22px;height:22px;border:1.5px solid var(--border);border-radius:6px;cursor:pointer;flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;transition:background .12s,border-color .12s;}
-  .cb.on{background:var(--green);border-color:var(--green);}
-  .cb.on::after{content:'';display:block;width:5px;height:9px;border:2px solid white;border-top:none;border-left:none;transform:rotate(45deg) translate(-1px,-1px);}
-  .act-label{font-size:15px;line-height:1.4;font-weight:500;}
-  .act-label.done{text-decoration:line-through;color:var(--text3);font-weight:400;}
-  .act-why{font-size:13px;color:var(--text2);margin-top:4px;line-height:1.6;}
-  .kids{margin-left:34px;padding-left:12px;border-left:2px solid var(--border2);}
-  .kid-row{display:flex;gap:12px;align-items:flex-start;padding:8px 0;border-bottom:1px solid var(--border2);}
-  .kid-row:last-child{border-bottom:none;}
-  .kid-label{font-size:14px;line-height:1.4;}
-  .kid-label.done{text-decoration:line-through;color:var(--text3);}
-  .kid-why{font-size:12px;color:var(--text2);margin-top:3px;line-height:1.5;}
-
-  /* Rest card */
-  .rest-card{background:var(--bg2);border-radius:var(--radius);padding:16px;text-align:center;margin-top:8px;}
-  .rest-title{font-size:16px;font-weight:500;margin-bottom:4px;}
-  .rest-sub{font-size:14px;color:var(--text2);}
-
-  /* Week grid */
-  .week-grid{display:flex;flex-direction:column;gap:10px;margin-top:12px;}
-  .week-card{border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;background:var(--bg);}
-  .week-card.today{border-color:var(--green);border-width:2px;}
-  .wc-head{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
-  .wc-day{font-size:14px;font-weight:600;}
-  .wc-acts{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:5px;}
-  .wc-acts li{font-size:14px;color:var(--text2);padding-left:14px;position:relative;line-height:1.5;}
-  .wc-acts li::before{content:'·';position:absolute;left:4px;color:var(--text3);}
-  .wc-acts li strong{color:var(--text);font-weight:500;}
-  .wc-rest{font-size:14px;color:var(--text3);font-style:italic;}
-
-  /* Setup */
-  .setup-card{border:1px solid var(--border);border-radius:var(--radius);padding:24px;}
-  .setup-card h2{font-size:20px;font-weight:600;margin:0 0 8px;}
-  .setup-card p{font-size:15px;color:var(--text2);margin:0 0 20px;line-height:1.6;}
-  .date-inp{width:100%;padding:11px 14px;font-size:15px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--bg2);color:var(--text);margin-bottom:14px;}
-  .pri-btn{width:100%;padding:13px;font-size:15px;font-weight:600;background:var(--green);border:none;border-radius:var(--radius-sm);cursor:pointer;color:white;}
-  .link-btn{background:none;border:none;color:var(--text3);font-size:13px;cursor:pointer;text-decoration:underline;display:block;margin:1.25rem auto 0;text-align:center;}
-  .date-display{font-size:24px;font-weight:600;margin:6px 0 2px;}
-  .phase-name{font-size:13px;color:var(--text2);margin-top:2px;}
-  .divider{height:1px;background:var(--border2);margin:1rem 0;}
+:root{
+  --indigo:#6366f1;--indigo-light:#818cf8;--indigo-dim:rgba(99,102,241,0.15);
+  --violet:#8b5cf6;--violet-dim:rgba(139,92,246,0.15);
+  --sky:#38bdf8;--sky-dim:rgba(56,189,248,0.12);
+  --bg:#0f0c1a;--bg2:#181428;--bg3:#221d35;--bg4:#2e2845;
+  --text:#f0eeff;--text2:#a09cc0;--text3:#5f5a80;
+  --border:rgba(139,92,246,0.18);--border2:rgba(99,102,241,0.1);
+  --green:#34d399;--green-dim:rgba(52,211,153,0.12);
+  --coral:#fb7185;--radius:16px;--radius-sm:10px;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-size:16px;min-height:100vh;}
+body{padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);}
+.wrap{max-width:640px;margin:0 auto;padding:20px 18px 60px;position:relative;z-index:1;}
+.orb{position:fixed;top:-140px;right:-100px;width:420px;height:420px;background:radial-gradient(circle,rgba(139,92,246,.2) 0%,transparent 70%);pointer-events:none;z-index:0;}
+.orb2{position:fixed;bottom:-100px;left:-120px;width:340px;height:340px;background:radial-gradient(circle,rgba(99,102,241,.14) 0%,transparent 70%);pointer-events:none;z-index:0;}
+.app-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:0;}
+.app-title{font-size:11px;font-weight:600;color:var(--text3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px;}
+.date-display{font-family:'DM Serif Display',serif;font-size:26px;font-weight:400;color:var(--text);line-height:1.2;margin:4px 0 3px;}
+.phase-name{font-size:12px;color:var(--text3);letter-spacing:.04em;}
+.sind{font-size:12px;min-height:16px;text-align:right;margin-top:6px;}
+.ph-badge{display:inline-flex;align-items:center;font-size:11px;font-weight:600;padding:4px 11px;border-radius:20px;letter-spacing:.04em;}
+.ph-1{background:var(--green-dim);color:var(--green);border:1px solid rgba(52,211,153,.2);}
+.ph-2{background:var(--indigo-dim);color:var(--indigo-light);border:1px solid rgba(99,102,241,.2);}
+.ph-3{background:var(--violet-dim);color:#c084fc;border:1px solid rgba(139,92,246,.2);}
+.ph-4{background:rgba(251,113,133,.1);color:var(--coral);border:1px solid rgba(251,113,133,.2);}
+.type-badge{display:inline-flex;font-size:11px;font-weight:500;padding:4px 11px;border-radius:20px;margin-left:6px;letter-spacing:.03em;}
+.badge-yoga{background:var(--green-dim);color:var(--green);border:1px solid rgba(52,211,153,.2);}
+.badge-gym{background:var(--sky-dim);color:var(--sky);border:1px solid rgba(56,189,248,.2);}
+.badge-yin{background:var(--violet-dim);color:#c084fc;border:1px solid rgba(139,92,246,.2);}
+.badge-rest{background:var(--bg3);color:var(--text3);border:1px solid var(--border2);}
+.pip-row{display:flex;gap:3px;margin:10px 0 0;}
+.pip{height:3px;flex:1;border-radius:2px;background:var(--bg4);}
+.pip.done{background:linear-gradient(90deg,var(--indigo),var(--violet));}
+.pip.now{background:var(--indigo-light);opacity:.5;}
+.tab-row{display:flex;gap:6px;margin:16px 0 0;}
+.tab{padding:8px 18px;font-size:13px;font-weight:500;font-family:'DM Sans',sans-serif;border:1px solid var(--border);border-radius:20px;cursor:pointer;background:transparent;color:var(--text2);transition:all .15s;}
+.tab.on{background:var(--indigo-dim);color:var(--indigo-light);border-color:rgba(99,102,241,.4);}
+.nav-row{display:flex;gap:8px;margin:14px 0;}
+.nav-row button{flex:1;padding:10px;font-size:14px;font-family:'DM Sans',sans-serif;font-weight:500;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--bg2);color:var(--text2);cursor:pointer;transition:all .15s;}
+.nav-row .tbtn{flex:0;padding:10px 18px;color:var(--indigo-light);border-color:rgba(99,102,241,.3);}
+.prog-wrap{height:4px;background:var(--bg4);border-radius:2px;margin:.85rem 0 5px;overflow:hidden;}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--indigo),var(--violet));border-radius:2px;transition:width .35s cubic-bezier(.4,0,.2,1);}
+.prog-lbl{font-size:12px;color:var(--text3);}
+.slbl{font-size:10px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;margin:1.5rem 0 .6rem;display:flex;align-items:center;gap:8px;}
+.slbl::after{content:'';flex:1;height:1px;background:var(--border2);}
+.group-wrap{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:10px;overflow:hidden;}
+.act-row{display:flex;gap:12px;align-items:flex-start;padding:13px 14px;border-bottom:1px solid var(--border2);}
+.act-row:last-child{border-bottom:none;}
+.cb{width:22px;height:22px;border:1.5px solid var(--bg4);border-radius:6px;cursor:pointer;flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center;transition:all .12s;background:var(--bg3);}
+.cb.on{background:linear-gradient(135deg,var(--indigo),var(--violet));border-color:transparent;}
+.cb.on::after{content:'';display:block;width:5px;height:9px;border:2px solid white;border-top:none;border-left:none;transform:rotate(45deg) translate(-1px,-1px);}
+.act-label{font-size:15px;line-height:1.4;font-weight:500;color:var(--text);}
+.act-label.done{text-decoration:line-through;color:var(--text3);font-weight:400;}
+.act-why{font-size:12.5px;color:var(--text2);margin-top:5px;line-height:1.6;}
+.kids{background:rgba(0,0,0,.2);border-top:1px solid var(--border2);}
+.kid-row{display:flex;gap:12px;align-items:flex-start;padding:11px 14px 11px 36px;border-bottom:1px solid var(--border2);position:relative;}
+.kid-row::before{content:'';position:absolute;left:20px;top:0;bottom:0;width:1px;background:var(--border);}
+.kid-row:last-child{border-bottom:none;}
+.kid-label{font-size:13.5px;line-height:1.4;color:var(--text);}
+.kid-label.done{text-decoration:line-through;color:var(--text3);}
+.kid-why{font-size:12px;color:var(--text2);margin-top:3px;line-height:1.55;}
+.rest-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:28px 20px;text-align:center;margin-top:8px;}
+.rest-icon{font-size:36px;margin-bottom:12px;}
+.rest-title{font-family:'DM Serif Display',serif;font-size:20px;font-weight:400;margin-bottom:8px;color:var(--text);}
+.rest-sub{font-size:14px;color:var(--text2);line-height:1.7;}
+.week-grid{display:flex;flex-direction:column;gap:10px;margin-top:14px;}
+.week-card{border:1px solid var(--border);border-radius:var(--radius);padding:15px 16px;background:var(--bg2);}
+.week-card.today{border-color:rgba(99,102,241,.5);background:linear-gradient(135deg,rgba(99,102,241,.07),rgba(139,92,246,.04));}
+.wc-head{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
+.wc-day{font-family:'DM Serif Display',serif;font-size:15px;color:var(--text);}
+.today-dot{width:6px;height:6px;border-radius:50%;background:var(--indigo-light);flex-shrink:0;}
+.wc-acts{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:5px;}
+.wc-acts li{font-size:13.5px;color:var(--text2);padding-left:14px;position:relative;line-height:1.5;}
+.wc-acts li::before{content:'·';position:absolute;left:4px;color:var(--text3);}
+.wc-acts li strong{color:var(--text);font-weight:500;}
+.wc-rest{font-size:13px;color:var(--text3);font-style:italic;}
+.setup-wrap{padding-top:30px;}
+.setup-card{border:1px solid var(--border);border-radius:var(--radius);padding:28px;background:var(--bg2);}
+.setup-eyebrow{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--indigo-light);margin-bottom:10px;}
+.setup-card h2{font-family:'DM Serif Display',serif;font-size:28px;font-weight:400;margin:0 0 10px;color:var(--text);}
+.setup-card p{font-size:14px;color:var(--text2);margin:0 0 22px;line-height:1.7;}
+.date-inp{width:100%;padding:12px 14px;font-size:15px;font-family:'DM Sans',sans-serif;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--bg3);color:var(--text);margin-bottom:14px;outline:none;}
+.date-inp:focus{border-color:rgba(99,102,241,.5);}
+.pri-btn{width:100%;padding:14px;font-size:15px;font-family:'DM Sans',sans-serif;font-weight:600;background:linear-gradient(135deg,var(--indigo),var(--violet));border:none;border-radius:var(--radius-sm);cursor:pointer;color:white;letter-spacing:.02em;}
+.link-btn{background:none;border:none;color:var(--text3);font-size:13px;cursor:pointer;text-decoration:underline;display:block;margin:1.5rem auto 0;text-align:center;font-family:'DM Sans',sans-serif;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+.anim{animation:fadeUp .22s ease both;}
 </style>
 </head>
 <body>
+<div class="orb"></div><div class="orb2"></div>
 <div class="wrap">
-  <div id="vload" style="padding:3rem 0;text-align:center;color:var(--text2);font-size:15px;">Loading your plan...</div>
-
-  <div id="vsetup" style="display:none;padding-top:20px;">
+  <div id="vload" style="padding:4rem 0;text-align:center;color:var(--text3);font-size:15px;">Loading...</div>
+  <div id="vsetup" class="setup-wrap" style="display:none;">
     <div class="setup-card">
-      <h2>5-month movement plan</h2>
-      <p>Set your start date to anchor your 12-week schedule. May 4th is already filled in.</p>
+      <div class="setup-eyebrow">5-month program</div>
+      <h2>Movement Plan</h2>
+      <p>Set your start date to anchor your 20-week schedule. May 4th is already in.</p>
       <input type="date" id="sinp" class="date-inp" value="2026-05-04"/>
-      <button class="pri-btn" onclick="setupPlan()">Begin plan</button>
+      <button class="pri-btn" onclick="setupPlan()">Begin plan →</button>
     </div>
   </div>
-
   <div id="vmain" style="display:none;">
-    <div class="hdr">
-      <div class="hdr-left">
+    <div class="app-header">
+      <div>
+        <div class="app-title">Movement Plan</div>
         <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
           <span id="pbadge" class="ph-badge ph-1">Phase 1</span>
-          <span id="wlabel" style="font-size:13px;color:var(--text2);">Week 1 of 20</span>
+          <span id="wlabel" style="font-size:12px;color:var(--text3);">Week 1 of 20</span>
           <span id="tbadge" class="type-badge"></span>
         </div>
-        <div id="pname" class="phase-name"></div>
         <div id="ddisp" class="date-display"></div>
+        <div id="pname" class="phase-name"></div>
       </div>
       <div id="sind" class="sind"></div>
     </div>
     <div class="pip-row" id="pips"></div>
-
     <div style="display:flex;align-items:center;justify-content:space-between;">
       <div class="tab-row">
         <button class="tab on" onclick="switchView('today',this)">Today</button>
         <button class="tab" onclick="switchView('week',this)">This week</button>
       </div>
     </div>
-
     <div id="vtoday">
       <div class="nav-row">
         <button onclick="changeDay(-1)">← Prev</button>
@@ -156,74 +142,60 @@
         <button onclick="changeDay(1)">Next →</button>
       </div>
       <div class="prog-wrap"><div class="prog-fill" id="pfill" style="width:0%"></div></div>
-      <div style="font-size:13px;color:var(--text2);" id="plabel"></div>
-      <div class="slbl">Daily non-negotiable — every day</div>
+      <div class="prog-lbl" id="plabel"></div>
+      <div class="slbl">Daily non-negotiable</div>
       <div id="bwrap"></div>
       <div class="slbl" id="plbl">Today's practice</div>
       <div id="awrap"></div>
-      <button class="link-btn" onclick="showSetup()">Change plan start date</button>
+      <button class="link-btn" onclick="showSetup()">Change start date</button>
     </div>
-
     <div id="vweek" style="display:none;">
       <div class="week-grid" id="wgrid"></div>
-      <button class="link-btn" onclick="showSetup()">Change plan start date</button>
+      <button class="link-btn" onclick="showSetup()">Change start date</button>
     </div>
   </div>
 </div>
-
 <script>
 const MTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
 const PNAMES=['Foundation','Build','Strengthen','Peak & Integrate'];
 const TOTAL=20;
 let SD=null,VD=new Date(),DD={completed:{}},saveTimer=null,curView='today';
 VD.setHours(0,0,0,0);
-
 const dk=d=>d.toISOString().split('T')[0];
 const dic=d=>{const x=Math.floor((d-SD)/86400000);return x<0?-1:(x%7)+1;};
 const wn=d=>{const x=Math.floor((d-SD)/86400000);return x<0?0:Math.floor(x/7)+1;};
 const gph=w=>w<=5?1:w<=10?2:w<=15?3:4;
 const wy=(item,ph)=>ph>=4?'':ph===3?(item.wb||''):ph===2?(item.wb||item.w||''):(item.w||'');
-
 function sched(dn,ph){
-  const d2=['20–25','30–35','35–40','40–45'][ph-1];
-  const d4=['30–35','35–40','40–45','45–50'][ph-1];
-  const plk=['30 sec','45 sec','60 sec','75 sec'][ph-1];
-  const yd=['30–40','40','45–50','50–60'][ph-1];
-  const cd=['30','35','40','45'][ph-1];
-  const br={id:'bg',text:'10 min breathing practice',
-    w:'Your foundational stress-response tool. Daily practice retrains the autonomic nervous system toward parasympathetic dominance — the state where recovery and calm live.',
-    wb:'Daily nervous system reset. Consistency here compounds over months.',
-    kids:[
-      {id:'b1',text:'2 min nasal-only breathing',w:'Nasal breathing produces nitric oxide, improving oxygen delivery, and trains you away from the over-breathing pattern that worsens altitude response.',wb:'Trains oxygen efficiency. Core to altitude prep.'},
-      {id:'b2',text:'4 min box breathing — 4·4·4·4',w:'Your brain triggers breathing urges from CO₂ buildup, not low oxygen. Box breathing builds CO₂ tolerance so your body stays calm at altitude instead of panicking.',wb:'CO₂ tolerance training — the core mechanism of altitude adaptation.'},
-      {id:'b3',text:'4 min extended exhale — 4 in · 8 out',w:'Doubling the exhale activates the vagus nerve and triggers parasympathetic state. The fastest non-pharmaceutical way to lower cortisol and heart rate.',wb:'Vagus nerve activation. Fastest cortisol reduction available.'},
-    ]};
+  const d2=['20–25','30–35','35–40','40–45'][ph-1],d4=['30–35','35–40','40–45','45–50'][ph-1],plk=['30 sec','45 sec','60 sec','75 sec'][ph-1],yd=['30–40','40','45–50','50–60'][ph-1],cd=['30','35','40','45'][ph-1];
+  const br={id:'bg',text:'10 min breathing practice',w:'Your foundational stress-response tool. Daily practice retrains the autonomic nervous system toward parasympathetic dominance — the state where recovery and calm live.',wb:'Daily nervous system reset. Consistency here compounds over months.',kids:[
+    {id:'b1',text:'2 min nasal-only breathing',w:'Nasal breathing produces nitric oxide, improving oxygen delivery, and trains you away from the over-breathing pattern that worsens altitude response.',wb:'Trains oxygen efficiency. Core to altitude prep.'},
+    {id:'b2',text:'4 min box breathing — 4·4·4·4',w:'Your brain triggers breathing urges from CO₂ buildup, not low oxygen. Box breathing builds CO₂ tolerance so your body stays calm at altitude instead of panicking.',wb:'CO₂ tolerance training — core mechanism of altitude adaptation.'},
+    {id:'b3',text:'4 min extended exhale — 4 in · 8 out',w:'Doubling the exhale activates the vagus nerve and triggers parasympathetic state. The fastest non-pharmaceutical way to lower cortisol and heart rate.',wb:'Vagus nerve activation. Fastest cortisol reduction available.'},
+  ]};
   const D={
-    1:{l:'Yoga + Breathwork',bg:'#E1F5EE',fg:'#085041',groups:[
+    1:{l:'Yoga + Breathwork',tc:'badge-yoga',groups:[
       {id:'g1',text:`${yd} min vinyasa yoga`,w:'Movement vocabulary building. Low-stakes repetition is how the nervous system encodes new patterns — this phase is about showing up consistently, not intensity.',wb:'Building movement patterns. Quality over pace.',kids:[
         {id:'g1a',text:'Chest opening — fish, camel, cobra',w:'Swimming overdevelops the pec minor and anterior deltoid, pulling shoulders forward. These poses systematically lengthen the anterior chain — the structural root of swimmer\'s posture.',wb:'Lengthens the anterior chain overloaded by swimming.'},
-        {id:'g1b',text:'Shoulder mobility — thread-the-needle, doorframe',w:'Swimmers chronically overdevelop internal shoulder rotation. These moves restore external rotation, rebalance the joint, and let shoulders sit back where they belong.',wb:'Restores shoulder rotation balance from swim-pattern dominance.'},
+        {id:'g1b',text:'Shoulder mobility — thread-the-needle, doorframe stretch',w:'Swimmers chronically overdevelop internal shoulder rotation. These moves restore external rotation and let shoulders sit back where they belong.',wb:'Restores shoulder rotation balance from swim-pattern dominance.'},
         ...(ph>=3?[{id:'g1c',text:'Peak pose attempt — warrior III, half moon',w:'Tests integration of the mobility and strength built so far.',wb:'Integration checkpoint.'}]:[]),
         ...(ph>=4?[{id:'g1d',text:'5 min yoga nidra to close',w:'Trains the brain to stay conscious while the body fully relaxes — deepens stress adaptation at the neurological level.',wb:''}]:[]),
       ]},
-      {id:'g2',text:'10 min pranayama',w:'Pranayama is where yoga and altitude prep directly overlap. Controlled breathwork builds respiratory muscle endurance and reinforces your daily practice.',wb:'Respiratory training that compounds with daily breathwork.',kids:[
+      {id:'g2',text:'10 min pranayama',w:'Where yoga and altitude prep directly overlap. Controlled breathwork builds respiratory muscle endurance and reinforces your daily practice.',wb:'Respiratory training that compounds with daily breathwork.',kids:[
         {id:'g2a',text:ph<=2?'Ujjayi breath (ocean breath)':'Kapalabhati or alternate nostril breathing',w:ph<=2?'Ujjayi creates mild airway resistance that strengthens the diaphragm and slows each breath cycle.':'Kapalabhati trains the diaphragm with rapid forceful exhales. Alternate nostril balances nervous system activation.',wb:'Diaphragm strength and respiratory control.'},
       ]},
     ]},
-    2:{l:'Gym: Posture + Cardio',bg:'#E6F1FB',fg:'#0C447C',groups:[
+    2:{l:'Gym: Posture + Cardio',tc:'badge-gym',groups:[
       {id:'p1',text:'Posture correction circuit',w:'Yoga opens what\'s tight, but swimmer\'s posture also requires strengthening what\'s weak — the muscles that retract and stabilize the shoulder blades.',wb:'Strengthens the posterior chain that holds posture corrections in place.',kids:[
-        {id:'p1a',text:'Band pull-aparts — 3 × 15, palms down',w:'Trains rear deltoids and rhomboids — the muscles most opposed to your overdeveloped chest. Arms straight, full squeeze at end range.',wb:'Rear delt and rhomboid activation.'},
+        {id:'p1a',text:'Band pull-aparts — 3 × 15, palms down',w:'Trains rear deltoids and rhomboids — the muscles most opposed to your overdeveloped chest. Full squeeze at end range.',wb:'Rear delt and rhomboid activation.'},
         {id:'p1b',text:'Wall angels — 3 × 10, slow',w:'Teaches correct scapular movement with real-time feedback. The wall tells you instantly if your lumbar or neck is cheating.',wb:'Scapular mobility with built-in postural feedback.'},
-        ...(ph>=2?[
-          {id:'p1c',text:'Cable rows — 3 × 12, elbows tucked',w:'Adds resistance to scapular retraction. Feel the full retraction at end range, then control the return.',wb:'Loaded scapular retraction — primary upper-back strength.'},
-          {id:'p1d',text:'Face pulls — 3 × 15, cable at forehead',w:'Trains shoulder external rotation — the exact movement swimmers systematically underdevelop.',wb:'Shoulder external rotation. Corrects swimmer\'s dominance pattern.'},
-        ]:[]),
-        ...(ph>=3?[{id:'p1e',text:'Single-arm dumbbell row — 3 × 10 each',w:'Unilateral loading surfaces side-to-side imbalances common in swimmers who favor a dominant side.',wb:'Corrects dominant-side imbalances from swim pattern.'}]:[]),
+        ...(ph>=2?[{id:'p1c',text:'Cable rows — 3 × 12, elbows tucked',w:'Adds resistance to scapular retraction. Feel the full retraction at end range, then control the return.',wb:'Loaded scapular retraction — primary upper-back strength.'},{id:'p1d',text:'Face pulls — 3 × 15, cable at forehead',w:'Trains shoulder external rotation — the exact movement swimmers systematically underdevelop.',wb:'Shoulder external rotation. Corrects swimmer\'s dominance pattern.'}]:[]),
+        ...(ph>=3?[{id:'p1e',text:'Single-arm dumbbell row — 3 × 10 each',w:'Surfaces side-to-side imbalances common in swimmers who favor a dominant side.',wb:'Corrects dominant-side imbalances.'}]:[]),
         ...(ph>=4?[{id:'p1f',text:'Prone Y-T-W raises — 2 × 10 each shape',w:'Isolates lower trapezius and serratus anterior — deep postural stabilizers rarely trained conventionally.',wb:'Deep postural stabilizers — lower trap and serratus.'}]:[]),
       ]},
       {id:'p2',text:`Zone 2 cardio — ${d2} min`,w:'Zone 2 builds mitochondrial density in slow-twitch fibers — the aerobic foundation that determines how efficiently your body uses oxygen. Primary mechanism of altitude adaptation.',wb:'Mitochondrial density training. Core altitude adaptation mechanism.',kids:[]},
     ]},
-    3:{l:'Yin Yoga',bg:'#EEEDFE',fg:'#3C3489',groups:[
+    3:{l:'Yin Yoga',tc:'badge-yin',groups:[
       {id:'y1',text:ph>=3?'55–70 min yin yoga':'45–60 min yin yoga',w:'Yin targets connective tissue — fascia, ligaments, joint capsules — through long passive holds. Yin remodels the deeper structures that restrict your range of motion.',wb:'Remodels connective tissue and joint capsules. Deeper than stretching.',kids:[
         {id:'y1a',text:'Dragon pose — 3–5 min each side',w:'The deepest hip flexor opener in yoga. Your iliopsoas is chronically shortened from swimming\'s kick pattern and prolonged sitting.',wb:'Targets iliopsoas — your most restricted swim-pattern muscle.'},
         {id:'y1b',text:'Sphinx or seal — 3–5 min',w:'Passive thoracic extension directly reverses the forward flexion of swimmer\'s posture.',wb:'Passive thoracic extension. Reverses forward flexion structurally.'},
@@ -232,22 +204,22 @@ function sched(dn,ph){
         ...(ph>=4?[{id:'y1e',text:'10 min yoga nidra or body scan',w:'Advanced nervous system training.',wb:''}]:[]),
       ]},
     ]},
-    4:{l:'Gym: Cardio Focus',bg:'#E6F1FB',fg:'#0C447C',groups:[
+    4:{l:'Gym: Cardio Focus',tc:'badge-gym',groups:[
       {id:'c1',text:`Zone 2 cardio — ${d4} min`,w:'Your primary altitude prep session. Sustained aerobic work forces cardiovascular adaptations — more mitochondria, more capillaries, better oxygen delivery.',wb:'Primary cardiovascular adaptation. Sustained aerobic volume drives altitude fitness.',kids:[]},
       {id:'c2',text:'Altitude & breath training',w:'Structured breathwork during or after cardio compounds adaptation — training both cardiovascular and respiratory systems simultaneously.',wb:'Compounds cardio gains with respiratory adaptation.',kids:[
-        {id:'c2a',text:'Log your BOLT score',w:'Exhale normally, pinch nose, time until the first distinct urge to breathe. Higher BOLT = better CO₂ tolerance = easier altitude adjustment.',wb:'BOLT measures CO₂ tolerance — your altitude readiness marker.'},
+        {id:'c2a',text:'Log your BOLT score',w:'Exhale normally, pinch nose, time until first urge to breathe. Higher BOLT = better CO₂ tolerance = easier altitude adjustment.',wb:'BOLT measures CO₂ tolerance — your altitude readiness marker.'},
         ...(ph>=2?[{id:'c2b',text:'Nasal-only breathing throughout cardio',w:'Forces slower, more efficient mechanics and creates mild CO₂ accumulation that drives tolerance up.',wb:'Trains breathing efficiency under mild CO₂ load.'}]:[]),
         ...(ph>=3?[{id:'c2c',text:'Breath hold intervals — 4 rounds',w:'Exhale, hold, pedal easy until first urge, rest 2 min, repeat. Mimics altitude hypoxia and triggers red blood cell adaptation.',wb:'Simulates altitude hypoxia. Triggers RBC adaptation.'}]:[]),
         ...(ph>=4?[{id:'c2d',text:'CO₂ tolerance set — 6 rounds',w:'Exhale fully, hold, walk slowly, time each round. Progressive overload for your respiratory system.',wb:'Progressive CO₂ overload.'}]:[]),
       ]},
     ]},
-    5:{l:'Yoga + Core',bg:'#E1F5EE',fg:'#085041',groups:[
+    5:{l:'Yoga + Core',tc:'badge-yoga',groups:[
       {id:'v1',text:`${cd} min vinyasa yoga`,w:'Flow practice tests how mobility work is integrating into full movement — expressing what you\'ve built.',wb:'Integration — mobility meeting full-body movement.',kids:[]},
       {id:'v2',text:'Core circuit',w:'Swimmer\'s core is strong in flexion but weak in anti-rotation and extension. These train the functional core that holds posture upright all day.',wb:'Anti-rotation and extension core — functional, not cosmetic.',kids:[
         {id:'v2a',text:'Dead bugs — 3 × 10 each side, back flat',w:'Trains deep core stability while opposite limbs move — mimics the coordination demands of swimming and standing posture.',wb:'Deep core with limb dissociation. Foundation of everything else.'},
         {id:'v2b',text:'Bird dogs — 3 × 10 each side, 2 sec hold',w:'Anti-rotation stability. Hips must stay level as opposite arm and leg extend.',wb:'Anti-rotation spinal stability.'},
-        {id:'v2c',text:`Plank holds — 3 × ${plk}, breathe throughout`,w:'Trains the full chain to maintain neutral spine under sustained load. Breathe through it — don\'t hold.',wb:'Sustained spinal neutrality. Breathe — don\'t hold.'},
-        ...(ph>=2?[{id:'v2d',text:'Hollow body hold — 3 × 20 sec',w:'Gymnastic core foundation — lower back to floor, everything lifted. Transfers directly into arm balances and inversions.',wb:'Gymnastic core foundation. Transfers to arm balances.'}]:[]),
+        {id:'v2c',text:`Plank holds — 3 × ${plk}, breathe throughout`,w:'Trains the full chain to maintain neutral spine under sustained load. Breathe — don\'t hold.',wb:'Sustained spinal neutrality. Breathe — don\'t hold.'},
+        ...(ph>=2?[{id:'v2d',text:'Hollow body hold — 3 × 20 sec',w:'Gymnastic core foundation — lower back to floor, everything lifted. Transfers directly into arm balances.',wb:'Gymnastic core foundation. Transfers to arm balances.'}]:[]),
         ...(ph>=3?[{id:'v2e',text:'Hanging knee raises — 3 × 10, no swing',w:'Shoulder girdle stability plus hip flexor end-range strength. The hang also decompresses the spine.',wb:'Shoulder stability + hip flexor end-range strength.'}]:[]),
         ...(ph>=4?[{id:'v2f',text:'L-sit progression — 3 × max hold',w:'Triceps, hip flexors, core, and shoulder depression firing simultaneously.',wb:'Full-body isometric integration.'}]:[]),
       ]},
@@ -255,93 +227,52 @@ function sched(dn,ph){
   };
   return{br,day:D[dn]||null};
 }
-
-function allIds(sc){
-  const ids=[];
-  const col=g=>{ids.push(g.id);(g.kids||[]).forEach(k=>ids.push(k.id));};
-  col(sc.br);(sc.day?.groups||[]).forEach(col);
-  return ids;
+function allIds(sc){const ids=[];const col=g=>{ids.push(g.id);(g.kids||[]).forEach(k=>ids.push(k.id));};col(sc.br);(sc.day?.groups||[]).forEach(col);return ids;}
+function renderGrp(g,ph,accentBorder){
+  const chk=!!DD.completed[g.id],why=wy(g,ph),hasKids=g.kids&&g.kids.length>0;
+  let h=`<div class="group-wrap" ${accentBorder?`style="border-color:${accentBorder};"`:''}>`
+    +`<div class="act-row"><div class="cb${chk?' on':''}" data-id="${g.id}"></div><div style="flex:1;"><div class="act-label${chk?' done':''}" id="lbl${g.id}">${g.text}</div>${why?`<div class="act-why">${why}</div>`:''}</div></div>`;
+  if(hasKids){h+=`<div class="kids">`;g.kids.forEach(k=>{const kc=!!DD.completed[k.id],kw=wy(k,ph);h+=`<div class="kid-row"><div class="cb${kc?' on':''}" data-id="${k.id}"></div><div style="flex:1;"><div class="kid-label${kc?' done':''}" id="lbl${k.id}">${k.text}</div>${kw?`<div class="kid-why">${kw}</div>`:''}</div></div>`;});h+=`</div>`;}
+  h+=`</div>`;return h;
 }
-
-function renderGrp(g,ph){
-  const chk=!!DD.completed[g.id];
-  const why=wy(g,ph);
-  const hasKids=g.kids&&g.kids.length>0;
-  let h=`<div class="act-row"><div class="cb${chk?' on':''}" data-id="${g.id}"></div><div style="flex:1;"><div class="act-label${chk?' done':''}" id="lbl${g.id}">${g.text}</div>${why?`<div class="act-why">${why}</div>`:''}</div></div>`;
-  if(hasKids){
-    h+=`<div class="kids">`;
-    g.kids.forEach(k=>{
-      const kc=!!DD.completed[k.id];const kw=wy(k,ph);
-      h+=`<div class="kid-row"><div class="cb${kc?' on':''}" data-id="${k.id}"></div><div style="flex:1;"><div class="kid-label${kc?' done':''}" id="lbl${k.id}">${k.text}</div>${kw?`<div class="kid-why">${kw}</div>`:''}</div></div>`;
-    });
-    h+=`</div>`;
-  }
-  return h;
-}
-
-function bindCbs(el){
-  el.querySelectorAll('.cb').forEach(b=>b.addEventListener('click',function(){doToggle(this.dataset.id);}));
-}
-
+function bindCbs(el){el.querySelectorAll('.cb').forEach(b=>b.addEventListener('click',function(){doToggle(this.dataset.id);}));}
 function doToggle(id){
-  DD.completed[id]=!DD.completed[id];
-  const chk=DD.completed[id];
+  DD.completed[id]=!DD.completed[id];const chk=DD.completed[id];
   document.querySelectorAll(`[data-id="${id}"]`).forEach(el=>el.classList.toggle('on',chk));
   const lbl=document.getElementById('lbl'+id);
-  if(lbl){const isKid=lbl.classList.contains('kid-label');lbl.className=(isKid?'kid-label':'act-label')+(chk?' done':'');}
-  const w=wn(VD);const dn=dic(VD);if(dn>0)updateProgress(sched(dn,gph(w)),w,dn);
+  if(lbl){lbl.className=(lbl.classList.contains('kid-label')?'kid-label':'act-label')+(chk?' done':'');}
+  const w=wn(VD),dn=dic(VD);if(dn>0)updateProgress(sched(dn,gph(w)));
   triggerAutoSave();
 }
-
 function triggerAutoSave(){
   clearTimeout(saveTimer);
-  const ind=document.getElementById('sind');ind.textContent='Saving...';ind.style.color='var(--text2)';
+  const ind=document.getElementById('sind');ind.textContent='Saving...';ind.style.color='var(--text3)';
   saveTimer=setTimeout(()=>{
-    try{
-      localStorage.setItem('mpday_'+dk(VD),JSON.stringify(DD));
-      ind.textContent='Saved';ind.style.color='var(--green)';
-      setTimeout(()=>{if(ind.textContent==='Saved')ind.textContent='';},2000);
-    }catch(e){ind.textContent='Save error';ind.style.color='red';}
+    try{localStorage.setItem('mpday_'+dk(VD),JSON.stringify(DD));ind.textContent='Saved ✓';ind.style.color='var(--green)';setTimeout(()=>{if(ind.textContent.startsWith('Saved'))ind.textContent='';},2000);}
+    catch(e){ind.textContent='Error';ind.style.color='var(--coral)';}
   },500);
 }
-
-function updateProgress(sc,week,dn){
-  const ids=allIds(sc);const tot=ids.length;const done=ids.filter(i=>DD.completed[i]).length;
-  document.getElementById('pfill').style.width=(tot>0?Math.round((done/tot)*100):0)+'%';
-  document.getElementById('plabel').textContent=`${done} of ${tot} complete`;
-}
-
+function updateProgress(sc){const ids=allIds(sc),tot=ids.length,done=ids.filter(i=>DD.completed[i]).length;document.getElementById('pfill').style.width=(tot>0?Math.round((done/tot)*100):0)+'%';document.getElementById('plabel').textContent=`${done} of ${tot} complete`;}
 function init(){
   VD=new Date();VD.setHours(0,0,0,0);
   const saved=localStorage.getItem('plan_start_date');
-  if(saved){SD=new Date(saved);SD.setHours(0,0,0,0);showMain();}
-  else showSetup();
+  if(saved){SD=new Date(saved);SD.setHours(0,0,0,0);showMain();}else showSetup();
   document.getElementById('vload').style.display='none';
 }
-
 function showSetup(){document.getElementById('vsetup').style.display='block';document.getElementById('vmain').style.display='none';}
 function showMain(){document.getElementById('vsetup').style.display='none';document.getElementById('vmain').style.display='block';renderDay();}
-
-function setupPlan(){
-  const v=document.getElementById('sinp').value;if(!v)return;
-  SD=new Date(v);SD.setHours(0,0,0,0);
-  localStorage.setItem('plan_start_date',v);
-  VD=new Date();VD.setHours(0,0,0,0);showMain();
-}
-
+function setupPlan(){const v=document.getElementById('sinp').value;if(!v)return;SD=new Date(v);SD.setHours(0,0,0,0);localStorage.setItem('plan_start_date',v);VD=new Date();VD.setHours(0,0,0,0);showMain();}
 function renderDay(){
-  const week=wn(VD);const ph=gph(week);const dn=dic(VD);
-  DD={completed:{}};
-  const saved=localStorage.getItem('mpday_'+dk(VD));
-  if(saved){try{DD=JSON.parse(saved);}catch(e){}}
+  const week=wn(VD),ph=gph(week),dn=dic(VD);
+  DD={completed:{}};const saved=localStorage.getItem('mpday_'+dk(VD));if(saved){try{DD=JSON.parse(saved);}catch(e){}}
   document.getElementById('sind').textContent='';
-  document.getElementById('ddisp').textContent=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'][VD.getDay()]+', '+MTHS[VD.getMonth()]+' '+VD.getDate();
+  const dayNames=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  document.getElementById('ddisp').textContent=dayNames[VD.getDay()]+', '+MTHS[VD.getMonth()]+' '+VD.getDate();
   if(dn===-1||week>TOTAL){
-    document.getElementById('pbadge').textContent='';
-    document.getElementById('wlabel').textContent=week<1?'Before plan start':'Plan complete!';
+    document.getElementById('pbadge').textContent='';document.getElementById('wlabel').textContent=week<1?'Before plan start':'Plan complete!';
     document.getElementById('pname').textContent='';document.getElementById('tbadge').textContent='';
     document.getElementById('pips').innerHTML='';document.getElementById('bwrap').innerHTML='';
-    document.getElementById('awrap').innerHTML=`<p style="font-size:15px;color:var(--text2);padding:1rem 0;">${week<1?'Navigate forward to your start date.':'5 months complete. The work is now who you are.'}</p>`;
+    document.getElementById('awrap').innerHTML=`<p style="font-size:15px;color:var(--text2);padding:1.5rem 0;">${week<1?'Navigate forward to your start date.':'5 months complete. The work is now who you are.'}</p>`;
     document.getElementById('pfill').style.width='0%';document.getElementById('plabel').textContent='';
     if(curView==='week')renderWeek(ph,dn);return;
   }
@@ -352,45 +283,35 @@ function renderDay(){
   for(let i=1;i<=TOTAL;i++){const p=document.createElement('div');p.className='pip'+(i<week?' done':i===week?' now':'');pips.appendChild(p);}
   const sc=sched(dn,ph);
   const tb=document.getElementById('tbadge');
-  if(sc.day){tb.textContent=sc.day.l;tb.style.background=sc.day.bg;tb.style.color=sc.day.fg;}
-  else{tb.textContent='Rest';tb.style.background='var(--bg2)';tb.style.color='var(--text2)';}
-  const bwrap=document.getElementById('bwrap');bwrap.innerHTML=renderGrp(sc.br,ph);bindCbs(bwrap);
+  if(sc.day){tb.textContent=sc.day.l;tb.className='type-badge '+sc.day.tc;}else{tb.textContent='Rest';tb.className='type-badge badge-rest';}
+  const bwrap=document.getElementById('bwrap');bwrap.innerHTML=`<div class="anim">`+renderGrp(sc.br,ph,'rgba(99,102,241,.35)')+`</div>`;bindCbs(bwrap);
   const awrap=document.getElementById('awrap');
   if(!sc.day){
     document.getElementById('plbl').textContent='Rest day';
-    awrap.innerHTML=`<div class="rest-card"><div class="rest-title">Active recovery</div><div class="rest-sub">A 20–30 min walk is all you need. Adaptation happens during rest, not training.</div></div>`;
+    awrap.innerHTML=`<div class="rest-card anim"><div class="rest-icon">🌙</div><div class="rest-title">Active Recovery</div><div class="rest-sub">A 20–30 min walk is all you need.<br/>Adaptation happens during rest, not training.</div></div>`;
   }else{
     document.getElementById('plbl').textContent=sc.day.l;
-    awrap.innerHTML=sc.day.groups.map(g=>renderGrp(g,ph)).join('');bindCbs(awrap);
+    awrap.innerHTML=`<div class="anim">`+sc.day.groups.map(g=>renderGrp(g,ph)).join('')+`</div>`;bindCbs(awrap);
   }
-  updateProgress(sc,week,dn);
-  if(curView==='week')renderWeek(ph,dn);
+  updateProgress(sc);if(curView==='week')renderWeek(ph,dn);
 }
-
 function renderWeek(ph,todayDn){
-  const summaries=[
-    {dn:1,l:'Yoga + Breathwork',bg:'#E1F5EE',fg:'#085041',acts:[`<strong>Vinyasa yoga</strong> — ${['30–40','40','45–50','50–60'][ph-1]} min`,'<strong>Chest opening</strong> — fish, camel, cobra','<strong>Shoulder mobility</strong> — external rotation focus',`<strong>Pranayama</strong> — ${ph<=2?'ujjayi breath':'kapalabhati or alternate nostril'}`]},
-    {dn:2,l:'Gym: Posture + Cardio',bg:'#E6F1FB',fg:'#0C447C',acts:[ph>=2?'<strong>Posture circuit</strong> — bands, wall angels, cable rows, face pulls':'<strong>Posture circuit</strong> — band pull-aparts and wall angels',...(ph>=3?['<strong>Single-arm rows</strong> — corrects side imbalances']:[]),`<strong>Zone 2 cardio</strong> — ${['20–25','30–35','35–40','40–45'][ph-1]} min`]},
-    {dn:3,l:'Yin Yoga',bg:'#EEEDFE',fg:'#3C3489',acts:[`<strong>Yin session</strong> — ${ph>=3?'55–70':'45–60'} min`,'<strong>Dragon pose</strong> — hip flexors','<strong>Sphinx or seal</strong> — thoracic extension','<strong>Sleeping swan</strong> — hip capsule',...(ph>=3?['<strong>Pranayama close</strong>']:[])]},
-    {dn:4,l:'Gym: Cardio Focus',bg:'#E6F1FB',fg:'#0C447C',acts:[`<strong>Zone 2 cardio</strong> — ${['30–35','35–40','40–45','45–50'][ph-1]} min`,'<strong>BOLT score</strong> — log weekly',...(ph>=2?['<strong>Nasal-only breathing</strong> — full session']:[]),...(ph>=3?['<strong>Breath hold intervals</strong> — 4 rounds']:[]),...(ph>=4?['<strong>CO₂ tolerance set</strong> — 6 rounds']:[])]},
-    {dn:5,l:'Yoga + Core',bg:'#E1F5EE',fg:'#085041',acts:[`<strong>Vinyasa yoga</strong> — ${['30','35','40','45'][ph-1]} min`,'<strong>Dead bugs + bird dogs</strong> — anti-rotation core',`<strong>Plank holds</strong> — ${['30','45','60','75'][ph-1]} sec`,...(ph>=2?['<strong>Hollow body hold</strong>']:[]),...(ph>=3?['<strong>Hanging knee raises</strong>']:[])]},
+  const S=[
+    {dn:1,l:'Yoga + Breathwork',tc:'badge-yoga',acts:[`<strong>Vinyasa yoga</strong> — ${['30–40','40','45–50','50–60'][ph-1]} min`,'<strong>Chest opening</strong> — fish, camel, cobra','<strong>Shoulder mobility</strong> — external rotation',`<strong>Pranayama</strong> — ${ph<=2?'ujjayi':'kapalabhati / alternate nostril'}`]},
+    {dn:2,l:'Gym: Posture + Cardio',tc:'badge-gym',acts:[ph>=2?'<strong>Posture circuit</strong> — bands, wall angels, rows, face pulls':'<strong>Posture circuit</strong> — pull-aparts, wall angels',...(ph>=3?['<strong>Single-arm rows</strong>']:[]),`<strong>Zone 2 cardio</strong> — ${['20–25','30–35','35–40','40–45'][ph-1]} min`]},
+    {dn:3,l:'Yin Yoga',tc:'badge-yin',acts:[`<strong>Yin session</strong> — ${ph>=3?'55–70':'45–60'} min`,'<strong>Dragon pose</strong> — hip flexors','<strong>Sphinx or seal</strong> — thoracic extension','<strong>Sleeping swan</strong> — hip capsule',...(ph>=3?['<strong>Pranayama close</strong>']:[])]},
+    {dn:4,l:'Gym: Cardio Focus',tc:'badge-gym',acts:[`<strong>Zone 2 cardio</strong> — ${['30–35','35–40','40–45','45–50'][ph-1]} min`,'<strong>BOLT score</strong> — log weekly',...(ph>=2?['<strong>Nasal-only</strong> — full session']:[]),...(ph>=3?['<strong>Breath holds</strong> — 4 rounds']:[]),...(ph>=4?['<strong>CO₂ set</strong> — 6 rounds']:[])]},
+    {dn:5,l:'Yoga + Core',tc:'badge-yoga',acts:[`<strong>Vinyasa</strong> — ${['30','35','40','45'][ph-1]} min`,'<strong>Dead bugs + bird dogs</strong>',`<strong>Planks</strong> — ${['30','45','60','75'][ph-1]} sec`,...(ph>=2?['<strong>Hollow body hold</strong>']:[]),...(ph>=3?['<strong>Hanging knee raises</strong>']:[])]},
     {dn:6,rest:true},{dn:7,rest:true},
   ];
-  const dayNames=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
-  document.getElementById('wgrid').innerHTML=summaries.map((s,i)=>{
-    const isToday=s.dn===todayDn;
-    if(s.rest)return`<div class="week-card${isToday?' today':''}"><div class="wc-head"><span class="wc-day">${dayNames[i]}</span><span class="type-badge" style="background:var(--bg2);color:var(--text2);">Rest</span></div><div class="wc-rest">Active recovery — walk 20–30 min</div></div>`;
-    return`<div class="week-card${isToday?' today':''}"><div class="wc-head"><span class="wc-day">${dayNames[i]}</span><span class="type-badge" style="background:${s.bg};color:${s.fg};">${s.l}</span></div><ul class="wc-acts">${s.acts.map(a=>`<li>${a}</li>`).join('')}</ul></div>`;
+  const DN=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+  document.getElementById('wgrid').innerHTML=S.map((s,i)=>{
+    const iT=s.dn===todayDn;
+    if(s.rest)return`<div class="week-card${iT?' today':''}"><div class="wc-head"><span class="wc-day">${DN[i]}</span>${iT?'<div class="today-dot"></div>':''}<span class="type-badge badge-rest" style="font-size:11px;">Rest</span></div><div class="wc-rest">Active recovery — walk 20–30 min</div></div>`;
+    return`<div class="week-card${iT?' today':''}"><div class="wc-head"><span class="wc-day">${DN[i]}</span>${iT?'<div class="today-dot"></div>':''}<span class="type-badge ${s.tc}" style="font-size:11px;">${s.l}</span></div><ul class="wc-acts">${s.acts.map(a=>`<li>${a}</li>`).join('')}</ul></div>`;
   }).join('');
 }
-
-function switchView(v,btn){
-  curView=v;
-  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));btn.classList.add('on');
-  document.getElementById('vtoday').style.display=v==='today'?'block':'none';
-  document.getElementById('vweek').style.display=v==='week'?'block':'none';
-  if(v==='week'){const w=wn(VD);renderWeek(gph(w),dic(VD));}
-}
+function switchView(v,btn){curView=v;document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));btn.classList.add('on');document.getElementById('vtoday').style.display=v==='today'?'block':'none';document.getElementById('vweek').style.display=v==='week'?'block':'none';if(v==='week'){const w=wn(VD);renderWeek(gph(w),dic(VD));}}
 function changeDay(d){const x=new Date(VD);x.setDate(x.getDate()+d);VD=x;renderDay();}
 function goToday(){VD=new Date();VD.setHours(0,0,0,0);renderDay();}
 init();
