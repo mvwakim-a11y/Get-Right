@@ -303,10 +303,7 @@ svg.ring-svg{display:block;margin:0 auto;}
 .breath-display{font-family:'DM Serif Display',serif;font-size:40px;color:var(--indigo-light);text-align:center;margin:4px 0;}
 .breath-bar-wrap{height:4px;background:var(--bg4);border-radius:2px;overflow:hidden;margin-bottom:10px;}
 .breath-bar-fill{height:100%;background:linear-gradient(90deg,var(--indigo),var(--violet));border-radius:2px;transition:width .5s linear;}
-.breath-start-btn{width:100%;padding:10px;font-size:14px;font-family:'DM Sans',sans-serif;font-weight:600;border:none;border-radius:var(--radius-sm);cursor:pointer;}
-.breath-start-btn.go{background:linear-gradient(135deg,var(--indigo),var(--violet));color:white;}
-.breath-start-btn.pause{background:var(--bg4);color:var(--text2);}
-.breath-start-btn.done{background:var(--green-dim);color:var(--green);border:1px solid rgba(52,211,153,.3);}
+
 
 
 /* ── MEAL PIPS ── */
@@ -603,6 +600,36 @@ svg.ring-svg{display:block;margin:0 auto;}
 .hab-nav button:hover{background:var(--bg3);color:var(--text);}
 .hab-nav .htbtn{flex:0;padding:9px 16px;color:var(--indigo-light);border-color:rgba(99,102,241,.3);}
 .past-day-banner{background:rgba(99,102,241,.07);border:1px solid rgba(99,102,241,.15);border-radius:var(--radius-sm);padding:8px 14px;font-size:12px;color:var(--indigo-light);text-align:center;margin-bottom:12px;display:none;}
+
+/* ── REFINED TIMER BUTTONS ── */
+.timer-btn-row{display:flex;gap:6px;padding:8px 14px 14px;}
+.timer-btn{flex:1;padding:11px;font-size:13px;font-family:'DM Sans',sans-serif;font-weight:600;border:none;border-radius:var(--radius-sm);cursor:pointer;display:flex;align-items:center;justify-content:center;}
+.timer-btn.start{background:linear-gradient(135deg,var(--green),var(--sky));color:var(--bg);}
+.timer-btn.pause{background:var(--bg4);color:var(--text);}
+.timer-btn.next{background:linear-gradient(135deg,var(--indigo),var(--violet));color:white;}
+.timer-btn.done-btn{background:var(--green-dim);color:var(--green);border:1px solid rgba(52,211,153,.3);}
+.timer-btn-reset{padding:11px 14px;font-size:12px;font-family:'DM Sans',sans-serif;font-weight:500;background:transparent;color:var(--text3);border:1px solid var(--border);border-radius:var(--radius-sm);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.timer-btn-reset:hover{color:var(--text);border-color:var(--text3);}
+.breath-btn-row{display:flex;gap:6px;}
+.breath-start-btn{flex:1;padding:11px;font-size:14px;font-family:'DM Sans',sans-serif;font-weight:600;border:none;border-radius:var(--radius-sm);cursor:pointer;display:flex;align-items:center;justify-content:center;}
+.breath-start-btn.go{background:linear-gradient(135deg,var(--indigo),var(--violet));color:white;}
+.breath-start-btn.pause{background:var(--bg4);color:var(--text);}
+.breath-start-btn.done{background:var(--green-dim);color:var(--green);border:1px solid rgba(52,211,153,.3);}
+.breath-reset-btn{padding:11px 14px;font-size:12px;font-family:'DM Sans',sans-serif;font-weight:500;background:transparent;color:var(--text3);border:1px solid var(--border);border-radius:var(--radius-sm);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.breath-dur-btn:disabled{opacity:.3;cursor:not-allowed;}
+.int-adj:disabled{opacity:.3;cursor:not-allowed;}
+
+/* ── QUICK STATS BAR ── */
+.quick-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:0 0 14px;background:var(--bg2);border:1px solid var(--border2);border-radius:var(--radius);padding:12px;}
+.qs-cell{display:flex;flex-direction:column;gap:4px;}
+.qs-label{font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;}
+.qs-bar{height:5px;background:var(--bg4);border-radius:3px;overflow:hidden;}
+.qs-fill{height:100%;border-radius:3px;transition:width .3s;}
+.qs-val{font-size:11px;color:var(--text2);font-weight:500;}
+
+.reorder-btn{background:var(--bg3);border:1px solid var(--border2);color:var(--text3);width:24px;height:18px;font-size:9px;cursor:pointer;border-radius:3px;display:flex;align-items:center;justify-content:center;padding:0;line-height:1;}
+.reorder-btn:hover:not(:disabled){color:var(--indigo-light);}
+.reorder-btn:disabled{opacity:.25;cursor:not-allowed;}
 </style>
 </head>
 <body>
@@ -621,7 +648,7 @@ svg.ring-svg{display:block;margin:0 auto;}
       <h2 style="font-family:'DM Serif Display',serif;font-size:26px;color:var(--text);margin:0 0 8px;">Michelle's plan</h2>
       <p style="font-size:14px;color:var(--text2);margin:0 0 20px;line-height:1.7;">Set your start date to anchor the 20-week schedule. May 4th is pre-filled.</p>
       <input type="date" id="sinp" class="date-inp" value="2026-05-04"/>
-      <button class="pri-btn" onclick="setupPlan()">Begin plan →</button>
+      <button class="pri-btn" onclick="setupPlan()">Begin plan<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-left:6px;"><polyline points="9 18 15 12 9 6"/></svg></button>
     </div>
   </div>
   <div id="mvmt-main" style="display:none;">
@@ -654,9 +681,9 @@ svg.ring-svg{display:block;margin:0 auto;}
     </div>
     <div id="mvmt-today">
       <div class="nav-row">
-        <button onclick="changeDay(-1)">← Prev</button>
+        <button onclick="changeDay(-1)"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px;"><polyline points="15 18 9 12 15 6"/></svg>Prev</button>
         <button class="tbtn" onclick="goToday()">Today</button>
-        <button onclick="changeDay(1)">Next →</button>
+        <button onclick="changeDay(1)">Next<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-left:4px;"><polyline points="9 18 15 12 9 6"/></svg></button>
       </div>
       <div class="prog-wrap"><div class="prog-fill" id="pfill" style="width:0%"></div></div>
       <div class="prog-lbl" id="plabel"></div>
@@ -667,7 +694,7 @@ svg.ring-svg{display:block;margin:0 auto;}
       <div id="music-wrap"></div>
       <div class="interval-card">
         <div class="interval-header" onclick="toggleIntervalCard()">
-          <span class="interval-title">⏱ Interval / circuit timer</span>
+          <span class="interval-title">Interval / circuit timer</span>
           <span id="int-toggle-label" style="font-size:11px;color:var(--text3);">Tap to open</span>
         </div>
         <div class="interval-body" id="interval-body">
@@ -704,7 +731,7 @@ svg.ring-svg{display:block;margin:0 auto;}
           </div>
           <div class="int-progress"><div class="int-progress-fill" id="int-progress-fill" style="width:0%;background:var(--green);"></div></div>
           <div class="int-btn-row">
-            <button class="int-btn go" id="int-go-btn" onclick="intToggle()">▶ Start</button>
+            <button class="int-btn go" id="int-go-btn" onclick="intToggle()">Start</button>
             <button class="int-btn reset-btn" onclick="intReset()">Reset</button>
           </div>
         </div>
@@ -713,52 +740,6 @@ svg.ring-svg{display:block;margin:0 auto;}
     </div>
     <div id="mvmt-week" style="display:none;">
       <div class="week-grid" id="wgrid"></div>
-      <div id="music-wrap"></div>
-      <div class="interval-card">
-        <div class="interval-header" onclick="toggleIntervalCard()">
-          <span class="interval-title">⏱ Interval / circuit timer</span>
-          <span id="int-toggle-label" style="font-size:11px;color:var(--text3);">Tap to open</span>
-        </div>
-        <div class="interval-body" id="interval-body">
-          <div class="int-config">
-            <div class="int-field">
-              <div class="int-field-label">Work</div>
-              <div class="int-field-row">
-                <button class="int-adj" onclick="adjInt('work',-5)">−</button>
-                <div><div class="int-val" id="int-work-val">30</div><div class="int-phase-label">sec</div></div>
-                <button class="int-adj" onclick="adjInt('work',5)">+</button>
-              </div>
-            </div>
-            <div class="int-field">
-              <div class="int-field-label">Rest</div>
-              <div class="int-field-row">
-                <button class="int-adj" onclick="adjInt('rest',-5)">−</button>
-                <div><div class="int-val" id="int-rest-val">10</div><div class="int-phase-label">sec</div></div>
-                <button class="int-adj" onclick="adjInt('rest',5)">+</button>
-              </div>
-            </div>
-            <div class="int-field">
-              <div class="int-field-label">Rounds</div>
-              <div class="int-field-row">
-                <button class="int-adj" onclick="adjInt('rounds',-1)">−</button>
-                <div><div class="int-val" id="int-rounds-val">3</div><div class="int-phase-label">sets</div></div>
-                <button class="int-adj" onclick="adjInt('rounds',1)">+</button>
-              </div>
-            </div>
-          </div>
-          <div class="int-round-row" id="int-round-pips"></div>
-          <div class="int-display">
-            <div class="int-time" id="int-time-display">00:30</div>
-            <div class="int-status idle" id="int-status">Ready</div>
-          </div>
-          <div class="int-progress"><div class="int-progress-fill" id="int-progress-fill" style="width:0%;background:var(--green);"></div></div>
-          <div class="int-btn-row">
-            <button class="int-btn go" id="int-go-btn" onclick="intToggle()">▶ Start</button>
-            <button class="int-btn reset-btn" onclick="intReset()">Reset</button>
-          </div>
-        </div>
-      </div>
-      <button class="link-btn" onclick="showMvmtSetup()">Change start date</button>
     </div>
   </div>
 </div>
@@ -775,9 +756,33 @@ svg.ring-svg{display:block;margin:0 auto;}
   </div>
   <div id="past-day-banner" class="past-day-banner">Viewing a past day — changes save to that date</div>
   <div class="hab-nav">
-    <button onclick="changeHabDay(-1)">← Prev</button>
+    <button onclick="changeHabDay(-1)"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px;"><polyline points="15 18 9 12 15 6"/></svg>Prev</button>
     <button class="htbtn" onclick="goHabToday()">Today</button>
-    <button onclick="changeHabDay(1)">Next →</button>
+    <button onclick="changeHabDay(1)">Next<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-left:4px;"><polyline points="9 18 15 12 9 6"/></svg></button>
+  </div>
+
+  <!-- QUICK STATS (top of habits) -->
+  <div class="quick-stats">
+    <div class="qs-cell">
+      <div class="qs-label">Habits</div>
+      <div class="qs-bar"><div class="qs-fill" id="qs-hab-fill" style="width:0%;background:var(--indigo-light);"></div></div>
+      <div class="qs-val" id="qs-hab-val">0/0</div>
+    </div>
+    <div class="qs-cell">
+      <div class="qs-label">Water</div>
+      <div class="qs-bar"><div class="qs-fill" id="qs-water-fill" style="width:0%;background:var(--sky);"></div></div>
+      <div class="qs-val" id="qs-water-val">0/12</div>
+    </div>
+    <div class="qs-cell">
+      <div class="qs-label">Meals</div>
+      <div class="qs-bar"><div class="qs-fill" id="qs-meal-fill" style="width:0%;background:var(--amber);"></div></div>
+      <div class="qs-val" id="qs-meal-val">0/6</div>
+    </div>
+    <div class="qs-cell">
+      <div class="qs-label">Steps</div>
+      <div class="qs-bar"><div class="qs-fill" id="qs-step-fill" style="width:0%;background:var(--green);"></div></div>
+      <div class="qs-val" id="qs-step-val">0</div>
+    </div>
   </div>
 
   <!-- MORNING -->
@@ -856,16 +861,10 @@ svg.ring-svg{display:block;margin:0 auto;}
   <div class="card">
     <div class="card-row">
       <div class="cb" data-hid="jaw-m" onclick="toggleHabit('jaw-m',this)"></div>
-      <div style="flex:1;"><div class="item-label" id="hlbl-jaw-m">Jaw exercise — 3 × 2 min</div><div class="item-sub">Dentist's sequence · Morning session</div></div>
+      <div style="flex:1;"><div class="item-label" id="hlbl-jaw-m">Jaw exercise — 3 × 2 min</div><div class="item-sub">Use timer below · Follow your dentist's sequence</div></div>
       <span class="ph-badge badge-jaw" style="font-size:10px;margin-top:2px;">6 min</span>
     </div>
     <div class="jaw-timer-wrap" id="jaw-timer-m"></div>
-    <div class="jaw-steps">
-      <div class="jaw-step"><div class="step-num">1</div><div><div class="step-text">Tongue to palate (N position) — hold, relax, repeat</div><div class="step-dur">Round 1 · 2 min</div></div></div>
-      <div class="jaw-step"><div class="step-num">2</div><div><div class="step-text">Slow controlled jaw opening + side-to-side glide</div><div class="step-dur">Round 2 · 2 min</div></div></div>
-      <div class="jaw-step"><div class="step-num">3</div><div><div class="step-text">Masseter + temple self-massage, then relax and breathe</div><div class="step-dur">Round 3 · 2 min</div></div></div>
-    </div>
-    <div class="jaw-note">Note: Follow your dentist's specific sequence — these are general placeholders.</div>
   </div>
 
   <div class="card">
@@ -892,7 +891,7 @@ svg.ring-svg{display:block;margin:0 auto;}
   <div class="card">
     <div class="card-row">
       <div class="cb" data-hid="jaw-a" onclick="toggleHabit('jaw-a',this)"></div>
-      <div style="flex:1;"><div class="item-label" id="hlbl-jaw-a">Jaw exercise — 3 × 2 min</div><div class="item-sub">Dentist's sequence · Midday session</div></div>
+      <div style="flex:1;"><div class="item-label" id="hlbl-jaw-a">Jaw exercise — 3 × 2 min</div><div class="item-sub">Use timer below · Follow your dentist's sequence</div></div>
       <span class="ph-badge badge-jaw" style="font-size:10px;margin-top:2px;">6 min</span>
     </div>
     <div class="jaw-timer-wrap" id="jaw-timer-a"></div>
@@ -993,35 +992,29 @@ svg.ring-svg{display:block;margin:0 auto;}
   </div>
 
   <!-- FOOD TRACKER -->
-  <div class="slbl"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"  aria-hidden="true"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 002-2V2M7 2v20M21 15V2a5 5 0 00-5 5v6c0 1.1.9 2 2 2h3zm0 0v7"/></svg><span class="slbl-text" style="color:var(--amber);">Nutrition</span></div>
+  <div class="slbl"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 002-2V2M7 2v20M21 15V2a5 5 0 00-5 5v6c0 1.1.9 2 2 2h3zm0 0v7"/></svg><span class="slbl-text" style="color:var(--amber);">Nutrition</span></div>
   <div class="card">
     <div class="water-tracker">
       <div class="water-top">
         <div>
-          <div class="water-title">Daily meals logged</div>
+          <div class="water-title">Meals today</div>
           <div class="water-goal">Goal: 6 small meals · ~2.5 hrs apart · macro-balanced</div>
         </div>
         <span class="ph-badge" style="background:rgba(251,191,36,.12);color:var(--amber);border:1px solid rgba(251,191,36,.2);font-size:10px;">6x/day</span>
       </div>
-      <div class="water-progress" id="meal-progress" style=""></div>
-      <div class="water-count-row">
-        <button class="water-btn minus" onclick="adjustMeals(-1)">−</button>
-        <div>
-          <div class="water-count" id="meal-count" style="color:var(--amber);">0</div>
-          <div class="water-unit">of 6 meals</div>
-        </div>
-        <button class="water-btn plus" onclick="adjustMeals(1)">+</button>
+      <div class="water-progress" id="meal-progress"></div>
+      <div style="text-align:center;margin:10px 0 4px;">
+        <div class="water-count" id="meal-count" style="color:var(--amber);">0</div>
+        <div class="water-unit">of 6 meals logged</div>
       </div>
-      <div style="background:var(--amber-dim);border-radius:var(--radius-sm);padding:10px 12px;margin-top:4px;">
-        <div style="font-size:11px;font-weight:600;color:var(--amber);text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px;">Macro focus</div>
-        <div class="water-note" id="meal-note" style="margin:0;padding:0;background:none;border:none;">Goal: 6 small meals spaced ~2.5 hours apart. First meal within 1 hour of waking.</div>
+      <div id="meals-log" style="margin-top:8px;display:flex;flex-direction:column;gap:6px;"></div>
+      <div id="meals-add-form" style="display:flex;gap:6px;margin-top:10px;">
+        <input type="text" id="meal-input" placeholder="What did you eat? (e.g. eggs, oats, banana)" style="flex:1;padding:10px 12px;font-size:13px;font-family:'DM Sans',sans-serif;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--bg3);color:var(--text);outline:none;" onkeydown="if(event.key==='Enter')addMeal()"/>
+        <button onclick="addMeal()" style="padding:10px 14px;font-size:13px;font-weight:600;font-family:'DM Sans',sans-serif;background:linear-gradient(135deg,var(--amber),#f97316);color:var(--bg);border:none;border-radius:var(--radius-sm);cursor:pointer;flex-shrink:0;">+ Log</button>
       </div>
+      <div id="macro-summary" style="margin-top:10px;"></div>
     </div>
   </div>
-  <div style="background:var(--bg2);border:1px solid var(--border2);border-radius:var(--radius-sm);padding:10px 14px;margin:-4px 0 10px;font-size:12px;color:var(--text2);line-height:1.6;">
-    <strong style="color:var(--text);">Macro balance per meal:</strong> Every small meal should have a protein source + a fiber/complex carb. Keep fats distributed across the day. Avoid eating large amounts of any single macro at once — that's what causes energy spikes and crashes.
-  </div>
-
   <!-- STEPS -->
   <div class="slbl"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--sky)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"  aria-hidden="true"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg><span class="slbl-text" style="color:var(--sky);">Steps</span></div>
   <div class="steps-card">
@@ -1089,7 +1082,7 @@ svg.ring-svg{display:block;margin:0 auto;}
   <div class="card">
     <div class="card-row">
       <div class="cb" data-hid="jaw-n" onclick="toggleHabit('jaw-n',this)"></div>
-      <div style="flex:1;"><div class="item-label" id="hlbl-jaw-n">Jaw exercise — 3 × 2 min</div><div class="item-sub">Dentist's sequence · Night session</div></div>
+      <div style="flex:1;"><div class="item-label" id="hlbl-jaw-n">Jaw exercise — 3 × 2 min</div><div class="item-sub">Use timer below · Follow your dentist's sequence</div></div>
       <span class="ph-badge badge-jaw" style="font-size:10px;margin-top:2px;">6 min</span>
     </div>
     <div class="jaw-timer-wrap" id="jaw-timer-n"></div>
@@ -1247,12 +1240,12 @@ svg.ring-svg{display:block;margin:0 auto;}
   <div class="section-subtitle" style="margin-bottom:14px;">Reference cards — internalize until automatic</div>
 
   <div class="guide-carousel-header">
-    <button class="g-nav-btn" id="g-prev" onclick="goGuide(-1)">←</button>
+    <button class="g-nav-btn" id="g-prev" onclick="goGuide(-1)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
     <div class="g-card-meta">
       <div class="g-card-title" id="g-card-title">Sitting posture</div>
       <div class="g-card-count" id="g-card-count">1 of 8</div>
     </div>
-    <button class="g-nav-btn" id="g-next" onclick="goGuide(1)">→</button>
+    <button class="g-nav-btn" id="g-next" onclick="goGuide(1)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
   </div>
   <div class="g-select-wrap">
     <select class="g-select" id="g-select" onchange="setGuide(parseInt(this.value))">
@@ -1314,7 +1307,7 @@ svg.ring-svg{display:block;margin:0 auto;}
       <div class="guide-header"><div class="guide-icon-wrap"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--indigo-light)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"  aria-hidden="true"><path d="M2 4v16M22 4v16M2 12h20M6 12V8a2 2 0 012-2h8a2 2 0 012 2v4"/></svg></div><div><div class="guide-title">Sleep positions</div><div class="guide-desc">7 hours of bad position undoes a lot of good daily work.</div></div></div>
       <div class="guide-summary">Your shoulder pain almost certainly comes from position — either sleeping on the painful side, or a pillow that's too flat for side sleeping.</div>
       <div class="compare-wrap">
-        <div class="compare-card cc-do"><span class="cc-label do">✓ Best</span><div class="cc-title">Side sleeping</div><div class="cc-body">Pillow between knees. Pillow fills full ear-to-shoulder gap. Painful shoulder faces <strong>up</strong>.</div></div>
+        <div class="compare-card cc-do"><span class="cc-label do">Best</span><div class="cc-title">Side sleeping</div><div class="cc-body">Pillow between knees. Pillow fills full ear-to-shoulder gap. Painful shoulder faces <strong>up</strong>.</div></div>
         <div class="compare-card cc-ok"><span class="cc-label ok">↗ Also good</span><div class="cc-title">Back sleeping</div><div class="cc-body">Pillow under knees. Thinner head pillow. Shoulders externally rotate — that's correct, not wrong.</div></div>
       </div>
       <div class="compare-full cc-avoid" style="border:1px solid rgba(251,113,133,.25);background:linear-gradient(90deg,rgba(251,113,133,.07),var(--bg3));margin:0 12px 10px;border-radius:var(--radius-sm);padding:11px 12px;">
@@ -1534,25 +1527,25 @@ const WATER_GOAL=12;
 const HABIT_IDS=['medication','cats-am','make-bed','tidy-am','sunlight','morning-water','skincare-am','supps-am','jaw-m','posture-m','jaw-a','posture-a1','eye-2020','posture-a2','caffeine','reading','dishes','jaw-n','cats-pm','skincare-pm','floss','night-screens','night-jaw-massage','supps-pm','night-breathe','night-position','gratitude-done','night-jaw-check'];
 const WEEKLY_IDS=['wk-laundry','wk-grooming','wk-sheets','wk-groceries','wk-planning','wk-social','wk-book','wk-olivia','wk-shot-wed'];
 const WEEKLY_LABELS={
-  'wk-laundry':{label:'Laundry',sub:'Wash, dry, put away — not just wash.',icon:'↻'},
-  'wk-grooming':{label:'Grooming',sub:'Eyebrows, body hair, any regular maintenance.',icon:'✂'},
-  'wk-sheets':{label:'Clean bedsheets',sub:'Weekly. Huge for sleep quality and skin health.',icon:'⬜'},
-  'wk-groceries':{label:'Grocery shop',sub:'Plan meals first, then shop. Prevents last-minute bad choices.',icon:'+'},
-  'wk-planning':{label:'Weekly planning session',sub:'20 min Sunday — review the week ahead, set 3 priorities.',icon:'≡'},
-  'wk-social':{label:'Intentional connection',sub:'Call or see someone you care about. Easy to let slide in a new city.',icon:'◎'},
-  'wk-book':{label:'Book writing session',sub:'Minimum 30–60 min of uninterrupted writing. Protect this time — treat it like a meeting with yourself.',icon:'✎'},
-  'wk-olivia':{label:'Date night or intentional Olivia time',sub:'A real date, a long walk, a night in that\'s actually present. Relationships drift without intentional time.',icon:'♡'},
-  'wk-shot-wed':{label:'Wednesday night shot',sub:'Weekly injection — Wednesday nights. Check off after administering.',icon:'Rx'},
+  'wk-laundry':{label:'Laundry',sub:'Wash, dry, put away — not just wash.',icon:''},
+  'wk-grooming':{label:'Grooming',sub:'Eyebrows, body hair, any regular maintenance.',icon:''},
+  'wk-sheets':{label:'Clean bedsheets',sub:'Weekly. Huge for sleep quality and skin health.',icon:''},
+  'wk-groceries':{label:'Grocery shop',sub:'Plan meals first, then shop. Prevents last-minute bad choices.',icon:''},
+  'wk-planning':{label:'Weekly planning session',sub:'20 min Sunday — review the week ahead, set 3 priorities.',icon:''},
+  'wk-social':{label:'Intentional connection',sub:'Call or see someone you care about. Easy to let slide in a new city.',icon:''},
+  'wk-book':{label:'Book writing session',sub:'Minimum 30–60 min of uninterrupted writing. Protect this time — treat it like a meeting with yourself.',icon:''},
+  'wk-olivia':{label:'Date night or intentional Olivia time',sub:'A real date, a long walk, a night in that\'s actually present. Relationships drift without intentional time.',icon:''},
+  'wk-shot-wed':{label:'Wednesday night shot',sub:'Weekly injection — Wednesday nights. Check off after administering.',icon:''},
 };
 const MONTHLY_IDS=['mo-rent','mo-haircut','mo-olivia-special'];
 const MONTHLY_LABELS={
-  'mo-rent':{label:'Pay rent',sub:'Due end of month — don\'t let it sneak up. Set a calendar alert if you haven\'t.',icon:'⌂',urgent:true},
-  'mo-haircut':{label:'Haircut',sub:'Every 6 weeks. Check when you last got one — if it\'s been ~6 weeks, book it now.',icon:'✂',urgent:false},
-  'mo-olivia-special':{label:'Something special for Olivia',sub:'A gift, a surprise, an experience — something that shows you were thinking of her unprompted. Monthly minimum.',icon:'◈',urgent:false},
+  'mo-rent':{label:'Pay rent',sub:'Due end of month — don\'t let it sneak up. Set a calendar alert if you haven\'t.',icon:'',urgent:true},
+  'mo-haircut':{label:'Haircut',sub:'Every 6 weeks. Check when you last got one — if it\'s been ~6 weeks, book it now.',icon:'',urgent:false},
+  'mo-olivia-special':{label:'Something special for Olivia',sub:'A gift, a surprise, an experience — something that shows you were thinking of her unprompted. Monthly minimum.',icon:'',urgent:false},
 };
 
 // ── STATE ──
-let SD=null,VD=new Date(),habVD=new Date(),movDD={completed:{}},habDD={completed:{},water:0,meals:0,steps:0,mood:0,sleepQual:0,gratitude:'',pepcid:0},weekHabDD={completed:{}},monHabDD={completed:{}};
+let SD=null,VD=new Date(),habVD=new Date(),movDD={completed:{}},habDD={completed:{},water:0,meals:0,mealsLog:[],steps:0,mood:0,sleepQual:0,gratitude:'',pepcid:0},weekHabDD={completed:{}},monHabDD={completed:{}};
 habVD.setHours(0,0,0,0);
 let mvmtView='today',mSaveTimer=null,hSaveTimer=null,wkSaveTimer=null,guideIdx=0;
 VD.setHours(0,0,0,0);
@@ -1656,6 +1649,12 @@ function startMaster(){
   },1000);
 }
 
+const ICON_PLAY='<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:-2px;margin-right:4px;"><polygon points="6 4 20 12 6 20 6 4"/></svg>';
+const ICON_PAUSE='<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:-2px;margin-right:4px;"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>';
+const ICON_RESET='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px;"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg>';
+const ICON_CHECK='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px;"><polyline points="20 6 9 17 4 12"/></svg>';
+const ICON_NEXT='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-left:4px;"><polyline points="9 18 15 12 9 6"/></svg>';
+
 function renderTimer(slot){
   const wrap=document.getElementById('jaw-timer-'+slot);
   if(!wrap)return;
@@ -1669,22 +1668,26 @@ function renderTimer(slot){
   let pipsHtml='<div class="round-pips">';
   for(let r=1;r<=TOTAL_ROUNDS;r++){
     const cls=r<st.round?'complete':r===st.round&&!allDone?'active':'';
-    pipsHtml+=`<div class="round-pip ${cls}">${r<st.round?'✓ Round '+r:'Round '+r}</div>`;
+    pipsHtml+=`<div class="round-pip ${cls}">${r<st.round?'Round '+r+' done':'Round '+r}</div>`;
   }
   pipsHtml+='</div>';
   let btnHtml='';
   if(allDone){
-    btnHtml=`<button class="timer-btn done-btn" onclick="timerReset('${slot}')">✓ All done — reset</button>`;
+    btnHtml=`<button class="timer-btn done-btn" onclick="timerReset('${slot}')">${ICON_CHECK}All done — reset</button>`;
   } else if(roundDone){
-    btnHtml=`<button class="timer-btn next" onclick="timerNext('${slot}')">Start Round ${st.round+1} →</button>`;
+    btnHtml=`<button class="timer-btn next" onclick="timerNext('${slot}')">Start Round ${st.round+1}${ICON_NEXT}</button>`;
   } else {
-    btnHtml=`<button class="timer-btn ${st.running?'pause':'start'}" onclick="timerToggle('${slot}')">${st.running?'⏸ Pause':'▶ Start Round '+st.round}</button>`;
+    btnHtml=`<button class="timer-btn ${st.running?'pause':'start'}" onclick="timerToggle('${slot}')">${st.running?ICON_PAUSE+'Pause':ICON_PLAY+'Start Round '+st.round}</button>`;
+  }
+  let resetBtn='';
+  if(!allDone&&(st.elapsed>0||st.round>1)){
+    resetBtn=`<button class="timer-btn-reset" onclick="timerReset('${slot}')">${ICON_RESET}Reset</button>`;
   }
   wrap.innerHTML=pipsHtml
-    +`<div class="timer-display">${allDone?'✓ Done':roundDone?'Round done ✓':mm+':'+ss}</div>`
+    +`<div class="timer-display">${allDone?'Done':roundDone?'Round done':mm+':'+ss}</div>`
     +`<div class="timer-bar-wrap"><div class="timer-bar-fill" style="width:${pct}%"></div></div>`
-    +(allDone?'':`<div class="timer-hint">${st.running?'Breathe — stay relaxed':roundDone?'Rest, then start next round':'Follow your dentist\'s sequence'}</div>`)
-    +btnHtml;
+    +(allDone?'':`<div class="timer-hint">${st.running?'Breathe — stay relaxed':roundDone?'Rest, then start next round':'Tap start when ready'}</div>`)
+    +`<div class="timer-btn-row">${btnHtml}${resetBtn}</div>`;
 }
 
 function timerToggle(slot){
@@ -1717,21 +1720,26 @@ function renderBreathTimer(){
   const ss=(remaining%60).toString().padStart(2,'0');
   const pct=done?100:Math.round((st.elapsed/st.total)*100);
   const mins=Math.round(st.total/60);
+  const canAdjust=!st.running&&st.elapsed===0;
   wrap.innerHTML=`
     <div class="breath-dur-row">
-      <button class="breath-dur-btn" onclick="breathAdjust(-1)">−</button>
+      <button class="breath-dur-btn" onclick="breathAdjust(-1)" ${canAdjust?'':'disabled'}>−</button>
       <div><div class="breath-dur-val">${mins}</div><div class="breath-dur-lbl">minutes</div></div>
-      <button class="breath-dur-btn" onclick="breathAdjust(1)">+</button>
-      <div style="flex:1;font-size:12px;color:var(--text3);padding-left:8px;line-height:1.5;">Adjust duration.<br>Start and breathe.</div>
+      <button class="breath-dur-btn" onclick="breathAdjust(1)" ${canAdjust?'':'disabled'}>+</button>
+      <div style="flex:1;font-size:12px;color:var(--text3);padding-left:8px;line-height:1.5;">${canAdjust?'Adjust duration<br>then start':'Reset to change time'}</div>
     </div>
-    <div class="breath-display">${done?'✓':mm+':'+ss}</div>
+    <div class="breath-display">${done?'Done':mm+':'+ss}</div>
     <div class="breath-bar-wrap"><div class="breath-bar-fill" style="width:${pct}%"></div></div>
-    <button class="breath-start-btn ${done?'done':st.running?'pause':'go'}" onclick="breathToggle()">
-      ${done?'✓ Done — tap to reset':st.running?'⏸ Pause':'▶ Start timer'}
-    </button>`;
+    <div class="breath-btn-row">
+      <button class="breath-start-btn ${done?'done':st.running?'pause':'go'}" onclick="breathToggle()">
+        ${done?ICON_CHECK+'Done — reset':st.running?ICON_PAUSE+'Pause':ICON_PLAY+'Start'}
+      </button>
+      ${(st.elapsed>0&&!done)?`<button class="breath-reset-btn" onclick="breathReset()">${ICON_RESET}Reset</button>`:''}
+    </div>`;
 }
+function breathReset(){breathState.elapsed=0;breathState.running=false;renderBreathTimer();}
 function breathToggle(){
-  if(breathState.elapsed>=breathState.total){breathState.elapsed=0;breathState.running=false;renderBreathTimer();return;}
+  if(breathState.elapsed>=breathState.total){breathReset();return;}
   breathState.running=!breathState.running;
   if(breathState.running)startMaster();
   renderBreathTimer();
@@ -1763,7 +1771,7 @@ function renderHabits(){
   // Nav button states
   const nextBtn=document.querySelector('.hab-nav button:last-child');
   if(nextBtn)nextBtn.disabled=isPast?false:true;
-  habDD={completed:{},water:0,meals:0,steps:0,mood:0,sleepQual:0,gratitude:'',pepcid:0};
+  habDD={completed:{},water:0,meals:0,mealsLog:[],steps:0,mood:0,sleepQual:0,gratitude:'',pepcid:0};
   const sv=localStorage.getItem('habday_'+dk(habVD));
   if(sv){try{habDD=JSON.parse(sv);}catch(e){}}
   HABIT_IDS.forEach(id=>{
@@ -1776,6 +1784,7 @@ function renderHabits(){
   renderTimers();
   renderWater();
   renderMeals();
+  updateQuickStats();
   renderSteps();
   renderPepcidCounter();
   renderRatings();
@@ -1803,7 +1812,7 @@ function renderPepcidCounter(){
   const note=document.getElementById('pepcid-note');
   if(el)el.textContent=p;
   if(note){
-    if(p===0)note.textContent='Zero doses today ✓ — log any doses honestly as you take them.';
+    if(p===0)note.textContent='Zero doses today — log any doses honestly as you take them.';
     else if(p===1)note.textContent='1 dose today. Check Progress to see your weekly trend.';
     else note.textContent=p+' doses today. Your Progress tab tracks reduction over time.';
   }
@@ -1882,25 +1891,164 @@ function triggerMonSave(){
   setTimeout(()=>{try{localStorage.setItem(mkey,JSON.stringify(monHabDD));}catch(e){}},500);
 }
 
+
+// ══════════ QUICK STATS BAR ══════════
+function updateQuickStats(){
+  const customIds=getCustomHabits().map(h=>h.id);
+  const allIds=[...HABIT_IDS,...customIds];
+  const habDone=allIds.filter(id=>habDD.completed[id]).length;
+  const habTot=allIds.length;
+  const habPct=habTot>0?(habDone/habTot)*100:0;
+  const water=habDD.water||0;const waterPct=Math.min(100,(water/12)*100);
+  const meals=habDD.meals||0;const mealsPct=Math.min(100,(meals/6)*100);
+  const steps=habDD.steps||0;const stepsPct=Math.min(100,(steps/10000)*100);
+  const set=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v;};
+  const setW=(id,v)=>{const el=document.getElementById(id);if(el)el.style.width=v+'%';};
+  setW('qs-hab-fill',habPct);set('qs-hab-val',`${habDone}/${habTot}`);
+  setW('qs-water-fill',waterPct);set('qs-water-val',`${water}/12`);
+  setW('qs-meal-fill',mealsPct);set('qs-meal-val',`${meals}/6`);
+  setW('qs-step-fill',stepsPct);set('qs-step-val',steps>=1000?(steps/1000).toFixed(1)+'k':steps);
+}
+
 // ══════════ MEAL TRACKER ══════════
 const MEAL_GOAL=6;
-const MEAL_MACROS=['Protein + complex carb — oats, eggs, Greek yogurt','Protein snack — nuts, string cheese, protein bar','Balanced lunch — protein + veg + complex carb','Afternoon snack — fruit + protein, avoid sugar crash','Dinner — protein + veg + small carb portion','Evening snack — light protein, avoid large meals late'];
-function adjustMeals(delta){
-  if(!habDD.meals)habDD.meals=0;
-  habDD.meals=Math.max(0,Math.min(MEAL_GOAL,habDD.meals+delta));
+// Lookup table: keyword → {p, f, c} ratios (sum to ~1)
+// Heavily simplified estimation for portion-balanced meal logging
+const FOOD_DB={
+  // Protein
+  'chicken':[0.7,0.2,0.1],'turkey':[0.7,0.2,0.1],'beef':[0.55,0.4,0.05],'steak':[0.55,0.4,0.05],
+  'pork':[0.55,0.4,0.05],'bacon':[0.3,0.65,0.05],'ham':[0.6,0.3,0.1],
+  'fish':[0.7,0.25,0.05],'salmon':[0.55,0.4,0.05],'tuna':[0.85,0.1,0.05],'cod':[0.85,0.1,0.05],
+  'shrimp':[0.85,0.1,0.05],'eggs':[0.4,0.55,0.05],'egg':[0.4,0.55,0.05],
+  'tofu':[0.45,0.4,0.15],'tempeh':[0.45,0.3,0.25],'edamame':[0.35,0.25,0.4],
+  'yogurt':[0.4,0.15,0.45],'greek yogurt':[0.6,0.15,0.25],'cottage cheese':[0.65,0.2,0.15],
+  'cheese':[0.25,0.65,0.1],'protein':[0.7,0.15,0.15],'whey':[0.8,0.1,0.1],
+  'beans':[0.3,0.05,0.65],'lentils':[0.3,0.05,0.65],'chickpeas':[0.25,0.1,0.65],
+  'hummus':[0.15,0.45,0.4],'peanut butter':[0.2,0.55,0.25],'nut butter':[0.15,0.65,0.2],
+  // Carbs
+  'rice':[0.1,0.05,0.85],'pasta':[0.15,0.05,0.8],'bread':[0.15,0.1,0.75],'toast':[0.15,0.1,0.75],
+  'bagel':[0.15,0.05,0.8],'oats':[0.15,0.15,0.7],'oatmeal':[0.15,0.15,0.7],'cereal':[0.1,0.05,0.85],
+  'potato':[0.1,0.0,0.9],'sweet potato':[0.1,0.0,0.9],'quinoa':[0.2,0.1,0.7],
+  'tortilla':[0.1,0.15,0.75],'wrap':[0.15,0.2,0.65],'pita':[0.15,0.05,0.8],
+  // Fruit
+  'banana':[0.05,0.0,0.95],'apple':[0.02,0.02,0.96],'berries':[0.05,0.02,0.93],
+  'orange':[0.05,0.02,0.93],'grapes':[0.05,0.02,0.93],'fruit':[0.05,0.02,0.93],
+  'avocado':[0.05,0.75,0.2],
+  // Veg
+  'salad':[0.15,0.1,0.75],'broccoli':[0.3,0.05,0.65],'spinach':[0.4,0.1,0.5],
+  'vegetables':[0.2,0.05,0.75],'veggies':[0.2,0.05,0.75],'kale':[0.35,0.1,0.55],
+  // Fats
+  'nuts':[0.15,0.7,0.15],'almonds':[0.15,0.7,0.15],'walnuts':[0.15,0.75,0.1],
+  'olive oil':[0,1,0],'butter':[0,1,0],'oil':[0,1,0],
+  // Dairy
+  'milk':[0.2,0.4,0.4],'latte':[0.2,0.35,0.45],'smoothie':[0.2,0.15,0.65],
+  // Combos / common
+  'sandwich':[0.25,0.3,0.45],'burger':[0.3,0.4,0.3],'pizza':[0.2,0.4,0.4],'sushi':[0.25,0.1,0.65],
+  'salad with chicken':[0.5,0.25,0.25],'chicken salad':[0.5,0.25,0.25],
+  'protein bar':[0.4,0.25,0.35],'granola':[0.1,0.3,0.6],
+};
+
+function estimateMacros(text){
+  if(!text)return null;
+  const t=text.toLowerCase();
+  // Try multi-word matches first (longer keys first)
+  const keys=Object.keys(FOOD_DB).sort((a,b)=>b.length-a.length);
+  let totals=[0,0,0];let matches=0;
+  keys.forEach(k=>{
+    if(t.includes(k)){
+      const m=FOOD_DB[k];
+      totals[0]+=m[0];totals[1]+=m[1];totals[2]+=m[2];
+      matches++;
+    }
+  });
+  if(matches===0)return null;
+  const sum=totals[0]+totals[1]+totals[2];
+  return{p:totals[0]/sum,f:totals[1]/sum,c:totals[2]/sum};
+}
+
+function getMeals(){return habDD.mealsLog||[];}
+function addMeal(){
+  const inp=document.getElementById('meal-input');
+  if(!inp||!inp.value.trim())return;
+  if(!habDD.mealsLog)habDD.mealsLog=[];
+  const text=inp.value.trim();
+  const macros=estimateMacros(text);
+  habDD.mealsLog.push({id:'m_'+Date.now(),text:text,macros:macros,time:new Date().toTimeString().slice(0,5)});
+  habDD.meals=habDD.mealsLog.length;
+  inp.value='';
+  renderMeals();triggerHabSave();
+}
+function deleteMeal(id){
+  habDD.mealsLog=(habDD.mealsLog||[]).filter(m=>m.id!==id);
+  habDD.meals=habDD.mealsLog.length;
   renderMeals();triggerHabSave();
 }
 function renderMeals(){
-  const m=habDD.meals||0;
+  const meals=getMeals();
+  const m=meals.length;
+  habDD.meals=m;
   const countEl=document.getElementById('meal-count');
   const progEl=document.getElementById('meal-progress');
-  const noteEl=document.getElementById('meal-note');
+  const logEl=document.getElementById('meals-log');
+  const macroEl=document.getElementById('macro-summary');
   if(countEl)countEl.textContent=m;
   if(progEl){let h='';for(let i=0;i<MEAL_GOAL;i++){h+=`<div class="water-pip${i<m?' filled':''}"></div>`;}progEl.innerHTML=h;}
-  if(noteEl){
-    if(m===0)noteEl.textContent='Goal: 6 small meals spaced ~2.5 hours apart. First meal within 1 hour of waking.';
-    else if(m<MEAL_GOAL)noteEl.textContent=`Meal ${m+1} suggestion: ${MEAL_MACROS[m]}`;
-    else{noteEl.style.color='var(--green)';noteEl.textContent='All 6 meals done ✓ — consistent fueling supports metabolism and avoids the energy crashes that trigger stress eating.';}
+  if(logEl){
+    if(meals.length===0){
+      logEl.innerHTML='<div style="font-size:12px;color:var(--text3);font-style:italic;text-align:center;padding:6px 0;">No meals logged yet — describe what you ate to track macros</div>';
+    } else {
+      logEl.innerHTML=meals.map((meal,i)=>{
+        const mc=meal.macros;
+        const macroLabel=mc?`<span style="color:var(--green);">${Math.round(mc.p*100)}P</span> · <span style="color:var(--amber);">${Math.round(mc.f*100)}F</span> · <span style="color:var(--sky);">${Math.round(mc.c*100)}C</span>`:'<span style="color:var(--text3);">No estimate</span>';
+        return`<div style="display:flex;gap:8px;align-items:center;padding:8px 10px;background:var(--bg3);border-radius:var(--radius-sm);border:1px solid var(--border2);">
+          <div style="font-size:10px;font-weight:700;color:var(--amber);background:var(--amber-dim);border-radius:50%;width:20px;height:20px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">${i+1}</div>
+          <div style="flex:1;min-width:0;">
+            <div style="font-size:13px;color:var(--text);">${escHtml(meal.text)}</div>
+            <div style="font-size:10px;margin-top:2px;font-weight:600;letter-spacing:.04em;">${macroLabel} · <span style="color:var(--text3);">${meal.time}</span></div>
+          </div>
+          <button onclick="deleteMeal('${meal.id}')" style="background:none;border:none;color:var(--text3);cursor:pointer;font-size:14px;padding:2px 4px;">×</button>
+        </div>`;
+      }).join('');
+    }
+  }
+  // Daily totals
+  if(macroEl){
+    if(meals.length===0){
+      macroEl.innerHTML='<div style="background:var(--amber-dim);border-radius:var(--radius-sm);padding:10px 12px;font-size:12px;color:var(--text2);">Log meals to see your daily macro balance.</div>';
+    } else {
+      const macroMeals=meals.filter(m=>m.macros);
+      if(macroMeals.length===0){
+        macroEl.innerHTML='<div style="background:var(--amber-dim);border-radius:var(--radius-sm);padding:10px 12px;font-size:12px;color:var(--text2);">Couldn\'t estimate macros — try describing meals with common food names (chicken, rice, eggs, etc).</div>';
+      } else {
+        let tp=0,tf=0,tc=0;
+        macroMeals.forEach(m=>{tp+=m.macros.p;tf+=m.macros.f;tc+=m.macros.c;});
+        const ts=tp+tf+tc;
+        const pp=Math.round((tp/ts)*100);const pf=Math.round((tf/ts)*100);const pc=Math.round((tc/ts)*100);
+        // Comment based on balance
+        let comment='';
+        if(pp<20)comment='Low protein — consider adding lean protein to next meal.';
+        else if(pp>40)comment='High protein day — good for recovery and satiety.';
+        else if(pf>50)comment='High fat ratio — balance with more protein and complex carbs.';
+        else if(pc>65)comment='High carb day — good if active, pair with protein next time.';
+        else comment='Well-balanced macro split today.';
+        macroEl.innerHTML=`
+          <div style="background:var(--amber-dim);border-radius:var(--radius-sm);padding:12px 14px;">
+            <div style="font-size:10px;font-weight:700;color:var(--amber);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;">Daily macro estimate</div>
+            <div style="display:flex;height:8px;border-radius:4px;overflow:hidden;background:var(--bg4);margin-bottom:8px;">
+              <div style="width:${pp}%;background:var(--green);"></div>
+              <div style="width:${pf}%;background:var(--amber);"></div>
+              <div style="width:${pc}%;background:var(--sky);"></div>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:11px;font-weight:600;margin-bottom:6px;">
+              <span style="color:var(--green);">${pp}% Protein</span>
+              <span style="color:var(--amber);">${pf}% Fat</span>
+              <span style="color:var(--sky);">${pc}% Carbs</span>
+            </div>
+            <div style="font-size:11px;color:var(--text2);line-height:1.5;font-style:italic;">${comment}</div>
+            <div style="font-size:10px;color:var(--text3);margin-top:6px;">Estimates only · Based on typical macro ratios for common foods</div>
+          </div>`;
+      }
+    }
   }
 }
 
@@ -1921,7 +2069,7 @@ function toggleHabit(id,el){
   el.classList.toggle('on',chk);
   const lbl=document.getElementById('hlbl-'+id);
   if(lbl)lbl.className='item-label'+(chk?' done':'');
-  updateHabCount();triggerHabSave();
+  updateHabCount();updateQuickStats();triggerHabSave();
 }
 function getCustomHabits(){try{return JSON.parse(localStorage.getItem('custom_habits')||'[]');}catch(e){return[];}}
 function allActiveHabitIds(){return [...HABIT_IDS,...getCustomHabits().map(h=>h.id)];}
@@ -1962,7 +2110,7 @@ function renderWater(){
     else if(w<4)note.textContent='Good start. Aim for a glass every 1–2 hours throughout the day, not all at once.';
     else if(w<8)note.textContent='Halfway there. Keep a bottle visible — out of sight means out of mind.';
     else if(w<WATER_GOAL)note.textContent='Almost at your Denver goal. Add electrolytes on workout days.';
-    else note.style.color='var(--green)',note.textContent='Denver goal hit ✓ — your body is doing the work it needs to do.';
+    else note.style.color='var(--green)',note.textContent='Denver goal hit — your body is doing the work it needs to do.';
   }
 }
 
@@ -2060,7 +2208,7 @@ function triggerMSave(){
   clearTimeout(mSaveTimer);
   const ind=document.getElementById('msind');ind.textContent='Saving...';ind.style.color='var(--text3)';
   mSaveTimer=setTimeout(()=>{
-    try{localStorage.setItem('mpday_'+dk(VD),JSON.stringify(movDD));ind.textContent='Saved ✓';ind.style.color='var(--green)';setTimeout(()=>{ind.textContent='';},2000);}
+    try{localStorage.setItem('mpday_'+dk(VD),JSON.stringify(movDD));ind.textContent='Saved';ind.style.color='var(--green)';setTimeout(()=>{ind.textContent='';},2000);}
     catch(e){ind.textContent='Error';ind.style.color='var(--coral)';}
   },500);
 }
@@ -2443,7 +2591,7 @@ function renderMusic(dn){
   html+=`<div><div class="music-source-label">Spotify</div><div class="music-row">`;
   m.spotify.forEach(s=>{html+=`<a class="music-btn spsearch" href="${s.u}" target="_blank">${s.l}</a>`;});
   html+=`</div></div><div style="margin-top:6px;"><div class="music-source-label">YouTube</div><div class="music-row">`;
-  m.youtube.forEach(y=>{html+=`<a class="music-btn ytsearch" href="${y.u}" target="_blank">▶ ${y.l}</a>`;});
+  m.youtube.forEach(y=>{html+=`<a class="music-btn ytsearch" href="${y.u}" target="_blank">${y.l}</a>`;});
   html+=`</div></div></div></div>`;
   wrap.innerHTML=html;
 }
@@ -2512,15 +2660,17 @@ function renderInterval(){
   if(td)td.textContent=s.phase==='idle'?`00:${s.work.toString().padStart(2,'0')}`:mm+':'+ss;
   if(st){st.textContent=s.phase==='idle'?'Ready':s.phase==='work'?`Work — Round ${s.currentRound} of ${s.rounds}`:`Rest — Round ${s.currentRound} of ${s.rounds} complete`;st.className='int-status '+s.phase;}
   if(pf){pf.style.width=pct+'%';pf.style.background=fillColor;}
-  if(gb)gb.textContent=s.phase==='idle'?'▶ Start':s.running?'⏸ Pause':'▶ Resume';
+  if(gb)gb.innerHTML=s.phase==='idle'?ICON_PLAY+'Start':s.running?ICON_PAUSE+'Pause':ICON_PLAY+'Resume';
   if(pips){let h='';for(let r=1;r<=s.rounds;r++){const cls=r<s.currentRound?'done':r===s.currentRound&&s.phase!=='idle'?'active':'';h+=`<div class="int-round-pip ${cls}"></div>`;}pips.innerHTML=h;}
+  // Disable adjustment buttons while running
+  document.querySelectorAll('.int-adj').forEach(b=>{b.disabled=s.phase!=='idle';});
 }
 
 // ══════════ STEPS ══════════
 function adjSteps(delta){
   if(!habDD.steps)habDD.steps=0;
   habDD.steps=Math.max(0,habDD.steps+delta);
-  renderSteps();triggerHabSave();
+  renderSteps();updateQuickStats();triggerHabSave();
 }
 function renderSteps(){
   const s=habDD.steps||0;const goal=10000;
@@ -2530,7 +2680,7 @@ function renderSteps(){
   if(numEl)numEl.textContent=s.toLocaleString();
   if(fillEl)fillEl.style.width=pct+'%';
   if(badgeEl){badgeEl.textContent=pct+'%';badgeEl.style.color=pct>=100?'var(--green)':pct>=50?'var(--sky)':'var(--text3)';}
-  if(goalEl)goalEl.textContent=`Goal: ${goal.toLocaleString()} steps · ${s>=goal?'Goal hit ✓':''+Math.max(0,goal-s).toLocaleString()+' to go'}`;
+  if(goalEl)goalEl.textContent=`Goal: ${goal.toLocaleString()} steps · ${s>=goal?'Goal hit':''+Math.max(0,goal-s).toLocaleString()+' to go'}`;
 
 }
 
@@ -2647,14 +2797,29 @@ function renderCustomHabits(){
   const wrap=document.getElementById('custom-habits-list');if(!wrap)return;
   const habits=getCustomHabits();
   if(habits.length===0){wrap.innerHTML='<div style="font-size:13px;color:var(--text3);padding:4px 0 8px;font-style:italic;">No custom habits yet — add one below.</div>';return;}
-  wrap.innerHTML=habits.map(h=>{
+  wrap.innerHTML=habits.map((h,i)=>{
     const chk=!!habDD.completed[h.id];
+    const upDis=i===0?'disabled':'';const downDis=i===habits.length-1?'disabled':'';
     return`<div class="custom-card"><div class="custom-row">
       <div class="cb${chk?' on':''}" data-hid="${h.id}" onclick="toggleHabit('${h.id}',this)"></div>
       <div style="flex:1;font-size:14px;font-weight:500;color:${chk?'var(--text3)':'var(--text)'};${chk?'text-decoration:line-through;':''}" id="hlbl-${h.id}">${escHtml(h.label)}</div>
+      <div style="display:flex;flex-direction:column;gap:2px;">
+        <button class="reorder-btn" onclick="moveCustomHabit('${h.id}',-1)" ${upDis}><svg width="8" height="8" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 4 22 20 2 20"/></svg></button>
+        <button class="reorder-btn" onclick="moveCustomHabit('${h.id}',1)" ${downDis}><svg width="8" height="8" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 20 2 4 22 4"/></svg></button>
+      </div>
       <button class="custom-del" onclick="deleteCustomHabit('${h.id}')">×</button>
     </div></div>`;
   }).join('');
+}
+function moveCustomHabit(id,dir){
+  const habits=getCustomHabits();
+  const idx=habits.findIndex(h=>h.id===id);
+  if(idx<0)return;
+  const newIdx=idx+dir;
+  if(newIdx<0||newIdx>=habits.length)return;
+  const tmp=habits[idx];habits[idx]=habits[newIdx];habits[newIdx]=tmp;
+  localStorage.setItem('custom_habits',JSON.stringify(habits));
+  renderCustomHabits();
 }
 
 // ══════════ REMINDERS ══════════
@@ -2699,7 +2864,7 @@ function renderPepcidAnalysis(){
   let t15a=0,t15b=0;
   dates15a.forEach(d=>{const sv=localStorage.getItem('habday_'+dk(d));if(sv){try{const dd=JSON.parse(sv);t15a+=(dd.pepcid||0);}catch(e){}}});
   dates15b.forEach(d=>{const sv=localStorage.getItem('habday_'+dk(d));if(sv){try{const dd=JSON.parse(sv);t15b+=(dd.pepcid||0);}catch(e){}}});
-  const trend=t15a===0&&t15b===0?'No data yet':t15b<t15a?'↓ Reducing — great progress':t15b>t15a?'↑ Increasing — worth noting':'Stable';
+  const trend=t15a===0&&t15b===0?'No data yet':t15b<t15a?'Reducing — great progress':t15b>t15a?'Increasing — worth noting':'Stable';
   set('pepcid-streak',trend);
 }
 
