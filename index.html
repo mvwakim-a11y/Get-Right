@@ -686,7 +686,7 @@ svg.ring-svg{display:block;margin:0 auto;}
 /* ── SETTINGS PANEL ── */
 .settings-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:150;backdrop-filter:blur(4px);}
 .settings-overlay.open{display:block;}
-.settings-panel{position:fixed;bottom:0;left:0;right:0;max-height:80vh;overflow-y:auto;background:var(--bg2);border-radius:var(--radius) var(--radius) 0 0;border-top:1px solid var(--border);padding:0 0 env(safe-area-inset-bottom);z-index:151;transform:translateY(100%);transition:transform .25s ease;}
+.settings-panel{position:fixed;bottom:0;left:0;right:0;max-height:92vh;overflow-y:auto;-webkit-overflow-scrolling:touch;background:var(--bg2);border-radius:var(--radius) var(--radius) 0 0;border-top:1px solid rgba(99,102,241,.3);padding:0 0 env(safe-area-inset-bottom);z-index:151;transform:translateY(100%);transition:transform .28s cubic-bezier(.4,0,.2,1);}
 .settings-panel.open{transform:translateY(0);}
 .settings-handle{width:36px;height:4px;background:var(--border);border-radius:2px;margin:12px auto 0;}
 .settings-title{font-family:'DM Serif Display',serif;font-size:18px;color:var(--text);padding:14px 20px 10px;}
@@ -782,35 +782,49 @@ svg.ring-svg{display:block;margin:0 auto;}
 <div class="settings-overlay" id="settings-overlay" onclick="closeSettings()"></div>
 <div class="settings-panel" id="settings-panel">
   <div class="settings-handle"></div>
-  <div class="settings-title">Settings</div>
-  <div class="settings-group">
-    <div class="settings-row" onclick="localStorage.removeItem('intro_seen');document.getElementById('intro-overlay').style.display='block';closeSettings();">
-      <div class="settings-row-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--indigo-light)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
-      <div><div class="settings-row-label">Show welcome screen</div><div class="settings-row-sub">Re-read the intro and tab overview</div></div>
-    </div>
-    <div class="settings-row" onclick="exportCSV();closeSettings();">
-      <div class="settings-row-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></div>
-      <div><div class="settings-row-label">Export data (CSV)</div><div class="settings-row-sub">Download all your logged data</div></div>
-    </div>
-    <div class="settings-row" onclick="document.getElementById('csv-import-input').click();closeSettings();">
-      <div class="settings-row-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--sky)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></div>
-      <div><div class="settings-row-label">Import data (CSV)</div><div class="settings-row-sub">Restore from a previous export</div></div>
-    </div>
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 20px 0;">
+    <div class="settings-title" style="padding:0;margin:0;">Settings</div>
+    <button onclick="closeSettings()" style="background:none;border:none;color:var(--text3);font-size:22px;cursor:pointer;padding:4px;line-height:1;">×</button>
   </div>
+
+  <!-- CLOUD BACKUP — top, always visible -->
   <div class="settings-group">
-    <div style="padding:14px 20px 10px;">
-      <div style="font-size:10px;font-weight:700;color:var(--indigo-light);letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px;">Cloud backup — GitHub Gist</div>
-      <div style="font-size:12px;color:var(--text2);line-height:1.65;margin-bottom:10px;">Paste a GitHub personal access token to sync your data to a private Gist. <a href="https://github.com/settings/tokens/new?scopes=gist&description=Cadence+backup" target="_blank" style="color:var(--indigo-light);">Create one here</a> — only the <strong>gist</strong> scope is needed.</div>
-      <input type="password" id="gist-token-input" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" style="width:100%;padding:9px 12px;font-size:12px;font-family:'DM Sans',sans-serif;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--bg3);color:var(--text);outline:none;box-sizing:border-box;"/>
-      <div id="gist-token-saved" style="font-size:11px;color:var(--text3);margin-top:5px;"></div>
-      <div class="sync-row">
-        <button class="sync-btn push" onclick="gistPush()">Push to cloud</button>
-        <button class="sync-btn pull" onclick="gistPull()">Pull from cloud</button>
+    <div style="padding:14px 20px;">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--indigo-light)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10h-1.26A8 8 0 109 20h9a5 5 0 000-10z"/></svg>
+        <div style="font-size:10px;font-weight:700;color:var(--indigo-light);letter-spacing:.1em;text-transform:uppercase;">Cloud backup</div>
+      </div>
+      <div style="font-size:12px;color:var(--text2);line-height:1.6;margin-bottom:10px;">Sync your data to a private GitHub Gist — works across devices, survives Safari wipes. <a href="https://github.com/settings/tokens/new?scopes=gist&description=Cadence+backup" target="_blank" style="color:var(--indigo-light);text-decoration:underline;">Create a token</a> (gist scope only).</div>
+      <input type="password" id="gist-token-input" placeholder="Paste token: ghp_xxxxxxxxxxxx" style="width:100%;padding:10px 12px;font-size:13px;font-family:'DM Sans',sans-serif;border:1px solid rgba(99,102,241,.4);border-radius:var(--radius-sm);background:var(--bg3);color:var(--text);outline:none;box-sizing:border-box;"/>
+      <div id="gist-token-saved" style="font-size:11px;color:var(--text3);margin-top:5px;min-height:16px;"></div>
+      <div class="sync-row" style="margin-top:10px;">
+        <button class="sync-btn push" onclick="gistPush()">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:5px;"><path d="M18 10h-1.26A8 8 0 109 20h9a5 5 0 000-10z"/></svg>Push to cloud
+        </button>
+        <button class="sync-btn pull" onclick="gistPull()">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:5px;"><path d="M18 10h-1.26A8 8 0 109 20h9a5 5 0 000-10z"/></svg>Pull from cloud
+        </button>
       </div>
       <div class="sync-status" id="sync-status"></div>
     </div>
   </div>
+
+  <!-- DATA -->
   <div class="settings-group">
+    <div style="padding:6px 20px 4px;font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;">Data</div>
+    <div class="settings-row" onclick="exportCSV();closeSettings();">
+      <div class="settings-row-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></div>
+      <div><div class="settings-row-label">Export CSV</div><div class="settings-row-sub">Download all your logged data</div></div>
+    </div>
+    <div class="settings-row" onclick="document.getElementById('csv-import-input').click();closeSettings();">
+      <div class="settings-row-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--sky)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></div>
+      <div><div class="settings-row-label">Import CSV</div><div class="settings-row-sub">Merges with existing data — won't erase anything newer</div></div>
+    </div>
+  </div>
+
+  <!-- RESET -->
+  <div class="settings-group">
+    <div style="padding:6px 20px 4px;font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;">Reset</div>
     <div class="settings-row" onclick="resetTodayConfirm();">
       <div class="settings-row-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg></div>
       <div><div class="settings-row-label">Reset today's habits</div><div class="settings-row-sub">Clears all of today's habit data</div></div>
