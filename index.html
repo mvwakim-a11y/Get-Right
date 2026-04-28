@@ -30,7 +30,7 @@
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;margin:0;padding:0;}
 html{background:var(--bg);}
-body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-size:16px;min-height:100vh;padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom));}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-size:16px;min-height:100vh;padding-top:env(safe-area-inset-top);padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom));padding-left:env(safe-area-inset-left);padding-right:env(safe-area-inset-right);}
 .orb{position:fixed;top:-140px;right:-100px;width:420px;height:420px;background:radial-gradient(circle,rgba(139,92,246,.18) 0%,transparent 70%);pointer-events:none;z-index:0;}
 .orb2{position:fixed;bottom:60px;left:-120px;width:340px;height:340px;background:radial-gradient(circle,rgba(99,102,241,.12) 0%,transparent 70%);pointer-events:none;z-index:0;}
 
@@ -297,7 +297,10 @@ svg.ring-svg{display:block;margin:0 auto;}
 .breath-timer-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
 .breath-timer-title{font-size:14px;font-weight:500;color:var(--text);}
 .breath-dur-row{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
-.breath-dur-btn{width:30px;height:30px;border-radius:50%;border:1px solid var(--border);background:var(--bg3);color:var(--text2);cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;}
+.breath-adj-row{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:4px;margin-top:8px;}
+.breath-dur-btn{padding:7px 4px;font-size:11px;font-weight:600;font-family:'DM Sans',sans-serif;border:1px solid var(--border);background:var(--bg4);color:var(--text2);border-radius:4px;cursor:pointer;}
+.breath-dur-btn:hover:not(:disabled){background:var(--bg3);color:var(--text);}
+.breath-dur-btn:disabled{opacity:.3;cursor:not-allowed;}
 .breath-dur-val{font-family:'DM Serif Display',serif;font-size:22px;color:var(--text);min-width:50px;text-align:center;}
 .breath-dur-lbl{font-size:12px;color:var(--text3);}
 .breath-display{font-family:'DM Serif Display',serif;font-size:40px;color:var(--indigo-light);text-align:center;margin:4px 0;}
@@ -397,13 +400,17 @@ svg.ring-svg{display:block;margin:0 auto;}
 .interval-title{font-size:12px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.04em;}
 .interval-body{padding:12px 14px;display:none;}
 .interval-body.open{display:block;}
-.int-config{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px;}
-.int-field{background:var(--bg3);border-radius:var(--radius-sm);padding:8px 10px;text-align:center;}
-.int-field-label{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px;}
-.int-field-row{display:flex;align-items:center;justify-content:center;gap:6px;}
-.int-adj{width:24px;height:24px;border-radius:50%;border:1px solid var(--border);background:var(--bg4);color:var(--text2);cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.int-val{font-family:'DM Serif Display',serif;font-size:18px;color:var(--text);min-width:28px;text-align:center;}
-.int-phase-label{font-size:10px;color:var(--text3);margin-top:2px;}
+/* ── INTERVAL TIMER REDESIGN ── */
+.int-config{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px;}
+.int-field{background:var(--bg3);border-radius:var(--radius-sm);padding:10px 8px;text-align:center;border:1px solid var(--border2);}
+.int-field-label{font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;font-weight:700;}
+.int-time-display-val{display:flex;align-items:baseline;justify-content:center;gap:3px;margin-bottom:8px;}
+.int-time-display-val .int-val{font-family:'DM Serif Display',serif;font-size:20px;color:var(--text);}
+.int-time-display-val .int-phase-label{font-size:10px;color:var(--text3);}
+.int-adj-row{display:grid;grid-template-columns:1fr 1fr;gap:3px;}
+.int-field:last-child .int-adj-row{grid-template-columns:1fr 1fr;}
+.int-adj{padding:5px 4px;font-size:10px;font-weight:600;font-family:'DM Sans',sans-serif;border:1px solid var(--border);background:var(--bg4);color:var(--text2);border-radius:4px;cursor:pointer;}
+.int-adj:hover:not(:disabled){background:var(--bg2);color:var(--text);}
 .int-display{text-align:center;margin-bottom:10px;}
 .int-time{font-family:'DM Serif Display',serif;font-size:48px;color:var(--text);line-height:1;}
 .int-status{font-size:12px;margin-top:4px;}
@@ -448,6 +455,44 @@ svg.ring-svg{display:block;margin:0 auto;}
 .gratitude-ta::placeholder{color:var(--text3);}
 
 /* completed section removed */
+
+/* ── COMPLETED CARDS: visually collapse checked items ── */
+.card[data-done="true"]{
+  background:transparent;
+  border-color:rgba(255,255,255,.04);
+  opacity:.5;
+  transition:all .25s ease;
+}
+.card[data-done="true"] .card-row{padding:9px 14px;}
+.card[data-done="true"] .item-sub,
+.card[data-done="true"] .cue-card,
+.card[data-done="true"] .jaw-timer-wrap,
+.card[data-done="true"] .jaw-dur-row,
+.card[data-done="true"] .jaw-steps,
+.card[data-done="true"] .jaw-note,
+.card[data-done="true"] .ph-badge{display:none;}
+.card[data-done="true"]:hover{opacity:.9;}
+.card[data-done="true"] .item-label{font-size:13px;}
+.night-card .card-row[data-done="true"]{
+  opacity:.5;
+  padding:8px 14px;
+  transition:all .25s ease;
+}
+.night-card .card-row[data-done="true"] .item-sub{display:none;}
+.night-card .card-row[data-done="true"] .item-label{font-size:13px;}
+/* Movement act rows */
+.act-row[data-done="true"]{
+  opacity:.5;
+  padding:8px 14px;
+  transition:all .25s ease;
+}
+.act-row[data-done="true"] .act-why{display:none;}
+.act-row[data-done="true"] .act-label{font-size:13px;}
+.move-kid-row[data-done="true"]{
+  opacity:.5;
+  transition:all .25s ease;
+}
+.move-kid-row[data-done="true"] .act-why{display:none;}
 
 /* ── CUSTOM HABITS ── */
 .custom-habit-section{margin-bottom:10px;}
@@ -630,9 +675,53 @@ svg.ring-svg{display:block;margin:0 auto;}
 .reorder-btn{background:var(--bg3);border:1px solid var(--border2);color:var(--text3);width:24px;height:18px;font-size:9px;cursor:pointer;border-radius:3px;display:flex;align-items:center;justify-content:center;padding:0;line-height:1;}
 .reorder-btn:hover:not(:disabled){color:var(--indigo-light);}
 .reorder-btn:disabled{opacity:.25;cursor:not-allowed;}
+
+.jaw-dur-row{display:flex;flex-direction:column;gap:6px;padding:10px 14px;border-bottom:1px solid var(--border2);background:var(--bg3);}
+.jaw-dur-label{font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;font-weight:600;}
+.jaw-dur-label strong{color:var(--text);text-transform:none;font-weight:700;letter-spacing:0;font-family:'DM Serif Display',serif;font-size:13px;}
+.jaw-dur-btns{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;}
+.jaw-dur-btn{padding:6px 4px;font-size:11px;font-weight:600;font-family:'DM Sans',sans-serif;background:var(--bg4);color:var(--text2);border:1px solid var(--border2);border-radius:4px;cursor:pointer;}
+.jaw-dur-btn:hover{background:var(--bg2);color:var(--text);}
 </style>
 </head>
 <body>
+<div id="intro-overlay" style="display:none;position:fixed;inset:0;background:rgba(15,12,26,0.96);z-index:200;overflow-y:auto;padding:20px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);">
+  <div style="max-width:480px;margin:40px auto;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:24px;">
+    <div style="text-align:center;margin-bottom:20px;">
+      <svg width="48" height="48" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs><linearGradient id="intro-grad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#6366f1"/><stop offset="100%" stop-color="#8b5cf6"/></linearGradient></defs>
+        <circle cx="20" cy="20" r="19" stroke="url(#intro-grad)" stroke-width="1.5" fill="rgba(99,102,241,0.1)"/>
+        <path d="M5 20 L9 20 L12 11 L16 29 L20 20 L24 20 L27 13 L31 27 L35 20" stroke="url(#intro-grad)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <h2 style="font-family:'DM Serif Display',serif;font-size:26px;color:var(--text);margin:14px 0 4px;">Welcome to Cadence</h2>
+      <div style="font-size:13px;color:var(--text3);">Michelle · 27 · 20-week plan</div>
+    </div>
+    <div style="font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:18px;">
+      Cadence is your personal health and habit tracker — built around your specific goals: posture, breathing, jaw tension, and the move to Denver.
+    </div>
+    <div style="background:var(--bg3);border:1px solid var(--border2);border-radius:var(--radius-sm);padding:14px;margin-bottom:14px;">
+      <div style="font-size:10px;font-weight:700;color:var(--indigo-light);letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px;">How it's organized</div>
+      <div style="display:flex;flex-direction:column;gap:10px;font-size:13px;color:var(--text2);line-height:1.5;">
+        <div><strong style="color:var(--text);">Move</strong> — your daily workout, the 20-week schedule, music links, and an interval timer for circuit work.</div>
+        <div><strong style="color:var(--text);">Habits</strong> — every daily habit, water/meals/steps trackers, breathing & jaw timers, mood &amp; sleep ratings, weekly and monthly goals.</div>
+        <div><strong style="color:var(--text);">Guide</strong> — research-backed reference cards on posture, sleep, jaw, breathing, and bruxism. Read when you need a refresher.</div>
+        <div><strong style="color:var(--text);">Progress</strong> — your streak, 14-day trends, weekly completion, Pepcid reduction tracking, and CSV export.</div>
+      </div>
+    </div>
+    <div style="background:var(--bg3);border:1px solid var(--border2);border-radius:var(--radius-sm);padding:14px;margin-bottom:18px;">
+      <div style="font-size:10px;font-weight:700;color:var(--violet);letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px;">A few things to know</div>
+      <ul style="margin:0;padding-left:18px;font-size:12px;color:var(--text2);line-height:1.7;">
+        <li>Tap to log doses, water, meals — counters save automatically</li>
+        <li>Use Prev / Next buttons in Move and Habits to view past days</li>
+        <li>You can add your own custom habits and assign them to any time of day</li>
+        <li>Every dose of Pepcid is just for tracking — the goal is fewer over time</li>
+        <li>Audio chimes work after the first tap — iOS quirk</li>
+      </ul>
+    </div>
+    <button onclick="dismissIntro()" style="width:100%;padding:13px;font-size:14px;font-weight:600;font-family:'DM Sans',sans-serif;background:linear-gradient(135deg,var(--indigo),var(--violet));color:white;border:none;border-radius:var(--radius-sm);cursor:pointer;">Get started</button>
+  </div>
+</div>
+
 <div class="orb"></div><div class="orb2"></div>
 
 <!-- ═══════════ MOVEMENT ═══════════ -->
@@ -701,26 +790,30 @@ svg.ring-svg{display:block;margin:0 auto;}
           <div class="int-config">
             <div class="int-field">
               <div class="int-field-label">Work</div>
-              <div class="int-field-row">
-                <button class="int-adj" onclick="adjInt('work',-5)">−</button>
-                <div><div class="int-val" id="int-work-val">30</div><div class="int-phase-label">sec</div></div>
-                <button class="int-adj" onclick="adjInt('work',5)">+</button>
+              <div class="int-time-display-val"><span class="int-val" id="int-work-val">30</span><span class="int-phase-label">sec</span></div>
+              <div class="int-adj-row">
+                <button class="int-adj" onclick="adjInt('work',-60)">−1m</button>
+                <button class="int-adj" onclick="adjInt('work',-5)">−5s</button>
+                <button class="int-adj" onclick="adjInt('work',5)">+5s</button>
+                <button class="int-adj" onclick="adjInt('work',60)">+1m</button>
               </div>
             </div>
             <div class="int-field">
               <div class="int-field-label">Rest</div>
-              <div class="int-field-row">
-                <button class="int-adj" onclick="adjInt('rest',-5)">−</button>
-                <div><div class="int-val" id="int-rest-val">10</div><div class="int-phase-label">sec</div></div>
-                <button class="int-adj" onclick="adjInt('rest',5)">+</button>
+              <div class="int-time-display-val"><span class="int-val" id="int-rest-val">10</span><span class="int-phase-label">sec</span></div>
+              <div class="int-adj-row">
+                <button class="int-adj" onclick="adjInt('rest',-60)">−1m</button>
+                <button class="int-adj" onclick="adjInt('rest',-5)">−5s</button>
+                <button class="int-adj" onclick="adjInt('rest',5)">+5s</button>
+                <button class="int-adj" onclick="adjInt('rest',60)">+1m</button>
               </div>
             </div>
             <div class="int-field">
               <div class="int-field-label">Rounds</div>
-              <div class="int-field-row">
-                <button class="int-adj" onclick="adjInt('rounds',-1)">−</button>
-                <div><div class="int-val" id="int-rounds-val">3</div><div class="int-phase-label">sets</div></div>
-                <button class="int-adj" onclick="adjInt('rounds',1)">+</button>
+              <div class="int-time-display-val"><span class="int-val" id="int-rounds-val">3</span><span class="int-phase-label">sets</span></div>
+              <div class="int-adj-row">
+                <button class="int-adj" onclick="adjInt('rounds',-1)">−1</button>
+                <button class="int-adj" onclick="adjInt('rounds',1)">+1</button>
               </div>
             </div>
           </div>
@@ -798,14 +891,14 @@ svg.ring-svg{display:block;margin:0 auto;}
   <div class="card">
     <div class="card-row">
       <div class="cb" data-hid="cats-am" onclick="toggleHabit('cats-am',this)"></div>
-      <div style="flex:1;"><div class="item-label" id="hlbl-cats-am">Feed the cats</div><div class="item-sub">Morning feeding. They'll remind you if you forget, but build it into the routine anyway.</div></div>
+      <div style="flex:1;"><div class="item-label" id="hlbl-cats-am">Feed the cats</div><div class="item-sub">Morning feeding. Anchoring this to your morning routine makes one less thing to remember.</div></div>
     </div>
   </div>
 
   <div class="card">
     <div class="card-row">
       <div class="cb" data-hid="tidy-am" onclick="toggleHabit('tidy-am',this)"></div>
-      <div style="flex:1;"><div class="item-label" id="hlbl-tidy-am">10–15 min morning tidy</div><div class="item-sub">Before you sit down to work — surfaces cleared, things put away, cushions straightened. Your environment directly affects your stress levels and focus. Do this before the day swallows you.</div></div>
+      <div style="flex:1;"><div class="item-label" id="hlbl-tidy-am">10–15 min morning tidy</div><div class="item-sub">Before you sit down to work — clear surfaces, put things away, straighten cushions. A cluttered space measurably raises baseline stress. Ten minutes now saves the late-evening "I should clean" loop.</div></div>
     </div>
   </div>
 
@@ -861,7 +954,7 @@ svg.ring-svg{display:block;margin:0 auto;}
   <div class="card">
     <div class="card-row">
       <div class="cb" data-hid="jaw-m" onclick="toggleHabit('jaw-m',this)"></div>
-      <div style="flex:1;"><div class="item-label" id="hlbl-jaw-m">Jaw exercise — 3 × 2 min</div><div class="item-sub">Use timer below · Follow your dentist's sequence</div></div>
+      <div style="flex:1;"><div class="item-label" id="hlbl-jaw-m">Jaw exercise — morning</div><div class="item-sub">Three rounds of two minutes (default — you can adjust). Use the timer below and follow the specific sequence your dentist gave you.</div></div>
       <span class="ph-badge badge-jaw" style="font-size:10px;margin-top:2px;">6 min</span>
     </div>
     <div class="jaw-timer-wrap" id="jaw-timer-m"></div>
@@ -870,11 +963,11 @@ svg.ring-svg{display:block;margin:0 auto;}
   <div class="card">
     <div class="card-row">
       <div class="cb" data-hid="posture-m" onclick="toggleHabit('posture-m',this)"></div>
-      <div style="flex:1;"><div class="item-label" id="hlbl-posture-m">Morning posture reset</div><div class="item-sub">10-second check before you start your day</div></div>
+      <div style="flex:1;"><div class="item-label" id="hlbl-posture-m">Morning posture reset</div><div class="item-sub">Run through the checklist below before sitting down. The goal is to make the correct posture your default — repetition rewires it.</div></div>
       <span class="ph-badge badge-posture" style="font-size:10px;margin-top:2px;">10 sec</span>
     </div>
     <div class="cue-card">
-      <div class="cue-title">⬆ Quick reset</div>
+      <div class="cue-title">Quick reset</div>
       <ul class="cue-list">
         <li><strong>Sit bones grounded</strong> — not slumped onto your tailbone</li>
         <li><strong>Ribs over hips</strong> — stack, don't splay</li>
@@ -885,13 +978,15 @@ svg.ring-svg{display:block;margin:0 auto;}
     </div>
   </div>
 
+  <div id="inline-custom-morning"></div>
+
   <!-- MIDDAY -->
   <div class="slbl"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--sky)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"  aria-hidden="true"><circle cx="12" cy="12" r="5"/><path d="M12 1v3M12 20v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M1 12h3M20 12h3"/></svg><span class="slbl-text" style="color:var(--sky);">Midday</span></div>
 
   <div class="card">
     <div class="card-row">
       <div class="cb" data-hid="jaw-a" onclick="toggleHabit('jaw-a',this)"></div>
-      <div style="flex:1;"><div class="item-label" id="hlbl-jaw-a">Jaw exercise — 3 × 2 min</div><div class="item-sub">Use timer below · Follow your dentist's sequence</div></div>
+      <div style="flex:1;"><div class="item-label" id="hlbl-jaw-a">Jaw exercise — midday</div><div class="item-sub">Three rounds of two minutes. The midday session catches accumulated tension from morning concentration before it compounds.</div></div>
       <span class="ph-badge badge-jaw" style="font-size:10px;margin-top:2px;">6 min</span>
     </div>
     <div class="jaw-timer-wrap" id="jaw-timer-a"></div>
@@ -900,7 +995,7 @@ svg.ring-svg{display:block;margin:0 auto;}
   <div class="card">
     <div class="card-row">
       <div class="cb" data-hid="posture-a1" onclick="toggleHabit('posture-a1',this)"></div>
-      <div style="flex:1;"><div class="item-label" id="hlbl-posture-a1">Stand break + posture reset</div><div class="item-sub">Get up for 2 min, then reposition</div></div>
+      <div style="flex:1;"><div class="item-label" id="hlbl-posture-a1">Stand break + posture reset</div><div class="item-sub">Stand up for 2 minutes — walk to get water, look out a window. When you sit back down, run through the standing checklist below.</div></div>
       <span class="ph-badge badge-posture" style="font-size:10px;margin-top:2px;">2 min</span>
     </div>
     <div class="cue-card">
@@ -915,13 +1010,15 @@ svg.ring-svg{display:block;margin:0 auto;}
     </div>
   </div>
 
+  <div id="inline-custom-midday"></div>
+
   <!-- AFTERNOON -->
   <div class="slbl"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--indigo-light)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"  aria-hidden="true"><path d="M12 2v2M4.93 4.93l1.41 1.41M2 12h2M19.07 4.93l-1.41 1.41M22 12h-2"/><circle cx="12" cy="10" r="3"/><path d="M18 18H6a4 4 0 01-1.38-7.76A7 7 0 1118 18z"/></svg><span class="slbl-text" style="color:var(--indigo-light);">Afternoon</span></div>
 
   <div class="card">
     <div class="card-row">
       <div class="cb" data-hid="eye-2020" onclick="toggleHabit('eye-2020',this)"></div>
-      <div style="flex:1;"><div class="item-label" id="hlbl-eye-2020">20-20-20 eye break</div><div class="item-sub">Every 20 min look 20 feet away for 20 seconds. Reduces eye strain that feeds headaches and jaw tension. Set an hourly reminder on your phone.</div></div>
+      <div style="flex:1;"><div class="item-label" id="hlbl-eye-2020">20-20-20 eye break</div><div class="item-sub">Every 20 minutes of screen time, look at something 20 feet away for 20 seconds. Reduces eye strain that often shows up as headaches and jaw tension. Set a recurring phone reminder to start.</div></div>
     </div>
   </div>
 
@@ -935,7 +1032,7 @@ svg.ring-svg{display:block;margin:0 auto;}
   <div class="card">
     <div class="card-row">
       <div class="cb" data-hid="posture-a2" onclick="toggleHabit('posture-a2',this)"></div>
-      <div style="flex:1;"><div class="item-label" id="hlbl-posture-a2">Afternoon posture check</div><div class="item-sub">Your body has been slumping for hours by now</div></div>
+      <div style="flex:1;"><div class="item-label" id="hlbl-posture-a2">Afternoon posture check</div><div class="item-sub">By 3pm most people are slumped. Reset your sitting position and check the desk/couch fix list below — small adjustments now prevent end-of-day pain.</div></div>
       <span class="ph-badge badge-posture" style="font-size:10px;margin-top:2px;">10 sec</span>
     </div>
     <div class="cue-card">
@@ -967,7 +1064,7 @@ svg.ring-svg{display:block;margin:0 auto;}
       <div class="water-top">
         <div>
           <div class="water-title">Pepcid doses today</div>
-          <div class="water-goal" id="pepcid-goal-lbl">Tap to log — goal is fewer over time</div>
+          <div class="water-goal">Logging only — goal is gradually fewer doses over time</div>
         </div>
         <span class="ph-badge" style="background:rgba(251,191,36,.1);color:var(--amber);border:1px solid rgba(251,191,36,.2);font-size:10px;">Reduction</span>
       </div>
@@ -975,13 +1072,15 @@ svg.ring-svg{display:block;margin:0 auto;}
         <button class="water-btn minus" onclick="adjustPepcid(-1)">−</button>
         <div>
           <div class="water-count" id="pepcid-count" style="color:var(--amber);">0</div>
-          <div class="water-unit">doses taken</div>
+          <div class="water-unit">taken today</div>
         </div>
         <button class="water-btn plus" onclick="adjustPepcid(1)">+</button>
       </div>
-      <div id="pepcid-note" style="font-size:12px;color:var(--text2);background:var(--bg3);border-radius:var(--radius-sm);padding:8px 12px;line-height:1.55;">Track every dose honestly — the data in Progress shows your reduction trend over time.</div>
+      <div id="pepcid-note" style="font-size:12px;color:var(--text2);background:var(--bg3);border-radius:var(--radius-sm);padding:10px 12px;line-height:1.6;">Tap each dose as you take it. The Progress tab shows your weekly average and reduction trend. Don't stop suddenly — talk to your doctor about a tapering plan.</div>
     </div>
   </div>
+
+  <div id="inline-custom-afternoon"></div>
 
   <div class="slbl"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#c084fc" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"  aria-hidden="true"><path d="M17 18a5 5 0 00-10 0M12 9V3M3 18h18M4.22 9.22l1.42 1.42M18.36 10.64l1.42-1.42"/></svg><span class="slbl-text" style="color:#c084fc;">Evening</span></div>
   <div class="card">
@@ -990,6 +1089,8 @@ svg.ring-svg{display:block;margin:0 auto;}
       <div style="flex:1;"><div class="item-label" id="hlbl-dishes">Dishes done before bed</div><div class="item-sub">Waking up to a clean kitchen has a measurable effect on morning mood and cortisol. Takes 5–10 min. Don't let it compound.</div></div>
     </div>
   </div>
+
+  <div id="inline-custom-evening"></div>
 
   <!-- FOOD TRACKER -->
   <div class="slbl"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 002-2V2M7 2v20M21 15V2a5 5 0 00-5 5v6c0 1.1.9 2 2 2h3zm0 0v7"/></svg><span class="slbl-text" style="color:var(--amber);">Nutrition</span></div>
@@ -1008,9 +1109,14 @@ svg.ring-svg{display:block;margin:0 auto;}
         <div class="water-unit">of 6 meals logged</div>
       </div>
       <div id="meals-log" style="margin-top:8px;display:flex;flex-direction:column;gap:6px;"></div>
-      <div id="meals-add-form" style="display:flex;gap:6px;margin-top:10px;">
-        <input type="text" id="meal-input" placeholder="What did you eat? (e.g. eggs, oats, banana)" style="flex:1;padding:10px 12px;font-size:13px;font-family:'DM Sans',sans-serif;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--bg3);color:var(--text);outline:none;" onkeydown="if(event.key==='Enter')addMeal()"/>
-        <button onclick="addMeal()" style="padding:10px 14px;font-size:13px;font-weight:600;font-family:'DM Sans',sans-serif;background:linear-gradient(135deg,var(--amber),#f97316);color:var(--bg);border:none;border-radius:var(--radius-sm);cursor:pointer;flex-shrink:0;">+ Log</button>
+      <div id="meal-builder" style="margin-top:10px;background:var(--bg3);border:1px solid var(--border2);border-radius:var(--radius-sm);padding:12px;">
+        <div style="font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;">Building current meal</div>
+        <div id="meal-builder-foods" style="display:flex;flex-direction:column;gap:5px;margin-bottom:8px;"></div>
+        <div style="display:flex;gap:6px;">
+          <input type="text" id="meal-food-input" placeholder="Add a food (e.g. eggs, toast, banana)" style="flex:1;padding:9px 12px;font-size:13px;font-family:'DM Sans',sans-serif;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--bg2);color:var(--text);outline:none;" onkeydown="if(event.key==='Enter')addFoodToMeal()"/>
+          <button onclick="addFoodToMeal()" style="padding:9px 12px;font-size:12px;font-weight:600;font-family:'DM Sans',sans-serif;background:var(--bg4);color:var(--text);border:1px solid var(--border);border-radius:var(--radius-sm);cursor:pointer;flex-shrink:0;">+ Food</button>
+        </div>
+        <button id="meal-save-btn" onclick="saveMeal()" disabled style="width:100%;margin-top:8px;padding:10px;font-size:13px;font-weight:600;font-family:'DM Sans',sans-serif;background:linear-gradient(135deg,var(--amber),#f97316);color:var(--bg);border:none;border-radius:var(--radius-sm);cursor:pointer;opacity:.4;">Save meal</button>
       </div>
       <div id="macro-summary" style="margin-top:10px;"></div>
     </div>
@@ -1082,7 +1188,7 @@ svg.ring-svg{display:block;margin:0 auto;}
   <div class="card">
     <div class="card-row">
       <div class="cb" data-hid="jaw-n" onclick="toggleHabit('jaw-n',this)"></div>
-      <div style="flex:1;"><div class="item-label" id="hlbl-jaw-n">Jaw exercise — 3 × 2 min</div><div class="item-sub">Use timer below · Follow your dentist's sequence</div></div>
+      <div style="flex:1;"><div class="item-label" id="hlbl-jaw-n">Jaw exercise — night</div><div class="item-sub">Three rounds of two minutes before bed. The night session is the most important — it lowers muscle tone heading into sleep, where grinding happens.</div></div>
       <span class="ph-badge badge-jaw" style="font-size:10px;margin-top:2px;">6 min</span>
     </div>
     <div class="jaw-timer-wrap" id="jaw-timer-n"></div>
@@ -1118,11 +1224,11 @@ svg.ring-svg{display:block;margin:0 auto;}
     </div>
     <div class="card-row">
       <div class="cb" data-hid="night-screens" onclick="toggleHabit('night-screens',this)"></div>
-      <div style="flex:1;"><div class="item-label" id="hlbl-night-screens">Screens off or night mode</div><div class="item-sub">30 min before bed — blue light delays melatonin release by ~90 min</div></div>
+      <div style="flex:1;"><div class="item-label" id="hlbl-night-screens">Screens off or night mode</div><div class="item-sub">Stop scrolling 30 minutes before bed. Phone on Do Not Disturb, switch to night mode if you must use it. Blue light at night delays your melatonin by about 90 minutes.</div></div>
     </div>
     <div class="card-row">
       <div class="cb" data-hid="night-jaw-massage" onclick="toggleHabit('night-jaw-massage',this)"></div>
-      <div style="flex:1;"><div class="item-label" id="hlbl-night-jaw-massage">Jaw + face release massage</div><div class="item-sub">1–2 min circular pressure on masseter and temples — releases accumulated day tension</div></div>
+      <div style="flex:1;"><div class="item-label" id="hlbl-night-jaw-massage">Jaw + face release</div><div class="item-sub">Use your fingertips. Press gently in small circles on your masseter (the muscle at the back of your jaw) and your temples for 1–2 minutes. Releases the tension that's been building all day.</div></div>
     </div>
     <div class="card-row">
       <div class="cb" data-hid="supps-pm" onclick="toggleHabit('supps-pm',this)"></div>
@@ -1134,7 +1240,7 @@ svg.ring-svg{display:block;margin:0 auto;}
     </div>
     <div class="card-row">
       <div class="cb" data-hid="night-position" onclick="toggleHabit('night-position',this)"></div>
-      <div style="flex:1;"><div class="item-label" id="hlbl-night-position">Set your sleep position</div><div class="item-sub">Side: pillow between knees, painful shoulder faces up · Back: pillow under knees</div></div>
+      <div style="flex:1;"><div class="item-label" id="hlbl-night-position">Set your sleep position</div><div class="item-sub">If sleeping on your side: pillow between your knees, with the painful shoulder facing up. If on your back: pillow under your knees. Avoid stomach sleeping — it locks the neck and shoulders all night.</div></div>
     </div>
     <div class="card-row" style="border-bottom:1px solid var(--border2);">
       <div style="flex:1;padding:4px 0;">
@@ -1150,7 +1256,7 @@ svg.ring-svg{display:block;margin:0 auto;}
     </div>
     <div class="card-row">
       <div class="cb" data-hid="gratitude-done" onclick="toggleHabit('gratitude-done',this)"></div>
-      <div style="flex:1;"><div class="item-label" id="hlbl-gratitude-done">Write 3 things you're grateful for</div><div class="item-sub">Reduces cortisol and rumination before sleep. Takes 60 seconds.</div></div>
+      <div style="flex:1;"><div class="item-label" id="hlbl-gratitude-done">Three things grateful for</div><div class="item-sub">Use the box below. Three things — small or big, doesn't matter. Sixty seconds. Research shows this reliably lowers cortisol and reduces the bedtime rumination loop.</div></div>
     </div>
     <div class="gratitude-area">
       <textarea class="gratitude-ta" id="gratitude-ta" placeholder="1. &#10;2. &#10;3. " oninput="saveGratitude()"></textarea>
@@ -1160,6 +1266,9 @@ svg.ring-svg{display:block;margin:0 auto;}
       <div style="flex:1;"><div class="item-label" id="hlbl-night-jaw-check">Final jaw check</div><div class="item-sub">Lips together · teeth slightly apart · tongue to roof · jaw muscles soft. This is the correct starting position — grinding happens involuntarily during sleep regardless, driven by your nervous system, not your jaw position.</div></div>
     </div>
   </div>
+
+  <div id="inline-custom-night"></div>
+  <div id="inline-custom-anytime"></div>
 
   <!-- WEEKLY -->
   <div class="slbl"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--violet)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"  aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><span class="slbl-text" style="color:var(--violet);">Weekly</span></div>
@@ -1196,10 +1305,21 @@ svg.ring-svg{display:block;margin:0 auto;}
   <!-- CUSTOM HABITS -->
   <div class="slbl"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--indigo-light)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"  aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg><span class="slbl-text" style="color:var(--indigo-light);">Custom habits</span></div>
   <div class="custom-habit-section">
+    <div style="font-size:12px;color:var(--text2);line-height:1.6;margin-bottom:10px;">Add habits that show up alongside the built-in ones in the section you choose. Use arrows to reorder within a section.</div>
     <div id="custom-habits-list"></div>
-    <div class="add-habit-row">
+    <div class="add-habit-row" style="flex-direction:column;gap:6px;">
       <input type="text" id="custom-habit-input" class="add-habit-input" placeholder="Add a custom daily habit..." />
-      <button class="add-habit-btn" onclick="addCustomHabit()">+ Add</button>
+      <div style="display:flex;gap:6px;">
+        <select id="custom-habit-section" style="flex:1;padding:9px 12px;font-size:13px;font-family:'DM Sans',sans-serif;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--bg3);color:var(--text);outline:none;">
+          <option value="morning">Morning</option>
+          <option value="midday">Midday</option>
+          <option value="afternoon">Afternoon</option>
+          <option value="evening">Evening</option>
+          <option value="night">Night</option>
+          <option value="anytime">Anytime</option>
+        </select>
+        <button class="add-habit-btn" onclick="addCustomHabit()">+ Add</button>
+      </div>
     </div>
   </div>
 
@@ -1256,7 +1376,8 @@ svg.ring-svg{display:block;margin:0 auto;}
       <option value="4">Jaw resting state</option>
       <option value="5">Oral fixation</option>
       <option value="6">Hydration in Denver</option>
-      <option value="7">Stopping the grind</option>
+      <option value="7">Breathing patterns</option>
+      <option value="8">Stopping the grind</option>
     </select>
   </div>
   <div class="guide-dot-row" id="guide-dots"></div>
@@ -1367,8 +1488,22 @@ svg.ring-svg{display:block;margin:0 auto;}
     </div>
   </div>
 
-  <!-- PANEL 7: BRUXISM RESEARCH -->
+  <!-- PANEL 7: BREATHING PATTERNS -->
   <div class="guide-panel" data-idx="7">
+    <div class="guide-card">
+      <div class="guide-header"><div class="guide-icon-wrap"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--indigo-light)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12c0-3 2-5 5-5s4 2 4 4 1 4 4 4 5-2 5-5"/></svg></div><div><div class="guide-title">Breathing patterns</div><div class="guide-desc">A short reference for the breathing techniques used throughout this plan.</div></div></div>
+      <div class="guide-summary">All three patterns shift your nervous system toward parasympathetic (calm). Use the breathing timer in the Habits tab to time yourself.</div>
+      <div class="gi-grid">
+        <div class="gi-chip key"><div class="gi-chip-icon" style="font-size:10px;font-weight:700;color:var(--text3);width:28px;text-align:center;letter-spacing:.04em;text-transform:uppercase;padding-top:1px;">478</div><div class="gi-chip-body"><span class="gi-badge gb-key">For sleep</span><div class="gi-headline">4-7-8 breathing</div><div class="gi-body"><strong>Inhale for 4 seconds. Hold for 7. Exhale slowly for 8.</strong> The long exhale activates the vagus nerve, dropping heart rate. Best done lying down before sleep. Start with 3–4 cycles, work up to 8.</div></div></div>
+        <div class="gi-chip do"><div class="gi-chip-icon" style="font-size:10px;font-weight:700;color:var(--text3);width:28px;text-align:center;letter-spacing:.04em;text-transform:uppercase;padding-top:1px;">box</div><div class="gi-chip-body"><span class="gi-badge gb-do">For focus / stress</span><div class="gi-headline">Box breathing</div><div class="gi-body"><strong>4 in · 4 hold · 4 out · 4 hold.</strong> Equal-length sides, hence "box". Used by Navy SEALs and elite athletes. Best when you feel anxious, before a stressful task, or when you catch yourself clenching during the day. 5–10 cycles.</div></div></div>
+        <div class="gi-chip note"><div class="gi-chip-icon" style="font-size:10px;font-weight:700;color:var(--text3);width:28px;text-align:center;letter-spacing:.04em;text-transform:uppercase;padding-top:1px;">ext</div><div class="gi-chip-body"><span class="gi-badge gb-note">For wind-down</span><div class="gi-headline">Extended exhale</div><div class="gi-body"><strong>4 in · 8 out (or any 1:2 ratio).</strong> Simpler than 4-7-8, no breath hold. Good for transitioning out of work mode in the evening, or any time you need to take the edge off. 5 minutes.</div></div></div>
+        <div class="gi-chip research"><div class="gi-chip-icon" style="font-size:10px;font-weight:700;color:var(--text3);width:28px;text-align:center;letter-spacing:.04em;text-transform:uppercase;padding-top:1px;">nose</div><div class="gi-chip-body"><span class="gi-badge gb-research">For altitude</span><div class="gi-headline">Nasal-only breathing during exercise</div><div class="gi-body">Breathe through your nose only during Zone 2 cardio. Forces slower, more efficient breathing — the basis of Patrick McKeown's Oxygen Advantage method. If you can't maintain it, slow your pace. Builds CO₂ tolerance, which directly reduces grinding.</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PANEL 8: BRUXISM RESEARCH -->
+  <div class="guide-panel" data-idx="8">
     <div class="guide-card">
       <div class="guide-header"><div class="guide-icon-wrap"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--coral)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"  aria-hidden="true"><path d="M9 3h6M5 21L9 9M19 21L15 9"/><line x1="5" y1="21" x2="19" y2="21"/></svg></div><div><div class="guide-title">Stopping the grind</div><div class="guide-desc">Sleep bruxism is centrally mediated — your nervous system during microarousals. You can't consciously stop it, but you can reduce how often and how hard it fires.</div></div></div>
       <div class="guide-summary">Everything in this plan — breathwork, nasal training, morning sunlight, yin yoga — directly addresses the upstream causes of bruxism. It's the mechanism, not a side benefit.</div>
@@ -1487,12 +1622,13 @@ svg.ring-svg{display:block;margin:0 auto;}
     <div class="stat-card-body">
       <div style="font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:12px;">Export everything to a CSV for analysis in Excel or Sheets. Import a previously exported file to restore data on a new device.</div>
       <div style="display:flex;gap:8px;margin-bottom:10px;">
-        <button onclick="exportCSV()" style="flex:1;padding:11px;font-size:13px;font-weight:600;font-family:'DM Sans',sans-serif;background:linear-gradient(135deg,var(--indigo),var(--violet));color:white;border:none;border-radius:var(--radius-sm);cursor:pointer;">⬇ Export CSV</button>
-        <button onclick="document.getElementById('csv-import-input').click()" style="flex:1;padding:11px;font-size:13px;font-weight:500;font-family:'DM Sans',sans-serif;background:var(--bg3);color:var(--text2);border:1px solid var(--border);border-radius:var(--radius-sm);cursor:pointer;">⬆ Import CSV</button>
+        <button onclick="exportCSV()" style="flex:1;padding:11px;font-size:13px;font-weight:600;font-family:'DM Sans',sans-serif;background:linear-gradient(135deg,var(--indigo),var(--violet));color:white;border:none;border-radius:var(--radius-sm);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Export CSV</button>
+        <button onclick="document.getElementById('csv-import-input').click()" style="flex:1;padding:11px;font-size:13px;font-weight:500;font-family:'DM Sans',sans-serif;background:var(--bg3);color:var(--text2);border:1px solid var(--border);border-radius:var(--radius-sm);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>Import CSV</button>
         <input type="file" id="csv-import-input" accept=".csv" style="display:none;" onchange="importCSV(this)"/>
       </div>
       <div id="export-status" style="font-size:12px;color:var(--green);min-height:16px;text-align:center;"></div>
       <div style="font-size:11px;color:var(--text3);line-height:1.6;margin-top:4px;">Note: Import will overwrite existing data. Export first as a backup before importing.</div>
+      <button onclick="localStorage.removeItem('intro_seen');document.getElementById('intro-overlay').style.display='block';" style="margin-top:10px;width:100%;padding:9px;font-size:12px;font-weight:500;font-family:'DM Sans',sans-serif;background:transparent;color:var(--text3);border:1px solid var(--border2);border-radius:var(--radius-sm);cursor:pointer;">Show welcome screen again</button>
     </div>
   </div>
 </div>
@@ -1571,7 +1707,7 @@ function switchSection(name,btn){
 const GUIDE_PANELS=[
   {title:'Sitting posture'},{title:'Standing posture'},{title:'Couch & bed'},
   {title:'Sleep positions'},{title:'Jaw resting state'},{title:'Oral fixation'},
-  {title:'Hydration in Denver'},{title:'Stopping the grind'}
+  {title:'Hydration in Denver'},{title:'Breathing patterns'},{title:'Stopping the grind'}
 ];
 function initGuide(){
   renderGuide();
@@ -1612,7 +1748,12 @@ function renderGuide(){
 }
 
 // ══════════ JAW TIMER — 3 rounds × 2 min ══════════
-const ROUND_DUR=120;const TOTAL_ROUNDS=3;
+let ROUND_DUR=120;const TOTAL_ROUNDS=3;
+function adjJawDur(deltaSec){
+  if(Object.values(jawState).some(s=>s.running||s.elapsed>0))return;
+  ROUND_DUR=Math.max(30,Math.min(600,ROUND_DUR+deltaSec));
+  renderTimers();
+}
 let jawState={
   m:{round:1,elapsed:0,running:false},
   a:{round:1,elapsed:0,running:false},
@@ -1665,6 +1806,22 @@ function renderTimer(slot){
   const mm=Math.floor(remaining/60).toString().padStart(2,'0');
   const ss=(remaining%60).toString().padStart(2,'0');
   const pct=Math.min(100,Math.round((st.elapsed/ROUND_DUR)*100));
+  // Show duration adjuster only when timer is fully reset
+  const canAdj=st.round===1&&st.elapsed===0&&!st.running;
+  const durMm=Math.floor(ROUND_DUR/60);const durSs=ROUND_DUR%60;
+  const durDisp=durSs===0?`${durMm} min`:`${durMm}:${durSs.toString().padStart(2,'0')}`;
+  let durRow='';
+  if(canAdj){
+    durRow=`<div class="jaw-dur-row">
+      <span class="jaw-dur-label">Round duration: <strong>${durDisp}</strong></span>
+      <div class="jaw-dur-btns">
+        <button class="jaw-dur-btn" onclick="adjJawDur(-60)">−1m</button>
+        <button class="jaw-dur-btn" onclick="adjJawDur(-15)">−15s</button>
+        <button class="jaw-dur-btn" onclick="adjJawDur(15)">+15s</button>
+        <button class="jaw-dur-btn" onclick="adjJawDur(60)">+1m</button>
+      </div>
+    </div>`;
+  }
   let pipsHtml='<div class="round-pips">';
   for(let r=1;r<=TOTAL_ROUNDS;r++){
     const cls=r<st.round?'complete':r===st.round&&!allDone?'active':'';
@@ -1683,7 +1840,7 @@ function renderTimer(slot){
   if(!allDone&&(st.elapsed>0||st.round>1)){
     resetBtn=`<button class="timer-btn-reset" onclick="timerReset('${slot}')">${ICON_RESET}Reset</button>`;
   }
-  wrap.innerHTML=pipsHtml
+  wrap.innerHTML=durRow+pipsHtml
     +`<div class="timer-display">${allDone?'Done':roundDone?'Round done':mm+':'+ss}</div>`
     +`<div class="timer-bar-wrap"><div class="timer-bar-fill" style="width:${pct}%"></div></div>`
     +(allDone?'':`<div class="timer-hint">${st.running?'Breathe — stay relaxed':roundDone?'Rest, then start next round':'Tap start when ready'}</div>`)
@@ -1721,12 +1878,22 @@ function renderBreathTimer(){
   const pct=done?100:Math.round((st.elapsed/st.total)*100);
   const mins=Math.round(st.total/60);
   const canAdjust=!st.running&&st.elapsed===0;
+  const totalSec=st.total;
+  const dispMin=Math.floor(totalSec/60);const dispSec=totalSec%60;
+  const dispLabel=dispSec===0?`${dispMin}`:`${dispMin}:${dispSec.toString().padStart(2,'0')}`;
   wrap.innerHTML=`
     <div class="breath-dur-row">
-      <button class="breath-dur-btn" onclick="breathAdjust(-1)" ${canAdjust?'':'disabled'}>−</button>
-      <div><div class="breath-dur-val">${mins}</div><div class="breath-dur-lbl">minutes</div></div>
-      <button class="breath-dur-btn" onclick="breathAdjust(1)" ${canAdjust?'':'disabled'}>+</button>
-      <div style="flex:1;font-size:12px;color:var(--text3);padding-left:8px;line-height:1.5;">${canAdjust?'Adjust duration<br>then start':'Reset to change time'}</div>
+      <div style="text-align:center;flex:1;">
+        <div class="breath-dur-val">${dispLabel}</div>
+        <div class="breath-dur-lbl">${dispSec===0?'minutes':'min:sec'}</div>
+        <div class="breath-adj-row">
+          <button class="breath-dur-btn" onclick="breathAdjust(-60)" ${canAdjust?'':'disabled'}>−1m</button>
+          <button class="breath-dur-btn" onclick="breathAdjust(-30)" ${canAdjust?'':'disabled'}>−30s</button>
+          <button class="breath-dur-btn" onclick="breathAdjust(30)" ${canAdjust?'':'disabled'}>+30s</button>
+          <button class="breath-dur-btn" onclick="breathAdjust(60)" ${canAdjust?'':'disabled'}>+1m</button>
+        </div>
+        <div style="font-size:11px;color:var(--text3);margin-top:6px;">${canAdjust?'Set duration, then start':'Reset to change time'}</div>
+      </div>
     </div>
     <div class="breath-display">${done?'Done':mm+':'+ss}</div>
     <div class="breath-bar-wrap"><div class="breath-bar-fill" style="width:${pct}%"></div></div>
@@ -1744,11 +1911,11 @@ function breathToggle(){
   if(breathState.running)startMaster();
   renderBreathTimer();
 }
-function breathAdjust(delta){
+function breathAdjust(deltaSec){
   if(breathState.running)return;
-  const mins=Math.max(1,Math.min(15,Math.round(breathState.total/60)+delta));
-  breathState.total=mins*60;
-  if(breathState.elapsed>=breathState.total)breathState.elapsed=0;
+  if(breathState.elapsed>0)return; // only adjust when not started
+  // delta is in seconds. Bounds: 30 sec to 30 min.
+  breathState.total=Math.max(30,Math.min(1800,breathState.total+deltaSec));
   renderBreathTimer();
 }
 function renderTimers(){
@@ -1778,12 +1945,23 @@ function renderHabits(){
     const chk=!!habDD.completed[id];
     const cb=document.querySelector(`[data-hid="${id}"]`);
     const lbl=document.getElementById('hlbl-'+id);
-    if(cb)cb.classList.toggle('on',chk);
+    if(cb){
+      cb.classList.toggle('on',chk);
+      const card=cb.closest('.card');
+      const nightCard=cb.closest('.night-card');
+      if(nightCard&&!card){
+        const row=cb.closest('.card-row');
+        if(row)row.setAttribute('data-done',chk?'true':'false');
+      } else if(card){
+        card.setAttribute('data-done',chk?'true':'false');
+      }
+    }
     if(lbl)lbl.className='item-label'+(chk?' done':'');
   });
   renderTimers();
   renderWater();
   renderMeals();
+  renderInlineCustomHabits();
   updateQuickStats();
   renderSteps();
   renderPepcidCounter();
@@ -1844,6 +2022,8 @@ function toggleWeekly(id,el){
   el.classList.toggle('on',chk);
   const lbl=document.getElementById('wlbl-'+id);
   if(lbl)lbl.className='item-label'+(chk?' done':'');
+  const card=el.closest('.card');
+  if(card)card.setAttribute('data-done',chk?'true':'false');
   updateWeeklyCount();triggerWkSave();
 }
 function updateWeeklyCount(){
@@ -1884,6 +2064,8 @@ function toggleMonthly(id,el){
   el.classList.toggle('on',chk);
   const lbl=document.getElementById('mlbl-'+id);
   if(lbl){const info=MONTHLY_LABELS[id];const lastWeek=isLastWeekOfMonth();const urgent=info.urgent&&lastWeek&&!chk;lbl.innerHTML=info.icon+' '+info.label+(urgent?' <span style=\"font-size:10px;color:var(--coral);font-weight:600;\">DUE SOON</span>':'');lbl.className='item-label'+(chk?' done':'');}
+  const card=el.closest('.card');
+  if(card)card.setAttribute('data-done',chk?'true':'false');
   triggerMonSave();
 }
 function triggerMonSave(){
@@ -1915,38 +2097,95 @@ const MEAL_GOAL=6;
 // Lookup table: keyword → {p, f, c} ratios (sum to ~1)
 // Heavily simplified estimation for portion-balanced meal logging
 const FOOD_DB={
-  // Protein
-  'chicken':[0.7,0.2,0.1],'turkey':[0.7,0.2,0.1],'beef':[0.55,0.4,0.05],'steak':[0.55,0.4,0.05],
-  'pork':[0.55,0.4,0.05],'bacon':[0.3,0.65,0.05],'ham':[0.6,0.3,0.1],
-  'fish':[0.7,0.25,0.05],'salmon':[0.55,0.4,0.05],'tuna':[0.85,0.1,0.05],'cod':[0.85,0.1,0.05],
-  'shrimp':[0.85,0.1,0.05],'eggs':[0.4,0.55,0.05],'egg':[0.4,0.55,0.05],
-  'tofu':[0.45,0.4,0.15],'tempeh':[0.45,0.3,0.25],'edamame':[0.35,0.25,0.4],
-  'yogurt':[0.4,0.15,0.45],'greek yogurt':[0.6,0.15,0.25],'cottage cheese':[0.65,0.2,0.15],
-  'cheese':[0.25,0.65,0.1],'protein':[0.7,0.15,0.15],'whey':[0.8,0.1,0.1],
-  'beans':[0.3,0.05,0.65],'lentils':[0.3,0.05,0.65],'chickpeas':[0.25,0.1,0.65],
-  'hummus':[0.15,0.45,0.4],'peanut butter':[0.2,0.55,0.25],'nut butter':[0.15,0.65,0.2],
-  // Carbs
-  'rice':[0.1,0.05,0.85],'pasta':[0.15,0.05,0.8],'bread':[0.15,0.1,0.75],'toast':[0.15,0.1,0.75],
-  'bagel':[0.15,0.05,0.8],'oats':[0.15,0.15,0.7],'oatmeal':[0.15,0.15,0.7],'cereal':[0.1,0.05,0.85],
-  'potato':[0.1,0.0,0.9],'sweet potato':[0.1,0.0,0.9],'quinoa':[0.2,0.1,0.7],
-  'tortilla':[0.1,0.15,0.75],'wrap':[0.15,0.2,0.65],'pita':[0.15,0.05,0.8],
-  // Fruit
-  'banana':[0.05,0.0,0.95],'apple':[0.02,0.02,0.96],'berries':[0.05,0.02,0.93],
-  'orange':[0.05,0.02,0.93],'grapes':[0.05,0.02,0.93],'fruit':[0.05,0.02,0.93],
+  // ── PROTEINS ──
+  'chicken':[0.7,0.2,0.1],'chicken breast':[0.8,0.15,0.05],'chicken thigh':[0.55,0.4,0.05],'rotisserie':[0.65,0.3,0.05],
+  'turkey':[0.7,0.2,0.1],'ground turkey':[0.65,0.3,0.05],
+  'beef':[0.55,0.4,0.05],'steak':[0.55,0.4,0.05],'ground beef':[0.5,0.45,0.05],'lean beef':[0.7,0.25,0.05],
+  'pork':[0.55,0.4,0.05],'pork chop':[0.6,0.35,0.05],'bacon':[0.3,0.65,0.05],'ham':[0.6,0.3,0.1],'sausage':[0.3,0.65,0.05],
+  'fish':[0.7,0.25,0.05],'salmon':[0.55,0.4,0.05],'tuna':[0.85,0.1,0.05],'cod':[0.85,0.1,0.05],'tilapia':[0.85,0.1,0.05],
+  'mahi':[0.85,0.1,0.05],'halibut':[0.8,0.15,0.05],'sardines':[0.55,0.4,0.05],'anchovy':[0.55,0.4,0.05],'trout':[0.6,0.35,0.05],
+  'shrimp':[0.85,0.1,0.05],'scallops':[0.85,0.1,0.05],'crab':[0.85,0.1,0.05],'lobster':[0.85,0.1,0.05],'mussels':[0.6,0.15,0.25],
+  'eggs':[0.4,0.55,0.05],'egg':[0.4,0.55,0.05],'omelette':[0.45,0.5,0.05],'omelet':[0.45,0.5,0.05],'frittata':[0.4,0.5,0.1],
+  'tofu':[0.45,0.4,0.15],'tempeh':[0.45,0.3,0.25],'edamame':[0.35,0.25,0.4],'seitan':[0.85,0.05,0.1],
+  'yogurt':[0.4,0.15,0.45],'greek yogurt':[0.6,0.15,0.25],'skyr':[0.7,0.1,0.2],'cottage cheese':[0.65,0.2,0.15],
+  'protein':[0.7,0.15,0.15],'whey':[0.8,0.1,0.1],'protein shake':[0.65,0.15,0.2],'protein powder':[0.85,0.05,0.1],
+  'beans':[0.3,0.05,0.65],'black beans':[0.25,0.05,0.7],'pinto beans':[0.25,0.05,0.7],'kidney beans':[0.25,0.05,0.7],
+  'lentils':[0.3,0.05,0.65],'chickpeas':[0.25,0.1,0.65],'garbanzo':[0.25,0.1,0.65],
+  'hummus':[0.15,0.45,0.4],
+  'deli meat':[0.6,0.25,0.15],'turkey slices':[0.7,0.15,0.15],'roast beef':[0.7,0.25,0.05],
+  'jerky':[0.65,0.2,0.15],'beef jerky':[0.7,0.2,0.1],
+  // ── CARBS ──
+  'rice':[0.1,0.05,0.85],'white rice':[0.1,0.02,0.88],'brown rice':[0.1,0.05,0.85],'jasmine rice':[0.1,0.02,0.88],'basmati':[0.1,0.05,0.85],
+  'pasta':[0.15,0.05,0.8],'spaghetti':[0.15,0.05,0.8],'penne':[0.15,0.05,0.8],'noodles':[0.15,0.05,0.8],'rice noodles':[0.05,0.02,0.93],
+  'mac':[0.18,0.25,0.57],'mac and cheese':[0.18,0.25,0.57],'macaroni':[0.15,0.1,0.75],
+  'bread':[0.15,0.1,0.75],'toast':[0.15,0.1,0.75],'sourdough':[0.15,0.05,0.8],'whole grain':[0.15,0.1,0.75],'whole wheat':[0.18,0.1,0.72],
+  'bagel':[0.15,0.05,0.8],'english muffin':[0.15,0.05,0.8],'muffin':[0.1,0.3,0.6],
+  'pita':[0.15,0.05,0.8],'naan':[0.13,0.2,0.67],'tortilla':[0.1,0.15,0.75],'wrap':[0.15,0.2,0.65],'roti':[0.13,0.1,0.77],
+  'oats':[0.15,0.15,0.7],'oatmeal':[0.15,0.15,0.7],'overnight oats':[0.2,0.15,0.65],'granola':[0.1,0.3,0.6],'muesli':[0.13,0.15,0.72],
+  'cereal':[0.1,0.05,0.85],'cornflakes':[0.08,0.02,0.9],'cheerios':[0.12,0.1,0.78],
+  'potato':[0.1,0.0,0.9],'baked potato':[0.1,0.0,0.9],'mashed potato':[0.08,0.2,0.72],'fries':[0.05,0.4,0.55],'french fries':[0.05,0.4,0.55],
+  'sweet potato':[0.1,0.0,0.9],'yam':[0.05,0.0,0.95],
+  'quinoa':[0.2,0.1,0.7],'farro':[0.18,0.1,0.72],'couscous':[0.15,0.05,0.8],'barley':[0.13,0.05,0.82],'polenta':[0.1,0.05,0.85],'bulgur':[0.13,0.05,0.82],
+  'crackers':[0.08,0.3,0.62],'pretzels':[0.1,0.05,0.85],'chips':[0.05,0.4,0.55],'tortilla chips':[0.07,0.4,0.53],
+  'rice cake':[0.07,0.05,0.88],
+  // ── FRUIT ──
+  'banana':[0.05,0.0,0.95],'apple':[0.02,0.02,0.96],'orange':[0.05,0.02,0.93],'grapes':[0.05,0.02,0.93],
+  'berries':[0.05,0.02,0.93],'blueberries':[0.05,0.02,0.93],'strawberries':[0.06,0.02,0.92],'raspberries':[0.07,0.05,0.88],'blackberries':[0.07,0.05,0.88],
+  'mango':[0.04,0.02,0.94],'pineapple':[0.04,0.02,0.94],'peach':[0.06,0.03,0.91],'pear':[0.03,0.02,0.95],'plum':[0.05,0.02,0.93],
+  'watermelon':[0.06,0.02,0.92],'cantaloupe':[0.08,0.03,0.89],'melon':[0.06,0.02,0.92],
+  'kiwi':[0.05,0.05,0.9],'pomegranate':[0.05,0.1,0.85],'cherry':[0.05,0.02,0.93],'cherries':[0.05,0.02,0.93],
+  'grapefruit':[0.05,0.02,0.93],'lemon':[0.1,0.05,0.85],'lime':[0.05,0.05,0.9],
+  'fruit':[0.05,0.02,0.93],'dried fruit':[0.04,0.02,0.94],'raisins':[0.04,0.02,0.94],'dates':[0.03,0.0,0.97],
   'avocado':[0.05,0.75,0.2],
-  // Veg
-  'salad':[0.15,0.1,0.75],'broccoli':[0.3,0.05,0.65],'spinach':[0.4,0.1,0.5],
-  'vegetables':[0.2,0.05,0.75],'veggies':[0.2,0.05,0.75],'kale':[0.35,0.1,0.55],
-  // Fats
-  'nuts':[0.15,0.7,0.15],'almonds':[0.15,0.7,0.15],'walnuts':[0.15,0.75,0.1],
-  'olive oil':[0,1,0],'butter':[0,1,0],'oil':[0,1,0],
-  // Dairy
-  'milk':[0.2,0.4,0.4],'latte':[0.2,0.35,0.45],'smoothie':[0.2,0.15,0.65],
-  // Combos / common
-  'sandwich':[0.25,0.3,0.45],'burger':[0.3,0.4,0.3],'pizza':[0.2,0.4,0.4],'sushi':[0.25,0.1,0.65],
-  'salad with chicken':[0.5,0.25,0.25],'chicken salad':[0.5,0.25,0.25],
-  'protein bar':[0.4,0.25,0.35],'granola':[0.1,0.3,0.6],
+  // ── VEG ──
+  'salad':[0.15,0.1,0.75],'lettuce':[0.4,0.05,0.55],'spinach':[0.4,0.1,0.5],'kale':[0.35,0.1,0.55],'arugula':[0.4,0.1,0.5],
+  'broccoli':[0.3,0.05,0.65],'cauliflower':[0.35,0.05,0.6],'brussels sprouts':[0.3,0.1,0.6],'asparagus':[0.4,0.05,0.55],
+  'cucumber':[0.2,0.05,0.75],'zucchini':[0.25,0.1,0.65],'bell pepper':[0.13,0.05,0.82],'peppers':[0.13,0.05,0.82],
+  'tomato':[0.15,0.1,0.75],'tomatoes':[0.15,0.1,0.75],'cherry tomato':[0.15,0.05,0.8],
+  'carrot':[0.07,0.02,0.91],'carrots':[0.07,0.02,0.91],'celery':[0.15,0.05,0.8],'beet':[0.13,0.02,0.85],'beets':[0.13,0.02,0.85],
+  'mushroom':[0.4,0.05,0.55],'mushrooms':[0.4,0.05,0.55],'onion':[0.1,0.02,0.88],'garlic':[0.15,0.02,0.83],'shallot':[0.1,0.02,0.88],
+  'corn':[0.1,0.1,0.8],'peas':[0.3,0.05,0.65],'green beans':[0.2,0.05,0.75],
+  'vegetables':[0.2,0.05,0.75],'veggies':[0.2,0.05,0.75],'roasted veg':[0.13,0.3,0.57],'stir fry veg':[0.2,0.2,0.6],
+  // ── FATS ──
+  'nuts':[0.15,0.7,0.15],'almonds':[0.15,0.7,0.15],'walnuts':[0.13,0.75,0.12],'cashews':[0.15,0.65,0.2],'pistachios':[0.15,0.7,0.15],
+  'pecans':[0.1,0.8,0.1],'macadamia':[0.08,0.85,0.07],'brazil nuts':[0.1,0.8,0.1],'peanuts':[0.18,0.6,0.22],'mixed nuts':[0.13,0.7,0.17],
+  'seeds':[0.15,0.6,0.25],'chia':[0.15,0.4,0.45],'chia seeds':[0.15,0.4,0.45],'flax':[0.15,0.55,0.3],'flax seeds':[0.15,0.55,0.3],
+  'sunflower seeds':[0.15,0.7,0.15],'pumpkin seeds':[0.18,0.6,0.22],'sesame seeds':[0.15,0.65,0.2],
+  'peanut butter':[0.2,0.55,0.25],'almond butter':[0.15,0.65,0.2],'nut butter':[0.15,0.65,0.2],'tahini':[0.13,0.7,0.17],
+  'olive oil':[0,1,0],'butter':[0,1,0],'oil':[0,1,0],'coconut oil':[0,1,0],
+  'olives':[0.05,0.85,0.1],
+  // ── DAIRY ──
+  'milk':[0.2,0.4,0.4],'whole milk':[0.2,0.45,0.35],'skim milk':[0.4,0.05,0.55],'almond milk':[0.13,0.45,0.42],'oat milk':[0.13,0.2,0.67],
+  'cheese':[0.25,0.65,0.1],'cheddar':[0.25,0.7,0.05],'mozzarella':[0.3,0.6,0.1],'parmesan':[0.4,0.55,0.05],'parm':[0.4,0.55,0.05],
+  'feta':[0.25,0.65,0.1],'goat cheese':[0.25,0.7,0.05],'cream cheese':[0.07,0.85,0.08],'ricotta':[0.3,0.5,0.2],'brie':[0.25,0.7,0.05],
+  'sour cream':[0.05,0.85,0.1],'cream':[0.03,0.95,0.02],'half and half':[0.07,0.78,0.15],
+  'ice cream':[0.07,0.45,0.48],'frozen yogurt':[0.1,0.2,0.7],
+  // ── DRINKS ──
+  'coffee':[0.1,0.1,0.8],'latte':[0.2,0.35,0.45],'cappuccino':[0.2,0.4,0.4],'cold brew':[0,0,1],'tea':[0,0,1],'matcha':[0.15,0.05,0.8],
+  'smoothie':[0.2,0.15,0.65],'protein smoothie':[0.4,0.15,0.45],'green smoothie':[0.2,0.1,0.7],
+  'juice':[0.05,0.02,0.93],'orange juice':[0.05,0.02,0.93],
+  'beer':[0.1,0,0.9],'wine':[0,0,1],'cocktail':[0,0,1],'kombucha':[0.05,0.0,0.95],
+  // ── COMMON COMBOS ──
+  'sandwich':[0.25,0.3,0.45],'burger':[0.3,0.4,0.3],'cheeseburger':[0.27,0.45,0.28],'turkey sandwich':[0.35,0.25,0.4],'blt':[0.25,0.4,0.35],
+  'pizza':[0.2,0.4,0.4],'cheese pizza':[0.18,0.42,0.4],'pepperoni pizza':[0.22,0.45,0.33],
+  'sushi':[0.25,0.1,0.65],'sashimi':[0.7,0.2,0.1],'poke':[0.4,0.25,0.35],'poke bowl':[0.4,0.25,0.35],
+  'taco':[0.3,0.35,0.35],'tacos':[0.3,0.35,0.35],'burrito':[0.25,0.3,0.45],'quesadilla':[0.25,0.45,0.3],'enchilada':[0.25,0.4,0.35],
+  'salad with chicken':[0.5,0.25,0.25],'chicken salad':[0.5,0.25,0.25],'tuna salad':[0.5,0.35,0.15],'cobb salad':[0.4,0.45,0.15],
+  'caesar':[0.3,0.5,0.2],'caesar salad':[0.3,0.5,0.2],
+  'soup':[0.2,0.2,0.6],'chicken soup':[0.35,0.2,0.45],'tomato soup':[0.1,0.2,0.7],'lentil soup':[0.25,0.1,0.65],
+  'curry':[0.25,0.4,0.35],'thai curry':[0.2,0.45,0.35],'indian curry':[0.25,0.4,0.35],'tikka masala':[0.3,0.45,0.25],
+  'stir fry':[0.3,0.25,0.45],'pad thai':[0.2,0.25,0.55],'lo mein':[0.18,0.25,0.57],'ramen':[0.2,0.3,0.5],'pho':[0.3,0.1,0.6],
+  'french toast':[0.18,0.35,0.47],'pancakes':[0.13,0.2,0.67],'waffles':[0.13,0.3,0.57],'crepes':[0.15,0.25,0.6],
+  'eggs benedict':[0.25,0.5,0.25],'breakfast burrito':[0.25,0.4,0.35],'breakfast sandwich':[0.25,0.4,0.35],'avocado toast':[0.13,0.5,0.37],
+  'protein bar':[0.4,0.25,0.35],'granola bar':[0.1,0.3,0.6],'energy bar':[0.15,0.3,0.55],
+  'chocolate':[0.07,0.55,0.38],'dark chocolate':[0.07,0.55,0.38],'cookie':[0.05,0.4,0.55],'brownie':[0.05,0.4,0.55],'cake':[0.05,0.35,0.6],
+  'donut':[0.05,0.45,0.5],'pastry':[0.08,0.45,0.47],'croissant':[0.1,0.5,0.4],
+  'rice and beans':[0.2,0.05,0.75],'beans and rice':[0.2,0.05,0.75],
+  'meatball':[0.45,0.45,0.1],'meatballs':[0.45,0.45,0.1],
+  'casserole':[0.25,0.35,0.4],'lasagna':[0.27,0.4,0.33],'mac and cheese':[0.18,0.4,0.42],
+  'fried chicken':[0.4,0.4,0.2],'chicken nuggets':[0.4,0.45,0.15],'chicken tenders':[0.45,0.35,0.2],
 };
+
 
 function estimateMacros(text){
   if(!text)return null;
@@ -1967,15 +2206,59 @@ function estimateMacros(text){
 }
 
 function getMeals(){return habDD.mealsLog||[];}
-function addMeal(){
-  const inp=document.getElementById('meal-input');
+let currentMealFoods=[];
+function addFoodToMeal(){
+  const inp=document.getElementById('meal-food-input');
   if(!inp||!inp.value.trim())return;
-  if(!habDD.mealsLog)habDD.mealsLog=[];
   const text=inp.value.trim();
   const macros=estimateMacros(text);
-  habDD.mealsLog.push({id:'m_'+Date.now(),text:text,macros:macros,time:new Date().toTimeString().slice(0,5)});
+  currentMealFoods.push({name:text,macros:macros});
+  inp.value='';renderMealBuilder();
+}
+function removeFoodFromMeal(idx){
+  currentMealFoods.splice(idx,1);renderMealBuilder();
+}
+function renderMealBuilder(){
+  const wrap=document.getElementById('meal-builder-foods');
+  const saveBtn=document.getElementById('meal-save-btn');
+  if(!wrap)return;
+  if(currentMealFoods.length===0){
+    wrap.innerHTML='<div style="font-size:12px;color:var(--text3);font-style:italic;padding:4px 0;">No foods added yet</div>';
+    if(saveBtn){saveBtn.disabled=true;saveBtn.style.opacity='.4';}
+  } else {
+    wrap.innerHTML=currentMealFoods.map((f,i)=>{
+      const m=f.macros;
+      const macroLbl=m?`<span style="color:var(--green);">${Math.round(m.p*100)}P</span> · <span style="color:var(--amber);">${Math.round(m.f*100)}F</span> · <span style="color:var(--sky);">${Math.round(m.c*100)}C</span>`:'<span style="color:var(--text3);">no estimate</span>';
+      return`<div style="display:flex;gap:8px;align-items:center;font-size:12px;padding:5px 0;">
+        <span style="flex:1;color:var(--text);">${escHtml(f.name)}</span>
+        <span style="font-size:10px;font-weight:600;">${macroLbl}</span>
+        <button onclick="removeFoodFromMeal(${i})" style="background:none;border:none;color:var(--text3);cursor:pointer;font-size:13px;">×</button>
+      </div>`;
+    }).join('');
+    if(saveBtn){saveBtn.disabled=false;saveBtn.style.opacity='1';}
+  }
+}
+function saveMeal(){
+  if(currentMealFoods.length===0)return;
+  if(!habDD.mealsLog)habDD.mealsLog=[];
+  // Aggregate macros across foods
+  const withMacros=currentMealFoods.filter(f=>f.macros);
+  let agg=null;
+  if(withMacros.length>0){
+    let p=0,f=0,c=0;
+    withMacros.forEach(food=>{p+=food.macros.p;f+=food.macros.f;c+=food.macros.c;});
+    const s=p+f+c;
+    agg={p:p/s,f:f/s,c:c/s};
+  }
+  habDD.mealsLog.push({
+    id:'m_'+Date.now(),
+    foods:currentMealFoods.slice(),
+    macros:agg,
+    text:currentMealFoods.map(f=>f.name).join(', '),
+    time:new Date().toTimeString().slice(0,5)
+  });
   habDD.meals=habDD.mealsLog.length;
-  inp.value='';
+  currentMealFoods=[];
   renderMeals();triggerHabSave();
 }
 function deleteMeal(id){
@@ -1984,6 +2267,7 @@ function deleteMeal(id){
   renderMeals();triggerHabSave();
 }
 function renderMeals(){
+  renderMealBuilder();
   const meals=getMeals();
   const m=meals.length;
   habDD.meals=m;
@@ -1999,12 +2283,14 @@ function renderMeals(){
     } else {
       logEl.innerHTML=meals.map((meal,i)=>{
         const mc=meal.macros;
-        const macroLabel=mc?`<span style="color:var(--green);">${Math.round(mc.p*100)}P</span> · <span style="color:var(--amber);">${Math.round(mc.f*100)}F</span> · <span style="color:var(--sky);">${Math.round(mc.c*100)}C</span>`:'<span style="color:var(--text3);">No estimate</span>';
-        return`<div style="display:flex;gap:8px;align-items:center;padding:8px 10px;background:var(--bg3);border-radius:var(--radius-sm);border:1px solid var(--border2);">
-          <div style="font-size:10px;font-weight:700;color:var(--amber);background:var(--amber-dim);border-radius:50%;width:20px;height:20px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">${i+1}</div>
+        const macroLabel=mc?`<span style="color:var(--green);">${Math.round(mc.p*100)}P</span> · <span style="color:var(--amber);">${Math.round(mc.f*100)}F</span> · <span style="color:var(--sky);">${Math.round(mc.c*100)}C</span>`:'<span style="color:var(--text3);">no estimate</span>';
+        const foodCount=meal.foods?meal.foods.length:1;
+        const foodLabel=foodCount>1?`<span style="color:var(--text3);font-size:10px;margin-left:4px;">(${foodCount} foods)</span>`:'';
+        return`<div style="display:flex;gap:8px;align-items:flex-start;padding:9px 10px;background:var(--bg3);border-radius:var(--radius-sm);border:1px solid var(--border2);">
+          <div style="font-size:10px;font-weight:700;color:var(--amber);background:var(--amber-dim);border-radius:50%;width:20px;height:20px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;">${i+1}</div>
           <div style="flex:1;min-width:0;">
-            <div style="font-size:13px;color:var(--text);">${escHtml(meal.text)}</div>
-            <div style="font-size:10px;margin-top:2px;font-weight:600;letter-spacing:.04em;">${macroLabel} · <span style="color:var(--text3);">${meal.time}</span></div>
+            <div style="font-size:13px;color:var(--text);line-height:1.4;">${escHtml(meal.text)}${foodLabel}</div>
+            <div style="font-size:10px;margin-top:3px;font-weight:600;letter-spacing:.04em;">${macroLabel} · <span style="color:var(--text3);">${meal.time}</span></div>
           </div>
           <button onclick="deleteMeal('${meal.id}')" style="background:none;border:none;color:var(--text3);cursor:pointer;font-size:14px;padding:2px 4px;">×</button>
         </div>`;
@@ -2069,6 +2355,15 @@ function toggleHabit(id,el){
   el.classList.toggle('on',chk);
   const lbl=document.getElementById('hlbl-'+id);
   if(lbl)lbl.className='item-label'+(chk?' done':'');
+  // Visual collapse: mark parent .card or .card-row inside night-card
+  const card=el.closest('.card');
+  const nightCard=el.closest('.night-card');
+  if(nightCard&&!card){
+    const row=el.closest('.card-row');
+    if(row)row.setAttribute('data-done',chk?'true':'false');
+  } else if(card){
+    card.setAttribute('data-done',chk?'true':'false');
+  }
   updateHabCount();updateQuickStats();triggerHabSave();
 }
 function getCustomHabits(){try{return JSON.parse(localStorage.getItem('custom_habits')||'[]');}catch(e){return[];}}
@@ -2189,8 +2484,8 @@ function allMIds(sc){const ids=[];const c=g=>{ids.push(g.id);(g.kids||[]).forEac
 function renderMGrp(g,ph,accent){
   const chk=!!movDD.completed[g.id],why=wy(g,ph);
   let h=`<div class="group-wrap"${accent?` style="border-color:${accent}"`:''}>`;
-  h+=`<div class="act-row"><div class="cb${chk?' on':''}" data-mid="${g.id}"></div><div style="flex:1;"><div class="act-label${chk?' done':''}" id="mlbl${g.id}">${g.text}</div>${why?`<div class="act-why">${why}</div>`:''}</div></div>`;
-  if(g.kids&&g.kids.length){h+=`<div class="move-kids">`;g.kids.forEach(k=>{const kc=!!movDD.completed[k.id],kw=wy(k,ph);h+=`<div class="move-kid-row"><div class="cb${kc?' on':''}" data-mid="${k.id}"></div><div style="flex:1;"><div class="act-label${kc?' done':''}" id="mlbl${k.id}" style="font-size:13px;font-weight:400;">${k.text}</div>${kw?`<div class="act-why">${kw}</div>`:''}</div></div>`;});h+=`</div>`;}
+  h+=`<div class="act-row" data-done="${chk?'true':'false'}"><div class="cb${chk?' on':''}" data-mid="${g.id}"></div><div style="flex:1;"><div class="act-label${chk?' done':''}" id="mlbl${g.id}">${g.text}</div>${why?`<div class="act-why">${why}</div>`:''}</div></div>`;
+  if(g.kids&&g.kids.length){h+=`<div class="move-kids">`;g.kids.forEach(k=>{const kc=!!movDD.completed[k.id],kw=wy(k,ph);h+=`<div class="move-kid-row" data-done="${kc?'true':'false'}"><div class="cb${kc?' on':''}" data-mid="${k.id}"></div><div style="flex:1;"><div class="act-label${kc?' done':''}" id="mlbl${k.id}" style="font-size:13px;font-weight:400;">${k.text}</div>${kw?`<div class="act-why">${kw}</div>`:''}</div></div>`;});h+=`</div>`;}
   return h+`</div>`;
 }
 
@@ -2198,7 +2493,11 @@ function bindMCbs(el){el.querySelectorAll('[data-mid]').forEach(b=>b.addEventLis
 
 function toggleMove(id){
   movDD.completed[id]=!movDD.completed[id];const chk=movDD.completed[id];
-  document.querySelectorAll(`[data-mid="${id}"]`).forEach(el=>el.classList.toggle('on',chk));
+  document.querySelectorAll(`[data-mid="${id}"]`).forEach(el=>{
+    el.classList.toggle('on',chk);
+    const row=el.closest('.act-row,.move-kid-row');
+    if(row)row.setAttribute('data-done',chk?'true':'false');
+  });
   const lbl=document.getElementById('mlbl'+id);if(lbl)lbl.className='act-label'+(chk?' done':'');
   const w=wn(VD),dn=dic(VD);if(dn>0)updateMProg(sched(dn,gph(w)));
   triggerMSave();
@@ -2616,9 +2915,8 @@ function toggleIntervalCard(){
   if(open)renderInterval();
 }
 function adjInt(field,delta){
-  const mins={'work':5,'rest':5,'rounds':1};
   const lo={'work':5,'rest':0,'rounds':1};
-  const hi={'work':300,'rest':120,'rounds':20};
+  const hi={'work':1800,'rest':600,'rounds':50}; // 30min work, 10min rest, 50 rounds
   intState[field]=Math.max(lo[field],Math.min(hi[field],intState[field]+delta));
   if(intState.phase==='idle'){intState.elapsed=0;}
   renderInterval();
@@ -2647,7 +2945,14 @@ function tickInterval(){
 function renderInterval(){
   const s=intState;
   const durVal=document.getElementById('int-work-val');const durRest=document.getElementById('int-rest-val');const durRounds=document.getElementById('int-rounds-val');
-  if(durVal)durVal.textContent=s.work;if(durRest)durRest.textContent=s.rest;if(durRounds)durRounds.textContent=s.rounds;
+  // Format work/rest with min:sec when >= 60s
+  const fmtDur=v=>v>=60?`${Math.floor(v/60)}:${(v%60).toString().padStart(2,'0')}`:v;
+  if(durVal)durVal.textContent=fmtDur(s.work);if(durRest)durRest.textContent=fmtDur(s.rest);if(durRounds)durRounds.textContent=s.rounds;
+  // Update unit labels
+  const workLabels=document.querySelectorAll('.int-field:nth-child(1) .int-phase-label');
+  const restLabels=document.querySelectorAll('.int-field:nth-child(2) .int-phase-label');
+  workLabels.forEach(el=>el.textContent=s.work>=60?'min':'sec');
+  restLabels.forEach(el=>el.textContent=s.rest>=60?'min':'sec');
   const dur=s.phase==='work'?s.work:s.phase==='rest'?s.rest:s.work;
   const remaining=Math.max(0,dur-s.elapsed);
   const mm=Math.floor(remaining/60).toString().padStart(2,'0');
@@ -2781,28 +3086,48 @@ function escHtml(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(
 // ══════════ CUSTOM HABITS ══════════
 function addCustomHabit(){
   const inp=document.getElementById('custom-habit-input');
+  const secSel=document.getElementById('custom-habit-section');
   if(!inp||!inp.value.trim())return;
   const habits=getCustomHabits();
-  habits.push({id:'ch_'+Date.now(),label:inp.value.trim()});
+  const section=secSel?secSel.value:'morning';
+  habits.push({id:'ch_'+Date.now(),label:inp.value.trim(),section:section});
   localStorage.setItem('custom_habits',JSON.stringify(habits));
-  inp.value='';renderCustomHabits();updateHabCount();
+  inp.value='';renderCustomHabits();renderInlineCustomHabits();updateHabCount();
+}
+function setCustomHabitSection(id,section){
+  const habits=getCustomHabits();
+  const h=habits.find(x=>x.id===id);
+  if(h){h.section=section;localStorage.setItem('custom_habits',JSON.stringify(habits));}
+  renderCustomHabits();renderInlineCustomHabits();
 }
 function deleteCustomHabit(id){
   const habits=getCustomHabits().filter(h=>h.id!==id);
   localStorage.setItem('custom_habits',JSON.stringify(habits));
   delete habDD.completed[id];triggerHabSave();
-  renderCustomHabits();updateHabCount();
+  renderCustomHabits();renderInlineCustomHabits();updateHabCount();
 }
+const SECTION_LABELS={morning:'Morning',midday:'Midday',afternoon:'Afternoon',evening:'Evening',night:'Night',anytime:'Anytime'};
 function renderCustomHabits(){
+  // Manager view at the bottom of habits — list + reorder + section change
   const wrap=document.getElementById('custom-habits-list');if(!wrap)return;
   const habits=getCustomHabits();
   if(habits.length===0){wrap.innerHTML='<div style="font-size:13px;color:var(--text3);padding:4px 0 8px;font-style:italic;">No custom habits yet — add one below.</div>';return;}
   wrap.innerHTML=habits.map((h,i)=>{
-    const chk=!!habDD.completed[h.id];
     const upDis=i===0?'disabled':'';const downDis=i===habits.length-1?'disabled':'';
-    return`<div class="custom-card"><div class="custom-row">
-      <div class="cb${chk?' on':''}" data-hid="${h.id}" onclick="toggleHabit('${h.id}',this)"></div>
-      <div style="flex:1;font-size:14px;font-weight:500;color:${chk?'var(--text3)':'var(--text)'};${chk?'text-decoration:line-through;':''}" id="hlbl-${h.id}">${escHtml(h.label)}</div>
+    const sec=h.section||'anytime';
+    return`<div class="custom-card"><div class="custom-row" style="align-items:center;">
+      <div style="flex:1;min-width:0;">
+        <div style="font-size:13px;font-weight:500;color:var(--text);">${escHtml(h.label)}</div>
+        <div style="font-size:10px;color:var(--text3);margin-top:2px;text-transform:uppercase;letter-spacing:.06em;">In: ${SECTION_LABELS[sec]||sec}</div>
+      </div>
+      <select onchange="setCustomHabitSection('${h.id}',this.value)" style="padding:5px 8px;font-size:11px;font-family:'DM Sans',sans-serif;border:1px solid var(--border2);border-radius:4px;background:var(--bg3);color:var(--text2);">
+        <option value="morning"${sec==='morning'?' selected':''}>Morning</option>
+        <option value="midday"${sec==='midday'?' selected':''}>Midday</option>
+        <option value="afternoon"${sec==='afternoon'?' selected':''}>Afternoon</option>
+        <option value="evening"${sec==='evening'?' selected':''}>Evening</option>
+        <option value="night"${sec==='night'?' selected':''}>Night</option>
+        <option value="anytime"${sec==='anytime'?' selected':''}>Anytime</option>
+      </select>
       <div style="display:flex;flex-direction:column;gap:2px;">
         <button class="reorder-btn" onclick="moveCustomHabit('${h.id}',-1)" ${upDis}><svg width="8" height="8" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 4 22 20 2 20"/></svg></button>
         <button class="reorder-btn" onclick="moveCustomHabit('${h.id}',1)" ${downDis}><svg width="8" height="8" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 20 2 4 22 4"/></svg></button>
@@ -2811,15 +3136,39 @@ function renderCustomHabits(){
     </div></div>`;
   }).join('');
 }
+function renderInlineCustomHabits(){
+  // Render each custom habit as a real checkable card in its assigned section anchor
+  const habits=getCustomHabits();
+  const sections=['morning','midday','afternoon','evening','night','anytime'];
+  sections.forEach(sec=>{
+    const anchor=document.getElementById('inline-custom-'+sec);
+    if(!anchor)return;
+    const inSec=habits.filter(h=>(h.section||'anytime')===sec);
+    if(inSec.length===0){anchor.innerHTML='';return;}
+    anchor.innerHTML=inSec.map(h=>{
+      const chk=!!habDD.completed[h.id];
+      return`<div class="card"><div class="card-row">
+        <div class="cb${chk?' on':''}" data-hid="${h.id}" onclick="toggleHabit('${h.id}',this)"></div>
+        <div style="flex:1;"><div class="item-label${chk?' done':''}" id="hlbl-${h.id}">${escHtml(h.label)}</div><div class="item-sub">Custom habit</div></div>
+        <span class="ph-badge" style="background:var(--indigo-dim);color:var(--indigo-light);border:1px solid rgba(99,102,241,.2);font-size:10px;margin-top:2px;">Custom</span>
+      </div></div>`;
+    }).join('');
+  });
+}
 function moveCustomHabit(id,dir){
   const habits=getCustomHabits();
   const idx=habits.findIndex(h=>h.id===id);
   if(idx<0)return;
-  const newIdx=idx+dir;
-  if(newIdx<0||newIdx>=habits.length)return;
-  const tmp=habits[idx];habits[idx]=habits[newIdx];habits[newIdx]=tmp;
+  // Move within the same section only
+  const sec=habits[idx].section||'anytime';
+  const inSecIdxs=habits.map((h,i)=>(h.section||'anytime')===sec?i:-1).filter(x=>x>=0);
+  const posInSec=inSecIdxs.indexOf(idx);
+  const newPosInSec=posInSec+dir;
+  if(newPosInSec<0||newPosInSec>=inSecIdxs.length)return;
+  const swapWith=inSecIdxs[newPosInSec];
+  const tmp=habits[idx];habits[idx]=habits[swapWith];habits[swapWith]=tmp;
   localStorage.setItem('custom_habits',JSON.stringify(habits));
-  renderCustomHabits();
+  renderCustomHabits();renderInlineCustomHabits();
 }
 
 // ══════════ REMINDERS ══════════
@@ -2970,7 +3319,22 @@ function importCSV(input){
   input.value='';
 }
 
+
+// ══════════ FIRST-TIME INTRO ══════════
+function dismissIntro(){
+  const ov=document.getElementById('intro-overlay');
+  if(ov)ov.style.display='none';
+  localStorage.setItem('intro_seen','1');
+}
+function maybeShowIntro(){
+  if(!localStorage.getItem('intro_seen')&&!localStorage.getItem('plan_start_date')){
+    const ov=document.getElementById('intro-overlay');
+    if(ov)ov.style.display='block';
+  }
+}
+
 // BOOT
+maybeShowIntro();
 initMovement();
 
 // Register service worker for offline support (GitHub Pages / HTTPS only)
@@ -2983,9 +3347,37 @@ if ('serviceWorker' in navigator && location.protocol === 'https:') {
 }
 
 // ── AUDIO CHIME ──
+// Persistent audio context — required for iOS to allow chimes after user interaction
+let audioCtx=null;
+function getAudioCtx(){
+  if(!audioCtx){
+    try{audioCtx=new(window.AudioContext||window.webkitAudioContext)();}catch(e){return null;}
+  }
+  // iOS suspends the context until a user gesture. Resume it.
+  if(audioCtx.state==='suspended'){audioCtx.resume();}
+  return audioCtx;
+}
+// Unlock audio on the first user interaction anywhere in the app
+function unlockAudio(){
+  const ctx=getAudioCtx();
+  if(!ctx)return;
+  // Play a silent buffer to fully unlock iOS audio
+  try{
+    const buffer=ctx.createBuffer(1,1,22050);
+    const src=ctx.createBufferSource();
+    src.buffer=buffer;src.connect(ctx.destination);src.start(0);
+  }catch(e){}
+  // Remove the listener after first call
+  document.removeEventListener('touchstart',unlockAudio,true);
+  document.removeEventListener('click',unlockAudio,true);
+}
+document.addEventListener('touchstart',unlockAudio,true);
+document.addEventListener('click',unlockAudio,true);
+
 function playChime(allDone){
   try{
-    const ctx=new(window.AudioContext||window.webkitAudioContext)();
+    const ctx=getAudioCtx();
+    if(!ctx)return;
     const notes=allDone?[523,659,784]:[659,784];
     notes.forEach((freq,i)=>{
       const osc=ctx.createOscillator();
@@ -2994,11 +3386,11 @@ function playChime(allDone){
       osc.type='sine';osc.frequency.value=freq;
       const t=ctx.currentTime+i*0.18;
       gain.gain.setValueAtTime(0,t);
-      gain.gain.linearRampToValueAtTime(0.22,t+0.04);
+      gain.gain.linearRampToValueAtTime(0.25,t+0.04);
       gain.gain.exponentialRampToValueAtTime(0.001,t+0.9);
       osc.start(t);osc.stop(t+0.9);
     });
-  }catch(e){}
+  }catch(e){console.log('Chime error:',e);}
 }
 </script>
 </body>
