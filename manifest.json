@@ -1,0 +1,19 @@
+{
+  "name": "Cadence — Michelle",
+  "short_name": "Cadence",
+  "description": "A personal health and habit tracker — 20-week program, breathing, movement, and daily structure.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0f0c1a",
+  "theme_color": "#0f0c1a",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "type": "image/svg+xml",
+      "sizes": "any",
+      "purpose": "any maskable"
+    }
+  ]
+}

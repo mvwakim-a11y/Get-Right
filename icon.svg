@@ -1,0 +1,23 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="512" height="512" rx="112" fill="#0f0c1a"/>
+  <rect width="512" height="512" rx="112" fill="url(#bg-grad)" opacity="0.15"/>
+  <circle cx="256" cy="256" r="200" stroke="url(#ring-grad)" stroke-width="6" fill="none"/>
+  <!-- Cadence waveform -->
+  <path d="M56 256 L110 256 L154 128 L198 384 L242 256 L286 256 L330 160 L374 352 L418 256 L456 256"
+    stroke="url(#wave-grad)" stroke-width="20" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <defs>
+    <linearGradient id="bg-grad" x1="0" y1="0" x2="512" y2="512">
+      <stop offset="0%" stop-color="#6366f1"/>
+      <stop offset="100%" stop-color="#8b5cf6"/>
+    </linearGradient>
+    <linearGradient id="ring-grad" x1="56" y1="56" x2="456" y2="456">
+      <stop offset="0%" stop-color="#6366f1" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#8b5cf6" stop-opacity="0.3"/>
+    </linearGradient>
+    <linearGradient id="wave-grad" x1="56" y1="256" x2="456" y2="256">
+      <stop offset="0%" stop-color="#6366f1"/>
+      <stop offset="50%" stop-color="#818cf8"/>
+      <stop offset="100%" stop-color="#8b5cf6"/>
+    </linearGradient>
+  </defs>
+</svg>
