@@ -1089,6 +1089,13 @@ svg.ring-svg{display:block;margin:0 auto;}
 
   <div class="card">
     <div class="card-row">
+      <div class="cb" data-hid="spf" onclick="toggleHabit('spf',this)"></div>
+      <div style="flex:1;"><div class="item-label" id="hlbl-spf">SPF — face and neck</div><div class="item-sub">Apply SPF 30+ to your face, neck, and any exposed skin before going outside. The most impactful anti-aging habit you can build in your 20s. Takes 30 seconds.</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-row">
       <div class="cb" data-hid="supps-am" onclick="toggleHabit('supps-am',this)"></div>
       <div style="flex:1;"><div class="item-label" id="hlbl-supps-am">Vitamin D with breakfast</div><div class="item-sub">Fat-soluble — take with food. Deficiency is linked to bruxism, poor sleep, and low mood. Especially important in Denver winters with reduced UV.</div></div>
     </div>
@@ -1840,8 +1847,8 @@ const MTHS=['January','February','March','April','May','June','July','August','S
 const PNAMES=['Foundation','Build','Strengthen','Peak & Integrate'];
 const TOTAL=20;
 const WATER_GOAL=12;
-const HABIT_IDS=['medication','cats-am','make-bed','tidy-am','sunlight','morning-water','skincare-am','supps-am','jaw-m','posture-m','jaw-a','posture-a1','eye-2020','posture-a2','caffeine','reading','dishes','jaw-n','cats-pm','skincare-pm','floss','night-screens','night-jaw-massage','supps-pm','night-breathe','night-position','gratitude-done','night-jaw-check'];
-const WEEKLY_IDS=['wk-laundry','wk-grooming','wk-sheets','wk-groceries','wk-planning','wk-social','wk-book','wk-olivia','wk-shot-wed'];
+const HABIT_IDS=['medication','cats-am','make-bed','tidy-am','sunlight','morning-water','skincare-am','spf','supps-am','jaw-m','posture-m','jaw-a','posture-a1','eye-2020','posture-a2','caffeine','reading','dishes','jaw-n','cats-pm','skincare-pm','floss','night-screens','night-jaw-massage','supps-pm','night-breathe','night-position','gratitude-done','night-jaw-check'];
+const WEEKLY_IDS=['wk-laundry','wk-grooming','wk-sheets','wk-groceries','wk-planning','wk-social','wk-book','wk-olivia','wk-shot-wed','wk-mail','wk-financial','wk-bathroom','wk-floors','wk-outreach'];
 const WEEKLY_LABELS={
   'wk-laundry':{label:'Laundry',sub:'Wash, dry, put away — not just wash.',icon:''},
   'wk-grooming':{label:'Grooming',sub:'Eyebrows, body hair, any regular maintenance.',icon:''},
@@ -1853,7 +1860,7 @@ const WEEKLY_LABELS={
   'wk-olivia':{label:'Date night or intentional Olivia time',sub:'A real date, a long walk, a night in that\'s actually present. Relationships drift without intentional time.',icon:''},
   'wk-shot-wed':{label:'Wednesday night shot',sub:'Weekly injection — Wednesday nights. Check off after administering.',icon:''},
 };
-const MONTHLY_IDS=['mo-rent','mo-haircut','mo-olivia-special'];
+const MONTHLY_IDS=['mo-rent','mo-haircut','mo-olivia-special','mo-cc-review','mo-subscriptions','mo-prescription','mo-phone-backup','mo-breast-exam','mo-fridge','mo-car','mo-appt-check','mo-documents'];
 const MONTHLY_LABELS={
   'mo-rent':{label:'Pay rent',sub:'Due end of month — don\'t let it sneak up. Set a calendar alert if you haven\'t.',icon:'',urgent:true},
   'mo-haircut':{label:'Haircut',sub:'Every 6 weeks. Check when you last got one — if it\'s been ~6 weeks, book it now.',icon:'',urgent:false},
@@ -2235,7 +2242,7 @@ function renderMonthlyHabits(){
   wrap.innerHTML=MONTHLY_IDS.map(id=>{
     const info=MONTHLY_LABELS[id];const chk=!!monHabDD.completed[id];
     const urgent=info.urgent&&lastWeek&&!chk;
-    return`<div class="card" style="margin-bottom:8px;${urgent?'border-color:rgba(251,113,133,.4);background:linear-gradient(135deg,rgba(251,113,133,.05),var(--bg2));':''}"><div class="card-row"><div class="cb${chk?' on':''}" data-mid="${id}"></div><div style="flex:1;"><div class="item-label${chk?' done':''}" id="mlbl-${id}">${info.label}${urgent?' <span style=\"font-size:10px;color:var(--coral);font-weight:600;\">DUE SOON</span>':''}</div><div class="item-sub">${info.sub}</div></div><span class="ph-badge badge-monthly" style="font-size:10px;margin-top:2px;">Monthly</span></div></div>`;
+    return`<div class="card" data-done="${chk?'true':'false'}" style="margin-bottom:8px;${urgent?'border-color:rgba(251,113,133,.4);background:linear-gradient(135deg,rgba(251,113,133,.05),var(--bg2));':''}"><div class="card-row"><div class="cb${chk?' on':''}" data-mid="${id}"></div><div style="flex:1;"><div class="item-label${chk?' done':''}" id="mlbl-${id}">${info.label}${urgent?' <span style=\"font-size:10px;color:var(--coral);font-weight:600;\">DUE SOON</span>':''}</div><div class="item-sub">${info.sub}</div></div><span class="ph-badge badge-monthly" style="font-size:10px;margin-top:2px;">Monthly</span></div></div>`;
   }).join('');
   wrap.querySelectorAll('[data-mid]').forEach(el=>el.addEventListener('click',function(){toggleMonthly(this.dataset.mid,this);}));
 }
