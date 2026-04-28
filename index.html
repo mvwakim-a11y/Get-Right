@@ -1506,7 +1506,7 @@ function renderMovement(){
     document.getElementById('pips').innerHTML='';document.getElementById('bwrap').innerHTML='';
     document.getElementById('awrap').innerHTML=`<p style="font-size:15px;color:var(--text2);padding:1.5rem 0;">${week<1?'Navigate forward to your start date.':'5 months complete. The work is now who you are.'}</p>`;
     document.getElementById('pfill').style.width='0%';document.getElementById('plabel').textContent='';
-    if(mvmtView==='week'){const td=new Date();td.setHours(0,0,0,0);renderWeek(gph(wn(td)),dic(td));}return;
+    if(mvmtView==='week')renderWeek();return;
   }
   const pb=document.getElementById('pbadge');pb.textContent='Phase '+ph;pb.className='ph-badge ph-'+ph;
   document.getElementById('wlabel').textContent=`Week ${Math.min(week,TOTAL)} of ${TOTAL}`;
@@ -1525,27 +1525,51 @@ function renderMovement(){
     document.getElementById('plbl').textContent=sc.day.l;
     awrap.innerHTML=`<div class="anim">`+sc.day.groups.map(g=>renderMGrp(g,ph)).join('')+`</div>`;bindMCbs(awrap);
   }
-  updateMProg(sc);if(mvmtView==='week'){const td=new Date();td.setHours(0,0,0,0);renderWeek(gph(wn(td)),dic(td));}
+  updateMProg(sc);if(mvmtView==='week')renderWeek();
 }
 
-function renderWeek(ph,todayDn){
-  const S=[
-    {dn:1,l:'Yoga + Breathwork',tc:'badge-yoga',acts:[`<strong>Vinyasa</strong> — ${['30–40','40','45–50','50–60'][ph-1]} min`,'<strong>Chest opening</strong> + shoulder mobility',`<strong>Pranayama</strong> — ${ph<=2?'ujjayi':'kapalabhati'}`]},
-    {dn:2,l:'Gym: Posture + Cardio',tc:'badge-gym',acts:[ph>=2?'<strong>Posture circuit</strong> — rows, pull-aparts, face pulls':'<strong>Posture circuit</strong> — bands + wall angels',`<strong>Zone 2</strong> — ${['20–25','30–35','35–40','40–45'][ph-1]} min`]},
-    {dn:3,l:'Yin Yoga',tc:'badge-yin',acts:[`<strong>Yin</strong> — ${ph>=3?'55–70':'45–60'} min`,'<strong>Dragon</strong>, <strong>sphinx</strong>, <strong>sleeping swan</strong>']},
-    {dn:4,l:'Gym: Cardio Focus',tc:'badge-gym',acts:[`<strong>Zone 2</strong> — ${['30–35','35–40','40–45','45–50'][ph-1]} min`,'<strong>BOLT score</strong> log',...(ph>=2?['<strong>Nasal-only</strong>']:[]),...(ph>=3?['<strong>Breath holds</strong>']:[])]},
-    {dn:5,l:'Yoga + Core',tc:'badge-yoga',acts:[`<strong>Vinyasa</strong> — ${['30','35','40','45'][ph-1]} min`,'<strong>Dead bugs</strong>, <strong>bird dogs</strong>, <strong>planks</strong>']},
-    {dn:6,rest:true},{dn:7,rest:true},
-  ];
+function renderWeek(){
+  // Compute the Monday of the current real week
+  const today=new Date();today.setHours(0,0,0,0);
+  const dow=today.getDay(); // 0=Sun,1=Mon,...6=Sat
+  const daysToMon=dow===0?-6:1-dow;
+  const monday=new Date(today);monday.setDate(today.getDate()+daysToMon);
   const DN=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
-  document.getElementById('wgrid').innerHTML=S.map((s,i)=>{
-    const iT=s.dn===todayDn;
-    if(s.rest)return`<div class="week-card${iT?' today':''}"><div class="wc-head"><span class="wc-day">${DN[i]}</span>${iT?'<div class="today-dot"></div>':''}<span class="type-badge badge-rest" style="font-size:11px;">Rest</span></div><div class="wc-rest">Active recovery</div></div>`;
-    return`<div class="week-card${iT?' today':''}"><div class="wc-head"><span class="wc-day">${DN[i]}</span>${iT?'<div class="today-dot"></div>':''}<span class="type-badge ${s.tc}" style="font-size:11px;">${s.l}</span></div><ul class="wc-acts">${s.acts.map(a=>`<li>${a}</li>`).join('')}</ul></div>`;
+  const FULL=['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
+  document.getElementById('wgrid').innerHTML=DN.map((name,i)=>{
+    // Actual calendar date for this weekday
+    const d=new Date(monday);d.setDate(monday.getDate()+i);
+    const dn=dic(d);             // position in 7-day plan cycle
+    const week=wn(d);            // which plan week
+    const ph=gph(week);          // which phase
+    const isToday=dk(d)===dk(today);
+    const dotHtml=isToday?'<div class="today-dot"></div>':'';
+    const todayStyle=isToday?' today':'';
+    // Outside plan window
+    if(dn===-1||week<1){
+      return`<div class="week-card${todayStyle}"><div class="wc-head"><span class="wc-day">${name}</span>${dotHtml}<span class="type-badge badge-rest" style="font-size:11px;">—</span></div><div class="wc-rest" style="font-size:12px;color:var(--text3);">Before plan start</div></div>`;
+    }
+    if(week>TOTAL){
+      return`<div class="week-card${todayStyle}"><div class="wc-head"><span class="wc-day">${name}</span>${dotHtml}<span class="type-badge badge-rest" style="font-size:11px;">Done</span></div><div class="wc-rest" style="font-size:12px;color:var(--text3);">Plan complete</div></div>`;
+    }
+    const sc=sched(dn,ph);
+    // Rest day
+    if(!sc.day){
+      return`<div class="week-card${todayStyle}"><div class="wc-head"><span class="wc-day">${name}</span>${dotHtml}<span class="type-badge badge-rest" style="font-size:11px;">Rest</span></div><div class="wc-rest">Active recovery — walk 20–30 min</div></div>`;
+    }
+    // Active day — build summary from the actual schedule groups
+    const acts=sc.day.groups.map(g=>{
+      let txt=`<strong>${g.text}</strong>`;
+      if(g.kids&&g.kids.length>0){
+        txt+=` <span style="font-size:11px;color:var(--text3);">+ ${g.kids.slice(0,2).map(k=>k.text.split(' ')[0]).join(', ')}${g.kids.length>2?'…':''}</span>`;
+      }
+      return txt;
+    });
+    return`<div class="week-card${todayStyle}"><div class="wc-head"><span class="wc-day">${name}</span>${dotHtml}<span class="type-badge ${sc.day.tc}" style="font-size:11px;">${sc.day.l}</span></div><ul class="wc-acts">${acts.map(a=>`<li>${a}</li>`).join('')}</ul></div>`;
   }).join('');
 }
 
-function switchMvmt(v,btn){mvmtView=v;document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));btn.classList.add('on');document.getElementById('mvmt-today').style.display=v==='today'?'block':'none';document.getElementById('mvmt-week').style.display=v==='week'?'block':'none';if(v==='week'){const td=new Date();td.setHours(0,0,0,0);const w=wn(td);renderWeek(gph(w),dic(td));}}
+function switchMvmt(v,btn){mvmtView=v;document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));btn.classList.add('on');document.getElementById('mvmt-today').style.display=v==='today'?'block':'none';document.getElementById('mvmt-week').style.display=v==='week'?'block':'none';if(v==='week')renderWeek();}
 function changeDay(d){const x=new Date(VD);x.setDate(x.getDate()+d);VD=x;renderMovement();}
 function goToday(){VD=new Date();VD.setHours(0,0,0,0);renderMovement();}
 
