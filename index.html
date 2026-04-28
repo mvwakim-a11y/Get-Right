@@ -682,9 +682,124 @@ svg.ring-svg{display:block;margin:0 auto;}
 .jaw-dur-btns{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;}
 .jaw-dur-btn{padding:6px 4px;font-size:11px;font-weight:600;font-family:'DM Sans',sans-serif;background:var(--bg4);color:var(--text2);border:1px solid var(--border2);border-radius:4px;cursor:pointer;}
 .jaw-dur-btn:hover{background:var(--bg2);color:var(--text);}
+
+/* ── SETTINGS PANEL ── */
+.settings-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:150;backdrop-filter:blur(4px);}
+.settings-overlay.open{display:block;}
+.settings-panel{position:fixed;bottom:0;left:0;right:0;max-height:80vh;overflow-y:auto;background:var(--bg2);border-radius:var(--radius) var(--radius) 0 0;border-top:1px solid var(--border);padding:0 0 env(safe-area-inset-bottom);z-index:151;transform:translateY(100%);transition:transform .25s ease;}
+.settings-panel.open{transform:translateY(0);}
+.settings-handle{width:36px;height:4px;background:var(--border);border-radius:2px;margin:12px auto 0;}
+.settings-title{font-family:'DM Serif Display',serif;font-size:18px;color:var(--text);padding:14px 20px 10px;}
+.settings-group{border-top:1px solid var(--border2);padding:10px 0;}
+.settings-row{display:flex;align-items:center;gap:12px;padding:12px 20px;cursor:pointer;}
+.settings-row:active{background:var(--bg3);}
+.settings-row-icon{width:32px;height:32px;border-radius:8px;background:var(--bg3);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.settings-row-label{font-size:14px;color:var(--text);font-weight:500;flex:1;}
+.settings-row-sub{font-size:11px;color:var(--text3);margin-top:1px;}
+.settings-cog{background:none;border:none;padding:4px;cursor:pointer;color:var(--text3);display:flex;align-items:center;justify-content:center;border-radius:6px;}
+.settings-cog:hover{color:var(--text);background:var(--bg3);}
+
+/* ── HABITS TABS ── */
+.htab-bar{display:flex;gap:4px;margin:0 0 16px;background:var(--bg3);border-radius:var(--radius-sm);padding:4px;border:1px solid var(--border2);}
+.htab-btn{flex:1;padding:8px 4px;font-size:11px;font-weight:600;font-family:'DM Sans',sans-serif;text-transform:uppercase;letter-spacing:.06em;border:none;border-radius:6px;cursor:pointer;background:transparent;color:var(--text3);transition:all .15s;white-space:nowrap;}
+.htab-btn.active{background:var(--bg2);color:var(--text);box-shadow:0 1px 4px rgba(0,0,0,.3);}
+.htab-btn.active.tab-morning{color:var(--amber);}
+.htab-btn.active.tab-midday{color:var(--sky);}
+.htab-btn.active.tab-evening{color:#c084fc;}
+.htab-btn.active.tab-night{color:var(--indigo-light);}
+.htab-section{display:none;}
+.htab-section.visible{display:block;}
+
+/* Time-of-day section tints */
+.htab-section-morning .card,.htab-section-morning .night-card{border-left:2px solid rgba(251,191,36,.25);}
+.htab-section-midday .card,.htab-section-midday .night-card{border-left:2px solid rgba(56,189,248,.2);}
+.htab-section-evening .card,.htab-section-evening .night-card{border-left:2px solid rgba(192,132,252,.2);}
+.htab-section-night .card,.htab-section-night .night-card{border-left:2px solid rgba(99,102,241,.25);}
+
+/* Intention card */
+.intention-card{background:linear-gradient(135deg,rgba(99,102,241,.08),rgba(139,92,246,.05));border:1px solid rgba(99,102,241,.2);border-radius:var(--radius);padding:14px 16px;margin-bottom:14px;}
+.intention-label{font-size:10px;font-weight:700;color:var(--indigo-light);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;}
+.intention-input{width:100%;background:transparent;border:none;outline:none;font-size:15px;font-family:'DM Serif Display',serif;color:var(--text);line-height:1.6;resize:none;min-height:40px;}
+.intention-input::placeholder{color:var(--text3);font-style:italic;font-size:14px;}
+
+/* Completion ring */
+.completion-ring-wrap{position:relative;width:48px;height:48px;flex-shrink:0;}
+.completion-ring-wrap svg{transform:rotate(-90deg);}
+.completion-pct-label{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'DM Serif Display',serif;font-size:12px;color:var(--text);}
+
+/* ── VISUAL POLISH ── */
+
+/* Larger, more prominent section labels */
+.slbl{font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;margin:1.75rem 0 .85rem;display:flex;align-items:center;gap:8px;}
+.slbl svg{flex-shrink:0;}
+.slbl::after{content:'';flex:1;height:1px;background:var(--border2);margin-left:4px;}
+.slbl-text{font-size:11px;}
+
+/* Time-of-day subtle section bg */
+.htab-section-morning{padding:2px 0;}
+.htab-section-midday{padding:2px 0;}
+.htab-section-evening{padding:2px 0;}
+.htab-section-night{padding:2px 0;}
+
+/* Completion ring header tweak */
+.brand-right{flex-direction:row;align-items:center;gap:10px;}
+
+/* Progress tab weekly review highlight on Sundays */
+#weekly-review-wrap button:hover{opacity:.9;}
+
+/* Quick stats nicer styling */
+.quick-stats{margin:0 0 16px;background:var(--bg2);border:1px solid var(--border2);border-radius:var(--radius);padding:14px;}
+
+/* Intention card textarea resize handle hidden on iOS */
+.intention-input{-webkit-user-select:text;user-select:text;}
+
+/* Better card spacing within sections */
+.htab-section .card{margin-bottom:10px;}
+
+/* Tonight badge on shot card more visible */
+.badge-shot{background:rgba(251,113,133,.12);color:var(--coral);border:1px solid rgba(251,113,133,.25);}
+
+/* Section separator between overview sections */
+.overview-sep{height:1px;background:var(--border2);margin:20px 0;}
+
+/* Manage tab styling */
+#htab-manage{padding-top:8px;}
 </style>
 </head>
 <body>
+
+<!-- SETTINGS PANEL -->
+<div class="settings-overlay" id="settings-overlay" onclick="closeSettings()"></div>
+<div class="settings-panel" id="settings-panel">
+  <div class="settings-handle"></div>
+  <div class="settings-title">Settings</div>
+  <div class="settings-group">
+    <div class="settings-row" onclick="localStorage.removeItem('intro_seen');document.getElementById('intro-overlay').style.display='block';closeSettings();">
+      <div class="settings-row-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--indigo-light)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+      <div><div class="settings-row-label">Show welcome screen</div><div class="settings-row-sub">Re-read the intro and tab overview</div></div>
+    </div>
+    <div class="settings-row" onclick="exportCSV();closeSettings();">
+      <div class="settings-row-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></div>
+      <div><div class="settings-row-label">Export data (CSV)</div><div class="settings-row-sub">Download all your logged data</div></div>
+    </div>
+    <div class="settings-row" onclick="document.getElementById('csv-import-input').click();closeSettings();">
+      <div class="settings-row-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--sky)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></div>
+      <div><div class="settings-row-label">Import data (CSV)</div><div class="settings-row-sub">Restore from a previous export</div></div>
+    </div>
+  </div>
+  <div class="settings-group">
+    <div class="settings-row" onclick="resetTodayConfirm();">
+      <div class="settings-row-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg></div>
+      <div><div class="settings-row-label">Reset today's habits</div><div class="settings-row-sub">Clears all of today's habit data</div></div>
+    </div>
+    <div class="settings-row" onclick="resetPlanConfirm();">
+      <div class="settings-row-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--coral)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a1 1 0 011-1h4a1 1 0 011 1v2"/></svg></div>
+      <div><div class="settings-row-label">Reset start date</div><div class="settings-row-sub">Change the 20-week plan start date</div></div>
+    </div>
+  </div>
+  <div style="padding:14px 20px;"><button onclick="closeSettings()" style="width:100%;padding:11px;font-size:14px;font-family:'DM Sans',sans-serif;font-weight:600;background:var(--bg3);color:var(--text2);border:1px solid var(--border2);border-radius:var(--radius-sm);cursor:pointer;">Close</button></div>
+</div>
+
 <div id="intro-overlay" style="display:none;position:fixed;inset:0;background:rgba(15,12,26,0.96);z-index:200;overflow-y:auto;padding:20px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);">
   <div style="max-width:480px;margin:40px auto;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:24px;">
     <div style="text-align:center;margin-bottom:20px;">
@@ -843,24 +958,51 @@ svg.ring-svg{display:block;margin:0 auto;}
   <defs><linearGradient id="cad-g2" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#6366f1"/><stop offset="100%" stop-color="#8b5cf6"/></linearGradient></defs>
   <circle cx="20" cy="20" r="19" stroke="url(#cad-g2)" stroke-width="1.5" fill="rgba(99,102,241,0.08)"/>
   <path d="M5 20 L9 20 L12 11 L16 29 L20 20 L24 20 L27 13 L31 27 L35 20" stroke="url(#cad-g2)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-</svg><div class="brand-wordmark"><div class="brand-name">Cadence</div><div class="brand-sub">Habits</div></div><div class="brand-right"><div style="font-size:22px;font-family:'DM Serif Display',serif;color:var(--indigo-light);" id="habits-pct">0%</div><div id="habits-sub" style="font-size:10px;color:var(--text3);letter-spacing:.06em;text-transform:uppercase;"></div></div></div>
-  <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:4px;">
-    <div class="section-title" id="habits-date" style="font-size:22px;"></div>
+</svg><div class="brand-wordmark"><div class="brand-name">Cadence</div><div class="brand-sub">Habits</div></div><div class="brand-right" style="flex-direction:row;align-items:center;gap:12px;"><div style="text-align:right;"><div style="font-size:22px;font-family:'DM Serif Display',serif;color:var(--indigo-light);" id="habits-pct">0%</div><div id="habits-sub" style="font-size:10px;color:var(--text3);letter-spacing:.06em;text-transform:uppercase;"></div></div><button class="settings-cog" onclick="openSettings()" aria-label="Settings"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg></button></div></div>
+  <!-- DATE NAV -->
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+    <div class="section-title" id="habits-date" style="font-size:20px;"></div>
+    <div class="hab-nav" style="margin:0;flex:0;">
+      <button onclick="changeHabDay(-1)" style="padding:7px 12px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;"><polyline points="15 18 9 12 15 6"/></svg></button>
+      <button class="htbtn" onclick="goHabToday()">Today</button>
+      <button onclick="changeHabDay(1)" style="padding:7px 12px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;"><polyline points="9 18 15 12 9 6"/></svg></button>
+    </div>
   </div>
   <div id="past-day-banner" class="past-day-banner">Viewing a past day — changes save to that date</div>
-  <div class="hab-nav">
-    <button onclick="changeHabDay(-1)"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px;"><polyline points="15 18 9 12 15 6"/></svg>Prev</button>
-    <button class="htbtn" onclick="goHabToday()">Today</button>
-    <button onclick="changeHabDay(1)">Next<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-left:4px;"><polyline points="9 18 15 12 9 6"/></svg></button>
+
+  <!-- DAILY INTENTION -->
+  <div class="intention-card">
+    <div class="intention-label">Today's intention</div>
+    <textarea class="intention-input" id="daily-intention" placeholder="Set one intention for today..." rows="2" oninput="saveIntention()"></textarea>
+  </div>
+
+  <!-- HABIT TABS -->
+  <div class="htab-bar">
+    <button class="htab-btn active" id="htab-btn-overview" onclick="switchHTab('overview')">Overview</button>
+    <button class="htab-btn tab-morning" id="htab-btn-morning" onclick="switchHTab('morning')">Morning</button>
+    <button class="htab-btn tab-midday" id="htab-btn-midday" onclick="switchHTab('midday')">Midday</button>
+    <button class="htab-btn tab-evening" id="htab-btn-evening" onclick="switchHTab('evening')">Evening</button>
+    <button class="htab-btn tab-night" id="htab-btn-night" onclick="switchHTab('night')">Night</button>
   </div>
 
   <!-- QUICK STATS (top of habits) -->
   <div class="quick-stats">
-    <div class="qs-cell">
-      <div class="qs-label">Habits</div>
-      <div class="qs-bar"><div class="qs-fill" id="qs-hab-fill" style="width:0%;background:var(--indigo-light);"></div></div>
-      <div class="qs-val" id="qs-hab-val">0/0</div>
+    <div style="display:flex;align-items:center;gap:12px;grid-column:span 2;border-bottom:1px solid var(--border2);padding-bottom:12px;margin-bottom:4px;">
+      <div class="completion-ring-wrap" id="completion-ring-outer">
+        <svg width="48" height="48" viewBox="0 0 48 48">
+          <circle cx="24" cy="24" r="20" fill="none" stroke="var(--bg4)" stroke-width="4"/>
+          <circle id="ring-progress" cx="24" cy="24" r="20" fill="none" stroke="var(--indigo-light)" stroke-width="4" stroke-dasharray="125.6" stroke-dashoffset="125.6" stroke-linecap="round" style="transition:stroke-dashoffset .4s ease;"/>
+        </svg>
+        <div class="completion-pct-label" id="ring-pct">0%</div>
+      </div>
+      <div>
+        <div style="font-size:14px;font-weight:600;color:var(--text);" id="qs-hab-val">0 of 0</div>
+        <div style="font-size:11px;color:var(--text3);margin-top:2px;">habits done today</div>
+      </div>
     </div>
+    <!-- hidden bar (qs-fill still updated for compatibility) -->
+    <div style="display:none;"><div class="qs-bar"><div class="qs-fill" id="qs-hab-fill" style="width:0%;"></div></div></div>
+    <div class="qs-cell" style="display:none;"><div class="qs-label">Habits</div></div>
     <div class="qs-cell">
       <div class="qs-label">Water</div>
       <div class="qs-bar"><div class="qs-fill" id="qs-water-fill" style="width:0%;background:var(--sky);"></div></div>
@@ -878,6 +1020,7 @@ svg.ring-svg{display:block;margin:0 auto;}
     </div>
   </div>
 
+  <div class="htab-section htab-section-morning" id="htab-morning">
   <!-- MORNING -->
   <div class="slbl"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"  aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg><span class="slbl-text" style="color:var(--amber);">Morning</span></div>
 
@@ -980,6 +1123,9 @@ svg.ring-svg{display:block;margin:0 auto;}
 
   <div id="inline-custom-morning"></div>
 
+  </div><!-- end morning -->
+
+  <div class="htab-section htab-section-midday" id="htab-midday">
   <!-- MIDDAY -->
   <div class="slbl"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--sky)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"  aria-hidden="true"><circle cx="12" cy="12" r="5"/><path d="M12 1v3M12 20v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M1 12h3M20 12h3"/></svg><span class="slbl-text" style="color:var(--sky);">Midday</span></div>
 
@@ -1081,7 +1227,9 @@ svg.ring-svg{display:block;margin:0 auto;}
   </div>
 
   <div id="inline-custom-afternoon"></div>
+  </div><!-- end midday -->
 
+  <div class="htab-section htab-section-evening" id="htab-evening">
   <div class="slbl"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#c084fc" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"  aria-hidden="true"><path d="M17 18a5 5 0 00-10 0M12 9V3M3 18h18M4.22 9.22l1.42 1.42M18.36 10.64l1.42-1.42"/></svg><span class="slbl-text" style="color:#c084fc;">Evening</span></div>
   <div class="card">
     <div class="card-row">
@@ -1173,6 +1321,9 @@ svg.ring-svg{display:block;margin:0 auto;}
     </div>
   </div>
 
+  </div><!-- end evening -->
+
+  <div class="htab-section htab-section-night" id="htab-night">
   <!-- NIGHT -->
   <div class="slbl"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--indigo-light)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"  aria-hidden="true"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><span class="slbl-text" style="color:var(--indigo-light);">Night</span></div>
 
@@ -1269,6 +1420,26 @@ svg.ring-svg{display:block;margin:0 auto;}
 
   <div id="inline-custom-night"></div>
   <div id="inline-custom-anytime"></div>
+  </div><!-- end night -->
+
+  <div class="htab-section" id="htab-overview">
+  <!-- CUSTOM COUNTERS -->
+  <div class="slbl"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--sky)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg><span class="slbl-text" style="color:var(--sky);">Habit counters</span></div>
+  <div id="custom-counters-list"></div>
+  <div style="background:var(--bg2);border:1px solid var(--border2);border-radius:var(--radius-sm);padding:12px;margin-bottom:10px;">
+    <div style="font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;">Add a counter</div>
+    <div style="display:flex;flex-direction:column;gap:8px;">
+      <input type="text" id="counter-name-input" placeholder="What habit are you tracking? (e.g. Scrolling, Snacks)" style="padding:9px 12px;font-size:13px;font-family:'DM Sans',sans-serif;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--bg3);color:var(--text);outline:none;"/>
+      <div style="display:flex;gap:8px;align-items:center;">
+        <input type="number" id="counter-goal-input" placeholder="Daily limit" min="1" max="99" style="width:110px;padding:9px 12px;font-size:13px;font-family:'DM Sans',sans-serif;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--bg3);color:var(--text);outline:none;"/>
+        <select id="counter-dir-input" style="flex:1;padding:9px 12px;font-size:13px;font-family:'DM Sans',sans-serif;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--bg3);color:var(--text);outline:none;">
+          <option value="max">Stay under limit (bad habit)</option>
+          <option value="min">Hit target (good habit)</option>
+        </select>
+      </div>
+      <button onclick="addCustomCounter()" style="padding:10px;font-size:13px;font-weight:600;font-family:'DM Sans',sans-serif;background:linear-gradient(135deg,var(--indigo),var(--violet));color:white;border:none;border-radius:var(--radius-sm);cursor:pointer;">+ Add counter</button>
+    </div>
+  </div>
 
   <!-- WEEKLY -->
   <div class="slbl"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--violet)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"  aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><span class="slbl-text" style="color:var(--violet);">Weekly</span></div>
@@ -1304,6 +1475,9 @@ svg.ring-svg{display:block;margin:0 auto;}
 
   <!-- CUSTOM HABITS -->
   <div class="slbl"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--indigo-light)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"  aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg><span class="slbl-text" style="color:var(--indigo-light);">Custom habits</span></div>
+  </div><!-- end overview -->
+
+  <div class="htab-section" id="htab-manage">
   <div class="custom-habit-section">
     <div style="font-size:12px;color:var(--text2);line-height:1.6;margin-bottom:10px;">Add habits that show up alongside the built-in ones in the section you choose. Use arrows to reorder within a section.</div>
     <div id="custom-habits-list"></div>
@@ -1517,7 +1691,8 @@ svg.ring-svg{display:block;margin:0 auto;}
         <div class="gi-chip tip"><div class="gi-chip-icon" style="font-size:10px;font-weight:700;color:var(--text3);width:28px;text-align:center;letter-spacing:.04em;text-transform:uppercase;padding-top:1px;">botox</div><div class="gi-chip-body"><span class="gi-badge gb-tip">If severe</span><div class="gi-headline">Ask about Botox (masseter injections)</div><div class="gi-body">Moderate evidence for reducing grinding force, effects 3–6 months. Worth discussing with your dentist if you have significant tooth wear or TMJ pain.</div></div></div>
       </div>
     </div>
-  </div>
+  
+  </div><!-- end manage --></div>
 </div>
 
 <!-- ═══════════ PROGRESS ═══════════ -->
@@ -1529,6 +1704,11 @@ svg.ring-svg{display:block;margin:0 auto;}
 </svg><div class="brand-wordmark"><div class="brand-name">Cadence</div><div class="brand-sub">Progress</div></div></div>
   <div class="section-title" style="margin-bottom:2px;">Michelle's journey</div>
   <div class="section-subtitle" style="margin-bottom:14px;">27 · Building for life · 20-week plan</div>
+
+  <!-- WEEKLY REVIEW BUTTON -->
+  <div id="weekly-review-wrap" style="margin-bottom:14px;">
+    <button onclick="openWeeklyReview()" style="width:100%;padding:13px 16px;font-size:14px;font-weight:600;font-family:'DM Sans',sans-serif;background:linear-gradient(135deg,rgba(99,102,241,.15),rgba(139,92,246,.12));color:var(--indigo-light);border:1px solid rgba(99,102,241,.3);border-radius:var(--radius);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Weekly review</button>
+  </div>
 
   <!-- PERSONALIZED GREETING -->
   <div class="upcoming-card" style="margin-bottom:14px;">
@@ -1974,8 +2154,8 @@ function renderHabits(){
   renderBooks();
   renderReminders();
   updateHabCount();
-  const done=HABIT_IDS.filter(id=>habDD.completed[id]).length;
-  document.getElementById('habits-sub').textContent=`${done} of ${HABIT_IDS.length} daily + weekly habits`;
+  renderIntention();
+  renderCustomCounters();
 }
 
 // ══════════ PEPCID COUNTER ══════════
@@ -2086,7 +2266,14 @@ function updateQuickStats(){
   const steps=habDD.steps||0;const stepsPct=Math.min(100,(steps/10000)*100);
   const set=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v;};
   const setW=(id,v)=>{const el=document.getElementById(id);if(el)el.style.width=v+'%';};
-  setW('qs-hab-fill',habPct);set('qs-hab-val',`${habDone}/${habTot}`);
+  setW('qs-hab-fill',habPct);set('qs-hab-val',`${habDone} of ${habTot}`);
+  // Update completion ring
+  const ring=document.getElementById('ring-progress');
+  const ringPct=document.getElementById('ring-pct');
+  const ringPctH=document.getElementById('habits-pct');
+  if(ring){const circum=125.6;ring.style.strokeDashoffset=(circum*(1-habPct/100)).toFixed(2);ring.style.stroke=habPct>=100?'var(--green)':'var(--indigo-light)';}
+  if(ringPct)ringPct.textContent=habPct+'%';
+  if(ringPctH)ringPctH.textContent=habPct+'%';
   setW('qs-water-fill',waterPct);set('qs-water-val',`${water}/12`);
   setW('qs-meal-fill',mealsPct);set('qs-meal-val',`${meals}/6`);
   setW('qs-step-fill',stepsPct);set('qs-step-val',steps>=1000?(steps/1000).toFixed(1)+'k':steps);
@@ -2611,6 +2798,7 @@ function goToday(){VD=new Date();VD.setHours(0,0,0,0);renderMovement();}
 
 // ══════════ PROGRESS / STATS ══════════
 function loadProgress(){
+  renderWeeklyReview();
   renderProgressGreeting();
   renderPhaseTimeline();
   renderStreakAndMetrics();
@@ -3208,12 +3396,18 @@ function renderPepcidAnalysis(){
   set('pepcid-7d-am',avg7+'/day');
   set('pepcid-7d-pm',zeroDays7+' zero days');
   set('pepcid-30d-am',avg30+'/day');
-  // Trend: compare first 15 days vs last 15 days of 30
-  const dates15a=getDateRange(30).slice(0,15);const dates15b=getDateRange(30).slice(15);
-  let t15a=0,t15b=0;
-  dates15a.forEach(d=>{const sv=localStorage.getItem('habday_'+dk(d));if(sv){try{const dd=JSON.parse(sv);t15a+=(dd.pepcid||0);}catch(e){}}});
-  dates15b.forEach(d=>{const sv=localStorage.getItem('habday_'+dk(d));if(sv){try{const dd=JSON.parse(sv);t15b+=(dd.pepcid||0);}catch(e){}}});
-  const trend=t15a===0&&t15b===0?'No data yet':t15b<t15a?'Reducing — great progress':t15b>t15a?'Increasing — worth noting':'Stable';
+  // Trend: rolling 7-day avg vs prior 7-day avg
+  const last7=getDateRange(7);const prev7=getDateRange(14).slice(0,7);
+  let lDays=0,pDays=0,lSum=0,pSum=0;
+  last7.forEach(d=>{const sv=localStorage.getItem('habday_'+dk(d));if(sv){try{const dd=JSON.parse(sv);lSum+=(dd.pepcid||0);lDays++;}catch(e){}}});
+  prev7.forEach(d=>{const sv=localStorage.getItem('habday_'+dk(d));if(sv){try{const dd=JSON.parse(sv);pSum+=(dd.pepcid||0);pDays++;}catch(e){}}});
+  let trend='Need more data (7+ days)';
+  if(lDays>=3&&pDays>=3){
+    const lAvg=lSum/lDays;const pAvg=pSum/pDays;const diff=lAvg-pAvg;
+    if(Math.abs(diff)<0.15)trend='Stable';
+    else if(diff<0)trend='Reducing — '+Math.abs(diff).toFixed(1)+' fewer/day';
+    else trend='Increasing — +'+diff.toFixed(1)+'/day vs last week';
+  }
   set('pepcid-streak',trend);
 }
 
@@ -3320,6 +3514,197 @@ function importCSV(input){
 }
 
 
+
+
+
+// ══════════ CUSTOM COUNTERS ══════════
+function getCustomCounters(){
+  try{return JSON.parse(localStorage.getItem('custom_counters'))||[];}catch(e){return[];}
+}
+function addCustomCounter(){
+  const name=document.getElementById('counter-name-input')?.value.trim();
+  const goalEl=document.getElementById('counter-goal-input');
+  const dir=document.getElementById('counter-dir-input')?.value||'max';
+  const goal=parseInt(goalEl?.value)||5;
+  if(!name)return;
+  const counters=getCustomCounters();
+  counters.push({id:'ctr_'+Date.now(),name,goal,dir});
+  localStorage.setItem('custom_counters',JSON.stringify(counters));
+  if(document.getElementById('counter-name-input'))document.getElementById('counter-name-input').value='';
+  if(goalEl)goalEl.value='';
+  renderCustomCounters();
+}
+function deleteCustomCounter(id){
+  const counters=getCustomCounters().filter(c=>c.id!==id);
+  localStorage.setItem('custom_counters',JSON.stringify(counters));
+  renderCustomCounters();
+}
+function adjustCounter(id,delta){
+  if(!habDD.counters)habDD.counters={};
+  const cur=habDD.counters[id]||0;
+  habDD.counters[id]=Math.max(0,cur+delta);
+  renderCustomCounters();
+  triggerHabSave();
+}
+function renderCustomCounters(){
+  const wrap=document.getElementById('custom-counters-list');
+  if(!wrap)return;
+  const counters=getCustomCounters();
+  if(counters.length===0){
+    wrap.innerHTML='<div style="font-size:12px;color:var(--text3);font-style:italic;padding:4px 0 10px;">No counters yet — add one below to track a habit you want to reduce or build.</div>';
+    return;
+  }
+  if(!habDD.counters)habDD.counters={};
+  wrap.innerHTML=counters.map(c=>{
+    const val=habDD.counters[c.id]||0;
+    const isOver=c.dir==='max'&&val>c.goal;
+    const isHit=c.dir==='min'&&val>=c.goal;
+    const accentColor=isOver?'var(--coral)':isHit?'var(--green)':'var(--sky)';
+    const statusNote=isOver?`Over limit (${val}/${c.goal})`
+      :isHit?`Target hit (${val}/${c.goal})`
+      :c.dir==='max'?`${val} of ${c.goal} max`:`${val} of ${c.goal} goal`;
+    return`<div class="card" style="margin-bottom:10px;">
+      <div class="water-tracker">
+        <div class="water-top">
+          <div>
+            <div class="water-title">${escHtml(c.name)}</div>
+            <div class="water-goal" style="color:${accentColor};">${statusNote}</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <span class="ph-badge" style="background:rgba(56,189,248,.1);color:var(--sky);border:1px solid rgba(56,189,248,.2);font-size:10px;">${c.dir==='max'?'Reduce':'Build'}</span>
+            <button onclick="deleteCustomCounter('${c.id}')" style="background:none;border:none;color:var(--text3);cursor:pointer;font-size:16px;padding:2px;">×</button>
+          </div>
+        </div>
+        <div class="water-count-row">
+          <button class="water-btn minus" onclick="adjustCounter('${c.id}',-1)">−</button>
+          <div>
+            <div class="water-count" style="color:${accentColor};">${val}</div>
+            <div class="water-unit">today</div>
+          </div>
+          <button class="water-btn plus" onclick="adjustCounter('${c.id}',1)">+</button>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+// ══════════ HABIT TABS ══════════
+let currentHTab='overview';
+function switchHTab(tab){
+  currentHTab=tab;
+  const sections=['overview','morning','midday','evening','night','manage'];
+  sections.forEach(s=>{
+    const el=document.getElementById('htab-'+s);
+    if(el)el.classList.toggle('visible',s===tab||(tab==='overview'&&s==='manage'));
+  });
+  document.querySelectorAll('.htab-btn').forEach(b=>b.classList.remove('active'));
+  const btn=document.getElementById('htab-btn-'+tab);
+  if(btn)btn.classList.add('active');
+  // scroll to top of section on tab switch
+  const secEl=document.getElementById('sec-habits');
+  if(secEl)secEl.scrollTop=0;
+  window.scrollTo(0,0);
+}
+function initHabTabs(){
+  switchHTab('overview');
+}
+
+// Daily intention
+function saveIntention(){
+  const el=document.getElementById('daily-intention');
+  if(!el)return;
+  const key='intention_'+dk(habVD);
+  localStorage.setItem(key,el.value);
+}
+function renderIntention(){
+  const el=document.getElementById('daily-intention');
+  if(!el)return;
+  const key='intention_'+dk(habVD);
+  el.value=localStorage.getItem(key)||'';
+}
+
+// ══════════ WEEKLY REVIEW ══════════
+function renderWeeklyReview(){
+  const wrap=document.getElementById('weekly-review-wrap');
+  if(!wrap)return;
+  const today=new Date();
+  const dow=today.getDay(); // 0=Sun
+  // Show on Sundays, or always on Progress tab
+  const isSunday=dow===0;
+  if(!isSunday){wrap.style.display='none';return;}
+  wrap.style.display='block';
+}
+function openWeeklyReview(){
+  const today=new Date();
+  const weekStart=new Date(today);weekStart.setDate(today.getDate()-today.getDay());
+  weekStart.setHours(0,0,0,0);
+  // Build 7-day summary
+  const days=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  let totalHab=0,daysLogged=0;
+  let summary='';
+  for(let i=0;i<7;i++){
+    const d=new Date(weekStart);d.setDate(weekStart.getDate()+i);
+    const sv=localStorage.getItem('habday_'+dk(d));
+    if(sv){
+      try{
+        const dd=JSON.parse(sv);
+        const customIds=getCustomHabits().map(h=>h.id);
+        const allIds=[...HABIT_IDS,...customIds];
+        const done=allIds.filter(id=>dd.completed&&dd.completed[id]).length;
+        const pct=allIds.length>0?Math.round((done/allIds.length)*100):0;
+        totalHab+=pct;daysLogged++;
+        summary+=`<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border2);font-size:13px;">
+          <span style="color:var(--text2);">${days[d.getDay()]} ${d.getDate()}</span>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <div style="width:80px;height:5px;background:var(--bg4);border-radius:3px;overflow:hidden;"><div style="width:${pct}%;height:100%;background:var(--indigo-light);border-radius:3px;"></div></div>
+            <span style="color:var(--text);font-weight:600;width:32px;text-align:right;">${pct}%</span>
+          </div>
+        </div>`;
+      }catch(e){}
+    }
+  }
+  const avgHab=daysLogged>0?Math.round(totalHab/daysLogged):0;
+  const modal=document.createElement('div');
+  modal.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:200;display:flex;align-items:flex-end;';
+  modal.innerHTML=`<div style="background:var(--bg2);border-radius:var(--radius) var(--radius) 0 0;border-top:1px solid var(--border);padding:20px;width:100%;max-height:80vh;overflow-y:auto;padding-bottom:calc(20px + env(safe-area-inset-bottom));">
+    <div style="font-family:'DM Serif Display',serif;font-size:22px;color:var(--text);margin-bottom:4px;">Weekly review</div>
+    <div style="font-size:12px;color:var(--text3);margin-bottom:16px;">${weekStart.toLocaleDateString('en-US',{month:'long',day:'numeric'})} — today</div>
+    <div style="background:var(--bg3);border-radius:var(--radius-sm);padding:12px 14px;margin-bottom:14px;text-align:center;">
+      <div style="font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px;">Average completion</div>
+      <div style="font-family:'DM Serif Display',serif;font-size:36px;color:var(--indigo-light);">${avgHab}%</div>
+      <div style="font-size:11px;color:var(--text3);">${daysLogged} of 7 days logged</div>
+    </div>
+    <div style="margin-bottom:16px;">${summary||'<div style="color:var(--text3);font-style:italic;font-size:13px;">No data logged this week yet.</div>'}</div>
+    <div style="background:var(--bg3);border:1px solid var(--border2);border-radius:var(--radius-sm);padding:12px 14px;margin-bottom:16px;">
+      <div style="font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;">Reflection</div>
+      <textarea placeholder="What worked this week? What's one thing to adjust?" style="width:100%;min-height:80px;background:transparent;border:none;outline:none;font-size:13px;font-family:'DM Sans',sans-serif;color:var(--text);resize:none;line-height:1.6;" oninput="localStorage.setItem('weekly_reflection_'+${JSON.stringify(dk(weekStart))},this.value)" >${localStorage.getItem('weekly_reflection_'+dk(weekStart))||''}</textarea>
+    </div>
+    <button onclick="this.closest('[style*=position]').remove()" style="width:100%;padding:12px;font-size:14px;font-weight:600;font-family:'DM Sans',sans-serif;background:linear-gradient(135deg,var(--indigo),var(--violet));color:white;border:none;border-radius:var(--radius-sm);cursor:pointer;">Done</button>
+  </div>`;
+  modal.onclick=function(e){if(e.target===modal)modal.remove();};
+  document.body.appendChild(modal);
+}
+// ══════════ SETTINGS ══════════
+function openSettings(){
+  document.getElementById('settings-overlay').classList.add('open');
+  document.getElementById('settings-panel').classList.add('open');
+}
+function closeSettings(){
+  document.getElementById('settings-overlay').classList.remove('open');
+  document.getElementById('settings-panel').classList.remove('open');
+}
+function resetTodayConfirm(){
+  closeSettings();
+  if(!confirm('Reset all of today\'s habit data? This cannot be undone.'))return;
+  localStorage.removeItem('habday_'+dk(new Date()));
+  habVD=new Date();habVD.setHours(0,0,0,0);
+  renderHabits();
+}
+function resetPlanConfirm(){
+  closeSettings();
+  if(!confirm('Change your start date? This will show the setup screen.'))return;
+  localStorage.removeItem('plan_start_date');
+  location.reload();
+}
 // ══════════ FIRST-TIME INTRO ══════════
 function dismissIntro(){
   const ov=document.getElementById('intro-overlay');
@@ -3336,6 +3721,7 @@ function maybeShowIntro(){
 // BOOT
 maybeShowIntro();
 initMovement();
+initHabTabs();
 
 // Register service worker for offline support (GitHub Pages / HTTPS only)
 if ('serviceWorker' in navigator && location.protocol === 'https:') {
@@ -3395,4 +3781,3 @@ function playChime(allDone){
 </script>
 </body>
 </html>
-
