@@ -5,10 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
-<meta name="apple-mobile-web-app-title" content="Body OS · Michelle"/>
+<meta name="apple-mobile-web-app-title" content="Cadence"/>
 <meta name="mobile-web-app-capable" content="yes"/>
 <meta name="theme-color" content="#0f0c1a"/>
-<title>Body OS · Michelle</title>
+<title>Cadence · Michelle</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <style>
 :root{
@@ -583,7 +583,24 @@ svg.ring-svg{display:block;margin:0 auto;}
 /* ── PHASE BAR CURSOR ── */
 .phase-cursor{width:2px;height:18px;background:white;border-radius:1px;position:relative;top:-4px;margin-left:-1px;box-shadow:0 0 6px rgba(255,255,255,.8);}
 
+
+/* ── LOGO / BRAND ── */
+.brand-bar{display:flex;align-items:center;gap:10px;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid var(--border2);}
+.brand-wordmark{display:flex;flex-direction:column;}
+.brand-name{font-family:'DM Serif Display',serif;font-size:20px;color:var(--text);letter-spacing:.01em;line-height:1;}
+.brand-sub{font-size:10px;color:var(--text3);letter-spacing:.1em;text-transform:uppercase;margin-top:2px;}
+.brand-right{margin-left:auto;display:flex;flex-direction:column;align-items:flex-end;gap:2px;}
+
+/* ── HABITS NAV ── */
+.hab-nav button:disabled{opacity:.3;cursor:not-allowed;}
+
+.hab-nav{display:flex;gap:6px;margin:10px 0 14px;}
+.hab-nav button{flex:1;padding:9px;font-size:13px;font-family:'DM Sans',sans-serif;font-weight:500;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--bg2);color:var(--text2);cursor:pointer;transition:all .15s;}
+.hab-nav button:hover{background:var(--bg3);color:var(--text);}
+.hab-nav .htbtn{flex:0;padding:9px 16px;color:var(--indigo-light);border-color:rgba(99,102,241,.3);}
+.past-day-banner{background:rgba(99,102,241,.07);border:1px solid rgba(99,102,241,.15);border-radius:var(--radius-sm);padding:8px 14px;font-size:12px;color:var(--indigo-light);text-align:center;margin-bottom:12px;display:none;}
 </style>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg width='32' height='32' viewBox='0 0 40 40' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%236366f1'/%3E%3Cstop offset='100%25' stop-color='%238b5cf6'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='20' cy='20' r='20' fill='%230f0c1a'/%3E%3Ccircle cx='20' cy='20' r='18' stroke='url(%23g)' stroke-width='1.5' fill='rgba(99,102,241,0.1)'/%3E%3Cpath d='M5 20 L9 20 L12 11 L16 29 L20 20 L24 20 L27 13 L31 27 L35 20' stroke='url(%23g)' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"/>
 </head>
 <body>
 <div class="orb"></div><div class="orb2"></div>
@@ -592,7 +609,12 @@ svg.ring-svg{display:block;margin:0 auto;}
 <div id="sec-movement" class="section on">
   <div id="mvmt-setup" style="display:none;">
     <div class="setup-card">
-      <div class="section-eyebrow" style="margin-bottom:8px;">20-week program</div>
+      <div style="margin-bottom:16px;"><svg width="48" height="48" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs><linearGradient id="cad-setup" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#6366f1"/><stop offset="100%" stop-color="#8b5cf6"/></linearGradient></defs>
+  <circle cx="20" cy="20" r="19" stroke="url(#cad-setup)" stroke-width="1.5" fill="rgba(99,102,241,0.1)"/>
+  <path d="M5 20 L9 20 L12 11 L16 29 L20 20 L24 20 L27 13 L31 27 L35 20" stroke="url(#cad-setup)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg></div>
+      <div class="section-eyebrow" style="margin-bottom:6px;">Cadence · 20-week program</div>
       <h2 style="font-family:'DM Serif Display',serif;font-size:26px;color:var(--text);margin:0 0 8px;">Michelle's plan</h2>
       <p style="font-size:14px;color:var(--text2);margin:0 0 20px;line-height:1.7;">Set your start date to anchor the 20-week schedule. May 4th is pre-filled.</p>
       <input type="date" id="sinp" class="date-inp" value="2026-05-04"/>
@@ -600,9 +622,19 @@ svg.ring-svg{display:block;margin:0 auto;}
     </div>
   </div>
   <div id="mvmt-main" style="display:none;">
+    <div class="brand-bar"><svg width="36" height="36" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Cadence">
+  <defs>
+    <linearGradient id="cad-grad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#6366f1"/>
+      <stop offset="100%" stop-color="#8b5cf6"/>
+    </linearGradient>
+  </defs>
+  <circle cx="20" cy="20" r="19" stroke="url(#cad-grad)" stroke-width="1.5" fill="rgba(99,102,241,0.08)"/>
+  <path d="M5 20 L9 20 L12 11 L16 29 L20 20 L24 20 L27 13 L31 27 L35 20" stroke="url(#cad-grad)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg><div class="brand-wordmark"><div class="brand-name">Cadence</div><div class="brand-sub">Michelle · 27</div></div><div class="brand-right" id="msind" style="color:var(--green);font-size:12px;"></div></div>
     <div style="display:flex;align-items:flex-start;justify-content:space-between;">
       <div>
-        <div class="app-eyebrow">Body OS · Movement</div>
+        <div class="app-eyebrow">Cadence · Movement</div>
         <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
           <span id="pbadge" class="ph-badge ph-1">Phase 1</span>
           <span id="wlabel" style="font-size:12px;color:var(--text3);">Week 1 of 18</span>
@@ -611,7 +643,6 @@ svg.ring-svg{display:block;margin:0 auto;}
         <div id="ddisp" class="page-title"></div>
         <div id="pname" class="page-sub"></div>
       </div>
-      <div id="msind" class="sind" style="color:var(--green);"></div>
     </div>
     <div class="pip-row" id="pips"></div>
     <div class="tab-row">
@@ -731,15 +762,19 @@ svg.ring-svg{display:block;margin:0 auto;}
 
 <!-- ═══════════ HABITS ═══════════ -->
 <div id="sec-habits" class="section">
-  <div class="greet-bar">
-    <div>
-      <div class="section-eyebrow">Daily habits</div>
-      <div class="section-title">Michelle <span style="color:var(--text3);font-size:18px;" id="habits-date"></span></div>
-    </div>
-    <div style="text-align:right;">
-      <div style="font-size:22px;font-family:'DM Serif Display',serif;color:var(--indigo-light);" id="habits-pct">0%</div>
-      <div class="section-eyebrow" id="habits-sub" style="margin-top:2px;"></div>
-    </div>
+  <div class="brand-bar"><svg width="24" height="24" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Cadence">
+  <defs><linearGradient id="cad-g2" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#6366f1"/><stop offset="100%" stop-color="#8b5cf6"/></linearGradient></defs>
+  <circle cx="20" cy="20" r="19" stroke="url(#cad-g2)" stroke-width="1.5" fill="rgba(99,102,241,0.08)"/>
+  <path d="M5 20 L9 20 L12 11 L16 29 L20 20 L24 20 L27 13 L31 27 L35 20" stroke="url(#cad-g2)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg><div class="brand-wordmark"><div class="brand-name">Cadence</div><div class="brand-sub">Habits</div></div><div class="brand-right"><div style="font-size:22px;font-family:'DM Serif Display',serif;color:var(--indigo-light);" id="habits-pct">0%</div><div id="habits-sub" style="font-size:10px;color:var(--text3);letter-spacing:.06em;text-transform:uppercase;"></div></div></div>
+  <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:4px;">
+    <div class="section-title" id="habits-date" style="font-size:22px;"></div>
+  </div>
+  <div id="past-day-banner" class="past-day-banner">Viewing a past day — changes save to that date</div>
+  <div class="hab-nav">
+    <button onclick="changeHabDay(-1)">← Prev</button>
+    <button class="htbtn" onclick="goHabToday()">Today</button>
+    <button onclick="changeHabDay(1)">Next →</button>
   </div>
 
   <!-- MORNING -->
@@ -1200,7 +1235,11 @@ svg.ring-svg{display:block;margin:0 auto;}
 
 <!-- ═══════════ GUIDE ═══════════ -->
 <div id="sec-guide" class="section">
-  <div class="section-eyebrow">Reference</div>
+  <div class="brand-bar"><svg width="24" height="24" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Cadence">
+  <defs><linearGradient id="cad-g2" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#6366f1"/><stop offset="100%" stop-color="#8b5cf6"/></linearGradient></defs>
+  <circle cx="20" cy="20" r="19" stroke="url(#cad-g2)" stroke-width="1.5" fill="rgba(99,102,241,0.08)"/>
+  <path d="M5 20 L9 20 L12 11 L16 29 L20 20 L24 20 L27 13 L31 27 L35 20" stroke="url(#cad-g2)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg><div class="brand-wordmark"><div class="brand-name">Cadence</div><div class="brand-sub">Guide</div></div></div>
   <div class="section-title" style="margin-bottom:4px;">Body manual</div>
   <div class="section-subtitle" style="margin-bottom:14px;">Reference cards — internalize until automatic</div>
 
@@ -1352,7 +1391,11 @@ svg.ring-svg{display:block;margin:0 auto;}
 
 <!-- ═══════════ PROGRESS ═══════════ -->
 <div id="sec-progress" class="section">
-  <div class="section-eyebrow">Progress</div>
+  <div class="brand-bar"><svg width="24" height="24" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Cadence">
+  <defs><linearGradient id="cad-g2" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#6366f1"/><stop offset="100%" stop-color="#8b5cf6"/></linearGradient></defs>
+  <circle cx="20" cy="20" r="19" stroke="url(#cad-g2)" stroke-width="1.5" fill="rgba(99,102,241,0.08)"/>
+  <path d="M5 20 L9 20 L12 11 L16 29 L20 20 L24 20 L27 13 L31 27 L35 20" stroke="url(#cad-g2)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg><div class="brand-wordmark"><div class="brand-name">Cadence</div><div class="brand-sub">Progress</div></div></div>
   <div class="section-title" style="margin-bottom:2px;">Michelle's journey</div>
   <div class="section-subtitle" style="margin-bottom:14px;">27 · Building for life · 20-week plan</div>
 
@@ -1506,7 +1549,8 @@ const MONTHLY_LABELS={
 };
 
 // ── STATE ──
-let SD=null,VD=new Date(),movDD={completed:{}},habDD={completed:{},water:0,meals:0,steps:0,mood:0,sleepQual:0,gratitude:'',pepcid:0},weekHabDD={completed:{}},monHabDD={completed:{}};
+let SD=null,VD=new Date(),habVD=new Date(),movDD={completed:{}},habDD={completed:{},water:0,meals:0,steps:0,mood:0,sleepQual:0,gratitude:'',pepcid:0},weekHabDD={completed:{}},monHabDD={completed:{}};
+habVD.setHours(0,0,0,0);
 let mvmtView='today',mSaveTimer=null,hSaveTimer=null,wkSaveTimer=null,guideIdx=0;
 VD.setHours(0,0,0,0);
 
@@ -1705,10 +1749,19 @@ function renderTimers(){
 // ══════════ HABITS ══════════
 function renderHabits(){
   const today=new Date();today.setHours(0,0,0,0);
+  if(!habVD)habVD=new Date(),habVD.setHours(0,0,0,0);
   const dN=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-  const hdate=document.getElementById('habits-date');if(hdate)hdate.textContent=dN[today.getDay()]+', '+MTHS[today.getMonth()]+' '+today.getDate();
+  const hdate=document.getElementById('habits-date');
+  if(hdate)hdate.textContent=dN[habVD.getDay()]+', '+MTHS[habVD.getMonth()]+' '+habVD.getDate();
+  // Past day banner
+  const isPast=dk(habVD)!==dk(today);
+  const banner=document.getElementById('past-day-banner');
+  if(banner)banner.style.display=isPast?'block':'none';
+  // Nav button states
+  const nextBtn=document.querySelector('.hab-nav button:last-child');
+  if(nextBtn)nextBtn.disabled=isPast?false:true;
   habDD={completed:{},water:0,meals:0,steps:0,mood:0,sleepQual:0,gratitude:'',pepcid:0};
-  const sv=localStorage.getItem('habday_'+dk(today));
+  const sv=localStorage.getItem('habday_'+dk(habVD));
   if(sv){try{habDD=JSON.parse(sv);}catch(e){}}
   HABIT_IDS.forEach(id=>{
     const chk=!!habDD.completed[id];
@@ -1848,6 +1901,17 @@ function renderMeals(){
   }
 }
 
+
+function changeHabDay(dir){
+  const d=new Date(habVD);d.setDate(d.getDate()+dir);
+  // Don't navigate past today
+  const today=new Date();today.setHours(0,0,0,0);
+  if(d>today)return;
+  habVD=d;renderHabits();
+}
+function goHabToday(){
+  habVD=new Date();habVD.setHours(0,0,0,0);renderHabits();
+}
 
 function toggleHabit(id,el){
   habDD.completed[id]=!habDD.completed[id];const chk=habDD.completed[id];
