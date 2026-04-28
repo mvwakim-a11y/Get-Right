@@ -433,9 +433,6 @@ svg.ring-svg{display:block;margin:0 auto;}
 .steps-adj-btn.big{background:linear-gradient(135deg,var(--sky),var(--indigo));color:var(--bg);border-color:transparent;}
 .steps-progress{height:6px;background:var(--bg4);border-radius:3px;overflow:hidden;margin-bottom:8px;}
 .steps-fill{height:100%;background:linear-gradient(90deg,var(--sky),var(--indigo));border-radius:3px;transition:width .4s;}
-.steps-pedo-btn{width:100%;padding:9px;font-size:13px;font-family:'DM Sans',sans-serif;font-weight:500;border-radius:var(--radius-sm);cursor:pointer;margin-top:6px;}
-.steps-pedo-btn.idle{background:var(--bg3);color:var(--text2);border:1px solid var(--border2);}
-.steps-pedo-btn.counting{background:rgba(56,189,248,.15);color:var(--sky);border:1px solid rgba(56,189,248,.3);}
 
 /* ── MOOD / SLEEP RATING ── */
 .rating-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:10px;}
@@ -672,7 +669,7 @@ svg.ring-svg{display:block;margin:0 auto;}
   <div class="card">
     <div class="card-row">
       <div class="cb" data-hid="pepcid-am" onclick="toggleHabit('pepcid-am',this)"></div>
-      <div style="flex:1;"><div class="item-label" id="hlbl-pepcid-am">Pepcid (famotidine) — morning</div><div class="item-sub">Take with or after breakfast. Best taken 30–60 min before your largest meal if you experience daytime reflux. Adjust per your prescription.</div></div>
+      <div style="flex:1;"><div class="item-label" id="hlbl-pepcid-am">Pepcid — morning dose</div><div class="item-sub">Log if taken. Goal is to track and gradually reduce frequency over time — check off only on days you actually take it.</div></div>
     </div>
   </div>
 
@@ -976,7 +973,7 @@ svg.ring-svg{display:block;margin:0 auto;}
   <div class="card">
     <div class="card-row">
       <div class="cb" data-hid="pepcid-pm" onclick="toggleHabit('pepcid-pm',this)"></div>
-      <div style="flex:1;"><div class="item-label" id="hlbl-pepcid-pm">Pepcid (famotidine) — night</div><div class="item-sub">Take at bedtime for nocturnal acid and GERD protection overnight. Separate from magnesium by at least 2 hours as antacids can reduce absorption.</div></div>
+      <div style="flex:1;"><div class="item-label" id="hlbl-pepcid-pm">Pepcid — night dose</div><div class="item-sub">Log if taken tonight. Tracking helps you see your reduction progress over time. Separate from magnesium by 2+ hours.</div></div>
     </div>
   </div>
 
@@ -1006,7 +1003,7 @@ svg.ring-svg{display:block;margin:0 auto;}
     </div>
     <div class="card-row">
       <div class="cb" data-hid="night-breathe" onclick="toggleHabit('night-breathe',this)"></div>
-      <div style="flex:1;"><div class="item-label" id="hlbl-night-breathe">5 min extended exhale breathing</div><div class="item-sub">4 sec in · 7 hold · 8 sec out — shifts nervous system into parasympathetic before sleep</div></div>
+      <div style="flex:1;"><div class="item-label" id="hlbl-night-breathe">5 min extended exhale breathing</div><div class="item-sub">4 in · 7 hold · 8 out — use the breathing timer above</div></div>
     </div>
     <div class="card-row">
       <div class="cb" data-hid="night-position" onclick="toggleHabit('night-position',this)"></div>
@@ -1339,7 +1336,7 @@ svg.ring-svg{display:block;margin:0 auto;}
         <div class="metric-card"><div class="metric-label">AM streak</div><div class="metric-val" id="pepcid-streak">0</div><div class="metric-unit">consecutive days</div></div>
       </div>
       <div style="font-size:12px;color:var(--text2);line-height:1.6;margin-top:10px;padding:10px 12px;background:var(--bg3);border-radius:var(--radius-sm);">
-        <strong style="color:var(--text);">Timing note:</strong> Pepcid works best taken 30–60 min before meals or at bedtime. Avoid taking with antacids (Tums, Maalox) — space 2+ hours apart. If taking twice daily, separate doses by 10–12 hours. Consult your doctor about long-term use.
+        <strong style="color:var(--text);">Reduction tracking:</strong> The goal is fewer doses over time. Check the Progress tab to see your weekly and monthly usage trend. Talk to your doctor about a tapering plan — stopping suddenly after long-term use can cause rebound acid. Separate doses from magnesium by 2+ hours.
       </div>
     </div>
   </div>
@@ -1625,8 +1622,8 @@ function renderHabits(){
   renderSteps();
   renderRatings();
   renderGratitude();
-  renderShotWed();
   renderWeeklyHabits();
+  renderShotWed();
   renderMonthlyHabits();
   renderCustomHabits();
   renderBooks();
@@ -1731,46 +1728,16 @@ function renderMeals(){
   }
 }
 
-function renderTimers(){renderTimer('m');renderTimer('a');renderTimer('n');}
 
 function toggleHabit(id,el){
   habDD.completed[id]=!habDD.completed[id];const chk=habDD.completed[id];
   el.classList.toggle('on',chk);
   const lbl=document.getElementById('hlbl-'+id);
   if(lbl)lbl.className='item-label'+(chk?' done':'');
-  updateCompletedSections();
   updateHabCount();triggerHabSave();
 }
 function getCustomHabits(){try{return JSON.parse(localStorage.getItem('custom_habits')||'[]');}catch(e){return[];}}
 function allActiveHabitIds(){return [...HABIT_IDS,...getCustomHabits().map(h=>h.id)];}
-function updateCompletedSections(){
-  // For each section, find completed items and move them to the collapsed area
-  document.querySelectorAll('[data-section-id]').forEach(section=>{
-    const sid=section.dataset.sectionId;
-    const rows=section.querySelectorAll('[data-hid]');
-    let completedHtml='';let activeCount=0;let doneCount=0;
-    rows.forEach(row=>{
-      const hid=row.closest('[data-hid-wrap]')?.dataset.hidWrap||row.dataset.hid;
-      const chk=!!habDD.completed[hid];
-      const wrap=row.closest('.card')||row.closest('[data-habit-wrap]');
-      if(wrap){wrap.style.display=chk?'none':'block';}
-      if(chk){
-        const lbl=document.getElementById('hlbl-'+hid);
-        const txt=lbl?lbl.textContent:'';
-        completedHtml+=`<div class="completed-item-row"><div class="cb on" style="flex-shrink:0;pointer-events:none;"></div><div class="completed-item-label">${txt}</div></div>`;
-        doneCount++;
-      }
-    });
-    const compWrap=document.getElementById('comp-'+sid);
-    if(compWrap){
-      const toggle=compWrap.querySelector('.completed-toggle');
-      const items=compWrap.querySelector('.completed-items');
-      if(toggle)toggle.querySelector('.count').textContent=doneCount;
-      if(items)items.innerHTML=completedHtml;
-      compWrap.style.display=doneCount>0?'block':'none';
-    }
-  });
-}
 
 function updateHabCount(){
   const customIds=getCustomHabits().map(h=>h.id);
@@ -2066,8 +2033,8 @@ function renderStreakAndMetrics(){
     if(!sv){if(i<dates.length-1)broke=true;break;}
     let dd={completed:{},water:0,meals:0};
     try{dd=JSON.parse(sv);}catch(e){}
-    const done=HABIT_IDS.filter(id=>dd.completed[id]).length;
-    const pct=Math.round((done/HABIT_IDS.length)*100);
+    const aIds2=allActiveHabitIds();const done=aIds2.filter(id=>dd.completed[id]).length;
+    const pct=aIds2.length>0?Math.round((done/aIds2.length)*100):0;
     if(pct>=50&&!broke)streak++;
     else broke=true;
   }
@@ -2089,7 +2056,7 @@ function renderStreakAndMetrics(){
     if(hSv){
       let dd={completed:{},water:0,meals:0};try{dd=JSON.parse(hSv);}catch(e){}
       totWater+=dd.water||0;totMeals+=dd.meals||0;
-      totHabPct+=Math.round(((HABIT_IDS.filter(id=>dd.completed[id]).length)/HABIT_IDS.length)*100);
+      const aIds3=allActiveHabitIds();totHabPct+=aIds3.length>0?Math.round(((aIds3.filter(id=>dd.completed[id]).length)/aIds3.length)*100):0;
       dataPoints++;
     }
     if(mSv){
@@ -2127,7 +2094,7 @@ function render14DayBars(){
     const dl=dayLetters[d.getDay()];
     const hSv=localStorage.getItem('habday_'+dk(d));
     let habPct=0;
-    if(hSv){let dd={completed:{}};try{dd=JSON.parse(hSv);}catch(e){}habPct=Math.round((HABIT_IDS.filter(id=>dd.completed[id]).length/HABIT_IDS.length)*100);}
+    if(hSv){let dd={completed:{}};try{dd=JSON.parse(hSv);}catch(e){}const aIds=allActiveHabitIds();habPct=aIds.length>0?Math.round((aIds.filter(id=>dd.completed[id]).length/aIds.length)*100):0;}
     const hH=Math.max(2,Math.round((habPct/100)*maxH));
     const hColor=habPct>=80?'var(--green)':habPct>=50?'var(--indigo-light)':habPct>0?'var(--violet)':'var(--bg4)';
     habBars+=`<div class="wbar-wrap"><div class="wbar" style="height:${hH}px;background:${hColor};" title="${habPct}%"></div><div class="wbar-label">${dl}</div></div>`;
@@ -2339,8 +2306,6 @@ function renderInterval(){
 }
 
 // ══════════ STEPS ══════════
-let pedometerActive=false;let pedometerPermission=false;
-let lastAccelMag=0;let stepThreshold=1.2;let lastStepTime=0;
 function adjSteps(delta){
   if(!habDD.steps)habDD.steps=0;
   habDD.steps=Math.max(0,habDD.steps+delta);
@@ -2390,6 +2355,8 @@ function renderGratitude(){
 
 // ══════════ WEDNESDAY SHOT ══════════
 function renderShotWed(){
+  // Ensure weekHabDD is current
+  if(!weekHabDD||!weekHabDD.completed){const wk=getWeekKey();const sv=localStorage.getItem(wk);weekHabDD={completed:{}};if(sv)try{weekHabDD=JSON.parse(sv);}catch(e){}}
   const wrap=document.getElementById('shot-wed-wrap');
   if(!wrap)return;
   const today=new Date();
@@ -2524,9 +2491,11 @@ function renderPepcidAnalysis(){
 function exportCSV(){
   const status=document.getElementById('export-status');
   try{
-    const allIds=[...HABIT_IDS,...getCustomHabits().map(h=>h.id)];
-    const customLabels={};getCustomHabits().forEach(h=>{customLabels[h.id]=h.label;});
-    const HABIT_LABELS={
+    const NL='\n';
+    const customHabits=getCustomHabits();
+    const customLabels={};customHabits.forEach(h=>{customLabels[h.id]=h.label;});
+    const allIds=[...HABIT_IDS,...customHabits.map(h=>h.id)];
+    const HL={
       'medication':'Medication','pepcid-am':'Pepcid AM','pepcid-pm':'Pepcid PM',
       'cats-am':'Feed cats AM','cats-pm':'Feed cats PM','make-bed':'Make bed',
       'tidy-am':'Morning tidy','sunlight':'Sunlight 10min','morning-water':'Water before coffee',
@@ -2539,14 +2508,10 @@ function exportCSV(){
       'night-position':'Sleep position','gratitude-done':'Gratitude','night-jaw-check':'Jaw check',
       ...customLabels
     };
-    // Daily sheet
-    let csv='Date,Week,Phase,Water (cups),Meals,Steps,Mood (1-5),Sleep Quality (1-5),Movement %,Habit %';
-    allIds.forEach(id=>{csv+=','+(HABIT_LABELS[id]||id);});
-    csv+='
-';
+    const hdrs=['Date','Week','Phase','Water','Meals','Steps','Mood','Sleep','Movement%','Habit%',...allIds.map(id=>HL[id]||id)];
+    const rows=[hdrs.join(',')];
     const startSv=localStorage.getItem('plan_start_date');
-    const sd=startSv?new Date(startSv):new Date();
-    sd.setHours(0,0,0,0);
+    const sd=startSv?new Date(startSv):new Date();sd.setHours(0,0,0,0);
     for(let i=0;i<140;i++){
       const d=new Date(sd);d.setDate(sd.getDate()+i);
       if(d>new Date())break;
@@ -2556,73 +2521,65 @@ function exportCSV(){
       let hd={completed:{},water:0,meals:0,steps:0,mood:0,sleepQual:0};
       if(hSv)try{hd=JSON.parse(hSv);}catch(e){}
       let movPct=0;
-      if(mSv){let md={completed:{}};try{md=JSON.parse(mSv);}catch(e){}
-        const dn=dic(d);if(dn>0&&dn<6){const sc=sched(dn,gph(wn(d)));const ids=allMIds(sc);const done=ids.filter(id=>md.completed[id]).length;movPct=ids.length>0?Math.round((done/ids.length)*100):0;}else if(dn>=6)movPct=100;}
+      if(mSv){
+        let md={completed:{}};try{md=JSON.parse(mSv);}catch(e){}
+        const dn=dic(d);
+        if(dn>0&&dn<6){const sc=sched(dn,gph(wn(d)));const ids=allMIds(sc);const done=ids.filter(id=>md.completed[id]).length;movPct=ids.length>0?Math.round((done/ids.length)*100):0;}
+        else if(dn>=6)movPct=100;
+      }
       const habDone=allIds.filter(id=>hd.completed[id]).length;
       const habPct=allIds.length>0?Math.round((habDone/allIds.length)*100):0;
       const week=wn(d);const ph=gph(week);
-      let row=`${dk(d)},${week},${ph},${hd.water||0},${hd.meals||0},${hd.steps||0},${hd.mood||0},${hd.sleepQual||0},${movPct},${habPct}`;
-      allIds.forEach(id=>{row+=','+(hd.completed[id]?1:0);});
-      csv+=row+'
-';
+      const cols=[dk(d),week,ph,hd.water||0,hd.meals||0,hd.steps||0,hd.mood||0,hd.sleepQual||0,movPct,habPct,...allIds.map(id=>hd.completed[id]?1:0)];
+      rows.push(cols.join(','));
     }
-    // Books sheet
+    let csv=rows.join(NL);
     const books=getBooks();
     if(books.length>0){
-      csv+='
-
-BOOKS LOG
-Title,Author,Date,Notes
-';
-      books.forEach(b=>{csv+=`"${b.title}","${b.author||''}","${b.date}","${b.note||''}"
-`;});
+      csv+=NL+NL+'BOOKS LOG'+NL+'Title,Author,Date,Notes'+NL;
+      csv+=books.map(b=>'"'+b.title+'","'+(b.author||'')+'","'+b.date+'","'+(b.note||'')+'"').join(NL);
     }
-    // Weekly sheet
-    csv+='
-
-WEEKLY HABITS
-Week Start,';
-    csv+=WEEKLY_IDS.map(id=>WEEKLY_LABELS[id]?.label||id).join(',')+'
-';
+    csv+=NL+NL+'WEEKLY HABITS'+NL;
+    const wkHdrs=['Week Start',...WEEKLY_IDS.map(id=>WEEKLY_LABELS[id]&&WEEKLY_LABELS[id].label?WEEKLY_LABELS[id].label:id)];
+    csv+=wkHdrs.join(',')+NL;
     for(let w=0;w<20;w++){
       const monday=new Date(sd);monday.setDate(sd.getDate()+(w*7));
       const wkey='wkhab_'+dk(monday);const sv=localStorage.getItem(wkey);
-      if(!sv)continue;let wd={completed:{}};try{wd=JSON.parse(sv);}catch(e){}
-      csv+=dk(monday)+','+WEEKLY_IDS.map(id=>wd.completed[id]?1:0).join(',')+'
-';
+      if(!sv)continue;
+      let wd={completed:{}};try{wd=JSON.parse(sv);}catch(e){}
+      csv+=dk(monday)+','+WEEKLY_IDS.map(id=>wd.completed[id]?1:0).join(',')+NL;
     }
     const blob=new Blob([csv],{type:'text/csv'});
     const url=URL.createObjectURL(blob);
-    const a=document.createElement('a');a.href=url;a.download='body-os-data-'+dk(new Date())+'.csv';
+    const a=document.createElement('a');a.href=url;a.download='body-os-'+dk(new Date())+'.csv';
     document.body.appendChild(a);a.click();document.body.removeChild(a);
     URL.revokeObjectURL(url);
-    if(status){status.textContent='Exported successfully ✓';setTimeout(()=>{status.textContent='';},3000);}
-  }catch(e){if(status)status.textContent='Export failed: '+e.message;}
+    if(status){status.textContent='Exported successfully \u2713';setTimeout(()=>{status.textContent='';},3000);}
+  }catch(e){if(status){status.textContent='Export failed: '+e.message;status.style.color='var(--coral)';}}
 }
 
 function importCSV(input){
   const file=input.files[0];if(!file)return;
-  if(!confirm('Import this CSV? This will overwrite your current data. Make sure you have an export backup first.'))return;
+  if(!confirm('Import this CSV? This will overwrite your current data. Export first as a backup.'))return;
   const reader=new FileReader();
-  reader.onload=e=>{
+  reader.onload=function(e){
     try{
-      const lines=e.target.result.split('
-');
+      const NL='\n';
+      const text=e.target.result;
+      const lines=text.split(NL);
       const headers=lines[0].split(',');
-      // Clear existing daily data
       Object.keys(localStorage).filter(k=>k.startsWith('habday_')||k.startsWith('mpday_')||k.startsWith('wkhab_')).forEach(k=>localStorage.removeItem(k));
-      // Parse rows
       for(let i=1;i<lines.length;i++){
-        const line=lines[i].trim();if(!line||line.startsWith('BOOKS')||line.startsWith('WEEKLY'))break;
+        const line=lines[i].trim();
+        if(!line||line.startsWith('BOOKS')||line.startsWith('WEEKLY')||line.startsWith('Title'))break;
         const vals=line.split(',');if(vals.length<10)continue;
-        const date=vals[0];if(!date||!date.match(/^\d{4}-\d{2}-\d{2}$/))continue;
+        const date=vals[0];if(!date||!/^\d{4}-\d{2}-\d{2}$/.test(date))continue;
         const hd={completed:{},water:parseInt(vals[3])||0,meals:parseInt(vals[4])||0,steps:parseInt(vals[5])||0,mood:parseInt(vals[6])||0,sleepQual:parseInt(vals[7])||0};
-        // Habit columns start at index 10
-        for(let c=10;c<headers.length&&c<vals.length;c++){if(vals[c]==='1')hd.completed[headers[c]?.trim()]=true;}
+        for(let c=10;c<headers.length&&c<vals.length;c++){if(vals[c]==='1'&&headers[c])hd.completed[headers[c].trim()]=true;}
         localStorage.setItem('habday_'+date,JSON.stringify(hd));
       }
       const status=document.getElementById('export-status');
-      if(status){status.textContent='Import successful ✓ — reload the app to see data.';status.style.color='var(--green)';}
+      if(status){status.textContent='Import successful \u2713 — reload to see data.';status.style.color='var(--green)';}
     }catch(err){
       const status=document.getElementById('export-status');
       if(status){status.textContent='Import failed: '+err.message;status.style.color='var(--coral)';}
@@ -2631,6 +2588,7 @@ function importCSV(input){
   reader.readAsText(file);
   input.value='';
 }
+
 // BOOT
 initMovement();
 
