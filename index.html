@@ -764,6 +764,16 @@ svg.ring-svg{display:block;margin:0 auto;}
 
 /* Manage tab styling */
 #htab-manage{padding-top:8px;}
+
+/* ── GIST SYNC ── */
+.sync-status{font-size:11px;padding:6px 10px;border-radius:6px;margin-top:8px;display:none;}
+.sync-status.ok{background:var(--green-dim);color:var(--green);border:1px solid rgba(52,211,153,.3);}
+.sync-status.err{background:rgba(251,113,133,.1);color:var(--coral);border:1px solid rgba(251,113,133,.3);}
+.sync-status.pending{background:var(--bg3);color:var(--text3);border:1px solid var(--border2);}
+.sync-row{display:flex;gap:8px;align-items:center;margin-top:8px;}
+.sync-btn{flex:1;padding:10px;font-size:12px;font-weight:600;font-family:'DM Sans',sans-serif;border:none;border-radius:var(--radius-sm);cursor:pointer;}
+.sync-btn.push{background:linear-gradient(135deg,var(--indigo),var(--violet));color:white;}
+.sync-btn.pull{background:var(--bg3);color:var(--text);border:1px solid var(--border);}
 </style>
 </head>
 <body>
@@ -785,6 +795,19 @@ svg.ring-svg{display:block;margin:0 auto;}
     <div class="settings-row" onclick="document.getElementById('csv-import-input').click();closeSettings();">
       <div class="settings-row-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--sky)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></div>
       <div><div class="settings-row-label">Import data (CSV)</div><div class="settings-row-sub">Restore from a previous export</div></div>
+    </div>
+  </div>
+  <div class="settings-group">
+    <div style="padding:14px 20px 10px;">
+      <div style="font-size:10px;font-weight:700;color:var(--indigo-light);letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px;">Cloud backup — GitHub Gist</div>
+      <div style="font-size:12px;color:var(--text2);line-height:1.65;margin-bottom:10px;">Paste a GitHub personal access token to sync your data to a private Gist. <a href="https://github.com/settings/tokens/new?scopes=gist&description=Cadence+backup" target="_blank" style="color:var(--indigo-light);">Create one here</a> — only the <strong>gist</strong> scope is needed.</div>
+      <input type="password" id="gist-token-input" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" style="width:100%;padding:9px 12px;font-size:12px;font-family:'DM Sans',sans-serif;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--bg3);color:var(--text);outline:none;box-sizing:border-box;"/>
+      <div id="gist-token-saved" style="font-size:11px;color:var(--text3);margin-top:5px;"></div>
+      <div class="sync-row">
+        <button class="sync-btn push" onclick="gistPush()">Push to cloud</button>
+        <button class="sync-btn pull" onclick="gistPull()">Pull from cloud</button>
+      </div>
+      <div class="sync-status" id="sync-status"></div>
     </div>
   </div>
   <div class="settings-group">
@@ -3491,26 +3514,49 @@ function exportCSV(){
 
 function importCSV(input){
   const file=input.files[0];if(!file)return;
-  if(!confirm('Import this CSV? This will overwrite your current data. Export first as a backup.'))return;
+  if(!confirm('Import and MERGE this CSV with your existing data? Existing days are preserved — imported days only fill in gaps. Export first if unsure.'))return;
   const reader=new FileReader();
   reader.onload=function(e){
     try{
       const NL='\n';
       const text=e.target.result;
-      const lines=text.split(NL);
-      const headers=lines[0].split(',');
-      Object.keys(localStorage).filter(k=>k.startsWith('habday_')||k.startsWith('mpday_')||k.startsWith('wkhab_')).forEach(k=>localStorage.removeItem(k));
-      for(let i=1;i<lines.length;i++){
-        const line=lines[i].trim();
+      const rawLines=text.split(NL);
+      const headers=rawLines[0].split(',');
+      let imported=0,merged=0;
+      const todayStr=dk(new Date());
+      for(let i=1;i<rawLines.length;i++){
+        const line=rawLines[i].trim();
         if(!line||line.startsWith('BOOKS')||line.startsWith('WEEKLY')||line.startsWith('Title'))break;
         const vals=line.split(',');if(vals.length<10)continue;
         const date=vals[0];if(!date||!/^\d{4}-\d{2}-\d{2}$/.test(date))continue;
-        const hd={completed:{},water:parseInt(vals[3])||0,meals:parseInt(vals[4])||0,steps:parseInt(vals[5])||0,mood:parseInt(vals[6])||0,sleepQual:parseInt(vals[7])||0};
-        for(let c=10;c<headers.length&&c<vals.length;c++){if(vals[c]==='1'&&headers[c])hd.completed[headers[c].trim()]=true;}
-        localStorage.setItem('habday_'+date,JSON.stringify(hd));
+        const imported_hd={completed:{},water:parseInt(vals[3])||0,meals:parseInt(vals[4])||0,steps:parseInt(vals[5])||0,mood:parseInt(vals[6])||0,sleepQual:parseInt(vals[7])||0};
+        for(let c=10;c<headers.length&&c<vals.length;c++){if(vals[c]==='1'&&headers[c])imported_hd.completed[headers[c].trim()]=true;}
+        const existing=localStorage.getItem('habday_'+date);
+        if(existing&&date===todayStr){continue;}// never overwrite today
+        if(existing){
+          try{
+            const ex=JSON.parse(existing);
+            // Keep max of numeric fields, merge completions, prefer existing rich data
+            imported_hd.completed=Object.assign({},imported_hd.completed,ex.completed||{});
+            imported_hd.water=Math.max(imported_hd.water,ex.water||0);
+            imported_hd.steps=Math.max(imported_hd.steps,ex.steps||0);
+            imported_hd.meals=Math.max(imported_hd.meals,ex.meals||0);
+            if(ex.mood)imported_hd.mood=ex.mood;
+            if(ex.sleepQual)imported_hd.sleepQual=ex.sleepQual;
+            if(ex.gratitude)imported_hd.gratitude=ex.gratitude;
+            if(ex.pepcid)imported_hd.pepcid=ex.pepcid;
+            if(ex.mealsLog)imported_hd.mealsLog=ex.mealsLog;
+            if(ex.counters)imported_hd.counters=ex.counters;
+            merged++;
+          }catch(mergeErr){}
+        } else { imported++; }
+        localStorage.setItem('habday_'+date,JSON.stringify(imported_hd));
       }
       const status=document.getElementById('export-status');
-      if(status){status.textContent='Import successful \u2713 — reload to see data.';status.style.color='var(--green)';}
+      if(status){
+        status.textContent=`Done: ${imported} new days imported, ${merged} days merged. Reload to see changes.`;
+        status.style.color='var(--green)';
+      }
     }catch(err){
       const status=document.getElementById('export-status');
       if(status){status.textContent='Import failed: '+err.message;status.style.color='var(--coral)';}
@@ -3690,10 +3736,126 @@ function openWeeklyReview(){
   modal.onclick=function(e){if(e.target===modal)modal.remove();};
   document.body.appendChild(modal);
 }
+
+// ══════════ GITHUB GIST SYNC ══════════
+const GIST_FILE = 'cadence-backup.json';
+const GIST_DESC = 'Cadence app data — auto backup';
+
+function getSyncToken(){
+  const inp = document.getElementById('gist-token-input');
+  const stored = localStorage.getItem('gist_token');
+  if(inp && inp.value.trim()) return inp.value.trim();
+  return stored || '';
+}
+
+function setSyncStatus(msg, type){
+  const el = document.getElementById('sync-status');
+  if(!el) return;
+  el.textContent = msg;
+  el.className = 'sync-status ' + (type||'pending');
+  el.style.display = 'block';
+}
+
+function collectAllData(){
+  const data = {};
+  for(let i = 0; i < localStorage.length; i++){
+    const key = localStorage.key(i);
+    // Export all app-related keys
+    if(key.match(/^(habday_|mpday_|wkhab_|monhab_|intention_|weekly_reflection_|books_read|custom_habits|custom_counters|reminders|plan_start_date|intro_seen|gist_id)/)){
+      data[key] = localStorage.getItem(key);
+    }
+  }
+  return data;
+}
+
+function restoreAllData(data){
+  Object.entries(data).forEach(([key, val]) => {
+    if(key && val !== null && val !== undefined) localStorage.setItem(key, val);
+  });
+}
+
+async function gistPush(){
+  const token = getSyncToken();
+  if(!token){ setSyncStatus('Paste your GitHub token first.', 'err'); return; }
+  localStorage.setItem('gist_token', token);
+
+  setSyncStatus('Pushing...', 'pending');
+  try {
+    const data = collectAllData();
+    const content = JSON.stringify(data, null, 2);
+    let gistId = localStorage.getItem('gist_id');
+
+    if(gistId){
+      // Update existing gist
+      const res = await fetch('https://api.github.com/gists/' + gistId, {
+        method: 'PATCH',
+        headers: { 'Authorization': 'token ' + token, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ files: { [GIST_FILE]: { content } } })
+      });
+      if(!res.ok) throw new Error('Update failed: ' + res.status);
+    } else {
+      // Create new gist
+      const res = await fetch('https://api.github.com/gists', {
+        method: 'POST',
+        headers: { 'Authorization': 'token ' + token, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ description: GIST_DESC, public: false, files: { [GIST_FILE]: { content } } })
+      });
+      if(!res.ok) throw new Error('Create failed: ' + res.status);
+      const json = await res.json();
+      gistId = json.id;
+      localStorage.setItem('gist_id', gistId);
+    }
+
+    const keys = Object.keys(data);
+    setSyncStatus('Pushed successfully — ' + keys.length + ' keys saved to cloud. ' + new Date().toLocaleTimeString(), 'ok');
+  } catch(err){
+    setSyncStatus('Push failed: ' + err.message, 'err');
+  }
+}
+
+async function gistPull(){
+  const token = getSyncToken();
+  if(!token){ setSyncStatus('Paste your GitHub token first.', 'err'); return; }
+  localStorage.setItem('gist_token', token);
+
+  const gistId = localStorage.getItem('gist_id');
+  if(!gistId){ setSyncStatus('No cloud backup found. Push first from the device that has your data.', 'err'); return; }
+
+  setSyncStatus('Pulling from cloud...', 'pending');
+  try {
+    const res = await fetch('https://api.github.com/gists/' + gistId, {
+      headers: { 'Authorization': 'token ' + token }
+    });
+    if(!res.ok) throw new Error('Fetch failed: ' + res.status);
+    const json = await res.json();
+    const fileContent = json.files?.[GIST_FILE]?.content;
+    if(!fileContent) throw new Error('No backup file found in Gist.');
+
+    const data = JSON.parse(fileContent);
+    restoreAllData(data);
+    setSyncStatus('Pulled ' + Object.keys(data).length + ' keys. Reloading in 2 seconds...', 'ok');
+    setTimeout(() => location.reload(), 2000);
+  } catch(err){
+    setSyncStatus('Pull failed: ' + err.message, 'err');
+  }
+}
+
+function initGistUI(){
+  const token = localStorage.getItem('gist_token');
+  const gistId = localStorage.getItem('gist_id');
+  const inp = document.getElementById('gist-token-input');
+  const savedEl = document.getElementById('gist-token-saved');
+  if(token && inp) inp.value = token;
+  if(gistId && savedEl) savedEl.textContent = 'Gist ID: ' + gistId.slice(0,8) + '...';
+  else if(savedEl && token) savedEl.textContent = 'Token saved — push to create your first backup.';
+  else if(savedEl) savedEl.textContent = 'No backup configured yet.';
+}
+
 // ══════════ SETTINGS ══════════
 function openSettings(){
   document.getElementById('settings-overlay').classList.add('open');
   document.getElementById('settings-panel').classList.add('open');
+  initGistUI();
 }
 function closeSettings(){
   document.getElementById('settings-overlay').classList.remove('open');
@@ -3733,9 +3895,26 @@ initHabTabs();
 // Register service worker for offline support (GitHub Pages / HTTPS only)
 if ('serviceWorker' in navigator && location.protocol === 'https:') {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('./sw.js')
-      .then(reg => console.log('Cadence SW registered:', reg.scope))
-      .catch(err => console.log('SW registration failed:', err));
+    navigator.serviceWorker.register('./sw.js').then(reg => {
+      // When a new service worker is found, show an update prompt
+      reg.addEventListener('updatefound', () => {
+        const newSW = reg.installing;
+        newSW.addEventListener('statechange', () => {
+          if (newSW.state === 'installed' && navigator.serviceWorker.controller) {
+            // New version available — show a non-intrusive banner
+            const banner = document.createElement('div');
+            banner.style.cssText = 'position:fixed;bottom:calc(var(--nav-h) + env(safe-area-inset-bottom) + 10px);left:16px;right:16px;background:var(--bg2);border:1px solid var(--indigo-light);border-radius:var(--radius-sm);padding:12px 16px;z-index:99;display:flex;align-items:center;justify-content:space-between;gap:12px;font-family:DM Sans,sans-serif;font-size:13px;color:var(--text);box-shadow:0 4px 20px rgba(0,0,0,.4);';
+            banner.innerHTML = '<span>App updated — reload to get the latest version.</span><button onclick="location.reload()" style="padding:7px 14px;background:linear-gradient(135deg,var(--indigo),var(--violet));color:white;border:none;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;">Reload</button>';
+            document.body.appendChild(banner);
+          }
+        });
+      });
+    }).catch(err => console.log('SW registration failed:', err));
+  });
+  // When SW controller changes (after skipWaiting), reload
+  let refreshing = false;
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (!refreshing) { refreshing = true; }
   });
 }
 
