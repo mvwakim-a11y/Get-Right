@@ -248,6 +248,62 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;fon
 .pri-btn{width:100%;padding:14px;font-size:15px;font-family:'DM Sans',sans-serif;font-weight:600;background:linear-gradient(135deg,var(--indigo),var(--violet));border:none;border-radius:var(--radius-sm);cursor:pointer;color:white;}
 
 @keyframes fadeUp{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+/* ── PROGRESS / STATS ── */
+.stat-section{margin-bottom:1.5rem;}
+.stat-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:10px;}
+.stat-card-header{padding:13px 16px 0;display:flex;align-items:center;justify-content:space-between;}
+.stat-card-title{font-size:13px;font-weight:600;color:var(--text);letter-spacing:.02em;}
+.stat-card-body{padding:12px 16px 14px;}
+.phase-bar-wrap{display:flex;gap:3px;height:10px;border-radius:5px;overflow:hidden;margin:6px 0;}
+.phase-seg{height:100%;transition:opacity .2s;}
+.ph-seg-1{background:var(--green);} .ph-seg-2{background:var(--indigo-light);} .ph-seg-3{background:#c084fc;} .ph-seg-4{background:var(--coral);}
+.phase-cursor{width:2px;height:16px;background:white;border-radius:1px;position:relative;top:-3px;margin-left:-1px;box-shadow:0 0 4px rgba(255,255,255,.6);}
+.week-bar-grid{display:flex;gap:3px;align-items:flex-end;height:60px;margin:6px 0 4px;}
+.wbar{flex:1;border-radius:2px 2px 0 0;min-height:2px;transition:height .3s;}
+.wbar-label{font-size:9px;color:var(--text3);text-align:center;margin-top:2px;}
+.wbar-row{display:flex;gap:3px;}
+.wbar-wrap{display:flex;flex-direction:column;flex:1;}
+.stat-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border2);}
+.stat-row:last-child{border-bottom:none;}
+.stat-label{font-size:13px;color:var(--text2);}
+.stat-val{font-family:'DM Serif Display',serif;font-size:18px;color:var(--text);}
+.stat-val-sm{font-size:13px;font-weight:600;color:var(--text);}
+.streak-badge{background:linear-gradient(135deg,var(--indigo),var(--violet));color:white;border-radius:var(--radius-sm);padding:6px 14px;display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:500;}
+.streak-num{font-family:'DM Serif Display',serif;font-size:28px;color:white;}
+.metric-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.metric-card{background:var(--bg3);border-radius:var(--radius-sm);padding:12px 14px;}
+.metric-label{font-size:11px;color:var(--text3);font-weight:600;letter-spacing:.06em;text-transform:uppercase;margin-bottom:4px;}
+.metric-val{font-family:'DM Serif Display',serif;font-size:24px;color:var(--text);}
+.metric-unit{font-size:11px;color:var(--text3);margin-top:1px;}
+.phase-legend{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px;}
+.ph-leg{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--text2);}
+.ph-leg-dot{width:8px;height:8px;border-radius:2px;flex-shrink:0;}
+.upcoming-card{background:linear-gradient(135deg,var(--indigo-dim),var(--violet-dim));border:1px solid rgba(99,102,241,.25);border-radius:var(--radius);padding:14px 16px;margin-bottom:10px;}
+.upcoming-label{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--indigo-light);margin-bottom:6px;}
+.upcoming-title{font-family:'DM Serif Display',serif;font-size:17px;color:var(--text);margin-bottom:4px;}
+.upcoming-body{font-size:13px;color:var(--text2);line-height:1.6;}
+.completion-ring-wrap{display:flex;gap:12px;align-items:center;padding:8px 0;}
+.ring-group{text-align:center;flex:1;}
+.ring-label{font-size:11px;color:var(--text3);margin-top:4px;}
+.ring-val{font-size:13px;font-weight:600;color:var(--text);}
+svg.ring-svg{display:block;margin:0 auto;}
+
+/* ── BREATHING TIMER ── */
+.breath-timer-card{background:linear-gradient(135deg,rgba(99,102,241,.1),rgba(139,92,246,.07));border:1px solid rgba(99,102,241,.25);border-radius:var(--radius);padding:14px 16px;margin-bottom:10px;}
+.breath-timer-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+.breath-timer-title{font-size:14px;font-weight:500;color:var(--text);}
+.breath-dur-row{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
+.breath-dur-btn{width:30px;height:30px;border-radius:50%;border:1px solid var(--border);background:var(--bg3);color:var(--text2);cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;}
+.breath-dur-val{font-family:'DM Serif Display',serif;font-size:22px;color:var(--text);min-width:50px;text-align:center;}
+.breath-dur-lbl{font-size:12px;color:var(--text3);}
+.breath-display{font-family:'DM Serif Display',serif;font-size:40px;color:var(--indigo-light);text-align:center;margin:4px 0;}
+.breath-bar-wrap{height:4px;background:var(--bg4);border-radius:2px;overflow:hidden;margin-bottom:10px;}
+.breath-bar-fill{height:100%;background:linear-gradient(90deg,var(--indigo),var(--violet));border-radius:2px;transition:width .5s linear;}
+.breath-start-btn{width:100%;padding:10px;font-size:14px;font-family:'DM Sans',sans-serif;font-weight:600;border:none;border-radius:var(--radius-sm);cursor:pointer;}
+.breath-start-btn.go{background:linear-gradient(135deg,var(--indigo),var(--violet));color:white;}
+.breath-start-btn.pause{background:var(--bg4);color:var(--text2);}
+.breath-start-btn.done{background:var(--green-dim);color:var(--green);border:1px solid rgba(52,211,153,.3);}
+
 
 /* ── MEAL PIPS ── */
 .meal-progress .water-pip.filled{background:linear-gradient(90deg,var(--amber),#f97316);}
@@ -599,6 +655,15 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;fon
   <!-- NIGHT -->
   <div class="slbl">🌙 Night</div>
 
+  <div class="breath-timer-card">
+    <div class="breath-timer-top">
+      <div class="breath-timer-title">🫁 Breathing practice timer</div>
+      <span class="ph-badge" style="background:var(--indigo-dim);color:var(--indigo-light);border:1px solid rgba(99,102,241,.2);font-size:10px;">Adjustable</span>
+    </div>
+    <div style="font-size:12px;color:var(--text2);margin-bottom:10px;line-height:1.55;">Use for any breathing session — box breathing, extended exhale, pranayama. Set your duration, start, and follow your pattern.</div>
+    <div id="breath-timer-inner"></div>
+  </div>
+
   <div class="card">
     <div class="card-row">
       <div class="cb" data-hid="jaw-n" onclick="toggleHabit('jaw-n',this)"></div>
@@ -843,6 +908,74 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;fon
   </div>
 </div>
 
+<!-- ═══════════ PROGRESS ═══════════ -->
+<div id="sec-progress" class="section">
+  <div class="app-eyebrow">Body OS · Progress</div>
+  <div class="page-title" style="margin-bottom:14px;">Your journey</div>
+
+  <!-- PHASE TIMELINE -->
+  <div class="stat-card">
+    <div class="stat-card-header"><div class="stat-card-title">20-week plan</div><div id="prog-week-badge" class="ph-badge ph-1" style="font-size:11px;"></div></div>
+    <div class="stat-card-body">
+      <div id="prog-phase-bar"></div>
+      <div class="phase-legend">
+        <div class="ph-leg"><div class="ph-leg-dot" style="background:var(--green);"></div>Foundation (wk 1–5)</div>
+        <div class="ph-leg"><div class="ph-leg-dot" style="background:var(--indigo-light);"></div>Build (6–10)</div>
+        <div class="ph-leg"><div class="ph-leg-dot" style="background:#c084fc;"></div>Strengthen (11–15)</div>
+        <div class="ph-leg"><div class="ph-leg-dot" style="background:var(--coral);"></div>Peak (16–20)</div>
+      </div>
+      <div id="prog-phase-info" style="margin-top:10px;font-size:13px;color:var(--text2);line-height:1.6;"></div>
+    </div>
+  </div>
+
+  <!-- STREAK + QUICK METRICS -->
+  <div class="stat-card">
+    <div class="stat-card-header"><div class="stat-card-title">Current streak</div></div>
+    <div class="stat-card-body">
+      <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:14px;">
+        <div class="streak-badge"><div class="streak-num" id="streak-num">0</div><div><div style="font-size:12px;opacity:.9;">days</div><div style="font-size:11px;opacity:.7;">in a row</div></div></div>
+        <div style="font-size:13px;color:var(--text2);flex:1;line-height:1.6;" id="streak-desc">Start your streak by completing habits today.</div>
+      </div>
+      <div class="metric-grid">
+        <div class="metric-card"><div class="metric-label">Avg water</div><div class="metric-val" id="metric-water">—</div><div class="metric-unit">cups / day (7d)</div></div>
+        <div class="metric-card"><div class="metric-label">Avg meals</div><div class="metric-val" id="metric-meals">—</div><div class="metric-unit">of 6 per day (7d)</div></div>
+        <div class="metric-card"><div class="metric-label">Habit rate</div><div class="metric-val" id="metric-habits">—</div><div class="metric-unit">avg completion (7d)</div></div>
+        <div class="metric-card"><div class="metric-label">Move rate</div><div class="metric-val" id="metric-move">—</div><div class="metric-unit">avg completion (7d)</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 14-DAY HABIT BARS -->
+  <div class="stat-card">
+    <div class="stat-card-header"><div class="stat-card-title">Daily habits — last 14 days</div></div>
+    <div class="stat-card-body" style="padding-top:8px;">
+      <div class="week-bar-grid" id="hab-bars"></div>
+      <div class="wbar-row" id="hab-bar-labels"></div>
+    </div>
+  </div>
+
+  <!-- 14-DAY MOVEMENT BARS -->
+  <div class="stat-card">
+    <div class="stat-card-header"><div class="stat-card-title">Movement completion — last 14 days</div></div>
+    <div class="stat-card-body" style="padding-top:8px;">
+      <div class="week-bar-grid" id="move-bars"></div>
+      <div class="wbar-row" id="move-bar-labels"></div>
+    </div>
+  </div>
+
+  <!-- WEEKLY HABITS HISTORY -->
+  <div class="stat-card">
+    <div class="stat-card-header"><div class="stat-card-title">Weekly habits — completion by week</div></div>
+    <div class="stat-card-body">
+      <div id="weekly-history" style="display:flex;flex-direction:column;gap:7px;margin-top:4px;"></div>
+    </div>
+  </div>
+
+  <!-- WHAT'S COMING -->
+  <div id="prog-upcoming"></div>
+</div>
+
+
 <!-- BOTTOM NAV -->
 <nav class="bottom-nav">
   <button class="nav-btn on" onclick="switchSection('movement',this)" id="navbtn-movement">
@@ -856,6 +989,10 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;fon
   <button class="nav-btn" onclick="switchSection('guide',this)" id="navbtn-guide">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
     Guide<div class="nav-dot"></div>
+  </button>
+  <button class="nav-btn" onclick="switchSection('progress',this)" id="navbtn-progress">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+    Progress<div class="nav-dot"></div>
   </button>
 </nav>
 
@@ -897,12 +1034,13 @@ const wy=(item,ph)=>ph>=4?'':ph===3?(item.wb||''):ph===2?(item.wb||item.w||''):(
 
 // ── SECTION SWITCH ──
 function switchSection(name,btn){
-  ['movement','habits','guide'].forEach(s=>{
+  ['movement','habits','guide','progress'].forEach(s=>{
     document.getElementById('sec-'+s).classList.toggle('on',s===name);
     document.getElementById('navbtn-'+s).classList.toggle('on',s===name);
   });
   if(name==='habits')renderHabits();
   if(name==='guide')initGuide();
+  if(name==='progress'){loadProgress();}
 }
 
 // ══════════ GUIDE CAROUSEL ══════════
@@ -951,78 +1089,132 @@ function renderGuide(){
 
 // ══════════ JAW TIMER — 3 rounds × 2 min ══════════
 const ROUND_DUR=120;const TOTAL_ROUNDS=3;
-let jawTimers={m:null,a:null,n:null};
 let jawState={
   m:{round:1,elapsed:0,running:false},
   a:{round:1,elapsed:0,running:false},
   n:{round:1,elapsed:0,running:false}
 };
+let breathState={elapsed:0,total:300,running:false}; // default 5 min
+let masterInterval=null;
+
+function startMaster(){
+  if(masterInterval)return;
+  masterInterval=setInterval(()=>{
+    // Tick jaw timers
+    ['m','a','n'].forEach(slot=>{
+      const st=jawState[slot];
+      if(!st.running)return;
+      st.elapsed++;
+      if(st.elapsed>=ROUND_DUR){
+        st.running=false;
+        playChime(st.round>=TOTAL_ROUNDS);
+      }
+      renderTimer(slot);
+    });
+    // Tick breath timer
+    if(breathState.running){
+      breathState.elapsed++;
+      if(breathState.elapsed>=breathState.total){
+        breathState.running=false;
+        playChime(true);
+      }
+      renderBreathTimer();
+    }
+  },1000);
+}
 
 function renderTimer(slot){
   const wrap=document.getElementById('jaw-timer-'+slot);
   if(!wrap)return;
   const st=jawState[slot];
   const allDone=st.round>TOTAL_ROUNDS;
-  const remaining=allDone?0:ROUND_DUR-st.elapsed;
+  const roundDone=!allDone&&st.elapsed>=ROUND_DUR;
+  const remaining=roundDone||allDone?0:ROUND_DUR-st.elapsed;
   const mm=Math.floor(remaining/60).toString().padStart(2,'0');
   const ss=(remaining%60).toString().padStart(2,'0');
-  const pct=allDone?100:Math.round((st.elapsed/ROUND_DUR)*100);
-  const roundDone=!allDone&&st.elapsed>=ROUND_DUR;
-
-  // round pips
+  const pct=Math.min(100,Math.round((st.elapsed/ROUND_DUR)*100));
   let pipsHtml='<div class="round-pips">';
   for(let r=1;r<=TOTAL_ROUNDS;r++){
     const cls=r<st.round?'complete':r===st.round&&!allDone?'active':'';
-    const lbl=r<st.round?'✓ Round '+r:'Round '+r;
-    pipsHtml+=`<div class="round-pip ${cls}">${lbl}</div>`;
+    pipsHtml+=`<div class="round-pip ${cls}">${r<st.round?'✓ Round '+r:'Round '+r}</div>`;
   }
   pipsHtml+='</div>';
-
   let btnHtml='';
   if(allDone){
-    btnHtml=`<button class="timer-btn done-btn" onclick="resetTimer('${slot}')">✓ All done — reset</button>`;
+    btnHtml=`<button class="timer-btn done-btn" onclick="timerReset('${slot}')">✓ All done — reset</button>`;
   } else if(roundDone){
-    btnHtml=`<button class="timer-btn next" onclick="nextRound('${slot}')">Start Round ${st.round+1} →</button>`;
+    btnHtml=`<button class="timer-btn next" onclick="timerNext('${slot}')">Start Round ${st.round+1} →</button>`;
   } else {
-    btnHtml=`<button class="timer-btn ${st.running?'pause':'start'}" onclick="toggleTimer('${slot}')">${st.running?'⏸ Pause':'▶ Start Round '+st.round}</button>`;
+    btnHtml=`<button class="timer-btn ${st.running?'pause':'start'}" onclick="timerToggle('${slot}')">${st.running?'⏸ Pause':'▶ Start Round '+st.round}</button>`;
   }
-
   wrap.innerHTML=pipsHtml
-    +`<div class="timer-display">${allDone?'✓':roundDone?'Round done':mm+':'+ss}</div>`
+    +`<div class="timer-display">${allDone?'✓ Done':roundDone?'Round done ✓':mm+':'+ss}</div>`
     +`<div class="timer-bar-wrap"><div class="timer-bar-fill" style="width:${pct}%"></div></div>`
-    +(allDone?'':`<div class="timer-hint">${st.running?'Breathe through it — stay relaxed':roundDone?'Take a breath before next round':'Follow your dentist\'s sequence for this round'}</div>`)
+    +(allDone?'':`<div class="timer-hint">${st.running?'Breathe — stay relaxed':roundDone?'Rest, then start next round':'Follow your dentist\'s sequence'}</div>`)
     +btnHtml;
 }
 
-function toggleTimer(slot){
+function timerToggle(slot){
   const st=jawState[slot];
-  if(st.elapsed>=ROUND_DUR||st.round>TOTAL_ROUNDS)return;
-  if(st.running){clearInterval(jawTimers[slot]);st.running=false;}
-  else{
-    st.running=true;
-    jawTimers[slot]=setInterval(()=>{
-      st.elapsed++;renderTimer(slot);
-      if(st.elapsed>=ROUND_DUR){
-        clearInterval(jawTimers[slot]);st.running=false;
-        playChime(st.round>=TOTAL_ROUNDS);
-      }
-    },1000);
-  }
+  if(st.round>TOTAL_ROUNDS)return;
+  if(st.elapsed>=ROUND_DUR)return; // round done state — use timerNext
+  st.running=!st.running;
+  if(st.running)startMaster();
   renderTimer(slot);
 }
-
-function nextRound(slot){
+function timerNext(slot){
   const st=jawState[slot];
-  clearInterval(jawTimers[slot]);
-  st.round++;st.elapsed=0;st.running=false;
+  if(st.round>=TOTAL_ROUNDS){st.round=TOTAL_ROUNDS+1;}
+  else{st.round++;st.elapsed=0;st.running=false;}
   renderTimer(slot);
 }
-
-function resetTimer(slot){
-  clearInterval(jawTimers[slot]);
+function timerReset(slot){
   jawState[slot]={round:1,elapsed:0,running:false};
   renderTimer(slot);
 }
+
+// ── BREATHING TIMER ──
+function renderBreathTimer(){
+  const wrap=document.getElementById('breath-timer-inner');
+  if(!wrap)return;
+  const st=breathState;
+  const done=st.elapsed>=st.total;
+  const remaining=Math.max(0,st.total-st.elapsed);
+  const mm=Math.floor(remaining/60).toString().padStart(2,'0');
+  const ss=(remaining%60).toString().padStart(2,'0');
+  const pct=done?100:Math.round((st.elapsed/st.total)*100);
+  const mins=Math.round(st.total/60);
+  wrap.innerHTML=`
+    <div class="breath-dur-row">
+      <button class="breath-dur-btn" onclick="breathAdjust(-1)">−</button>
+      <div><div class="breath-dur-val">${mins}</div><div class="breath-dur-lbl">minutes</div></div>
+      <button class="breath-dur-btn" onclick="breathAdjust(1)">+</button>
+      <div style="flex:1;font-size:12px;color:var(--text3);padding-left:8px;line-height:1.5;">Adjust duration.<br>Start and breathe.</div>
+    </div>
+    <div class="breath-display">${done?'✓':mm+':'+ss}</div>
+    <div class="breath-bar-wrap"><div class="breath-bar-fill" style="width:${pct}%"></div></div>
+    <button class="breath-start-btn ${done?'done':st.running?'pause':'go'}" onclick="breathToggle()">
+      ${done?'✓ Done — tap to reset':st.running?'⏸ Pause':'▶ Start timer'}
+    </button>`;
+}
+function breathToggle(){
+  if(breathState.elapsed>=breathState.total){breathState.elapsed=0;breathState.running=false;renderBreathTimer();return;}
+  breathState.running=!breathState.running;
+  if(breathState.running)startMaster();
+  renderBreathTimer();
+}
+function breathAdjust(delta){
+  if(breathState.running)return;
+  const mins=Math.max(1,Math.min(15,Math.round(breathState.total/60)+delta));
+  breathState.total=mins*60;
+  if(breathState.elapsed>=breathState.total)breathState.elapsed=0;
+  renderBreathTimer();
+}
+function renderTimers(){
+  ['m','a','n'].forEach(slot=>renderTimer(slot));
+  renderBreathTimer();
+}
+
 
 // ══════════ HABITS ══════════
 function renderHabits(){
@@ -1356,6 +1548,197 @@ function renderWeek(ph,todayDn){
 function switchMvmt(v,btn){mvmtView=v;document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));btn.classList.add('on');document.getElementById('mvmt-today').style.display=v==='today'?'block':'none';document.getElementById('mvmt-week').style.display=v==='week'?'block':'none';if(v==='week'){const td=new Date();td.setHours(0,0,0,0);const w=wn(td);renderWeek(gph(w),dic(td));}}
 function changeDay(d){const x=new Date(VD);x.setDate(x.getDate()+d);VD=x;renderMovement();}
 function goToday(){VD=new Date();VD.setHours(0,0,0,0);renderMovement();}
+
+
+// ══════════ PROGRESS / STATS ══════════
+function loadProgress(){
+  renderPhaseTimeline();
+  renderStreakAndMetrics();
+  render14DayBars();
+  renderWeeklyHistory();
+  renderUpcoming();
+}
+
+function renderPhaseTimeline(){
+  const today=new Date();today.setHours(0,0,0,0);
+  const week=wn(today);const ph=gph(week);
+  const badge=document.getElementById('prog-week-badge');
+  const bar=document.getElementById('prog-phase-bar');
+  const info=document.getElementById('prog-phase-info');
+  if(!bar)return;
+  if(badge){badge.textContent='Week '+Math.min(week,TOTAL)+' of '+TOTAL;badge.className='ph-badge ph-'+Math.min(ph,4);}
+  // Build 20-week bar
+  const phColors=['var(--green)','var(--indigo-light)','#c084fc','var(--coral)'];
+  const phBounds=[[1,5],[6,10],[11,15],[16,20]];
+  let html='<div class="phase-bar-wrap">';
+  for(let w=1;w<=TOTAL;w++){
+    const wph=gph(w);
+    const isCur=w===week;
+    const isPast=w<week;
+    html+=`<div class="phase-seg ph-seg-${wph}" style="flex:1;opacity:${isPast?0.9:isCur?1:0.28};" title="Week ${w}"></div>`;
+    if(isCur)html+=`<div class="phase-cursor"></div>`;
+  }
+  html+='</div>';
+  bar.innerHTML=html;
+  const PHASE_DESCS=['Foundation: learning movement, building daily habits, establishing breathing practice.','Build: adding resistance work, extending cardio, stepping up yoga intensity.','Strengthen: athletic yoga, full posture circuit, breath hold intervals, longer Zone 2.','Peak & Integrate: advanced sequences, CO₂ tolerance training, habits fully automated.'];
+  const weeksLeft=Math.max(0,TOTAL-week+1);
+  if(info){
+    if(week<1)info.textContent='Plan starts on '+localStorage.getItem('plan_start_date')+'.';
+    else if(week>TOTAL)info.textContent='20 weeks complete. The habits are yours now.';
+    else info.innerHTML=`<strong style="color:var(--text);">Phase ${ph} · ${['Foundation','Build','Strengthen','Peak & Integrate'][ph-1]}</strong><br>${PHASE_DESCS[ph-1]}<br><span style="color:var(--text3);font-size:12px;">${weeksLeft} week${weeksLeft!==1?'s':''} remaining in plan</span>`;
+  }
+}
+
+function getDateRange(days){
+  const dates=[];
+  for(let i=days-1;i>=0;i--){
+    const d=new Date();d.setHours(0,0,0,0);d.setDate(d.getDate()-i);dates.push(d);
+  }
+  return dates;
+}
+
+function renderStreakAndMetrics(){
+  const dates=getDateRange(30);
+  let streak=0;let broke=false;
+  for(let i=dates.length-1;i>=0;i--){
+    const d=dates[i];
+    if(d>new Date())continue;
+    const sv=localStorage.getItem('habday_'+dk(d));
+    if(!sv){if(i<dates.length-1)broke=true;break;}
+    let dd={completed:{},water:0,meals:0};
+    try{dd=JSON.parse(sv);}catch(e){}
+    const done=HABIT_IDS.filter(id=>dd.completed[id]).length;
+    const pct=Math.round((done/HABIT_IDS.length)*100);
+    if(pct>=50&&!broke)streak++;
+    else broke=true;
+  }
+  const snum=document.getElementById('streak-num');
+  const sdesc=document.getElementById('streak-desc');
+  if(snum)snum.textContent=streak;
+  if(sdesc){
+    if(streak===0)sdesc.textContent='Complete ≥50% of daily habits each day to build your streak.';
+    else if(streak<7)sdesc.textContent=`${streak} day${streak!==1?'s':''} — keep going. 7 days is your first milestone.`;
+    else if(streak<21)sdesc.textContent=`${streak} days — strong. Research shows 21 days is where behaviors begin to feel automatic.`;
+    else sdesc.textContent=`${streak} days — this is the threshold where habits become identity, not effort.`;
+  }
+  // 7-day metrics
+  const last7=getDateRange(7);
+  let totWater=0,totMeals=0,totHabPct=0,totMovPct=0,dataPoints=0;
+  last7.forEach(d=>{
+    const hSv=localStorage.getItem('habday_'+dk(d));
+    const mSv=localStorage.getItem('mpday_'+dk(d));
+    if(hSv){
+      let dd={completed:{},water:0,meals:0};try{dd=JSON.parse(hSv);}catch(e){}
+      totWater+=dd.water||0;totMeals+=dd.meals||0;
+      totHabPct+=Math.round(((HABIT_IDS.filter(id=>dd.completed[id]).length)/HABIT_IDS.length)*100);
+      dataPoints++;
+    }
+    if(mSv){
+      let md={completed:{}};try{md=JSON.parse(mSv);}catch(e){}
+      const dn=dic(d);
+      if(dn>0&&dn<6){
+        const sc=sched(dn,gph(wn(d)));
+        const ids=allMIds(sc);
+        const done=ids.filter(i=>md.completed[i]).length;
+        totMovPct+=ids.length>0?Math.round((done/ids.length)*100):0;
+      }
+    }
+  });
+  const n=Math.max(dataPoints,1);
+  const setMet=(id,val,suffix)=>{const el=document.getElementById(id);if(el)el.textContent=val+suffix;};
+  setMet('metric-water',dataPoints>0?Math.round(totWater/n):0,' cups');
+  setMet('metric-meals',dataPoints>0?(totMeals/n).toFixed(1):0,'');
+  setMet('metric-habits',dataPoints>0?Math.round(totHabPct/n):0,'%');
+  setMet('metric-move',dataPoints>0?Math.round(totMovPct/n):0,'%');
+}
+
+function render14DayBars(){
+  const dates=getDateRange(14);
+  const maxH=56;
+  let habBars='',habLabels='',movBars='',movLabels='';
+  const dayLetters=['S','M','T','W','T','F','S'];
+  dates.forEach(d=>{
+    const dl=dayLetters[d.getDay()];
+    const hSv=localStorage.getItem('habday_'+dk(d));
+    let habPct=0;
+    if(hSv){let dd={completed:{}};try{dd=JSON.parse(hSv);}catch(e){}habPct=Math.round((HABIT_IDS.filter(id=>dd.completed[id]).length/HABIT_IDS.length)*100);}
+    const hH=Math.max(2,Math.round((habPct/100)*maxH));
+    const hColor=habPct>=80?'var(--green)':habPct>=50?'var(--indigo-light)':habPct>0?'var(--violet)':'var(--bg4)';
+    habBars+=`<div class="wbar-wrap"><div class="wbar" style="height:${hH}px;background:${hColor};" title="${habPct}%"></div><div class="wbar-label">${dl}</div></div>`;
+    const mSv=localStorage.getItem('mpday_'+dk(d));
+    let movPct=0;
+    if(mSv){
+      let md={completed:{}};try{md=JSON.parse(mSv);}catch(e){}
+      const dn=dic(d);
+      if(dn>0&&dn<6){const sc=sched(dn,gph(wn(d)));const ids=allMIds(sc);const done=ids.filter(i=>md.completed[i]).length;movPct=ids.length>0?Math.round((done/ids.length)*100):0;}
+      else if(dn>=6)movPct=100; // rest days count as complete
+    }
+    const mH=Math.max(2,Math.round((movPct/100)*maxH));
+    const mColor=movPct>=80?'var(--green)':movPct>=50?'var(--sky)':movPct>0?'var(--indigo-light)':'var(--bg4)';
+    movBars+=`<div class="wbar-wrap"><div class="wbar" style="height:${mH}px;background:${mColor};" title="${movPct}%"></div><div class="wbar-label">${dl}</div></div>`;
+  });
+  const hbEl=document.getElementById('hab-bars');const mbEl=document.getElementById('move-bars');
+  if(hbEl)hbEl.innerHTML=habBars;if(mbEl)mbEl.innerHTML=movBars;
+  // Legend
+  const legend='<div style="display:flex;gap:12px;margin-top:6px;font-size:11px;color:var(--text3);">'+
+    '<span style="display:flex;align-items:center;gap:4px;"><span style="width:8px;height:8px;border-radius:2px;background:var(--green);display:inline-block;"></span>80%+</span>'+
+    '<span style="display:flex;align-items:center;gap:4px;"><span style="width:8px;height:8px;border-radius:2px;background:var(--indigo-light);display:inline-block;"></span>50–79%</span>'+
+    '<span style="display:flex;align-items:center;gap:4px;"><span style="width:8px;height:8px;border-radius:2px;background:var(--violet);display:inline-block;"></span>&lt;50%</span></div>';
+  const hbl=document.getElementById('hab-bar-labels');const mbl=document.getElementById('move-bar-labels');
+  if(hbl)hbl.innerHTML=legend;if(mbl)mbl.innerHTML=legend.replace('var(--violet)','var(--sky)');
+}
+
+function renderWeeklyHistory(){
+  const wrap=document.getElementById('weekly-history');
+  if(!wrap)return;
+  // Get last 8 weeks
+  let rows='';
+  for(let w=0;w<8;w++){
+    const monday=new Date();monday.setHours(0,0,0,0);
+    const dayOfWeek=monday.getDay();const diff=monday.getDate()-(dayOfWeek===0?6:dayOfWeek-1);
+    monday.setDate(diff-(w*7));
+    const wkey='wkhab_'+dk(monday);
+    const sv=localStorage.getItem(wkey);
+    let done=0;
+    if(sv){try{const d=JSON.parse(sv);done=WEEKLY_IDS.filter(id=>d.completed[id]).length;}catch(e){}}
+    const pct=Math.round((done/WEEKLY_IDS.length)*100);
+    const color=pct>=80?'var(--green)':pct>=50?'var(--indigo-light)':pct>0?'var(--violet)':'var(--bg4)';
+    const label=w===0?'This week':w===1?'Last week':`${w} weeks ago`;
+    rows+=`<div style="display:flex;align-items:center;gap:10px;">
+      <div style="font-size:12px;color:var(--text3);width:90px;flex-shrink:0;">${label}</div>
+      <div style="flex:1;height:8px;background:var(--bg4);border-radius:4px;overflow:hidden;">
+        <div style="width:${pct}%;height:100%;background:${color};border-radius:4px;transition:width .4s;"></div>
+      </div>
+      <div style="font-size:12px;color:var(--text2);width:40px;text-align:right;">${done}/${WEEKLY_IDS.length}</div>
+    </div>`;
+  }
+  wrap.innerHTML=rows||'<div style="font-size:13px;color:var(--text3);">No weekly data yet — complete some weekly habits first.</div>';
+}
+
+function renderUpcoming(){
+  const wrap=document.getElementById('prog-upcoming');
+  if(!wrap)return;
+  const today=new Date();today.setHours(0,0,0,0);
+  const week=wn(today);const ph=gph(week);
+  if(week<1||week>TOTAL){wrap.innerHTML='';return;}
+  const UPCOMING=[
+    {ph:1,wks:[1,2,3],title:'Focus: build the foundation',body:'Beginner vinyasa, daily breathing, posture resets. Consistency over intensity. Nothing should feel hard yet — if it does, scale back.'},
+    {ph:1,wks:[4,5],title:'Approaching Phase 2',body:'In the coming weeks: cable rows and face pulls unlock at the gym, Zone 2 cardio duration increases to 30–35 min, yoga moves to intermediate sequences.'},
+    {ph:2,wks:[6,7,8],title:'Focus: adding load and volume',body:'Posture circuit gets heavier. Cardio longer. Yoga more athletic. Your body has the movement patterns now — time to stress them.'},
+    {ph:2,wks:[9,10],title:'Approaching Phase 3',body:'Strengthen phase ahead: single-arm rows, 45–50 min Zone 2, advanced yoga sequences. The structural changes from Phase 1–2 start becoming visible.'},
+    {ph:3,wks:[11,12,13],title:'Focus: structural strengthening',body:'Hanging knee raises, longer yin holds, CO₂ breath hold intervals. This is where the biggest posture changes lock in. Stay consistent with the yin.'},
+    {ph:3,wks:[14,15],title:'Approaching Peak phase',body:'Final 5 weeks: L-sit progression, 45–50 min Zone 2, yoga nidra, advanced CO₂ sets. DU program starts Sept 4 — these habits will carry forward.'},
+    {ph:4,wks:[16,17,18,19,20],title:'Peak & Integrate',body:'The habits are mostly automatic by now. Denver altitude work is paying off. Keep the breathing practice and yin regardless of what the schedule looks like at DU.'},
+  ];
+  const match=UPCOMING.find(u=>u.ph===ph&&u.wks.includes(week));
+  if(match){
+    wrap.innerHTML=`<div class="upcoming-card">
+      <div class="upcoming-label">What to focus on</div>
+      <div class="upcoming-title">${match.title}</div>
+      <div class="upcoming-body">${match.body}</div>
+    </div>`;
+  }
+}
 
 // BOOT
 initMovement();
