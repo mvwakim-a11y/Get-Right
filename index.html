@@ -446,15 +446,7 @@ svg.ring-svg{display:block;margin:0 auto;}
 .gratitude-ta:focus{outline:none;border-color:rgba(99,102,241,.4);}
 .gratitude-ta::placeholder{color:var(--text3);}
 
-/* ── COLLAPSE COMPLETED ── */
-.completed-section{margin-top:6px;}
-.completed-toggle{width:100%;display:flex;align-items:center;justify-content:space-between;padding:8px 14px;background:var(--bg3);border:1px solid var(--border2);border-radius:var(--radius-sm);cursor:pointer;font-size:12px;color:var(--text3);font-family:'DM Sans',sans-serif;margin-bottom:2px;}
-.completed-toggle .count{background:var(--indigo-dim);color:var(--indigo-light);border-radius:10px;padding:1px 8px;font-size:11px;font-weight:600;}
-.completed-items{display:none;}
-.completed-items.open{display:block;}
-.completed-item-row{display:flex;gap:12px;align-items:center;padding:9px 14px;border-bottom:1px solid var(--border2);opacity:.6;}
-.completed-item-row:last-child{border-bottom:none;}
-.completed-item-label{font-size:13px;color:var(--text3);text-decoration:line-through;flex:1;}
+/* completed section removed */
 
 /* ── CUSTOM HABITS ── */
 .custom-habit-section{margin-bottom:10px;}
@@ -668,13 +660,6 @@ svg.ring-svg{display:block;margin:0 auto;}
 
   <div class="card">
     <div class="card-row">
-      <div class="cb" data-hid="pepcid-am" onclick="toggleHabit('pepcid-am',this)"></div>
-      <div style="flex:1;"><div class="item-label" id="hlbl-pepcid-am">Pepcid — morning dose</div><div class="item-sub">Log if taken. Goal is to track and gradually reduce frequency over time — check off only on days you actually take it.</div></div>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-row">
       <div class="cb" data-hid="cats-am" onclick="toggleHabit('cats-am',this)"></div>
       <div style="flex:1;"><div class="item-label" id="hlbl-cats-am">Feed the cats</div><div class="item-sub">Morning feeding. They'll remind you if you forget, but build it into the routine anyway.</div></div>
     </div>
@@ -844,6 +829,30 @@ svg.ring-svg{display:block;margin:0 auto;}
   <!-- EVENING -->
   <div class="slbl">🌆 Evening</div>
 
+  <!-- PEPCID COUNTER -->
+  <div class="slbl">💊 Pepcid intake</div>
+  <div class="card">
+    <div class="water-tracker">
+      <div class="water-top">
+        <div>
+          <div class="water-title">Pepcid doses today</div>
+          <div class="water-goal" id="pepcid-goal-lbl">Tap to log — goal is fewer over time</div>
+        </div>
+        <span class="ph-badge" style="background:rgba(251,191,36,.1);color:var(--amber);border:1px solid rgba(251,191,36,.2);font-size:10px;">Reduction</span>
+      </div>
+      <div class="water-count-row">
+        <button class="water-btn minus" onclick="adjustPepcid(-1)">−</button>
+        <div>
+          <div class="water-count" id="pepcid-count" style="color:var(--amber);">0</div>
+          <div class="water-unit">doses taken</div>
+        </div>
+        <button class="water-btn plus" onclick="adjustPepcid(1)">+</button>
+      </div>
+      <div id="pepcid-note" style="font-size:12px;color:var(--text2);background:var(--bg3);border-radius:var(--radius-sm);padding:8px 12px;line-height:1.55;">Track every dose honestly — the data in Progress shows your reduction trend over time.</div>
+    </div>
+  </div>
+
+  <div class="slbl">🌆 Evening</div>
   <div class="card">
     <div class="card-row">
       <div class="cb" data-hid="dishes" onclick="toggleHabit('dishes',this)"></div>
@@ -969,13 +978,6 @@ svg.ring-svg{display:block;margin:0 auto;}
   </div>
 
   <div id="shot-wed-wrap"></div>
-
-  <div class="card">
-    <div class="card-row">
-      <div class="cb" data-hid="pepcid-pm" onclick="toggleHabit('pepcid-pm',this)"></div>
-      <div style="flex:1;"><div class="item-label" id="hlbl-pepcid-pm">Pepcid — night dose</div><div class="item-sub">Log if taken tonight. Tracking helps you see your reduction progress over time. Separate from magnesium by 2+ hours.</div></div>
-    </div>
-  </div>
 
   <div class="card">
     <div class="card-row">
@@ -1330,10 +1332,10 @@ svg.ring-svg{display:block;margin:0 auto;}
     <div class="stat-card-header"><div class="stat-card-title">💊 Pepcid consistency</div></div>
     <div class="stat-card-body">
       <div class="metric-grid" id="pepcid-metrics">
-        <div class="metric-card"><div class="metric-label">7-day AM rate</div><div class="metric-val" id="pepcid-7d-am">—</div><div class="metric-unit">doses taken</div></div>
-        <div class="metric-card"><div class="metric-label">7-day PM rate</div><div class="metric-val" id="pepcid-7d-pm">—</div><div class="metric-unit">doses taken</div></div>
-        <div class="metric-card"><div class="metric-label">30-day AM rate</div><div class="metric-val" id="pepcid-30d-am">—</div><div class="metric-unit">completion</div></div>
-        <div class="metric-card"><div class="metric-label">AM streak</div><div class="metric-val" id="pepcid-streak">0</div><div class="metric-unit">consecutive days</div></div>
+        <div class="metric-card"><div class="metric-label">Avg doses/day (7d)</div><div class="metric-val" id="pepcid-7d-am">—</div><div class="metric-unit">doses taken</div></div>
+        <div class="metric-card"><div class="metric-label">Zero-dose days (7d)</div><div class="metric-val" id="pepcid-7d-pm">—</div><div class="metric-unit">doses taken</div></div>
+        <div class="metric-card"><div class="metric-label">Avg doses/day (30d)</div><div class="metric-val" id="pepcid-30d-am">—</div><div class="metric-unit">completion</div></div>
+        <div class="metric-card"><div class="metric-label">30-day trend</div><div class="metric-val" id="pepcid-streak">0</div><div class="metric-unit">consecutive days</div></div>
       </div>
       <div style="font-size:12px;color:var(--text2);line-height:1.6;margin-top:10px;padding:10px 12px;background:var(--bg3);border-radius:var(--radius-sm);">
         <strong style="color:var(--text);">Reduction tracking:</strong> The goal is fewer doses over time. Check the Progress tab to see your weekly and monthly usage trend. Talk to your doctor about a tapering plan — stopping suddenly after long-term use can cause rebound acid. Separate doses from magnesium by 2+ hours.
@@ -1384,7 +1386,7 @@ const MTHS=['January','February','March','April','May','June','July','August','S
 const PNAMES=['Foundation','Build','Strengthen','Peak & Integrate'];
 const TOTAL=20;
 const WATER_GOAL=12;
-const HABIT_IDS=['medication','pepcid-am','cats-am','make-bed','tidy-am','sunlight','morning-water','skincare-am','supps-am','jaw-m','posture-m','jaw-a','posture-a1','eye-2020','posture-a2','caffeine','reading','dishes','jaw-n','cats-pm','skincare-pm','floss','pepcid-pm','night-screens','night-jaw-massage','supps-pm','night-breathe','night-position','gratitude-done','night-jaw-check'];
+const HABIT_IDS=['medication','cats-am','make-bed','tidy-am','sunlight','morning-water','skincare-am','supps-am','jaw-m','posture-m','jaw-a','posture-a1','eye-2020','posture-a2','caffeine','reading','dishes','jaw-n','cats-pm','skincare-pm','floss','night-screens','night-jaw-massage','supps-pm','night-breathe','night-position','gratitude-done','night-jaw-check'];
 const WEEKLY_IDS=['wk-laundry','wk-grooming','wk-sheets','wk-groceries','wk-planning','wk-social','wk-book','wk-olivia','wk-shot-wed'];
 const WEEKLY_LABELS={
   'wk-laundry':{label:'Laundry',sub:'Wash, dry, put away — not just wash.',icon:'👕'},
@@ -1405,7 +1407,7 @@ const MONTHLY_LABELS={
 };
 
 // ── STATE ──
-let SD=null,VD=new Date(),movDD={completed:{}},habDD={completed:{},water:0,meals:0,steps:0,mood:0,sleepQual:0,gratitude:''},weekHabDD={completed:{}},monHabDD={completed:{}};
+let SD=null,VD=new Date(),movDD={completed:{}},habDD={completed:{},water:0,meals:0,steps:0,mood:0,sleepQual:0,gratitude:'',pepcid:0},weekHabDD={completed:{}},monHabDD={completed:{}};
 let mvmtView='today',mSaveTimer=null,hSaveTimer=null,wkSaveTimer=null,guideIdx=0;
 VD.setHours(0,0,0,0);
 
@@ -1606,7 +1608,7 @@ function renderHabits(){
   const today=new Date();today.setHours(0,0,0,0);
   const dN=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
   document.getElementById('habits-date').textContent=dN[today.getDay()]+', '+MTHS[today.getMonth()]+' '+today.getDate();
-  habDD={completed:{},water:0,meals:0,steps:0,mood:0,sleepQual:0,gratitude:''};
+  habDD={completed:{},water:0,meals:0,steps:0,mood:0,sleepQual:0,gratitude:'',pepcid:0};
   const sv=localStorage.getItem('habday_'+dk(today));
   if(sv){try{habDD=JSON.parse(sv);}catch(e){}}
   HABIT_IDS.forEach(id=>{
@@ -1620,6 +1622,7 @@ function renderHabits(){
   renderWater();
   renderMeals();
   renderSteps();
+  renderPepcidCounter();
   renderRatings();
   renderGratitude();
   renderWeeklyHabits();
@@ -1631,6 +1634,24 @@ function renderHabits(){
   updateHabCount();
   const done=HABIT_IDS.filter(id=>habDD.completed[id]).length;
   document.getElementById('habits-sub').textContent=`${done} of ${HABIT_IDS.length} daily + weekly habits`;
+}
+
+// ══════════ PEPCID COUNTER ══════════
+function adjustPepcid(delta){
+  if(!habDD.pepcid)habDD.pepcid=0;
+  habDD.pepcid=Math.max(0,habDD.pepcid+delta);
+  renderPepcidCounter();triggerHabSave();
+}
+function renderPepcidCounter(){
+  const p=habDD.pepcid||0;
+  const el=document.getElementById('pepcid-count');
+  const note=document.getElementById('pepcid-note');
+  if(el)el.textContent=p;
+  if(note){
+    if(p===0)note.textContent='Zero doses today ✓ — log any doses honestly as you take them.';
+    else if(p===1)note.textContent='1 dose today. Check Progress to see your weekly trend.';
+    else note.textContent=p+' doses today. Your Progress tab tracks reduction over time.';
+  }
 }
 
 // ══════════ WEEKLY HABITS ══════════
@@ -2473,18 +2494,23 @@ function renderReminders(){
 
 // ══════════ PEPCID ANALYSIS (in Progress) ══════════
 function renderPepcidAnalysis(){
-  const dates30=getDateRange(30);const dates7=getDateRange(7);
-  const calc=(dates,field)=>{
-    let done=0;dates.forEach(d=>{const sv=localStorage.getItem('habday_'+dk(d));if(sv){try{const dd=JSON.parse(sv);if(dd.completed&&dd.completed[field])done++;}catch(e){}}}); return done;
-  };
-  const am7=calc(dates7,'pepcid-am');const pm7=calc(dates7,'pepcid-pm');
-  const am30=calc(dates30,'pepcid-am');
-  // AM streak
-  let streak=0;const today=new Date();today.setHours(0,0,0,0);
-  for(let i=0;i<30;i++){const d=new Date(today);d.setDate(today.getDate()-i);const sv=localStorage.getItem('habday_'+dk(d));if(!sv)break;let dd={completed:{}};try{dd=JSON.parse(sv);}catch(e){}if(!dd.completed['pepcid-am'])break;streak++;}
   const set=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v;};
-  set('pepcid-7d-am',`${am7}/7`);set('pepcid-7d-pm',`${pm7}/7`);
-  set('pepcid-30d-am',Math.round((am30/30)*100)+'%');set('pepcid-streak',streak);
+  const dates7=getDateRange(7);const dates30=getDateRange(30);
+  let tot7=0,tot30=0,zeroDays7=0;
+  dates7.forEach(d=>{const sv=localStorage.getItem('habday_'+dk(d));if(sv){try{const dd=JSON.parse(sv);tot7+=(dd.pepcid||0);if((dd.pepcid||0)===0)zeroDays7++;}catch(e){}}});
+  dates30.forEach(d=>{const sv=localStorage.getItem('habday_'+dk(d));if(sv){try{const dd=JSON.parse(sv);tot30+=(dd.pepcid||0);}catch(e){}}});
+  const avg7=dates7.length>0?(tot7/7).toFixed(1):'—';
+  const avg30=dates30.length>0?(tot30/30).toFixed(1):'—';
+  set('pepcid-7d-am',avg7+'/day');
+  set('pepcid-7d-pm',zeroDays7+' zero days');
+  set('pepcid-30d-am',avg30+'/day');
+  // Trend: compare first 15 days vs last 15 days of 30
+  const dates15a=getDateRange(30).slice(0,15);const dates15b=getDateRange(30).slice(15);
+  let t15a=0,t15b=0;
+  dates15a.forEach(d=>{const sv=localStorage.getItem('habday_'+dk(d));if(sv){try{const dd=JSON.parse(sv);t15a+=(dd.pepcid||0);}catch(e){}}});
+  dates15b.forEach(d=>{const sv=localStorage.getItem('habday_'+dk(d));if(sv){try{const dd=JSON.parse(sv);t15b+=(dd.pepcid||0);}catch(e){}}});
+  const trend=t15a===0&&t15b===0?'No data yet':t15b<t15a?'↓ Reducing — great progress':t15b>t15a?'↑ Increasing — worth noting':'Stable';
+  set('pepcid-streak',trend);
 }
 
 // ══════════ EXPORT / IMPORT CSV ══════════
@@ -2508,7 +2534,7 @@ function exportCSV(){
       'night-position':'Sleep position','gratitude-done':'Gratitude','night-jaw-check':'Jaw check',
       ...customLabels
     };
-    const hdrs=['Date','Week','Phase','Water','Meals','Steps','Mood','Sleep','Movement%','Habit%',...allIds.map(id=>HL[id]||id)];
+    const hdrs=['Date','Week','Phase','Water','Meals','Steps','Mood','Sleep','Pepcid doses','Movement%','Habit%',...allIds.map(id=>HL[id]||id)];
     const rows=[hdrs.join(',')];
     const startSv=localStorage.getItem('plan_start_date');
     const sd=startSv?new Date(startSv):new Date();sd.setHours(0,0,0,0);
@@ -2530,7 +2556,7 @@ function exportCSV(){
       const habDone=allIds.filter(id=>hd.completed[id]).length;
       const habPct=allIds.length>0?Math.round((habDone/allIds.length)*100):0;
       const week=wn(d);const ph=gph(week);
-      const cols=[dk(d),week,ph,hd.water||0,hd.meals||0,hd.steps||0,hd.mood||0,hd.sleepQual||0,movPct,habPct,...allIds.map(id=>hd.completed[id]?1:0)];
+      const cols=[dk(d),week,ph,hd.water||0,hd.meals||0,hd.steps||0,hd.mood||0,hd.sleepQual||0,hd.pepcid||0,movPct,habPct,...allIds.map(id=>hd.completed[id]?1:0)];
       rows.push(cols.join(','));
     }
     let csv=rows.join(NL);
