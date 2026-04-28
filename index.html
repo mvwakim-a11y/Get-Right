@@ -375,6 +375,79 @@ svg.ring-svg{display:block;margin:0 auto;}
 .qc-label{font-size:11px;font-weight:600;color:var(--text);margin-bottom:2px;}
 .qc-sub{font-size:10px;color:var(--text2);line-height:1.4;}
 .anim{animation:fadeUp .22s ease both;}
+
+/* ── MUSIC QUICKLAUNCH ── */
+.music-section{margin-top:12px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+.music-header{padding:10px 14px 8px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border2);}
+.music-title{font-size:12px;font-weight:600;color:var(--text2);letter-spacing:.04em;text-transform:uppercase;}
+.music-toggle{font-size:11px;color:var(--text3);cursor:pointer;background:none;border:none;font-family:'DM Sans',sans-serif;}
+.music-body{padding:10px 14px 12px;display:flex;flex-direction:column;gap:8px;}
+.music-row{display:flex;gap:6px;flex-wrap:wrap;}
+.music-btn{display:inline-flex;align-items:center;gap:6px;padding:7px 12px;border-radius:20px;font-size:12px;font-weight:500;font-family:'DM Sans',sans-serif;cursor:pointer;border:none;text-decoration:none;flex-shrink:0;}
+.music-btn.spotify{background:#1DB954;color:white;}
+.music-btn.youtube{background:#FF0000;color:white;}
+.music-btn.ytsearch{background:rgba(255,0,0,.12);color:#ff4444;border:1px solid rgba(255,0,0,.25);}
+.music-btn.spsearch{background:rgba(29,185,84,.12);color:#1DB954;border:1px solid rgba(29,185,84,.25);}
+.music-source-label{font-size:10px;color:var(--text3);font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px;}
+
+/* ── INTERVAL TIMER ── */
+.interval-card{margin-top:10px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+.interval-header{padding:10px 14px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;border-bottom:1px solid var(--border2);}
+.interval-title{font-size:12px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.04em;}
+.interval-body{padding:12px 14px;display:none;}
+.interval-body.open{display:block;}
+.int-config{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px;}
+.int-field{background:var(--bg3);border-radius:var(--radius-sm);padding:8px 10px;text-align:center;}
+.int-field-label{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px;}
+.int-field-row{display:flex;align-items:center;justify-content:center;gap:6px;}
+.int-adj{width:24px;height:24px;border-radius:50%;border:1px solid var(--border);background:var(--bg4);color:var(--text2);cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.int-val{font-family:'DM Serif Display',serif;font-size:18px;color:var(--text);min-width:28px;text-align:center;}
+.int-phase-label{font-size:10px;color:var(--text3);margin-top:2px;}
+.int-display{text-align:center;margin-bottom:10px;}
+.int-time{font-family:'DM Serif Display',serif;font-size:48px;color:var(--text);line-height:1;}
+.int-status{font-size:12px;margin-top:4px;}
+.int-status.work{color:var(--green);}
+.int-status.rest{color:var(--amber);}
+.int-status.idle{color:var(--text3);}
+.int-progress{height:5px;background:var(--bg4);border-radius:3px;overflow:hidden;margin-bottom:10px;}
+.int-progress-fill{height:100%;border-radius:3px;transition:width .25s linear;}
+.int-btn-row{display:flex;gap:8px;}
+.int-btn{flex:1;padding:10px;font-size:13px;font-family:'DM Sans',sans-serif;font-weight:600;border:none;border-radius:var(--radius-sm);cursor:pointer;}
+.int-btn.go{background:linear-gradient(135deg,var(--green),var(--sky));color:var(--bg);}
+.int-btn.stop{background:var(--bg4);color:var(--text2);}
+.int-btn.reset-btn{background:transparent;color:var(--text3);border:1px solid var(--border2);flex:0;padding:10px 14px;}
+.int-round-row{display:flex;gap:4px;margin-bottom:10px;}
+.int-round-pip{flex:1;height:5px;border-radius:3px;background:var(--bg4);}
+.int-round-pip.done{background:var(--green);}
+.int-round-pip.active{background:var(--amber);}
+
+/* ── STEPS ── */
+.steps-card{background:linear-gradient(135deg,rgba(56,189,248,.07),rgba(99,102,241,.05));border:1px solid rgba(56,189,248,.2);border-radius:var(--radius);padding:14px 16px;margin-bottom:10px;}
+.steps-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;}
+.steps-title{font-size:14px;font-weight:500;color:var(--text);}
+.steps-goal-lbl{font-size:11px;color:var(--text3);margin-top:2px;}
+.steps-count-row{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:10px;}
+.steps-num{font-family:'DM Serif Display',serif;font-size:44px;color:var(--sky);line-height:1;}
+.steps-adj-col{display:flex;flex-direction:column;gap:6px;}
+.steps-adj-btn{width:36px;height:36px;border-radius:50%;border:1px solid var(--border);background:var(--bg3);color:var(--text2);cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;}
+.steps-adj-btn.big{background:linear-gradient(135deg,var(--sky),var(--indigo));color:var(--bg);border-color:transparent;}
+.steps-progress{height:6px;background:var(--bg4);border-radius:3px;overflow:hidden;margin-bottom:8px;}
+.steps-fill{height:100%;background:linear-gradient(90deg,var(--sky),var(--indigo));border-radius:3px;transition:width .4s;}
+.steps-pedo-btn{width:100%;padding:9px;font-size:13px;font-family:'DM Sans',sans-serif;font-weight:500;border-radius:var(--radius-sm);cursor:pointer;margin-top:6px;}
+.steps-pedo-btn.idle{background:var(--bg3);color:var(--text2);border:1px solid var(--border2);}
+.steps-pedo-btn.counting{background:rgba(56,189,248,.15);color:var(--sky);border:1px solid rgba(56,189,248,.3);}
+
+/* ── MOOD / SLEEP RATING ── */
+.rating-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:10px;}
+.rating-row{display:flex;gap:8px;align-items:center;padding:12px 16px;}
+.rating-label{font-size:13px;font-weight:500;color:var(--text);flex:1;}
+.rating-emojis{display:flex;gap:4px;}
+.rating-emoji{width:34px;height:34px;border-radius:50%;border:1.5px solid var(--border2);background:var(--bg3);cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;transition:all .12s;flex-shrink:0;}
+.rating-emoji.sel{border-color:var(--indigo-light);background:var(--indigo-dim);transform:scale(1.15);}
+.gratitude-area{padding:0 16px 14px;}
+.gratitude-ta{width:100%;min-height:70px;font-size:13px;padding:10px 12px;border:1px solid var(--border2);border-radius:var(--radius-sm);background:var(--bg3);color:var(--text);font-family:'DM Sans',sans-serif;resize:none;}
+.gratitude-ta:focus{outline:none;border-color:rgba(99,102,241,.4);}
+.gratitude-ta::placeholder{color:var(--text3);}
 </style>
 </head>
 <body>
@@ -422,10 +495,100 @@ svg.ring-svg{display:block;margin:0 auto;}
       <div id="bwrap"></div>
       <div class="slbl" id="plbl">Today's practice</div>
       <div id="awrap"></div>
+      <div id="music-wrap"></div>
+      <div class="interval-card">
+        <div class="interval-header" onclick="toggleIntervalCard()">
+          <span class="interval-title">⏱ Interval / circuit timer</span>
+          <span id="int-toggle-label" style="font-size:11px;color:var(--text3);">Tap to open</span>
+        </div>
+        <div class="interval-body" id="interval-body">
+          <div class="int-config">
+            <div class="int-field">
+              <div class="int-field-label">Work</div>
+              <div class="int-field-row">
+                <button class="int-adj" onclick="adjInt('work',-5)">−</button>
+                <div><div class="int-val" id="int-work-val">30</div><div class="int-phase-label">sec</div></div>
+                <button class="int-adj" onclick="adjInt('work',5)">+</button>
+              </div>
+            </div>
+            <div class="int-field">
+              <div class="int-field-label">Rest</div>
+              <div class="int-field-row">
+                <button class="int-adj" onclick="adjInt('rest',-5)">−</button>
+                <div><div class="int-val" id="int-rest-val">10</div><div class="int-phase-label">sec</div></div>
+                <button class="int-adj" onclick="adjInt('rest',5)">+</button>
+              </div>
+            </div>
+            <div class="int-field">
+              <div class="int-field-label">Rounds</div>
+              <div class="int-field-row">
+                <button class="int-adj" onclick="adjInt('rounds',-1)">−</button>
+                <div><div class="int-val" id="int-rounds-val">3</div><div class="int-phase-label">sets</div></div>
+                <button class="int-adj" onclick="adjInt('rounds',1)">+</button>
+              </div>
+            </div>
+          </div>
+          <div class="int-round-row" id="int-round-pips"></div>
+          <div class="int-display">
+            <div class="int-time" id="int-time-display">00:30</div>
+            <div class="int-status idle" id="int-status">Ready</div>
+          </div>
+          <div class="int-progress"><div class="int-progress-fill" id="int-progress-fill" style="width:0%;background:var(--green);"></div></div>
+          <div class="int-btn-row">
+            <button class="int-btn go" id="int-go-btn" onclick="intToggle()">▶ Start</button>
+            <button class="int-btn reset-btn" onclick="intReset()">Reset</button>
+          </div>
+        </div>
+      </div>
       <button class="link-btn" onclick="showMvmtSetup()">Change start date</button>
     </div>
     <div id="mvmt-week" style="display:none;">
       <div class="week-grid" id="wgrid"></div>
+      <div id="music-wrap"></div>
+      <div class="interval-card">
+        <div class="interval-header" onclick="toggleIntervalCard()">
+          <span class="interval-title">⏱ Interval / circuit timer</span>
+          <span id="int-toggle-label" style="font-size:11px;color:var(--text3);">Tap to open</span>
+        </div>
+        <div class="interval-body" id="interval-body">
+          <div class="int-config">
+            <div class="int-field">
+              <div class="int-field-label">Work</div>
+              <div class="int-field-row">
+                <button class="int-adj" onclick="adjInt('work',-5)">−</button>
+                <div><div class="int-val" id="int-work-val">30</div><div class="int-phase-label">sec</div></div>
+                <button class="int-adj" onclick="adjInt('work',5)">+</button>
+              </div>
+            </div>
+            <div class="int-field">
+              <div class="int-field-label">Rest</div>
+              <div class="int-field-row">
+                <button class="int-adj" onclick="adjInt('rest',-5)">−</button>
+                <div><div class="int-val" id="int-rest-val">10</div><div class="int-phase-label">sec</div></div>
+                <button class="int-adj" onclick="adjInt('rest',5)">+</button>
+              </div>
+            </div>
+            <div class="int-field">
+              <div class="int-field-label">Rounds</div>
+              <div class="int-field-row">
+                <button class="int-adj" onclick="adjInt('rounds',-1)">−</button>
+                <div><div class="int-val" id="int-rounds-val">3</div><div class="int-phase-label">sets</div></div>
+                <button class="int-adj" onclick="adjInt('rounds',1)">+</button>
+              </div>
+            </div>
+          </div>
+          <div class="int-round-row" id="int-round-pips"></div>
+          <div class="int-display">
+            <div class="int-time" id="int-time-display">00:30</div>
+            <div class="int-status idle" id="int-status">Ready</div>
+          </div>
+          <div class="int-progress"><div class="int-progress-fill" id="int-progress-fill" style="width:0%;background:var(--green);"></div></div>
+          <div class="int-btn-row">
+            <button class="int-btn go" id="int-go-btn" onclick="intToggle()">▶ Start</button>
+            <button class="int-btn reset-btn" onclick="intReset()">Reset</button>
+          </div>
+        </div>
+      </div>
       <button class="link-btn" onclick="showMvmtSetup()">Change start date</button>
     </div>
   </div>
@@ -480,6 +643,19 @@ svg.ring-svg{display:block;margin:0 auto;}
       <div class="cb" data-hid="morning-water" onclick="toggleHabit('morning-water',this)"></div>
       <div style="flex:1;"><div class="item-label" id="hlbl-morning-water">16 oz water before coffee</div><div class="item-sub">You wake up dehydrated. Rehydrate first — coffee before water spikes cortisol on an empty, dry system.</div></div>
       <span class="ph-badge badge-water" style="font-size:10px;margin-top:2px;">First</span>
+    </div>
+  </div>
+
+  <div class="rating-card">
+    <div class="rating-row">
+      <div class="rating-label">Energy level today?</div>
+      <div class="rating-emojis" id="mood-emojis">
+        <div class="rating-emoji" data-val="1" onclick="setRating('mood',1)">😴</div>
+        <div class="rating-emoji" data-val="2" onclick="setRating('mood',2)">😔</div>
+        <div class="rating-emoji" data-val="3" onclick="setRating('mood',3)">😐</div>
+        <div class="rating-emoji" data-val="4" onclick="setRating('mood',4)">🙂</div>
+        <div class="rating-emoji" data-val="5" onclick="setRating('mood',5)">⚡</div>
+      </div>
     </div>
   </div>
 
@@ -565,6 +741,20 @@ svg.ring-svg{display:block;margin:0 auto;}
 
   <div class="card">
     <div class="card-row">
+      <div class="cb" data-hid="eye-2020" onclick="toggleHabit('eye-2020',this)"></div>
+      <div style="flex:1;"><div class="item-label" id="hlbl-eye-2020">20-20-20 eye break</div><div class="item-sub">Every 20 min look 20 feet away for 20 seconds. Reduces eye strain that feeds headaches and jaw tension. Set an hourly reminder on your phone.</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-row">
+      <div class="cb" data-hid="caffeine" onclick="toggleHabit('caffeine',this)"></div>
+      <div style="flex:1;"><div class="item-label" id="hlbl-caffeine">No caffeine after 2pm ✓</div><div class="item-sub">Caffeine has a 5–6 hour half-life. Afternoon coffee at 3pm still has half its effect at 8–9pm — disrupting sleep architecture and directly worsening grinding.</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-row">
       <div class="cb" data-hid="posture-a2" onclick="toggleHabit('posture-a2',this)"></div>
       <div style="flex:1;"><div class="item-label" id="hlbl-posture-a2">Afternoon posture check</div><div class="item-sub">Your body has been slumping for hours by now</div></div>
       <span class="ph-badge badge-posture" style="font-size:10px;margin-top:2px;">10 sec</span>
@@ -626,6 +816,35 @@ svg.ring-svg{display:block;margin:0 auto;}
   </div>
   <div style="background:var(--bg2);border:1px solid var(--border2);border-radius:var(--radius-sm);padding:10px 14px;margin:-4px 0 10px;font-size:12px;color:var(--text2);line-height:1.6;">
     <strong style="color:var(--text);">Macro balance per meal:</strong> Every small meal should have a protein source + a fiber/complex carb. Keep fats distributed across the day. Avoid eating large amounts of any single macro at once — that's what causes energy spikes and crashes.
+  </div>
+
+  <!-- STEPS -->
+  <div class="slbl">👟 Daily steps</div>
+  <div class="steps-card">
+    <div class="steps-top">
+      <div>
+        <div class="steps-title">Steps today</div>
+        <div class="steps-goal-lbl" id="steps-goal-lbl">Goal: 10,000 steps</div>
+      </div>
+      <span class="ph-badge" style="background:var(--sky-dim);color:var(--sky);border:1px solid rgba(56,189,248,.2);font-size:10px;" id="steps-badge">0%</span>
+    </div>
+    <div class="steps-progress"><div class="steps-fill" id="steps-fill" style="width:0%;"></div></div>
+    <div class="steps-count-row">
+      <div class="steps-adj-col">
+        <button class="steps-adj-btn" onclick="adjSteps(-1000)">−1k</button>
+        <button class="steps-adj-btn" onclick="adjSteps(-100)">−100</button>
+      </div>
+      <div style="text-align:center;">
+        <div class="steps-num" id="steps-num">0</div>
+        <div style="font-size:11px;color:var(--text3);">steps</div>
+      </div>
+      <div class="steps-adj-col">
+        <button class="steps-adj-btn big" onclick="adjSteps(1000)">+1k</button>
+        <button class="steps-adj-btn" onclick="adjSteps(100)">+100</button>
+      </div>
+    </div>
+    <button class="steps-pedo-btn idle" id="steps-pedo-btn" onclick="togglePedometer()">📱 Use phone as pedometer (while app is open)</button>
+    <div style="font-size:11px;color:var(--text3);margin-top:8px;line-height:1.5;">Apple Health step data can't be read by web apps — check your Health app directly for full accuracy. The pedometer above counts steps while this app is open and in the foreground.</div>
   </div>
 
   <!-- WATER TRACKER -->
@@ -718,6 +937,25 @@ svg.ring-svg{display:block;margin:0 auto;}
     <div class="card-row">
       <div class="cb" data-hid="night-position" onclick="toggleHabit('night-position',this)"></div>
       <div style="flex:1;"><div class="item-label" id="hlbl-night-position">Set your sleep position</div><div class="item-sub">Side: pillow between knees, painful shoulder faces up · Back: pillow under knees</div></div>
+    </div>
+    <div class="card-row" style="border-bottom:1px solid var(--border2);">
+      <div style="flex:1;padding:4px 0;">
+        <div class="item-label" style="margin-bottom:8px;">How was your sleep last night?</div>
+        <div class="rating-emojis" id="sleep-emojis">
+          <div class="rating-emoji" data-val="1" onclick="setRating('sleepQual',1)">😫</div>
+          <div class="rating-emoji" data-val="2" onclick="setRating('sleepQual',2)">😕</div>
+          <div class="rating-emoji" data-val="3" onclick="setRating('sleepQual',3)">😐</div>
+          <div class="rating-emoji" data-val="4" onclick="setRating('sleepQual',4)">😊</div>
+          <div class="rating-emoji" data-val="5" onclick="setRating('sleepQual',5)">✨</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-row">
+      <div class="cb" data-hid="gratitude-done" onclick="toggleHabit('gratitude-done',this)"></div>
+      <div style="flex:1;"><div class="item-label" id="hlbl-gratitude-done">Write 3 things you're grateful for</div><div class="item-sub">Reduces cortisol and rumination before sleep. Takes 60 seconds.</div></div>
+    </div>
+    <div class="gratitude-area">
+      <textarea class="gratitude-ta" id="gratitude-ta" placeholder="1. &#10;2. &#10;3. " oninput="saveGratitude()"></textarea>
     </div>
     <div class="card-row">
       <div class="cb" data-hid="night-jaw-check" onclick="toggleHabit('night-jaw-check',this)"></div>
@@ -939,6 +1177,8 @@ svg.ring-svg{display:block;margin:0 auto;}
       <div class="metric-grid">
         <div class="metric-card"><div class="metric-label">Avg water</div><div class="metric-val" id="metric-water">—</div><div class="metric-unit">cups / day (7d)</div></div>
         <div class="metric-card"><div class="metric-label">Avg meals</div><div class="metric-val" id="metric-meals">—</div><div class="metric-unit">of 6 per day (7d)</div></div>
+        <div class="metric-card"><div class="metric-label">Avg mood/energy</div><div class="metric-val" id="metric-mood">—</div><div class="metric-unit">avg this week</div></div>
+        <div class="metric-card"><div class="metric-label">Avg sleep quality</div><div class="metric-val" id="metric-sleep">—</div><div class="metric-unit">avg this week</div></div>
         <div class="metric-card"><div class="metric-label">Habit rate</div><div class="metric-val" id="metric-habits">—</div><div class="metric-unit">avg completion (7d)</div></div>
         <div class="metric-card"><div class="metric-label">Move rate</div><div class="metric-val" id="metric-move">—</div><div class="metric-unit">avg completion (7d)</div></div>
       </div>
@@ -1002,7 +1242,7 @@ const MTHS=['January','February','March','April','May','June','July','August','S
 const PNAMES=['Foundation','Build','Strengthen','Peak & Integrate'];
 const TOTAL=20;
 const WATER_GOAL=12;
-const HABIT_IDS=['medication','cats-am','make-bed','tidy-am','sunlight','morning-water','skincare-am','supps-am','jaw-m','posture-m','jaw-a','posture-a1','posture-a2','reading','dishes','jaw-n','cats-pm','skincare-pm','floss','night-screens','night-jaw-massage','supps-pm','night-breathe','night-position','night-jaw-check'];
+const HABIT_IDS=['medication','cats-am','make-bed','tidy-am','sunlight','morning-water','skincare-am','supps-am','jaw-m','posture-m','jaw-a','posture-a1','eye-2020','posture-a2','caffeine','reading','dishes','jaw-n','cats-pm','skincare-pm','floss','night-screens','night-jaw-massage','supps-pm','night-breathe','night-position','gratitude-done','night-jaw-check'];
 const WEEKLY_IDS=['wk-laundry','wk-grooming','wk-sheets','wk-groceries','wk-planning','wk-social','wk-book','wk-olivia'];
 const WEEKLY_LABELS={
   'wk-laundry':{label:'Laundry',sub:'Wash, dry, put away — not just wash.',icon:'👕'},
@@ -1022,7 +1262,7 @@ const MONTHLY_LABELS={
 };
 
 // ── STATE ──
-let SD=null,VD=new Date(),movDD={completed:{}},habDD={completed:{},water:0,meals:0},weekHabDD={completed:{}},monHabDD={completed:{}};
+let SD=null,VD=new Date(),movDD={completed:{}},habDD={completed:{},water:0,meals:0,steps:0,mood:0,sleepQual:0,gratitude:''},weekHabDD={completed:{}},monHabDD={completed:{}};
 let mvmtView='today',mSaveTimer=null,hSaveTimer=null,wkSaveTimer=null,guideIdx=0;
 VD.setHours(0,0,0,0);
 
@@ -1100,6 +1340,8 @@ let masterInterval=null;
 function startMaster(){
   if(masterInterval)return;
   masterInterval=setInterval(()=>{
+    // Tick interval timer
+    tickInterval();
     // Tick jaw timers
     ['m','a','n'].forEach(slot=>{
       const st=jawState[slot];
@@ -1234,6 +1476,9 @@ function renderHabits(){
   renderTimers();
   renderWater();
   renderMeals();
+  renderSteps();
+  renderRatings();
+  renderGratitude();
   renderWeeklyHabits();
   renderMonthlyHabits();
   updateHabCount();
@@ -1485,7 +1730,7 @@ function updateMProg(sc){
   document.getElementById('plabel').textContent=`${done} of ${tot} complete`;
 }
 
-function initMovement(){
+function initMovement(){renderInterval();
   VD=new Date();VD.setHours(0,0,0,0);
   const saved=localStorage.getItem('plan_start_date');
   if(saved){SD=new Date(saved);SD.setHours(0,0,0,0);showMvmtMain();}else showMvmtSetup();
@@ -1520,10 +1765,12 @@ function renderMovement(){
   const awrap=document.getElementById('awrap');
   if(!sc.day){
     document.getElementById('plbl').textContent='Rest day';
+    renderMusic(0);
     awrap.innerHTML=`<div class="rest-card anim"><div style="font-size:36px;margin-bottom:12px;">🌙</div><div class="rest-title">Active Recovery</div><div class="rest-sub">A 20–30 min walk is all you need.<br/>Adaptation happens during rest, not training.</div></div>`;
   }else{
     document.getElementById('plbl').textContent=sc.day.l;
     awrap.innerHTML=`<div class="anim">`+sc.day.groups.map(g=>renderMGrp(g,ph)).join('')+`</div>`;bindMCbs(awrap);
+    renderMusic(dn);
   }
   updateMProg(sc);if(mvmtView==='week')renderWeek();
 }
@@ -1674,6 +1921,13 @@ function renderStreakAndMetrics(){
   setMet('metric-meals',dataPoints>0?(totMeals/n).toFixed(1):0,'');
   setMet('metric-habits',dataPoints>0?Math.round(totHabPct/n):0,'%');
   setMet('metric-move',dataPoints>0?Math.round(totMovPct/n):0,'%');
+  // Mood + sleep trend
+  let totMood=0,totSleep=0,moodDays=0,sleepDays=0;
+  last7.forEach(d=>{const sv=localStorage.getItem('habday_'+dk(d));if(sv){try{const dd=JSON.parse(sv);if(dd.mood>0){totMood+=dd.mood;moodDays++;}if(dd.sleepQual>0){totSleep+=dd.sleepQual;sleepDays++;}}catch(e){}}});
+  const mEl=document.getElementById('metric-mood');const slEl=document.getElementById('metric-sleep');
+  const moodEmojis=['','😴','😔','😐','🙂','⚡'];const sleepEmojis=['','😫','😕','😐','😊','✨'];
+  if(mEl)mEl.textContent=moodDays>0?moodEmojis[Math.round(totMood/moodDays)]+'  '+(totMood/moodDays).toFixed(1):'—';
+  if(slEl)slEl.textContent=sleepDays>0?sleepEmojis[Math.round(totSleep/sleepDays)]+'  '+(totSleep/sleepDays).toFixed(1):'—';
 }
 
 function render14DayBars(){
@@ -1762,6 +2016,209 @@ function renderUpcoming(){
       <div class="upcoming-body">${match.body}</div>
     </div>`;
   }
+}
+
+
+// ══════════ MUSIC QUICKLAUNCH ══════════
+const MUSIC={
+  1:{label:'Yoga + Breathwork',
+    spotify:[
+      {l:'Yoga Flow',u:'https://open.spotify.com/search/yoga%20flow%20meditation'},
+      {l:'Morning Calm',u:'https://open.spotify.com/search/morning%20yoga%20calm'},
+    ],
+    youtube:[
+      {l:'Yoga with Adriene',u:'https://www.youtube.com/@yogawithadriene'},
+      {l:'Breathe and Flow',u:'https://www.youtube.com/@BreatheandFlow'},
+      {l:'Pranayama guide',u:'https://www.youtube.com/results?search_query=pranayama+beginner+ujjayi'},
+    ]},
+  2:{label:'Gym: Posture + Cardio',
+    spotify:[
+      {l:'Workout Energy',u:'https://open.spotify.com/search/workout%20energy%20mix'},
+      {l:'Zone 2 Lo-Fi',u:'https://open.spotify.com/search/zone%202%20lo-fi%20cardio'},
+    ],
+    youtube:[
+      {l:'Tom Merrick — Posture',u:'https://www.youtube.com/@BodyweightWarrior'},
+      {l:'Swimmer posture fix',u:'https://www.youtube.com/results?search_query=swimmer+posture+correction+exercises'},
+    ]},
+  3:{label:'Yin Yoga',
+    spotify:[
+      {l:'Yin Yoga Ambient',u:'https://open.spotify.com/search/yin%20yoga%20ambient%20music'},
+      {l:'Deep Relaxation',u:'https://open.spotify.com/search/deep%20relaxation%20meditation'},
+    ],
+    youtube:[
+      {l:'Adriene — Yin',u:'https://www.youtube.com/results?search_query=yoga+with+adriene+yin+yoga'},
+      {l:'Breathe & Flow — Yin',u:'https://www.youtube.com/results?search_query=breathe+and+flow+yin+yoga'},
+    ]},
+  4:{label:'Gym: Cardio Focus',
+    spotify:[
+      {l:'Running Mix',u:'https://open.spotify.com/search/running%20workout%20mix'},
+      {l:'Zone 2 Focus',u:'https://open.spotify.com/search/zone%202%20steady%20state%20cardio'},
+    ],
+    youtube:[
+      {l:'Patrick McKeown',u:'https://www.youtube.com/@OxygenAdvantage'},
+      {l:'BOLT score tutorial',u:'https://www.youtube.com/results?search_query=BOLT+score+oxygen+advantage+patrick+mckeown'},
+    ]},
+  5:{label:'Yoga + Core',
+    spotify:[
+      {l:'Athletic Flow',u:'https://open.spotify.com/search/athletic%20yoga%20flow%20playlist'},
+      {l:'Core Power Mix',u:'https://open.spotify.com/search/power%20yoga%20workout'},
+    ],
+    youtube:[
+      {l:'Breathe & Flow — Athletic',u:'https://www.youtube.com/@BreatheandFlow'},
+      {l:'Tom Merrick — Core',u:'https://www.youtube.com/results?search_query=tom+merrick+core+strength'},
+    ]},
+};
+function renderMusic(dn){
+  const wrap=document.getElementById('music-wrap');
+  if(!wrap)return;
+  const m=MUSIC[dn];
+  if(!m){wrap.innerHTML='';return;}
+  let html=`<div class="music-section"><div class="music-header"><span class="music-title">🎵 Music & resources</span><button class="music-toggle" onclick="toggleMusicBody()">Show</button></div><div class="music-body" id="music-body" style="display:none;">`;
+  html+=`<div><div class="music-source-label">Spotify</div><div class="music-row">`;
+  m.spotify.forEach(s=>{html+=`<a class="music-btn spsearch" href="${s.u}" target="_blank">♪ ${s.l}</a>`;});
+  html+=`</div></div><div style="margin-top:6px;"><div class="music-source-label">YouTube</div><div class="music-row">`;
+  m.youtube.forEach(y=>{html+=`<a class="music-btn ytsearch" href="${y.u}" target="_blank">▶ ${y.l}</a>`;});
+  html+=`</div></div></div></div>`;
+  wrap.innerHTML=html;
+}
+function toggleMusicBody(){
+  const b=document.getElementById('music-body');
+  const btn=document.querySelector('.music-toggle');
+  if(!b)return;
+  const open=b.style.display==='none';
+  b.style.display=open?'flex':'none';
+  b.style.flexDirection='column';
+  if(btn)btn.textContent=open?'Hide':'Show';
+}
+
+// ══════════ INTERVAL TIMER ══════════
+let intState={work:30,rest:10,rounds:3,currentRound:0,phase:'idle',elapsed:0,running:false};
+function toggleIntervalCard(){
+  const b=document.getElementById('interval-body');
+  const l=document.getElementById('int-toggle-label');
+  if(!b)return;
+  const open=b.classList.toggle('open');
+  if(l)l.textContent=open?'Tap to close':'Tap to open';
+  if(open)renderInterval();
+}
+function adjInt(field,delta){
+  const mins={'work':5,'rest':5,'rounds':1};
+  const lo={'work':5,'rest':0,'rounds':1};
+  const hi={'work':300,'rest':120,'rounds':20};
+  intState[field]=Math.max(lo[field],Math.min(hi[field],intState[field]+delta));
+  if(intState.phase==='idle'){intState.elapsed=0;}
+  renderInterval();
+}
+function intToggle(){
+  if(intState.phase==='idle'){intState.currentRound=1;intState.phase='work';intState.elapsed=0;intState.running=true;startMaster();}
+  else{intState.running=!intState.running;if(intState.running)startMaster();}
+  renderInterval();
+}
+function intReset(){intState={...intState,currentRound:0,phase:'idle',elapsed:0,running:false};renderInterval();}
+function tickInterval(){
+  if(!intState.running||intState.phase==='idle')return;
+  intState.elapsed++;
+  const dur=intState.phase==='work'?intState.work:intState.rest;
+  if(intState.elapsed>=dur){
+    playChime(false);
+    if(intState.phase==='work'){
+      if(intState.currentRound>=intState.rounds){intState.phase='idle';intState.running=false;intState.currentRound=0;playChime(true);}
+      else{intState.phase='rest';intState.elapsed=0;}
+    } else {
+      intState.currentRound++;intState.phase='work';intState.elapsed=0;
+    }
+  }
+  renderInterval();
+}
+function renderInterval(){
+  const s=intState;
+  const durVal=document.getElementById('int-work-val');const durRest=document.getElementById('int-rest-val');const durRounds=document.getElementById('int-rounds-val');
+  if(durVal)durVal.textContent=s.work;if(durRest)durRest.textContent=s.rest;if(durRounds)durRounds.textContent=s.rounds;
+  const dur=s.phase==='work'?s.work:s.phase==='rest'?s.rest:s.work;
+  const remaining=Math.max(0,dur-s.elapsed);
+  const mm=Math.floor(remaining/60).toString().padStart(2,'0');
+  const ss=(remaining%60).toString().padStart(2,'0');
+  const pct=s.phase==='idle'?0:Math.round((s.elapsed/dur)*100);
+  const fillColor=s.phase==='work'?'var(--green)':s.phase==='rest'?'var(--amber)':'var(--green)';
+  const td=document.getElementById('int-time-display');const st=document.getElementById('int-status');
+  const pf=document.getElementById('int-progress-fill');const gb=document.getElementById('int-go-btn');
+  const pips=document.getElementById('int-round-pips');
+  if(td)td.textContent=s.phase==='idle'?`00:${s.work.toString().padStart(2,'0')}`:mm+':'+ss;
+  if(st){st.textContent=s.phase==='idle'?'Ready':s.phase==='work'?`Work — Round ${s.currentRound} of ${s.rounds}`:`Rest — Round ${s.currentRound} of ${s.rounds} complete`;st.className='int-status '+s.phase;}
+  if(pf){pf.style.width=pct+'%';pf.style.background=fillColor;}
+  if(gb)gb.textContent=s.phase==='idle'?'▶ Start':s.running?'⏸ Pause':'▶ Resume';
+  if(pips){let h='';for(let r=1;r<=s.rounds;r++){const cls=r<s.currentRound?'done':r===s.currentRound&&s.phase!=='idle'?'active':'';h+=`<div class="int-round-pip ${cls}"></div>`;}pips.innerHTML=h;}
+}
+
+// ══════════ STEPS ══════════
+let pedometerActive=false;let pedometerPermission=false;
+let lastAccelMag=0;let stepThreshold=1.2;let lastStepTime=0;
+function adjSteps(delta){
+  if(!habDD.steps)habDD.steps=0;
+  habDD.steps=Math.max(0,habDD.steps+delta);
+  renderSteps();triggerHabSave();
+}
+function renderSteps(){
+  const s=habDD.steps||0;const goal=10000;
+  const pct=Math.min(100,Math.round((s/goal)*100));
+  const numEl=document.getElementById('steps-num');const fillEl=document.getElementById('steps-fill');
+  const badgeEl=document.getElementById('steps-badge');const goalEl=document.getElementById('steps-goal-lbl');
+  if(numEl)numEl.textContent=s.toLocaleString();
+  if(fillEl)fillEl.style.width=pct+'%';
+  if(badgeEl){badgeEl.textContent=pct+'%';badgeEl.style.color=pct>=100?'var(--green)':pct>=50?'var(--sky)':'var(--text3)';}
+  if(goalEl)goalEl.textContent=`Goal: ${goal.toLocaleString()} steps · ${s>=goal?'Goal hit ✓':''+Math.max(0,goal-s).toLocaleString()+' to go'}`;
+  const btn=document.getElementById('steps-pedo-btn');
+  if(btn)btn.textContent=pedometerActive?'⏹ Stop pedometer':'📱 Use phone as pedometer (while app is open)';
+}
+function togglePedometer(){
+  if(pedometerActive){pedometerActive=false;window.removeEventListener('devicemotion',onDeviceMotion);renderSteps();return;}
+  if(typeof DeviceMotionEvent!=='undefined'&&typeof DeviceMotionEvent.requestPermission==='function'){
+    DeviceMotionEvent.requestPermission().then(r=>{if(r==='granted'){pedometerActive=true;window.addEventListener('devicemotion',onDeviceMotion);renderSteps();}else{alert('Motion permission denied. Use the +/- buttons to log steps manually.');}}).catch(()=>alert('Motion not available. Use +/- to log steps manually.'));
+  } else if(window.DeviceMotionEvent){
+    pedometerActive=true;window.addEventListener('devicemotion',onDeviceMotion);renderSteps();
+  } else {
+    alert('DeviceMotion not available on this device. Use +/- to log steps manually.');
+  }
+}
+function onDeviceMotion(e){
+  const a=e.accelerationIncludingGravity;if(!a)return;
+  const mag=Math.sqrt((a.x||0)**2+(a.y||0)**2+(a.z||0)**2);
+  const now=Date.now();
+  if(mag>stepThreshold*10&&lastAccelMag<=stepThreshold*10&&(now-lastStepTime)>220){
+    habDD.steps=(habDD.steps||0)+1;lastStepTime=now;
+    const numEl=document.getElementById('steps-num');if(numEl)numEl.textContent=habDD.steps.toLocaleString();
+    triggerHabSave();
+  }
+  lastAccelMag=mag;
+}
+
+// ══════════ MOOD / SLEEP RATING ══════════
+function setRating(field,val){
+  habDD[field]=val;
+  const id=field==='mood'?'mood-emojis':'sleep-emojis';
+  document.querySelectorAll('#'+id+' .rating-emoji').forEach(el=>{
+    el.classList.toggle('sel',parseInt(el.dataset.val)===val);
+  });
+  triggerHabSave();
+}
+function renderRatings(){
+  ['mood','sleepQual'].forEach(field=>{
+    const val=habDD[field]||0;
+    const id=field==='mood'?'mood-emojis':'sleep-emojis';
+    document.querySelectorAll('#'+id+' .rating-emoji').forEach(el=>{
+      el.classList.toggle('sel',parseInt(el.dataset.val)===val);
+    });
+  });
+}
+function saveGratitude(){
+  const ta=document.getElementById('gratitude-ta');
+  if(!ta)return;
+  habDD.gratitude=ta.value;
+  triggerHabSave();
+}
+function renderGratitude(){
+  const ta=document.getElementById('gratitude-ta');
+  if(ta)ta.value=habDD.gratitude||'';
 }
 
 // BOOT
