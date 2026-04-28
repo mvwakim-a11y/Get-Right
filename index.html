@@ -253,7 +253,10 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;fon
 .meal-progress .water-pip.filled{background:linear-gradient(90deg,var(--amber),#f97316);}
 
 /* ── GUIDE CAROUSEL ── */
-.guide-carousel-header{display:flex;align-items:center;justify-content:space-between;padding:10px 0 8px;position:sticky;top:0;background:var(--bg);z-index:10;border-bottom:1px solid var(--border2);margin-bottom:12px;}
+.guide-carousel-header{display:flex;align-items:center;justify-content:space-between;padding:10px 0 8px;position:sticky;top:0;background:var(--bg);z-index:10;border-bottom:1px solid var(--border2);margin-bottom:4px;}
+.g-select-wrap{width:100%;margin:0 0 10px;}
+.g-select{width:100%;padding:9px 14px;font-size:13px;font-family:'DM Sans',sans-serif;font-weight:500;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--bg2);color:var(--text);appearance:none;-webkit-appearance:none;cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%235f5a80' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:34px;}
+.g-select:focus{outline:none;border-color:rgba(99,102,241,.5);}
 .g-nav-btn{width:36px;height:36px;border-radius:50%;border:1px solid var(--border);background:var(--bg2);color:var(--text2);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;transition:all .15s;}
 .g-nav-btn:disabled{opacity:.25;cursor:not-allowed;}
 .g-nav-btn:not(:disabled):hover{background:var(--bg3);color:var(--text);}
@@ -702,6 +705,18 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;fon
     </div>
     <button class="g-nav-btn" id="g-next" onclick="goGuide(1)">→</button>
   </div>
+  <div class="g-select-wrap">
+    <select class="g-select" id="g-select" onchange="setGuide(parseInt(this.value))">
+      <option value="0">🪑 Sitting posture</option>
+      <option value="1">🧍 Standing posture</option>
+      <option value="2">🛋️ Couch &amp; bed working</option>
+      <option value="3">🛏️ Sleep positions</option>
+      <option value="4">🦷 Jaw resting state</option>
+      <option value="5">🍬 Oral fixation</option>
+      <option value="6">💧 Hydration in Denver</option>
+      <option value="7">🔬 Stopping the grind</option>
+    </select>
+  </div>
   <div class="guide-dot-row" id="guide-dots"></div>
 
   <!-- PANEL 0: SITTING -->
@@ -923,10 +938,12 @@ function renderGuide(){
   const prevBtn=document.getElementById('g-prev');
   const nextBtn=document.getElementById('g-next');
   const dotsEl=document.getElementById('guide-dots');
+  const selEl=document.getElementById('g-select');
   if(titleEl)titleEl.textContent=GUIDE_PANELS[guideIdx].title;
   if(countEl)countEl.textContent=(guideIdx+1)+' of '+GUIDE_PANELS.length;
   if(prevBtn)prevBtn.disabled=guideIdx===0;
   if(nextBtn)nextBtn.disabled=guideIdx===GUIDE_PANELS.length-1;
+  if(selEl)selEl.value=guideIdx;
   if(dotsEl){
     dotsEl.innerHTML=GUIDE_PANELS.map((_,i)=>`<div class="g-dot${i===guideIdx?' on':''}" onclick="setGuide(${i})"></div>`).join('');
   }
@@ -1297,7 +1314,7 @@ function renderMovement(){
     document.getElementById('pips').innerHTML='';document.getElementById('bwrap').innerHTML='';
     document.getElementById('awrap').innerHTML=`<p style="font-size:15px;color:var(--text2);padding:1.5rem 0;">${week<1?'Navigate forward to your start date.':'5 months complete. The work is now who you are.'}</p>`;
     document.getElementById('pfill').style.width='0%';document.getElementById('plabel').textContent='';
-    if(mvmtView==='week')renderWeek(ph,dn);return;
+    if(mvmtView==='week'){const td=new Date();td.setHours(0,0,0,0);renderWeek(gph(wn(td)),dic(td));}return;
   }
   const pb=document.getElementById('pbadge');pb.textContent='Phase '+ph;pb.className='ph-badge ph-'+ph;
   document.getElementById('wlabel').textContent=`Week ${Math.min(week,TOTAL)} of ${TOTAL}`;
@@ -1316,7 +1333,7 @@ function renderMovement(){
     document.getElementById('plbl').textContent=sc.day.l;
     awrap.innerHTML=`<div class="anim">`+sc.day.groups.map(g=>renderMGrp(g,ph)).join('')+`</div>`;bindMCbs(awrap);
   }
-  updateMProg(sc);if(mvmtView==='week')renderWeek(ph,dn);
+  updateMProg(sc);if(mvmtView==='week'){const td=new Date();td.setHours(0,0,0,0);renderWeek(gph(wn(td)),dic(td));}
 }
 
 function renderWeek(ph,todayDn){
@@ -1336,7 +1353,7 @@ function renderWeek(ph,todayDn){
   }).join('');
 }
 
-function switchMvmt(v,btn){mvmtView=v;document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));btn.classList.add('on');document.getElementById('mvmt-today').style.display=v==='today'?'block':'none';document.getElementById('mvmt-week').style.display=v==='week'?'block':'none';if(v==='week'){const w=wn(VD);renderWeek(gph(w),dic(VD));}}
+function switchMvmt(v,btn){mvmtView=v;document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));btn.classList.add('on');document.getElementById('mvmt-today').style.display=v==='today'?'block':'none';document.getElementById('mvmt-week').style.display=v==='week'?'block':'none';if(v==='week'){const td=new Date();td.setHours(0,0,0,0);const w=wn(td);renderWeek(gph(w),dic(td));}}
 function changeDay(d){const x=new Date(VD);x.setDate(x.getDate()+d);VD=x;renderMovement();}
 function goToday(){VD=new Date();VD.setHours(0,0,0,0);renderMovement();}
 
