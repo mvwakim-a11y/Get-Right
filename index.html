@@ -249,6 +249,9 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;fon
 
 @keyframes fadeUp{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
 
+/* ── MEAL PIPS ── */
+.meal-progress .water-pip.filled{background:linear-gradient(90deg,var(--amber),#f97316);}
+
 /* ── GUIDE CAROUSEL ── */
 .guide-carousel-header{display:flex;align-items:center;justify-content:space-between;padding:10px 0 8px;position:sticky;top:0;background:var(--bg);z-index:10;border-bottom:1px solid var(--border2);margin-bottom:12px;}
 .g-nav-btn{width:36px;height:36px;border-radius:50%;border:1px solid var(--border);background:var(--bg2);color:var(--text2);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;transition:all .15s;}
@@ -377,6 +380,27 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;fon
 
   <!-- MORNING -->
   <div class="slbl">🌅 Morning</div>
+
+  <div class="card">
+    <div class="card-row">
+      <div class="cb" data-hid="medication" onclick="toggleHabit('medication',this)"></div>
+      <div style="flex:1;"><div class="item-label" id="hlbl-medication">Take medication</div><div class="item-sub">First thing — before coffee, before checking your phone. Put it next to your water glass tonight so it's the first thing you see.</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-row">
+      <div class="cb" data-hid="cats-am" onclick="toggleHabit('cats-am',this)"></div>
+      <div style="flex:1;"><div class="item-label" id="hlbl-cats-am">Feed the cats</div><div class="item-sub">Morning feeding. They'll remind you if you forget, but build it into the routine anyway.</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-row">
+      <div class="cb" data-hid="tidy-am" onclick="toggleHabit('tidy-am',this)"></div>
+      <div style="flex:1;"><div class="item-label" id="hlbl-tidy-am">10–15 min morning tidy</div><div class="item-sub">Before you sit down to work — surfaces cleared, things put away, cushions straightened. Your environment directly affects your stress levels and focus. Do this before the day swallows you.</div></div>
+    </div>
+  </div>
 
   <div class="card">
     <div class="card-row">
@@ -515,6 +539,36 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;fon
     </div>
   </div>
 
+  <!-- FOOD TRACKER -->
+  <div class="slbl">🍽️ Nutrition</div>
+  <div class="card">
+    <div class="water-tracker">
+      <div class="water-top">
+        <div>
+          <div class="water-title">Daily meals logged</div>
+          <div class="water-goal">Goal: 6 small meals · ~2.5 hrs apart · macro-balanced</div>
+        </div>
+        <span class="ph-badge" style="background:rgba(251,191,36,.12);color:var(--amber);border:1px solid rgba(251,191,36,.2);font-size:10px;">6x/day</span>
+      </div>
+      <div class="water-progress" id="meal-progress" style=""></div>
+      <div class="water-count-row">
+        <button class="water-btn minus" onclick="adjustMeals(-1)">−</button>
+        <div>
+          <div class="water-count" id="meal-count" style="color:var(--amber);">0</div>
+          <div class="water-unit">of 6 meals</div>
+        </div>
+        <button class="water-btn plus" onclick="adjustMeals(1)">+</button>
+      </div>
+      <div style="background:var(--amber-dim);border-radius:var(--radius-sm);padding:10px 12px;margin-top:4px;">
+        <div style="font-size:11px;font-weight:600;color:var(--amber);text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px;">Macro focus</div>
+        <div class="water-note" id="meal-note" style="margin:0;padding:0;background:none;border:none;">Goal: 6 small meals spaced ~2.5 hours apart. First meal within 1 hour of waking.</div>
+      </div>
+    </div>
+  </div>
+  <div style="background:var(--bg2);border:1px solid var(--border2);border-radius:var(--radius-sm);padding:10px 14px;margin:-4px 0 10px;font-size:12px;color:var(--text2);line-height:1.6;">
+    <strong style="color:var(--text);">Macro balance per meal:</strong> Every small meal should have a protein source + a fiber/complex carb. Keep fats distributed across the day. Avoid eating large amounts of any single macro at once — that's what causes energy spikes and crashes.
+  </div>
+
   <!-- WATER TRACKER -->
   <div class="slbl">💧 Hydration</div>
   <div class="card">
@@ -549,6 +603,13 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;fon
       <span class="ph-badge badge-jaw" style="font-size:10px;margin-top:2px;">6 min</span>
     </div>
     <div class="jaw-timer-wrap" id="jaw-timer-n"></div>
+  </div>
+
+  <div class="card">
+    <div class="card-row">
+      <div class="cb" data-hid="cats-pm" onclick="toggleHabit('cats-pm',this)"></div>
+      <div style="flex:1;"><div class="item-label" id="hlbl-cats-pm">Feed the cats</div><div class="item-sub">Evening feeding. Do this before your night routine so it doesn't become a last-minute scramble.</div></div>
+    </div>
   </div>
 
   <div class="card">
@@ -612,11 +673,17 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;fon
     <div style="font-size:11px;color:var(--text3);margin-top:4px;" id="weekly-count">0 of 6 complete</div>
   </div>
 
+  <!-- MONTHLY -->
+  <div class="slbl">🗓 Monthly</div>
+  <div id="monthly-wrap">
+    <!-- rendered by JS -->
+  </div>
+
   <!-- DAILY SUMMARY -->
   <div class="hab-summary" style="margin-top:10px;">
     <div>
       <div style="font-size:14px;font-weight:500;color:var(--text);">Today's daily habits</div>
-      <div style="font-size:12px;color:var(--text3);margin-top:2px;" id="habits-count">0 of 18 complete</div>
+      <div style="font-size:12px;color:var(--text3);margin-top:2px;" id="habits-count">0 of 25 complete</div>
     </div>
     <div style="font-size:24px;font-family:'DM Serif Display',serif;color:var(--indigo-light);" id="habits-pct">0%</div>
   </div>
@@ -781,10 +848,10 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;fon
 // ── CONSTANTS ──
 const MTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
 const PNAMES=['Foundation','Build','Strengthen','Peak & Integrate'];
-const TOTAL=18;
+const TOTAL=20;
 const WATER_GOAL=12;
-const HABIT_IDS=['make-bed','sunlight','morning-water','skincare-am','supps-am','jaw-m','posture-m','jaw-a','posture-a1','posture-a2','reading','dishes','jaw-n','skincare-pm','floss','night-screens','night-jaw-massage','supps-pm','night-breathe','night-position','night-jaw-check'];
-const WEEKLY_IDS=['wk-laundry','wk-grooming','wk-sheets','wk-groceries','wk-planning','wk-social'];
+const HABIT_IDS=['medication','cats-am','make-bed','tidy-am','sunlight','morning-water','skincare-am','supps-am','jaw-m','posture-m','jaw-a','posture-a1','posture-a2','reading','dishes','jaw-n','cats-pm','skincare-pm','floss','night-screens','night-jaw-massage','supps-pm','night-breathe','night-position','night-jaw-check'];
+const WEEKLY_IDS=['wk-laundry','wk-grooming','wk-sheets','wk-groceries','wk-planning','wk-social','wk-book','wk-olivia'];
 const WEEKLY_LABELS={
   'wk-laundry':{label:'Laundry',sub:'Wash, dry, put away — not just wash.',icon:'👕'},
   'wk-grooming':{label:'Grooming',sub:'Eyebrows, body hair, any regular maintenance.',icon:'✂️'},
@@ -792,10 +859,18 @@ const WEEKLY_LABELS={
   'wk-groceries':{label:'Grocery shop',sub:'Plan meals first, then shop. Prevents last-minute bad choices.',icon:'🛒'},
   'wk-planning':{label:'Weekly planning session',sub:'20 min Sunday — review the week ahead, set 3 priorities.',icon:'📋'},
   'wk-social':{label:'Intentional connection',sub:'Call or see someone you care about. Easy to let slide in a new city.',icon:'📞'},
+  'wk-book':{label:'Book writing session',sub:'Minimum 30–60 min of uninterrupted writing. Protect this time — treat it like a meeting with yourself.',icon:'✍️'},
+  'wk-olivia':{label:'Date night or intentional Olivia time',sub:'A real date, a long walk, a night in that\'s actually present. Relationships drift without intentional time.',icon:'💕'},
+};
+const MONTHLY_IDS=['mo-rent','mo-haircut','mo-olivia-special'];
+const MONTHLY_LABELS={
+  'mo-rent':{label:'Pay rent',sub:'Due end of month — don\'t let it sneak up. Set a calendar alert if you haven\'t.',icon:'🏠',urgent:true},
+  'mo-haircut':{label:'Haircut',sub:'Every 6 weeks. Check when you last got one — if it\'s been ~6 weeks, book it now.',icon:'✂️',urgent:false},
+  'mo-olivia-special':{label:'Something special for Olivia',sub:'A gift, a surprise, an experience — something that shows you were thinking of her unprompted. Monthly minimum.',icon:'🎁',urgent:false},
 };
 
 // ── STATE ──
-let SD=null,VD=new Date(),movDD={completed:{}},habDD={completed:{},water:0},weekHabDD={completed:{}};
+let SD=null,VD=new Date(),movDD={completed:{}},habDD={completed:{},water:0,meals:0},weekHabDD={completed:{}},monHabDD={completed:{}};
 let mvmtView='today',mSaveTimer=null,hSaveTimer=null,wkSaveTimer=null,guideIdx=0;
 VD.setHours(0,0,0,0);
 
@@ -949,7 +1024,9 @@ function renderHabits(){
   });
   renderTimers();
   renderWater();
+  renderMeals();
   renderWeeklyHabits();
+  renderMonthlyHabits();
   updateHabCount();
   const done=HABIT_IDS.filter(id=>habDD.completed[id]).length;
   document.getElementById('habits-sub').textContent=`${done} of ${HABIT_IDS.length} daily + weekly habits`;
@@ -998,6 +1075,56 @@ function triggerWkSave(){
   clearTimeout(wkSaveTimer);
   const wkey=getWeekKey();
   wkSaveTimer=setTimeout(()=>{try{localStorage.setItem(wkey,JSON.stringify(weekHabDD));}catch(e){}},500);
+}
+
+// ══════════ MONTHLY HABITS ══════════
+function getMonthKey(){const d=new Date();return'monhab_'+d.getFullYear()+'_'+(d.getMonth()+1);}
+function isLastWeekOfMonth(){const d=new Date();const last=new Date(d.getFullYear(),d.getMonth()+1,0);return(last.getDate()-d.getDate())<=6;}
+function renderMonthlyHabits(){
+  const mkey=getMonthKey();
+  monHabDD={completed:{}};
+  const sv=localStorage.getItem(mkey);if(sv){try{monHabDD=JSON.parse(sv);}catch(e){}}
+  const wrap=document.getElementById('monthly-wrap');if(!wrap)return;
+  const lastWeek=isLastWeekOfMonth();
+  wrap.innerHTML=MONTHLY_IDS.map(id=>{
+    const info=MONTHLY_LABELS[id];const chk=!!monHabDD.completed[id];
+    const urgent=info.urgent&&lastWeek&&!chk;
+    return`<div class="card" style="margin-bottom:8px;${urgent?'border-color:rgba(251,113,133,.4);background:linear-gradient(135deg,rgba(251,113,133,.05),var(--bg2));':''}"><div class="card-row"><div class="cb${chk?' on':''}" data-mid="${id}"></div><div style="flex:1;"><div class="item-label${chk?' done':''}" id="mlbl-${id}">${info.icon} ${info.label}${urgent?' <span style=\"font-size:10px;color:var(--coral);font-weight:600;\">DUE SOON</span>':''}</div><div class="item-sub">${info.sub}</div></div><span class="ph-badge badge-monthly" style="font-size:10px;margin-top:2px;">Monthly</span></div></div>`;
+  }).join('');
+  wrap.querySelectorAll('[data-mid]').forEach(el=>el.addEventListener('click',function(){toggleMonthly(this.dataset.mid,this);}));
+}
+function toggleMonthly(id,el){
+  monHabDD.completed[id]=!monHabDD.completed[id];const chk=monHabDD.completed[id];
+  el.classList.toggle('on',chk);
+  const lbl=document.getElementById('mlbl-'+id);
+  if(lbl){const info=MONTHLY_LABELS[id];const lastWeek=isLastWeekOfMonth();const urgent=info.urgent&&lastWeek&&!chk;lbl.innerHTML=info.icon+' '+info.label+(urgent?' <span style=\"font-size:10px;color:var(--coral);font-weight:600;\">DUE SOON</span>':'');lbl.className='item-label'+(chk?' done':'');}
+  triggerMonSave();
+}
+function triggerMonSave(){
+  const mkey=getMonthKey();
+  setTimeout(()=>{try{localStorage.setItem(mkey,JSON.stringify(monHabDD));}catch(e){}},500);
+}
+
+// ══════════ MEAL TRACKER ══════════
+const MEAL_GOAL=6;
+const MEAL_MACROS=['Protein + complex carb — oats, eggs, Greek yogurt','Protein snack — nuts, string cheese, protein bar','Balanced lunch — protein + veg + complex carb','Afternoon snack — fruit + protein, avoid sugar crash','Dinner — protein + veg + small carb portion','Evening snack — light protein, avoid large meals late'];
+function adjustMeals(delta){
+  if(!habDD.meals)habDD.meals=0;
+  habDD.meals=Math.max(0,Math.min(MEAL_GOAL,habDD.meals+delta));
+  renderMeals();triggerHabSave();
+}
+function renderMeals(){
+  const m=habDD.meals||0;
+  const countEl=document.getElementById('meal-count');
+  const progEl=document.getElementById('meal-progress');
+  const noteEl=document.getElementById('meal-note');
+  if(countEl)countEl.textContent=m;
+  if(progEl){let h='';for(let i=0;i<MEAL_GOAL;i++){h+=`<div class="water-pip${i<m?' filled':''}"></div>`;}progEl.innerHTML=h;}
+  if(noteEl){
+    if(m===0)noteEl.textContent='Goal: 6 small meals spaced ~2.5 hours apart. First meal within 1 hour of waking.';
+    else if(m<MEAL_GOAL)noteEl.textContent=`Meal ${m+1} suggestion: ${MEAL_MACROS[m]}`;
+    else{noteEl.style.color='var(--green)';noteEl.textContent='All 6 meals done ✓ — consistent fueling supports metabolism and avoids the energy crashes that trigger stress eating.';}
+  }
 }
 
 function renderTimers(){renderTimer('m');renderTimer('a');renderTimer('n');}
