@@ -448,6 +448,65 @@ svg.ring-svg{display:block;margin:0 auto;}
 .gratitude-ta{width:100%;min-height:70px;font-size:13px;padding:10px 12px;border:1px solid var(--border2);border-radius:var(--radius-sm);background:var(--bg3);color:var(--text);font-family:'DM Sans',sans-serif;resize:none;}
 .gratitude-ta:focus{outline:none;border-color:rgba(99,102,241,.4);}
 .gratitude-ta::placeholder{color:var(--text3);}
+
+/* ── COLLAPSE COMPLETED ── */
+.completed-section{margin-top:6px;}
+.completed-toggle{width:100%;display:flex;align-items:center;justify-content:space-between;padding:8px 14px;background:var(--bg3);border:1px solid var(--border2);border-radius:var(--radius-sm);cursor:pointer;font-size:12px;color:var(--text3);font-family:'DM Sans',sans-serif;margin-bottom:2px;}
+.completed-toggle .count{background:var(--indigo-dim);color:var(--indigo-light);border-radius:10px;padding:1px 8px;font-size:11px;font-weight:600;}
+.completed-items{display:none;}
+.completed-items.open{display:block;}
+.completed-item-row{display:flex;gap:12px;align-items:center;padding:9px 14px;border-bottom:1px solid var(--border2);opacity:.6;}
+.completed-item-row:last-child{border-bottom:none;}
+.completed-item-label{font-size:13px;color:var(--text3);text-decoration:line-through;flex:1;}
+
+/* ── CUSTOM HABITS ── */
+.custom-habit-section{margin-bottom:10px;}
+.add-habit-row{display:flex;gap:6px;margin-top:6px;}
+.add-habit-input{flex:1;padding:9px 12px;font-size:13px;font-family:'DM Sans',sans-serif;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--bg3);color:var(--text);outline:none;}
+.add-habit-input:focus{border-color:rgba(99,102,241,.4);}
+.add-habit-btn{padding:9px 14px;font-size:13px;font-weight:600;font-family:'DM Sans',sans-serif;background:linear-gradient(135deg,var(--indigo),var(--violet));color:white;border:none;border-radius:var(--radius-sm);cursor:pointer;flex-shrink:0;}
+.custom-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:8px;}
+.custom-row{display:flex;gap:10px;align-items:center;padding:11px 14px;}
+.custom-del{background:none;border:none;color:var(--text3);cursor:pointer;font-size:16px;flex-shrink:0;padding:2px 4px;line-height:1;}
+.custom-del:hover{color:var(--coral);}
+
+/* ── REMINDERS ── */
+.reminder-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:8px;}
+.reminder-header{padding:12px 14px 8px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border2);}
+.reminder-title{font-size:13px;font-weight:600;color:var(--text);}
+.reminder-list{padding:4px 0;}
+.reminder-row{display:flex;gap:10px;align-items:center;padding:9px 14px;border-bottom:1px solid var(--border2);}
+.reminder-row:last-child{border-bottom:none;}
+.reminder-text{font-size:13px;color:var(--text2);flex:1;line-height:1.4;}
+.reminder-del{background:none;border:none;color:var(--text3);cursor:pointer;font-size:15px;flex-shrink:0;}
+.reminder-del:hover{color:var(--coral);}
+.reminder-empty{padding:10px 14px;font-size:13px;color:var(--text3);font-style:italic;}
+.add-reminder-row{display:flex;gap:6px;padding:10px 14px;border-top:1px solid var(--border2);}
+.add-reminder-input{flex:1;padding:8px 10px;font-size:13px;font-family:'DM Sans',sans-serif;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--bg3);color:var(--text);outline:none;}
+.add-reminder-input:focus{border-color:rgba(99,102,241,.4);}
+.add-reminder-btn{padding:8px 12px;font-size:13px;font-weight:600;font-family:'DM Sans',sans-serif;background:var(--indigo-dim);color:var(--indigo-light);border:1px solid rgba(99,102,241,.3);border-radius:var(--radius-sm);cursor:pointer;}
+
+/* ── BOOKS TRACKER ── */
+.book-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:8px;}
+.book-header{padding:12px 16px 10px;display:flex;align-items:center;justify-content:space-between;}
+.book-count-badge{font-size:11px;font-weight:600;padding:3px 10px;border-radius:12px;background:var(--violet-dim);color:#c084fc;border:1px solid rgba(139,92,246,.2);}
+.book-list{border-top:1px solid var(--border2);}
+.book-row{display:flex;gap:10px;align-items:flex-start;padding:11px 16px;border-bottom:1px solid var(--border2);}
+.book-row:last-child{border-bottom:none;}
+.book-num{font-size:11px;font-weight:700;color:var(--violet);background:var(--violet-dim);border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.book-info{flex:1;}
+.book-title{font-size:14px;font-weight:500;color:var(--text);line-height:1.3;}
+.book-author{font-size:12px;color:var(--text3);margin-top:2px;}
+.book-note{font-size:12px;color:var(--text2);margin-top:4px;font-style:italic;line-height:1.4;}
+.book-date{font-size:11px;color:var(--text3);margin-top:3px;}
+.book-del{background:none;border:none;color:var(--text3);cursor:pointer;font-size:15px;padding:2px 4px;}
+.book-del:hover{color:var(--coral);}
+.book-empty{padding:14px 16px;font-size:13px;color:var(--text3);font-style:italic;}
+.add-book-form{border-top:1px solid var(--border2);padding:12px 16px;display:flex;flex-direction:column;gap:8px;}
+.add-book-form input,.add-book-form textarea{padding:8px 10px;font-size:13px;font-family:'DM Sans',sans-serif;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--bg3);color:var(--text);outline:none;width:100%;}
+.add-book-form input:focus,.add-book-form textarea:focus{border-color:rgba(139,92,246,.4);}
+.add-book-form textarea{min-height:50px;resize:none;}
+.add-book-btn{padding:9px;font-size:13px;font-weight:600;font-family:'DM Sans',sans-serif;background:linear-gradient(135deg,var(--violet),var(--indigo));color:white;border:none;border-radius:var(--radius-sm);cursor:pointer;}
 </style>
 </head>
 <body>
@@ -607,6 +666,13 @@ svg.ring-svg{display:block;margin:0 auto;}
     <div class="card-row">
       <div class="cb" data-hid="medication" onclick="toggleHabit('medication',this)"></div>
       <div style="flex:1;"><div class="item-label" id="hlbl-medication">Take medication</div><div class="item-sub">First thing — before coffee, before checking your phone. Put it next to your water glass tonight so it's the first thing you see.</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-row">
+      <div class="cb" data-hid="pepcid-am" onclick="toggleHabit('pepcid-am',this)"></div>
+      <div style="flex:1;"><div class="item-label" id="hlbl-pepcid-am">Pepcid (famotidine) — morning</div><div class="item-sub">Take with or after breakfast. Best taken 30–60 min before your largest meal if you experience daytime reflux. Adjust per your prescription.</div></div>
     </div>
   </div>
 
@@ -843,8 +909,7 @@ svg.ring-svg{display:block;margin:0 auto;}
         <button class="steps-adj-btn" onclick="adjSteps(100)">+100</button>
       </div>
     </div>
-    <button class="steps-pedo-btn idle" id="steps-pedo-btn" onclick="togglePedometer()">📱 Use phone as pedometer (while app is open)</button>
-    <div style="font-size:11px;color:var(--text3);margin-top:8px;line-height:1.5;">Apple Health step data can't be read by web apps — check your Health app directly for full accuracy. The pedometer above counts steps while this app is open and in the foreground.</div>
+    <div style="font-size:11px;color:var(--text3);margin-top:8px;line-height:1.5;">💡 Tap your Health app for full step accuracy. Use +/− above to log manually or sync at the end of the day.</div>
   </div>
 
   <!-- WATER TRACKER -->
@@ -906,6 +971,15 @@ svg.ring-svg{display:block;margin:0 auto;}
     </div>
   </div>
 
+  <div id="shot-wed-wrap"></div>
+
+  <div class="card">
+    <div class="card-row">
+      <div class="cb" data-hid="pepcid-pm" onclick="toggleHabit('pepcid-pm',this)"></div>
+      <div style="flex:1;"><div class="item-label" id="hlbl-pepcid-pm">Pepcid (famotidine) — night</div><div class="item-sub">Take at bedtime for nocturnal acid and GERD protection overnight. Separate from magnesium by at least 2 hours as antacids can reduce absorption.</div></div>
+    </div>
+  </div>
+
   <div class="card">
     <div class="card-row">
       <div class="cb" data-hid="floss" onclick="toggleHabit('floss',this)"></div>
@@ -932,7 +1006,7 @@ svg.ring-svg{display:block;margin:0 auto;}
     </div>
     <div class="card-row">
       <div class="cb" data-hid="night-breathe" onclick="toggleHabit('night-breathe',this)"></div>
-      <div style="flex:1;"><div class="item-label" id="hlbl-night-breathe">5 min extended exhale breathing</div><div class="item-sub">4 sec in · 8 sec out — shifts nervous system into parasympathetic before sleep</div></div>
+      <div style="flex:1;"><div class="item-label" id="hlbl-night-breathe">5 min extended exhale breathing</div><div class="item-sub">4 sec in · 7 hold · 8 sec out — shifts nervous system into parasympathetic before sleep</div></div>
     </div>
     <div class="card-row">
       <div class="cb" data-hid="night-position" onclick="toggleHabit('night-position',this)"></div>
@@ -977,6 +1051,46 @@ svg.ring-svg{display:block;margin:0 auto;}
     </div>
     <div class="week-progress" id="week-progress"></div>
     <div style="font-size:11px;color:var(--text3);margin-top:4px;" id="weekly-count">0 of 6 complete</div>
+  </div>
+
+  <!-- BOOKS -->
+  <div class="slbl">📚 Books read</div>
+  <div class="book-card">
+    <div class="book-header">
+      <div style="font-size:14px;font-weight:500;color:var(--text);">Reading log</div>
+      <span class="book-count-badge" id="book-count-badge">0 books</span>
+    </div>
+    <div class="book-list" id="book-list"></div>
+    <div class="add-book-form">
+      <input type="text" id="book-title-input" placeholder="Book title" />
+      <input type="text" id="book-author-input" placeholder="Author (optional)" />
+      <textarea id="book-note-input" placeholder="Notes or key takeaways (optional)"></textarea>
+      <button class="add-book-btn" onclick="addBook()">+ Add book</button>
+    </div>
+  </div>
+
+  <!-- CUSTOM HABITS -->
+  <div class="slbl">✏️ Custom habits</div>
+  <div class="custom-habit-section">
+    <div id="custom-habits-list"></div>
+    <div class="add-habit-row">
+      <input type="text" id="custom-habit-input" class="add-habit-input" placeholder="Add a custom daily habit..." />
+      <button class="add-habit-btn" onclick="addCustomHabit()">+ Add</button>
+    </div>
+  </div>
+
+  <!-- REMINDERS -->
+  <div class="slbl">🔔 Reminders</div>
+  <div class="reminder-card">
+    <div class="reminder-header">
+      <span class="reminder-title">Write-in reminders</span>
+      <span style="font-size:11px;color:var(--text3);">Carry forward always</span>
+    </div>
+    <div class="reminder-list" id="reminder-list"></div>
+    <div class="add-reminder-row">
+      <input type="text" id="reminder-input" class="add-reminder-input" placeholder="Add a reminder..." onkeydown="if(event.key==='Enter')addReminder()"/>
+      <button class="add-reminder-btn" onclick="addReminder()">Add</button>
+    </div>
   </div>
 
   <!-- MONTHLY -->
@@ -1213,6 +1327,37 @@ svg.ring-svg{display:block;margin:0 auto;}
 
   <!-- WHAT'S COMING -->
   <div id="prog-upcoming"></div>
+
+  <!-- PEPCID ANALYSIS -->
+  <div class="stat-card" id="pepcid-analysis-card">
+    <div class="stat-card-header"><div class="stat-card-title">💊 Pepcid consistency</div></div>
+    <div class="stat-card-body">
+      <div class="metric-grid" id="pepcid-metrics">
+        <div class="metric-card"><div class="metric-label">7-day AM rate</div><div class="metric-val" id="pepcid-7d-am">—</div><div class="metric-unit">doses taken</div></div>
+        <div class="metric-card"><div class="metric-label">7-day PM rate</div><div class="metric-val" id="pepcid-7d-pm">—</div><div class="metric-unit">doses taken</div></div>
+        <div class="metric-card"><div class="metric-label">30-day AM rate</div><div class="metric-val" id="pepcid-30d-am">—</div><div class="metric-unit">completion</div></div>
+        <div class="metric-card"><div class="metric-label">AM streak</div><div class="metric-val" id="pepcid-streak">0</div><div class="metric-unit">consecutive days</div></div>
+      </div>
+      <div style="font-size:12px;color:var(--text2);line-height:1.6;margin-top:10px;padding:10px 12px;background:var(--bg3);border-radius:var(--radius-sm);">
+        <strong style="color:var(--text);">Timing note:</strong> Pepcid works best taken 30–60 min before meals or at bedtime. Avoid taking with antacids (Tums, Maalox) — space 2+ hours apart. If taking twice daily, separate doses by 10–12 hours. Consult your doctor about long-term use.
+      </div>
+    </div>
+  </div>
+
+  <!-- EXPORT / IMPORT -->
+  <div class="stat-card">
+    <div class="stat-card-header" style="padding-bottom:0;"><div class="stat-card-title">📤 Data export & import</div></div>
+    <div class="stat-card-body">
+      <div style="font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:12px;">Export everything to a CSV for analysis in Excel or Sheets. Import a previously exported file to restore data on a new device.</div>
+      <div style="display:flex;gap:8px;margin-bottom:10px;">
+        <button onclick="exportCSV()" style="flex:1;padding:11px;font-size:13px;font-weight:600;font-family:'DM Sans',sans-serif;background:linear-gradient(135deg,var(--indigo),var(--violet));color:white;border:none;border-radius:var(--radius-sm);cursor:pointer;">⬇ Export CSV</button>
+        <button onclick="document.getElementById('csv-import-input').click()" style="flex:1;padding:11px;font-size:13px;font-weight:500;font-family:'DM Sans',sans-serif;background:var(--bg3);color:var(--text2);border:1px solid var(--border);border-radius:var(--radius-sm);cursor:pointer;">⬆ Import CSV</button>
+        <input type="file" id="csv-import-input" accept=".csv" style="display:none;" onchange="importCSV(this)"/>
+      </div>
+      <div id="export-status" style="font-size:12px;color:var(--green);min-height:16px;text-align:center;"></div>
+      <div style="font-size:11px;color:var(--text3);line-height:1.6;margin-top:4px;">⚠ Import will overwrite existing data. Export first as a backup before importing.</div>
+    </div>
+  </div>
 </div>
 
 
@@ -1242,8 +1387,8 @@ const MTHS=['January','February','March','April','May','June','July','August','S
 const PNAMES=['Foundation','Build','Strengthen','Peak & Integrate'];
 const TOTAL=20;
 const WATER_GOAL=12;
-const HABIT_IDS=['medication','cats-am','make-bed','tidy-am','sunlight','morning-water','skincare-am','supps-am','jaw-m','posture-m','jaw-a','posture-a1','eye-2020','posture-a2','caffeine','reading','dishes','jaw-n','cats-pm','skincare-pm','floss','night-screens','night-jaw-massage','supps-pm','night-breathe','night-position','gratitude-done','night-jaw-check'];
-const WEEKLY_IDS=['wk-laundry','wk-grooming','wk-sheets','wk-groceries','wk-planning','wk-social','wk-book','wk-olivia'];
+const HABIT_IDS=['medication','pepcid-am','cats-am','make-bed','tidy-am','sunlight','morning-water','skincare-am','supps-am','jaw-m','posture-m','jaw-a','posture-a1','eye-2020','posture-a2','caffeine','reading','dishes','jaw-n','cats-pm','skincare-pm','floss','pepcid-pm','night-screens','night-jaw-massage','supps-pm','night-breathe','night-position','gratitude-done','night-jaw-check'];
+const WEEKLY_IDS=['wk-laundry','wk-grooming','wk-sheets','wk-groceries','wk-planning','wk-social','wk-book','wk-olivia','wk-shot-wed'];
 const WEEKLY_LABELS={
   'wk-laundry':{label:'Laundry',sub:'Wash, dry, put away — not just wash.',icon:'👕'},
   'wk-grooming':{label:'Grooming',sub:'Eyebrows, body hair, any regular maintenance.',icon:'✂️'},
@@ -1253,6 +1398,7 @@ const WEEKLY_LABELS={
   'wk-social':{label:'Intentional connection',sub:'Call or see someone you care about. Easy to let slide in a new city.',icon:'📞'},
   'wk-book':{label:'Book writing session',sub:'Minimum 30–60 min of uninterrupted writing. Protect this time — treat it like a meeting with yourself.',icon:'✍️'},
   'wk-olivia':{label:'Date night or intentional Olivia time',sub:'A real date, a long walk, a night in that\'s actually present. Relationships drift without intentional time.',icon:'💕'},
+  'wk-shot-wed':{label:'Wednesday night shot',sub:'Weekly injection — Wednesday nights. Check off after administering.',icon:'💉'},
 };
 const MONTHLY_IDS=['mo-rent','mo-haircut','mo-olivia-special'];
 const MONTHLY_LABELS={
@@ -1463,7 +1609,7 @@ function renderHabits(){
   const today=new Date();today.setHours(0,0,0,0);
   const dN=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
   document.getElementById('habits-date').textContent=dN[today.getDay()]+', '+MTHS[today.getMonth()]+' '+today.getDate();
-  habDD={completed:{},water:0};
+  habDD={completed:{},water:0,meals:0,steps:0,mood:0,sleepQual:0,gratitude:''};
   const sv=localStorage.getItem('habday_'+dk(today));
   if(sv){try{habDD=JSON.parse(sv);}catch(e){}}
   HABIT_IDS.forEach(id=>{
@@ -1479,8 +1625,12 @@ function renderHabits(){
   renderSteps();
   renderRatings();
   renderGratitude();
+  renderShotWed();
   renderWeeklyHabits();
   renderMonthlyHabits();
+  renderCustomHabits();
+  renderBooks();
+  renderReminders();
   updateHabCount();
   const done=HABIT_IDS.filter(id=>habDD.completed[id]).length;
   document.getElementById('habits-sub').textContent=`${done} of ${HABIT_IDS.length} daily + weekly habits`;
@@ -1588,14 +1738,51 @@ function toggleHabit(id,el){
   el.classList.toggle('on',chk);
   const lbl=document.getElementById('hlbl-'+id);
   if(lbl)lbl.className='item-label'+(chk?' done':'');
+  updateCompletedSections();
   updateHabCount();triggerHabSave();
+}
+function getCustomHabits(){try{return JSON.parse(localStorage.getItem('custom_habits')||'[]');}catch(e){return[];}}
+function allActiveHabitIds(){return [...HABIT_IDS,...getCustomHabits().map(h=>h.id)];}
+function updateCompletedSections(){
+  // For each section, find completed items and move them to the collapsed area
+  document.querySelectorAll('[data-section-id]').forEach(section=>{
+    const sid=section.dataset.sectionId;
+    const rows=section.querySelectorAll('[data-hid]');
+    let completedHtml='';let activeCount=0;let doneCount=0;
+    rows.forEach(row=>{
+      const hid=row.closest('[data-hid-wrap]')?.dataset.hidWrap||row.dataset.hid;
+      const chk=!!habDD.completed[hid];
+      const wrap=row.closest('.card')||row.closest('[data-habit-wrap]');
+      if(wrap){wrap.style.display=chk?'none':'block';}
+      if(chk){
+        const lbl=document.getElementById('hlbl-'+hid);
+        const txt=lbl?lbl.textContent:'';
+        completedHtml+=`<div class="completed-item-row"><div class="cb on" style="flex-shrink:0;pointer-events:none;"></div><div class="completed-item-label">${txt}</div></div>`;
+        doneCount++;
+      }
+    });
+    const compWrap=document.getElementById('comp-'+sid);
+    if(compWrap){
+      const toggle=compWrap.querySelector('.completed-toggle');
+      const items=compWrap.querySelector('.completed-items');
+      if(toggle)toggle.querySelector('.count').textContent=doneCount;
+      if(items)items.innerHTML=completedHtml;
+      compWrap.style.display=doneCount>0?'block':'none';
+    }
+  });
 }
 
 function updateHabCount(){
-  const done=HABIT_IDS.filter(id=>habDD.completed[id]).length;
-  const tot=HABIT_IDS.length;
-  document.getElementById('habits-count').textContent=`${done} of ${tot} complete today`;
-  document.getElementById('habits-pct').textContent=Math.round((done/tot)*100)+'%';
+  const customIds=getCustomHabits().map(h=>h.id);
+  const allIds=[...HABIT_IDS,...customIds];
+  const done=allIds.filter(id=>habDD.completed[id]).length;
+  const tot=allIds.length;
+  const pct=tot>0?Math.round((done/tot)*100):0;
+  const el=document.getElementById('habits-count');const pel=document.getElementById('habits-pct');
+  if(el)el.textContent=`${done} of ${tot} complete today`;
+  if(pel)pel.textContent=pct+'%';
+  const sub=document.getElementById('habits-sub');
+  if(sub)sub.textContent=`${done} of ${tot} habits complete`;
 }
 
 // ══════════ WATER ══════════
@@ -1638,7 +1825,7 @@ function sched(dn,ph){
   const br={id:'bg',text:'10 min breathing practice',w:'Daily retraining of your autonomic nervous system toward parasympathetic dominance. Also directly targets the cortisol driving your daytime clenching.',wb:'Daily nervous system reset. Treats bruxism at the source.',kids:[
     {id:'b1',text:'2 min nasal-only breathing',w:'Produces nitric oxide, improves oxygen delivery, trains away from over-breathing that worsens altitude.',wb:'Oxygen efficiency + altitude prep.'},
     {id:'b2',text:'4 min box breathing — 4·4·4·4',w:'Builds CO₂ tolerance for altitude. The same cortisol reduction directly reduces daytime jaw clenching.',wb:'CO₂ tolerance + cortisol — addresses bruxism cause.'},
-    {id:'b3',text:'4 min extended exhale — 4 in · 8 out',w:'Activates the vagus nerve. Fastest way to lower cortisol — the direct driver of your grinding pattern.',wb:'Vagus nerve activation. Fastest cortisol reduction.'},
+    {id:'b3',text:'4 min extended exhale — 4 in · 7 hold · 8 out',w:'Activates the vagus nerve. Fastest way to lower cortisol — the direct driver of your grinding pattern.',wb:'Vagus nerve activation. Fastest cortisol reduction.'},
   ]};
   const D={
     1:{l:'Yoga + Breathwork',tc:'badge-yoga',groups:[
@@ -1828,6 +2015,7 @@ function loadProgress(){
   render14DayBars();
   renderWeeklyHistory();
   renderUpcoming();
+  renderPepcidAnalysis();
 }
 
 function renderPhaseTimeline(){
@@ -2167,29 +2355,7 @@ function renderSteps(){
   if(fillEl)fillEl.style.width=pct+'%';
   if(badgeEl){badgeEl.textContent=pct+'%';badgeEl.style.color=pct>=100?'var(--green)':pct>=50?'var(--sky)':'var(--text3)';}
   if(goalEl)goalEl.textContent=`Goal: ${goal.toLocaleString()} steps · ${s>=goal?'Goal hit ✓':''+Math.max(0,goal-s).toLocaleString()+' to go'}`;
-  const btn=document.getElementById('steps-pedo-btn');
-  if(btn)btn.textContent=pedometerActive?'⏹ Stop pedometer':'📱 Use phone as pedometer (while app is open)';
-}
-function togglePedometer(){
-  if(pedometerActive){pedometerActive=false;window.removeEventListener('devicemotion',onDeviceMotion);renderSteps();return;}
-  if(typeof DeviceMotionEvent!=='undefined'&&typeof DeviceMotionEvent.requestPermission==='function'){
-    DeviceMotionEvent.requestPermission().then(r=>{if(r==='granted'){pedometerActive=true;window.addEventListener('devicemotion',onDeviceMotion);renderSteps();}else{alert('Motion permission denied. Use the +/- buttons to log steps manually.');}}).catch(()=>alert('Motion not available. Use +/- to log steps manually.'));
-  } else if(window.DeviceMotionEvent){
-    pedometerActive=true;window.addEventListener('devicemotion',onDeviceMotion);renderSteps();
-  } else {
-    alert('DeviceMotion not available on this device. Use +/- to log steps manually.');
-  }
-}
-function onDeviceMotion(e){
-  const a=e.accelerationIncludingGravity;if(!a)return;
-  const mag=Math.sqrt((a.x||0)**2+(a.y||0)**2+(a.z||0)**2);
-  const now=Date.now();
-  if(mag>stepThreshold*10&&lastAccelMag<=stepThreshold*10&&(now-lastStepTime)>220){
-    habDD.steps=(habDD.steps||0)+1;lastStepTime=now;
-    const numEl=document.getElementById('steps-num');if(numEl)numEl.textContent=habDD.steps.toLocaleString();
-    triggerHabSave();
-  }
-  lastAccelMag=mag;
+
 }
 
 // ══════════ MOOD / SLEEP RATING ══════════
@@ -2221,6 +2387,250 @@ function renderGratitude(){
   if(ta)ta.value=habDD.gratitude||'';
 }
 
+
+// ══════════ WEDNESDAY SHOT ══════════
+function renderShotWed(){
+  const wrap=document.getElementById('shot-wed-wrap');
+  if(!wrap)return;
+  const today=new Date();
+  const dow=today.getDay(); // 0=Sun,1=Mon,...3=Wed
+  const daysToWed=dow<=3?(3-dow):(10-dow);
+  const isWed=dow===3;
+  if(isWed){
+    // Show prominent card tonight
+    wrap.innerHTML=`<div class="card" style="border-color:rgba(251,113,133,.35);background:linear-gradient(135deg,rgba(251,113,133,.07),var(--bg2));margin-bottom:8px;">
+      <div class="card-row">
+        <div class="cb${weekHabDD.completed['wk-shot-wed']?' on':''}" data-wid="wk-shot-wed" onclick="toggleWeekly('wk-shot-wed',this)"></div>
+        <div style="flex:1;"><div class="item-label">💉 Wednesday shot — tonight</div><div class="item-sub">Weekly injection due tonight. Check off after administering.</div></div>
+        <span class="ph-badge" style="background:rgba(251,113,133,.12);color:var(--coral);border:1px solid rgba(251,113,133,.25);font-size:10px;">Tonight</span>
+      </div>
+    </div>`;
+    wrap.querySelector('[data-wid]')?.addEventListener('click',function(){toggleWeekly('wk-shot-wed',this);});
+  } else {
+    wrap.innerHTML=`<div style="font-size:12px;color:var(--text3);padding:6px 0 2px;">💉 Weekly shot: ${daysToWed===1?'tomorrow':daysToWed+' days'} (Wednesday night)</div>`;
+  }
+}
+
+// ══════════ BOOKS TRACKER ══════════
+function getBooks(){try{return JSON.parse(localStorage.getItem('books_read')||'[]');}catch(e){return[];}}
+function saveBooks(books){localStorage.setItem('books_read',JSON.stringify(books));}
+function addBook(){
+  const ti=document.getElementById('book-title-input');
+  const au=document.getElementById('book-author-input');
+  const no=document.getElementById('book-note-input');
+  if(!ti||!ti.value.trim())return;
+  const books=getBooks();
+  books.push({id:'bk_'+Date.now(),title:ti.value.trim(),author:au?.value.trim()||'',note:no?.value.trim()||'',date:new Date().toISOString().split('T')[0]});
+  saveBooks(books);
+  ti.value='';if(au)au.value='';if(no)no.value='';
+  renderBooks();
+}
+function deleteBook(id){
+  const books=getBooks().filter(b=>b.id!==id);
+  saveBooks(books);renderBooks();
+}
+function renderBooks(){
+  const books=getBooks();
+  const listEl=document.getElementById('book-list');
+  const badgeEl=document.getElementById('book-count-badge');
+  if(badgeEl)badgeEl.textContent=books.length+' book'+(books.length!==1?'s':'');
+  if(!listEl)return;
+  if(books.length===0){listEl.innerHTML='<div class="book-empty">No books logged yet. Add your first read below.</div>';return;}
+  listEl.innerHTML=books.map((b,i)=>`
+    <div class="book-row">
+      <div class="book-num">${i+1}</div>
+      <div class="book-info">
+        <div class="book-title">${escHtml(b.title)}</div>
+        ${b.author?`<div class="book-author">by ${escHtml(b.author)}</div>`:''}
+        ${b.note?`<div class="book-note">"${escHtml(b.note)}"</div>`:''}
+        <div class="book-date">${b.date}</div>
+      </div>
+      <button class="book-del" onclick="deleteBook('${b.id}')">×</button>
+    </div>`).join('');
+}
+function escHtml(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+
+// ══════════ CUSTOM HABITS ══════════
+function addCustomHabit(){
+  const inp=document.getElementById('custom-habit-input');
+  if(!inp||!inp.value.trim())return;
+  const habits=getCustomHabits();
+  habits.push({id:'ch_'+Date.now(),label:inp.value.trim()});
+  localStorage.setItem('custom_habits',JSON.stringify(habits));
+  inp.value='';renderCustomHabits();updateHabCount();
+}
+function deleteCustomHabit(id){
+  const habits=getCustomHabits().filter(h=>h.id!==id);
+  localStorage.setItem('custom_habits',JSON.stringify(habits));
+  delete habDD.completed[id];triggerHabSave();
+  renderCustomHabits();updateHabCount();
+}
+function renderCustomHabits(){
+  const wrap=document.getElementById('custom-habits-list');if(!wrap)return;
+  const habits=getCustomHabits();
+  if(habits.length===0){wrap.innerHTML='<div style="font-size:13px;color:var(--text3);padding:4px 0 8px;font-style:italic;">No custom habits yet — add one below.</div>';return;}
+  wrap.innerHTML=habits.map(h=>{
+    const chk=!!habDD.completed[h.id];
+    return`<div class="custom-card"><div class="custom-row">
+      <div class="cb${chk?' on':''}" data-hid="${h.id}" onclick="toggleHabit('${h.id}',this)"></div>
+      <div style="flex:1;font-size:14px;font-weight:500;color:${chk?'var(--text3)':'var(--text)'};${chk?'text-decoration:line-through;':''}" id="hlbl-${h.id}">${escHtml(h.label)}</div>
+      <button class="custom-del" onclick="deleteCustomHabit('${h.id}')">×</button>
+    </div></div>`;
+  }).join('');
+}
+
+// ══════════ REMINDERS ══════════
+function getReminders(){try{return JSON.parse(localStorage.getItem('reminders')||'[]');}catch(e){return[];}}
+function addReminder(){
+  const inp=document.getElementById('reminder-input');
+  if(!inp||!inp.value.trim())return;
+  const reminders=getReminders();
+  reminders.push({id:'rm_'+Date.now(),text:inp.value.trim(),created:new Date().toISOString().split('T')[0]});
+  localStorage.setItem('reminders',JSON.stringify(reminders));
+  inp.value='';renderReminders();
+}
+function deleteReminder(id){
+  const r=getReminders().filter(r=>r.id!==id);
+  localStorage.setItem('reminders',JSON.stringify(r));renderReminders();
+}
+function renderReminders(){
+  const wrap=document.getElementById('reminder-list');if(!wrap)return;
+  const reminders=getReminders();
+  if(reminders.length===0){wrap.innerHTML='<div class="reminder-empty">No reminders yet.</div>';return;}
+  wrap.innerHTML=reminders.map(r=>`
+    <div class="reminder-row">
+      <div class="reminder-text">${escHtml(r.text)}<span style="font-size:10px;color:var(--text3);display:block;margin-top:2px;">${r.created}</span></div>
+      <button class="reminder-del" onclick="deleteReminder('${r.id}')">×</button>
+    </div>`).join('');
+}
+
+// ══════════ PEPCID ANALYSIS (in Progress) ══════════
+function renderPepcidAnalysis(){
+  const dates30=getDateRange(30);const dates7=getDateRange(7);
+  const calc=(dates,field)=>{
+    let done=0;dates.forEach(d=>{const sv=localStorage.getItem('habday_'+dk(d));if(sv){try{const dd=JSON.parse(sv);if(dd.completed&&dd.completed[field])done++;}catch(e){}}}); return done;
+  };
+  const am7=calc(dates7,'pepcid-am');const pm7=calc(dates7,'pepcid-pm');
+  const am30=calc(dates30,'pepcid-am');
+  // AM streak
+  let streak=0;const today=new Date();today.setHours(0,0,0,0);
+  for(let i=0;i<30;i++){const d=new Date(today);d.setDate(today.getDate()-i);const sv=localStorage.getItem('habday_'+dk(d));if(!sv)break;let dd={completed:{}};try{dd=JSON.parse(sv);}catch(e){}if(!dd.completed['pepcid-am'])break;streak++;}
+  const set=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v;};
+  set('pepcid-7d-am',`${am7}/7`);set('pepcid-7d-pm',`${pm7}/7`);
+  set('pepcid-30d-am',Math.round((am30/30)*100)+'%');set('pepcid-streak',streak);
+}
+
+// ══════════ EXPORT / IMPORT CSV ══════════
+function exportCSV(){
+  const status=document.getElementById('export-status');
+  try{
+    const allIds=[...HABIT_IDS,...getCustomHabits().map(h=>h.id)];
+    const customLabels={};getCustomHabits().forEach(h=>{customLabels[h.id]=h.label;});
+    const HABIT_LABELS={
+      'medication':'Medication','pepcid-am':'Pepcid AM','pepcid-pm':'Pepcid PM',
+      'cats-am':'Feed cats AM','cats-pm':'Feed cats PM','make-bed':'Make bed',
+      'tidy-am':'Morning tidy','sunlight':'Sunlight 10min','morning-water':'Water before coffee',
+      'skincare-am':'Skincare AM','supps-am':'Vitamin D','jaw-m':'Jaw exercise AM',
+      'posture-m':'Posture AM','jaw-a':'Jaw exercise midday','posture-a1':'Stand break midday',
+      'eye-2020':'20-20-20','posture-a2':'Posture afternoon','caffeine':'No caffeine after 2pm',
+      'reading':'Reading 30min','dishes':'Dishes','jaw-n':'Jaw exercise PM',
+      'skincare-pm':'Skincare PM','floss':'Floss','night-screens':'Screens off',
+      'night-jaw-massage':'Jaw massage','supps-pm':'Magnesium','night-breathe':'Breathing practice',
+      'night-position':'Sleep position','gratitude-done':'Gratitude','night-jaw-check':'Jaw check',
+      ...customLabels
+    };
+    // Daily sheet
+    let csv='Date,Week,Phase,Water (cups),Meals,Steps,Mood (1-5),Sleep Quality (1-5),Movement %,Habit %';
+    allIds.forEach(id=>{csv+=','+(HABIT_LABELS[id]||id);});
+    csv+='
+';
+    const startSv=localStorage.getItem('plan_start_date');
+    const sd=startSv?new Date(startSv):new Date();
+    sd.setHours(0,0,0,0);
+    for(let i=0;i<140;i++){
+      const d=new Date(sd);d.setDate(sd.getDate()+i);
+      if(d>new Date())break;
+      const hSv=localStorage.getItem('habday_'+dk(d));
+      const mSv=localStorage.getItem('mpday_'+dk(d));
+      if(!hSv&&!mSv)continue;
+      let hd={completed:{},water:0,meals:0,steps:0,mood:0,sleepQual:0};
+      if(hSv)try{hd=JSON.parse(hSv);}catch(e){}
+      let movPct=0;
+      if(mSv){let md={completed:{}};try{md=JSON.parse(mSv);}catch(e){}
+        const dn=dic(d);if(dn>0&&dn<6){const sc=sched(dn,gph(wn(d)));const ids=allMIds(sc);const done=ids.filter(id=>md.completed[id]).length;movPct=ids.length>0?Math.round((done/ids.length)*100):0;}else if(dn>=6)movPct=100;}
+      const habDone=allIds.filter(id=>hd.completed[id]).length;
+      const habPct=allIds.length>0?Math.round((habDone/allIds.length)*100):0;
+      const week=wn(d);const ph=gph(week);
+      let row=`${dk(d)},${week},${ph},${hd.water||0},${hd.meals||0},${hd.steps||0},${hd.mood||0},${hd.sleepQual||0},${movPct},${habPct}`;
+      allIds.forEach(id=>{row+=','+(hd.completed[id]?1:0);});
+      csv+=row+'
+';
+    }
+    // Books sheet
+    const books=getBooks();
+    if(books.length>0){
+      csv+='
+
+BOOKS LOG
+Title,Author,Date,Notes
+';
+      books.forEach(b=>{csv+=`"${b.title}","${b.author||''}","${b.date}","${b.note||''}"
+`;});
+    }
+    // Weekly sheet
+    csv+='
+
+WEEKLY HABITS
+Week Start,';
+    csv+=WEEKLY_IDS.map(id=>WEEKLY_LABELS[id]?.label||id).join(',')+'
+';
+    for(let w=0;w<20;w++){
+      const monday=new Date(sd);monday.setDate(sd.getDate()+(w*7));
+      const wkey='wkhab_'+dk(monday);const sv=localStorage.getItem(wkey);
+      if(!sv)continue;let wd={completed:{}};try{wd=JSON.parse(sv);}catch(e){}
+      csv+=dk(monday)+','+WEEKLY_IDS.map(id=>wd.completed[id]?1:0).join(',')+'
+';
+    }
+    const blob=new Blob([csv],{type:'text/csv'});
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement('a');a.href=url;a.download='body-os-data-'+dk(new Date())+'.csv';
+    document.body.appendChild(a);a.click();document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    if(status){status.textContent='Exported successfully ✓';setTimeout(()=>{status.textContent='';},3000);}
+  }catch(e){if(status)status.textContent='Export failed: '+e.message;}
+}
+
+function importCSV(input){
+  const file=input.files[0];if(!file)return;
+  if(!confirm('Import this CSV? This will overwrite your current data. Make sure you have an export backup first.'))return;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    try{
+      const lines=e.target.result.split('
+');
+      const headers=lines[0].split(',');
+      // Clear existing daily data
+      Object.keys(localStorage).filter(k=>k.startsWith('habday_')||k.startsWith('mpday_')||k.startsWith('wkhab_')).forEach(k=>localStorage.removeItem(k));
+      // Parse rows
+      for(let i=1;i<lines.length;i++){
+        const line=lines[i].trim();if(!line||line.startsWith('BOOKS')||line.startsWith('WEEKLY'))break;
+        const vals=line.split(',');if(vals.length<10)continue;
+        const date=vals[0];if(!date||!date.match(/^\d{4}-\d{2}-\d{2}$/))continue;
+        const hd={completed:{},water:parseInt(vals[3])||0,meals:parseInt(vals[4])||0,steps:parseInt(vals[5])||0,mood:parseInt(vals[6])||0,sleepQual:parseInt(vals[7])||0};
+        // Habit columns start at index 10
+        for(let c=10;c<headers.length&&c<vals.length;c++){if(vals[c]==='1')hd.completed[headers[c]?.trim()]=true;}
+        localStorage.setItem('habday_'+date,JSON.stringify(hd));
+      }
+      const status=document.getElementById('export-status');
+      if(status){status.textContent='Import successful ✓ — reload the app to see data.';status.style.color='var(--green)';}
+    }catch(err){
+      const status=document.getElementById('export-status');
+      if(status){status.textContent='Import failed: '+err.message;status.style.color='var(--coral)';}
+    }
+  };
+  reader.readAsText(file);
+  input.value='';
+}
 // BOOT
 initMovement();
 
