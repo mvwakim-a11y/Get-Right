@@ -165,7 +165,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;fon
 .water-note{font-size:12px;color:var(--amber);background:var(--amber-dim);border-radius:var(--radius-sm);padding:8px 12px;line-height:1.55;}
 
 /* NIGHT */
-.night-card{background:linear-gradient(135deg,rgba(139,92,246,.07),rgba(99,102,241,.04));border:1px solid rgba(139,92,246,.22);border-radius:var(--radius);overflow:hidden;margin-bottom:10px;}
+
 .night-header{padding:14px 16px 10px;border-bottom:1px solid rgba(139,92,246,.12);}
 .night-header-title{font-size:15px;font-weight:500;color:var(--text);}
 
@@ -713,7 +713,6 @@ svg.ring-svg{display:block;margin:0 auto;}
 
 /* Time-of-day section tints */
 .htab-section-morning .card,.htab-section-morning .night-card{border-left:2px solid rgba(251,191,36,.25);}
-.htab-section-midday .card,.htab-section-midday .night-card{border-left:2px solid rgba(56,189,248,.2);}
 .htab-section-day .card,.htab-section-day .night-card{border-left:2px solid rgba(56,189,248,.2);}
 .htab-section-trackers .card{border-left:2px solid rgba(52,211,153,.2);}
 .htab-section-night .card,.htab-section-night .night-card{border-left:2px solid rgba(99,102,241,.25);}
@@ -739,8 +738,6 @@ svg.ring-svg{display:block;margin:0 auto;}
 
 /* Time-of-day subtle section bg */
 .htab-section-morning{padding:2px 0;}
-.htab-section-midday{padding:2px 0;}
-.htab-section-evening{padding:2px 0;}
 .htab-section-night{padding:2px 0;}
 
 /* Completion ring header tweak */
@@ -1100,19 +1097,6 @@ svg.ring-svg{display:block;margin:0 auto;}
     </div>
   </div>
 
-  <div class="rating-card">
-    <div class="rating-row">
-      <div class="rating-label">Energy level today?</div>
-      <div class="rating-emojis" id="mood-emojis">
-        <div class="rating-emoji" data-val="1" onclick="setRating('mood',1)">1</div>
-        <div class="rating-emoji" data-val="2" onclick="setRating('mood',2)">2</div>
-        <div class="rating-emoji" data-val="3" onclick="setRating('mood',3)">3</div>
-        <div class="rating-emoji" data-val="4" onclick="setRating('mood',4)">4</div>
-        <div class="rating-emoji" data-val="5" onclick="setRating('mood',5)">5</div>
-      </div>
-    </div>
-  </div>
-
   <div class="card">
     <div class="card-row">
       <div class="cb" data-hid="skincare-am" onclick="toggleHabit('skincare-am',this)"></div>
@@ -1454,6 +1438,19 @@ svg.ring-svg{display:block;margin:0 auto;}
     </div>
     <div class="card-row" style="border-bottom:1px solid var(--border2);">
       <div style="flex:1;padding:4px 0;">
+        <div class="item-label" style="margin-bottom:8px;">Energy level today?</div>
+        <div class="rating-emojis" id="mood-emojis">
+          <div class="rating-emoji" data-val="1" onclick="setRating('mood',1)">1</div>
+          <div class="rating-emoji" data-val="2" onclick="setRating('mood',2)">2</div>
+          <div class="rating-emoji" data-val="3" onclick="setRating('mood',3)">3</div>
+          <div class="rating-emoji" data-val="4" onclick="setRating('mood',4)">4</div>
+          <div class="rating-emoji" data-val="5" onclick="setRating('mood',5)">5</div>
+        </div>
+        <div class="rating-sub" id="mood-label">Tap to rate</div>
+      </div>
+    </div>
+    <div class="card-row" style="border-bottom:1px solid var(--border2);">
+      <div style="flex:1;padding:4px 0;">
         <div class="item-label" style="margin-bottom:8px;">How was your sleep last night?</div>
         <div class="rating-emojis" id="sleep-emojis">
           <div class="rating-emoji" data-val="1" onclick="setRating('sleepQual',1)">1</div>
@@ -1776,7 +1773,20 @@ svg.ring-svg{display:block;margin:0 auto;}
   </div>
 
   <!-- STREAK + QUICK METRICS -->
+  
+
+  <!-- HABIT BREAKDOWN -->
   <div class="stat-card">
+    <div class="stat-card-header"><div class="stat-card-title">Habit breakdown — last 14 days</div></div>
+    <div class="stat-card-body">
+      <div id="habit-breakdown-wrap"></div>
+    </div>
+  </div>
+
+  <!-- COUNTER TRENDS -->
+  <div class="stat-card" id="counter-trends-wrap" style="display:none;">
+  </div>
+<div class="stat-card">
     <div class="stat-card-header"><div class="stat-card-title">Current streak</div></div>
     <div class="stat-card-body">
       <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:14px;">
@@ -1877,7 +1887,7 @@ function switchSection(name,btn){
     document.getElementById('sec-'+s).classList.toggle('on',s===name);
     document.getElementById('navbtn-'+s).classList.toggle('on',s===name);
   });
-  if(name==='habits')renderHabits();
+  if(name==='habits'){renderHabits();switchHTab(currentHTab||'overview');}
   if(name==='guide')initGuide();
   if(name==='progress'){loadProgress();}
 }
@@ -2805,6 +2815,8 @@ function loadProgress(){
   renderWeeklyHistory();
   renderUpcoming();
   renderPepcidAnalysis();
+  renderCounterTrends();
+  renderHabitBreakdown();
 }
 function renderProgressGreeting(){
   const today=new Date();today.setHours(0,0,0,0);
@@ -3392,8 +3404,8 @@ function renderPepcidAnalysis(){
   let tot7=0,tot30=0,zeroDays7=0;
   dates7.forEach(d=>{const sv=localStorage.getItem('habday_'+dk(d));if(sv){try{const dd=JSON.parse(sv);tot7+=(dd.pepcid||0);if((dd.pepcid||0)===0)zeroDays7++;}catch(e){}}});
   dates30.forEach(d=>{const sv=localStorage.getItem('habday_'+dk(d));if(sv){try{const dd=JSON.parse(sv);tot30+=(dd.pepcid||0);}catch(e){}}});
-  const avg7=dates7.length>0?(tot7/7).toFixed(1):'—';
-  const avg30=dates30.length>0?(tot30/30).toFixed(1):'—';
+  const avg7=dates7.length>0?Math.round((tot7/7)*10)/10:'—';
+  const avg30=dates30.length>0?Math.round((tot30/30)*10)/10:'—';
   set('pepcid-7d-am',avg7+'/day');
   set('pepcid-7d-pm',zeroDays7+' zero days');
   set('pepcid-30d-am',avg30+'/day');
@@ -3643,6 +3655,220 @@ function renderIntention(){
   el.value=localStorage.getItem(key)||'';
 }
 
+
+// ══════════ COUNTER TRENDS ══════════
+function renderCounterTrends(){
+  const wrap=document.getElementById('counter-trends-wrap');
+  if(!wrap)return;
+  const counters=getCustomCounters();
+  if(counters.length===0){wrap.style.display='none';return;}
+  wrap.style.display='block';
+  const last7=getDateRange(7);
+  wrap.innerHTML='<div class="stat-card-header"><div class="stat-card-title">Habit counters — 7-day trend</div></div>'
+    +'<div class="stat-card-body" style="padding-top:0;">'
+    +counters.map(c=>{
+      let total=0,days=0;
+      last7.forEach(d=>{
+        const sv=localStorage.getItem('habday_'+dk(d));
+        if(sv){try{const dd=JSON.parse(sv);const v=(dd.counters||{})[c.id]||0;total+=v;days++;}catch(e){}}
+      });
+      const avg=days>0?Math.round((total/days)*10)/10:0;
+      const status=c.dir==='max'
+        ?(avg<=c.goal?'On track':'Over goal')
+        :(avg>=c.goal?'Hitting target':'Below target');
+      const statusColor=((c.dir==='max'&&avg<=c.goal)||(c.dir==='min'&&avg>=c.goal))
+        ?'var(--green)':'var(--coral)';
+      return`<div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border2);">
+        <div>
+          <div style="font-size:13px;color:var(--text);font-weight:500;">${escHtml(c.name)}</div>
+          <div style="font-size:11px;color:var(--text3);margin-top:2px;">${c.dir==='max'?'Under '+c.goal+'/day target':'Reach '+c.goal+'/day target'}</div>
+        </div>
+        <div style="text-align:right;">
+          <div style="font-family:'DM Serif Display',serif;font-size:20px;color:var(--text);">${avg}</div>
+          <div style="font-size:11px;font-weight:600;color:${statusColor};">${status}</div>
+        </div>
+      </div>`;
+    }).join('')
+    +'</div>';
+}
+
+// ══════════ HABIT BREAKDOWN ══════════
+function renderHabitBreakdown(){
+  const wrap=document.getElementById('habit-breakdown-wrap');
+  if(!wrap)return;
+  const last14=getDateRange(14);
+  const last7=getDateRange(7);
+  const allIds=allActiveHabitIds();
+  const counts={};allIds.forEach(id=>counts[id]=0);
+  let totalDays=0;
+  let bestDay=null,bestDayPct=0;
+
+  // Section IDs
+  const MORNING_IDS=['medication','cats-am','make-bed','tidy-am','sunlight','morning-water','skincare-am','spf','supps-am','jaw-m','posture-m'];
+  const DAY_IDS=['jaw-a','posture-a1','eye-2020','posture-a2','caffeine','reading'];
+  const NIGHT_IDS=['dishes','jaw-n','cats-pm','skincare-pm','floss','night-screens','night-jaw-massage','supps-pm','night-breathe','night-position','gratitude-done','night-jaw-check'];
+  const sectionCounts={morning:0,day:0,night:0,morningDays:0,dayDays:0,nightDays:0};
+
+  last14.forEach(d=>{
+    const sv=localStorage.getItem('habday_'+dk(d));
+    if(!sv)return;
+    totalDays++;
+    try{
+      const dd=JSON.parse(sv);
+      allIds.forEach(id=>{if(dd.completed&&dd.completed[id])counts[id]++;});
+      // Section totals
+      const mDone=MORNING_IDS.filter(id=>dd.completed&&dd.completed[id]).length;
+      const dDone=DAY_IDS.filter(id=>dd.completed&&dd.completed[id]).length;
+      const nDone=NIGHT_IDS.filter(id=>dd.completed&&dd.completed[id]).length;
+      sectionCounts.morning+=MORNING_IDS.length>0?Math.round((mDone/MORNING_IDS.length)*100):0;
+      sectionCounts.day+=DAY_IDS.length>0?Math.round((dDone/DAY_IDS.length)*100):0;
+      sectionCounts.night+=NIGHT_IDS.length>0?Math.round((nDone/NIGHT_IDS.length)*100):0;
+      sectionCounts.morningDays++;sectionCounts.dayDays++;sectionCounts.nightDays++;
+    }catch(e){}
+  });
+
+  // Best day (last 7)
+  last7.forEach(d=>{
+    const sv=localStorage.getItem('habday_'+dk(d));
+    if(!sv)return;
+    try{
+      const dd=JSON.parse(sv);
+      const done=allIds.filter(id=>dd.completed&&dd.completed[id]).length;
+      const pct=allIds.length>0?Math.round((done/allIds.length)*100):0;
+      if(pct>bestDayPct){bestDayPct=pct;bestDay=d;}
+    }catch(e){}
+  });
+
+  if(totalDays===0){wrap.innerHTML='<div style="font-size:12px;color:var(--text3);font-style:italic;padding:10px 0;">Log habits for 2+ days to see your breakdown.</div>';return;}
+
+  // Best + most missed
+  const withData=allIds.filter(id=>counts[id]>0||totalDays>0);
+  const sorted=[...allIds].sort((a,b)=>counts[b]-counts[a]);
+  const bestHabits=sorted.slice(0,3);
+  const worstHabits=[...allIds].filter(id=>counts[id]<totalDays*0.4).sort((a,b)=>counts[a]-counts[b]).slice(0,3);
+
+  const LABELS={
+    'medication':'Medication','cats-am':'Feed cats AM','make-bed':'Make bed','tidy-am':'Morning tidy',
+    'sunlight':'Sunlight','morning-water':'Water before coffee','skincare-am':'Skincare AM',
+    'spf':'SPF','supps-am':'Vitamin D','jaw-m':'Jaw AM','posture-m':'Posture AM',
+    'jaw-a':'Jaw midday','posture-a1':'Stand break','eye-2020':'20-20-20','posture-a2':'Posture PM',
+    'caffeine':'No caffeine after 2','reading':'Reading','dishes':'Dishes','jaw-n':'Jaw PM',
+    'cats-pm':'Feed cats PM','skincare-pm':'Skincare PM','floss':'Floss',
+    'night-screens':'Screens off','night-jaw-massage':'Jaw massage','supps-pm':'Magnesium',
+    'night-breathe':'Breathing','night-position':'Sleep position','gratitude-done':'Gratitude',
+    'night-jaw-check':'Jaw check'
+  };
+  const getLabel=id=>LABELS[id]||id.replace(/-/g,' ');
+  const daysStr=s=>new Date(s).toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'});
+
+  // Section averages
+  const mAvg=sectionCounts.morningDays>0?Math.round(sectionCounts.morning/sectionCounts.morningDays):0;
+  const dAvg=sectionCounts.dayDays>0?Math.round(sectionCounts.day/sectionCounts.dayDays):0;
+  const nAvg=sectionCounts.nightDays>0?Math.round(sectionCounts.night/sectionCounts.nightDays):0;
+
+  const barColor=pct=>pct>=80?'var(--green)':pct>=60?'var(--indigo-light)':pct>=40?'var(--amber)':'var(--coral)';
+
+  wrap.innerHTML=`
+    <div style="margin-bottom:14px;">
+      <div style="font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;">Completion by section (14-day avg)</div>
+      ${[['Morning',mAvg],['Day',dAvg],['Night',nAvg]].map(([name,pct])=>`
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+        <div style="width:60px;font-size:12px;color:var(--text2);">${name}</div>
+        <div style="flex:1;height:8px;background:var(--bg4);border-radius:4px;overflow:hidden;">
+          <div style="width:${pct}%;height:100%;background:${barColor(pct)};border-radius:4px;transition:width .4s;"></div>
+        </div>
+        <div style="width:32px;font-size:12px;font-weight:600;color:var(--text);text-align:right;">${pct}%</div>
+      </div>`).join('')}
+    </div>
+    ${bestDay?`<div style="background:var(--bg3);border-radius:var(--radius-sm);padding:10px 12px;margin-bottom:10px;font-size:12px;color:var(--text2);">
+      <strong style="color:var(--green);">Best day</strong> — ${daysStr(bestDay)}: ${bestDayPct}% complete
+    </div>`:''}
+    ${bestHabits.length>0?`<div style="margin-bottom:10px;">
+      <div style="font-size:10px;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;">Most consistent</div>
+      ${bestHabits.map(id=>`<div style="display:flex;justify-content:space-between;font-size:12px;padding:3px 0;color:var(--text2);">
+        <span>${getLabel(id)}</span><span style="font-weight:600;color:var(--text);">${counts[id]}/${totalDays}</span>
+      </div>`).join('')}
+    </div>`:''}
+    ${worstHabits.length>0?`<div>
+      <div style="font-size:10px;font-weight:700;color:var(--amber);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;">Needs attention</div>
+      ${worstHabits.map(id=>`<div style="display:flex;justify-content:space-between;font-size:12px;padding:3px 0;color:var(--text2);">
+        <span>${getLabel(id)}</span><span style="font-weight:600;color:var(--amber);">${counts[id]}/${totalDays}</span>
+      </div>`).join('')}
+    </div>`:''}
+  `;
+}
+
+function renderCounterTrends(){
+  const wrap=document.getElementById('counter-trends-wrap');
+  if(!wrap)return;
+  const counters=getCustomCounters();
+  if(counters.length===0){wrap.style.display='none';return;}
+  wrap.style.display='block';
+  const last7=getDateRange(7);
+  wrap.innerHTML='<div class="stat-card-header"><div class="stat-card-title">Habit counters — 7-day trend</div></div>'
+    +'<div class="stat-card-body" style="padding-top:0;">'
+    +counters.map(c=>{
+      let total=0,days=0;
+      last7.forEach(d=>{
+        const sv=localStorage.getItem('habday_'+dk(d));
+        if(sv){try{const dd=JSON.parse(sv);const v=(dd.counters||{})[c.id]||0;total+=v;days++;}catch(e){}}
+      });
+      const avg=days>0?Math.round((total/days)*10)/10:0;
+      const status=c.dir==='max'
+        ?(avg<=c.goal?'On track':'Over goal')
+        :(avg>=c.goal?'Hitting target':'Below target');
+      const statusColor=((c.dir==='max'&&avg<=c.goal)||(c.dir==='min'&&avg>=c.goal))
+        ?'var(--green)':'var(--coral)';
+      return`<div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border2);">
+        <div>
+          <div style="font-size:13px;color:var(--text);font-weight:500;">${escHtml(c.name)}</div>
+          <div style="font-size:11px;color:var(--text3);margin-top:2px;">${c.dir==='max'?'Under '+c.goal+'/day target':'Reach '+c.goal+'/day target'}</div>
+        </div>
+        <div style="text-align:right;">
+          <div style="font-family:'DM Serif Display',serif;font-size:20px;color:var(--text);">${avg}</div>
+          <div style="font-size:11px;font-weight:600;color:${statusColor};">${status}</div>
+        </div>
+      </div>`;
+    }).join('')
+    +'</div>';
+}
+
+// ══════════ HABIT BREAKDOWN ══════════
+function renderHabitBreakdown(){
+  const wrap=document.getElementById('habit-breakdown-wrap');
+  if(!wrap)return;
+  const last14=getDateRange(14);
+  const counts={};
+  const allIds=allActiveHabitIds();
+  allIds.forEach(id=>counts[id]=0);
+  let totalDays=0;
+  last14.forEach(d=>{
+    const sv=localStorage.getItem('habday_'+dk(d));
+    if(!sv)return;
+    totalDays++;
+    try{const dd=JSON.parse(sv);allIds.forEach(id=>{if(dd.completed&&dd.completed[id])counts[id]++;});}catch(e){}
+  });
+  if(totalDays===0){wrap.innerHTML='<div style="font-size:12px;color:var(--text3);font-style:italic;padding:10px 0;">No data yet.</div>';return;}
+  // Sort by completion rate ascending (worst habits first)
+  const sorted=allIds
+    .map(id=>({id,count:counts[id],rate:Math.round((counts[id]/totalDays)*100)}))
+    .sort((a,b)=>a.rate-b.rate);
+  // Show bottom 5 (most missed) and top 5 (most consistent)
+  const worst=sorted.slice(0,Math.min(5,sorted.length));
+  const best=sorted.slice(-Math.min(5,sorted.length)).reverse();
+  // Get labels
+  const allLabels={...Object.fromEntries(HABIT_IDS.map(id=>[id,document.getElementById('hlbl-'+id)?.textContent||id]))};
+  getCustomHabits().forEach(h=>{allLabels[h.id]=h.label;});
+  const row=(item,color)=>`<div style="display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid var(--border2);">
+    <div style="width:36px;height:36px;border-radius:var(--radius-sm);background:var(--bg3);display:flex;align-items:center;justify-content:center;font-family:'DM Serif Display',serif;font-size:14px;color:${color};flex-shrink:0;">${item.rate}%</div>
+    <div style="flex:1;font-size:12px;color:var(--text2);line-height:1.4;">${escHtml(allLabels[item.id]||item.id)}</div>
+  </div>`;
+  wrap.innerHTML=
+    '<div style="font-size:10px;font-weight:700;color:var(--coral);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;">Needs attention — last 14 days</div>'
+    +worst.map(i=>row(i,'var(--coral)')).join('')
+    +'<div style="font-size:10px;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:.08em;margin:14px 0 6px;">Most consistent</div>'
+    +best.map(i=>row(i,'var(--green)')).join('');
+}
 // ══════════ WEEKLY REVIEW ══════════
 function renderWeeklyReview(){
   const wrap=document.getElementById('weekly-review-wrap');
