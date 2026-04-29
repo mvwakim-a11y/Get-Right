@@ -3835,7 +3835,9 @@ async function gistPush(){
     }
 
     const keys = Object.keys(data);
-    setSyncStatus('Pushed successfully — ' + keys.length + ' keys saved to cloud. ' + new Date().toLocaleTimeString(), 'ok');
+    const url = 'https://gist.github.com/' + gistId;
+    setSyncStatus('Backed up ' + keys.length + ' data keys. ' + new Date().toLocaleTimeString() + '\nOpen in browser to verify: ' + url, 'ok');
+    initGistUI();
   } catch(err){
     setSyncStatus('Push failed: ' + err.message, 'err');
   }
@@ -3846,22 +3848,47 @@ async function gistPull(){
   if(!token){ setSyncStatus('Paste your GitHub token first.', 'err'); return; }
   localStorage.setItem('gist_token', token);
 
-  const gistId = localStorage.getItem('gist_id');
-  if(!gistId){ setSyncStatus('No cloud backup found. Push first from the device that has your data.', 'err'); return; }
+  let gistId = localStorage.getItem('gist_id');
 
-  setSyncStatus('Pulling from cloud...', 'pending');
+  // New device — no Gist ID stored locally. Search GitHub for the backup.
+  if(!gistId){
+    setSyncStatus('New device — searching your Gists for a Cadence backup...', 'pending');
+    try {
+      let page = 1, found = null;
+      while(!found && page <= 5){
+        const listRes = await fetch('https://api.github.com/gists?per_page=100&page='+page, {
+          headers: { 'Authorization': 'token ' + token }
+        });
+        if(!listRes.ok) throw new Error('Could not list Gists: ' + listRes.status);
+        const gists = await listRes.json();
+        if(!gists.length) break;
+        found = gists.find(g => g.files && g.files[GIST_FILE]);
+        if(found) break;
+        page++;
+      }
+      if(!found) throw new Error('No Cadence backup found in your GitHub Gists. Push from your main device first.');
+      gistId = found.id;
+      localStorage.setItem('gist_id', gistId);
+      initGistUI();
+    } catch(err){
+      setSyncStatus('Error: ' + err.message, 'err');
+      return;
+    }
+  }
+
+  setSyncStatus('Pulling your data from cloud...', 'pending');
   try {
     const res = await fetch('https://api.github.com/gists/' + gistId, {
       headers: { 'Authorization': 'token ' + token }
     });
-    if(!res.ok) throw new Error('Fetch failed: ' + res.status);
+    if(!res.ok) throw new Error('Fetch failed: ' + res.status + (res.status===404?' — Gist not found. It may have been deleted.':''));
     const json = await res.json();
     const fileContent = json.files?.[GIST_FILE]?.content;
-    if(!fileContent) throw new Error('No backup file found in Gist.');
+    if(!fileContent) throw new Error('Backup file not found inside the Gist.');
 
     const data = JSON.parse(fileContent);
     restoreAllData(data);
-    setSyncStatus('Pulled ' + Object.keys(data).length + ' keys. Reloading in 2 seconds...', 'ok');
+    setSyncStatus('Pulled ' + Object.keys(data).length + ' data keys. Reloading in 2 seconds...', 'ok');
     setTimeout(() => location.reload(), 2000);
   } catch(err){
     setSyncStatus('Pull failed: ' + err.message, 'err');
@@ -3874,9 +3901,14 @@ function initGistUI(){
   const inp = document.getElementById('gist-token-input');
   const savedEl = document.getElementById('gist-token-saved');
   if(token && inp) inp.value = token;
-  if(gistId && savedEl) savedEl.textContent = 'Gist ID: ' + gistId.slice(0,8) + '...';
-  else if(savedEl && token) savedEl.textContent = 'Token saved — push to create your first backup.';
-  else if(savedEl) savedEl.textContent = 'No backup configured yet.';
+  if(gistId && savedEl){
+    const url = 'https://gist.github.com/' + gistId;
+    savedEl.innerHTML = 'Backup active — <a href="'+url+'" target="_blank" style="color:var(--indigo-light);">view Gist</a><br><span style="color:var(--text3);font-size:10px;">On a new device: paste your token and tap Pull to restore.</span>';
+  } else if(savedEl && token){
+    savedEl.textContent = 'Token saved. Tap Push to create your first backup.';
+  } else if(savedEl){
+    savedEl.innerHTML = 'Paste your token and tap Push. <a href="https://github.com/settings/tokens/new?scopes=gist&description=Cadence+backup" target="_blank" style="color:var(--indigo-light);">Create a token</a> (gist scope only).';
+  }
 }
 
 // ══════════ SETTINGS ══════════
