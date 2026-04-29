@@ -794,16 +794,18 @@ svg.ring-svg{display:block;margin:0 auto;}
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--indigo-light)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10h-1.26A8 8 0 109 20h9a5 5 0 000-10z"/></svg>
         <div style="font-size:10px;font-weight:700;color:var(--indigo-light);letter-spacing:.1em;text-transform:uppercase;">Cloud backup</div>
       </div>
-      <div style="font-size:12px;color:var(--text2);line-height:1.6;margin-bottom:10px;">Sync your data to a private GitHub Gist — works across devices, survives Safari wipes. <a href="https://github.com/settings/tokens/new?scopes=gist&description=Cadence+backup" target="_blank" style="color:var(--indigo-light);text-decoration:underline;">Create a token</a> (gist scope only).</div>
-      <input type="password" id="gist-token-input" placeholder="Paste token: ghp_xxxxxxxxxxxx" style="width:100%;padding:10px 12px;font-size:13px;font-family:'DM Sans',sans-serif;border:1px solid rgba(99,102,241,.4);border-radius:var(--radius-sm);background:var(--bg3);color:var(--text);outline:none;box-sizing:border-box;"/>
-      <div id="gist-token-saved" style="font-size:11px;color:var(--text3);margin-top:5px;min-height:16px;"></div>
-      <div class="sync-row" style="margin-top:10px;">
-        <button class="sync-btn push" onclick="gistPush()">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:5px;"><path d="M18 10h-1.26A8 8 0 109 20h9a5 5 0 000-10z"/></svg>Push to cloud
-        </button>
-        <button class="sync-btn pull" onclick="gistPull()">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:5px;"><path d="M18 10h-1.26A8 8 0 109 20h9a5 5 0 000-10z"/></svg>Pull from cloud
-        </button>
+      <div style="font-size:12px;color:var(--text2);line-height:1.65;margin-bottom:10px;">Backs up to a private GitHub Gist. Works across devices.<br>
+        Step 1: <a href="https://github.com/settings/tokens/new?scopes=gist&description=Cadence" target="_blank" style="color:var(--indigo-light);">Create a token</a> — select only the <strong>gist</strong> scope.<br>
+        Step 2: Paste it below and tap <strong>Test</strong> to confirm it works.<br>
+        Step 3: Tap <strong>Push</strong> to back up. On a new device, just paste token and tap <strong>Pull</strong>.</div>
+      <div style="display:flex;gap:6px;margin-bottom:6px;">
+        <input type="text" id="gist-token-input" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" style="flex:1;padding:10px 12px;font-size:12px;font-family:'DM Sans',sans-serif;border:1px solid rgba(99,102,241,.4);border-radius:var(--radius-sm);background:var(--bg3);color:var(--text);outline:none;min-width:0;"/>
+        <button onclick="gistTest()" style="padding:10px 12px;font-size:12px;font-weight:600;font-family:'DM Sans',sans-serif;background:var(--bg3);color:var(--indigo-light);border:1px solid rgba(99,102,241,.4);border-radius:var(--radius-sm);cursor:pointer;white-space:nowrap;flex-shrink:0;">Test</button>
+      </div>
+      <div id="gist-token-saved" style="font-size:11px;color:var(--text3);margin-bottom:10px;min-height:14px;line-height:1.5;"></div>
+      <div class="sync-row">
+        <button class="sync-btn push" onclick="gistPush()">Push to cloud</button>
+        <button class="sync-btn pull" onclick="gistPull()">Pull from cloud</button>
       </div>
       <div class="sync-status" id="sync-status"></div>
     </div>
@@ -3767,13 +3769,13 @@ function openWeeklyReview(){
 
 // ══════════ GITHUB GIST SYNC ══════════
 const GIST_FILE = 'cadence-backup.json';
-const GIST_DESC = 'Cadence app data — auto backup';
+const GIST_DESC = 'Cadence app data backup';
+const GITHUB_API = 'https://api.github.com';
 
 function getSyncToken(){
   const inp = document.getElementById('gist-token-input');
-  const stored = localStorage.getItem('gist_token');
   if(inp && inp.value.trim()) return inp.value.trim();
-  return stored || '';
+  return localStorage.getItem('gist_token') || '';
 }
 
 function setSyncStatus(msg, type){
@@ -3782,6 +3784,34 @@ function setSyncStatus(msg, type){
   el.textContent = msg;
   el.className = 'sync-status ' + (type||'pending');
   el.style.display = 'block';
+}
+
+function gistHeaders(token){
+  // Use Bearer — works for both classic and fine-grained tokens
+  return {
+    'Authorization': 'Bearer ' + token,
+    'Content-Type': 'application/json',
+    'Accept': 'application/vnd.github+json',
+    'X-GitHub-Api-Version': '2022-11-28'
+  };
+}
+
+async function gistTest(){
+  const token = getSyncToken();
+  if(!token){ setSyncStatus('Paste a token first.','err'); return; }
+  setSyncStatus('Testing connection...','pending');
+  try {
+    const res = await fetch(GITHUB_API+'/user', { headers: gistHeaders(token) });
+    if(res.status===401) throw new Error('Token invalid or expired. Create a new one at github.com/settings/tokens');
+    if(res.status===403) throw new Error('Token lacks gist permission. Create a new one with the gist scope selected.');
+    if(!res.ok) throw new Error('GitHub returned '+res.status);
+    const user = await res.json();
+    localStorage.setItem('gist_token', token);
+    initGistUI();
+    setSyncStatus('Connected as @'+user.login+' — token is valid. Now tap Push.','ok');
+  } catch(e){
+    setSyncStatus('Test failed: '+e.message,'err');
+  }
 }
 
 function collectAllData(){
@@ -3815,17 +3845,23 @@ async function gistPush(){
 
     if(gistId){
       // Update existing gist
-      const res = await fetch('https://api.github.com/gists/' + gistId, {
+      const res = await fetch(GITHUB_API+'/gists/' + gistId, {
         method: 'PATCH',
-        headers: { 'Authorization': 'token ' + token, 'Content-Type': 'application/json' },
+        headers: gistHeaders(token),
         body: JSON.stringify({ files: { [GIST_FILE]: { content } } })
       });
-      if(!res.ok) throw new Error('Update failed: ' + res.status);
-    } else {
+      if(res.status===404){
+        // Gist was deleted — clear ID and fall through to create
+        localStorage.removeItem('gist_id');
+        gistId = null;
+      } else if(res.status===401) throw new Error('Token invalid. Tap Test to verify it.');
+      else if(!res.ok) throw new Error('Update failed: HTTP '+res.status);
+    }
+    if(!gistId){
       // Create new gist
-      const res = await fetch('https://api.github.com/gists', {
+      const res = await fetch(GITHUB_API+'/gists', {
         method: 'POST',
-        headers: { 'Authorization': 'token ' + token, 'Content-Type': 'application/json' },
+        headers: gistHeaders(token),
         body: JSON.stringify({ description: GIST_DESC, public: false, files: { [GIST_FILE]: { content } } })
       });
       if(!res.ok) throw new Error('Create failed: ' + res.status);
@@ -3847,6 +3883,7 @@ async function gistPull(){
   const token = getSyncToken();
   if(!token){ setSyncStatus('Paste your GitHub token first.', 'err'); return; }
   localStorage.setItem('gist_token', token);
+  const inp2=document.getElementById('gist-token-input');if(inp2)inp2.value=token;
 
   let gistId = localStorage.getItem('gist_id');
 
@@ -3856,8 +3893,8 @@ async function gistPull(){
     try {
       let page = 1, found = null;
       while(!found && page <= 5){
-        const listRes = await fetch('https://api.github.com/gists?per_page=100&page='+page, {
-          headers: { 'Authorization': 'token ' + token }
+        const listRes = await fetch(GITHUB_API+'/gists?per_page=100&page='+page, {
+          headers: gistHeaders(token)
         });
         if(!listRes.ok) throw new Error('Could not list Gists: ' + listRes.status);
         const gists = await listRes.json();
@@ -3878,8 +3915,8 @@ async function gistPull(){
 
   setSyncStatus('Pulling your data from cloud...', 'pending');
   try {
-    const res = await fetch('https://api.github.com/gists/' + gistId, {
-      headers: { 'Authorization': 'token ' + token }
+    const res = await fetch(GITHUB_API+'/gists/' + gistId, {
+      headers: gistHeaders(token)
     });
     if(!res.ok) throw new Error('Fetch failed: ' + res.status + (res.status===404?' — Gist not found. It may have been deleted.':''));
     const json = await res.json();
