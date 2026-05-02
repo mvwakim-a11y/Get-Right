@@ -742,6 +742,41 @@ svg.ring-svg{display:block;margin:0 auto;}
 .sync-btn{flex:1;padding:10px;font-size:12px;font-weight:600;font-family:'DM Sans',sans-serif;border:none;border-radius:var(--radius-sm);cursor:pointer;}
 .sync-btn.push{background:linear-gradient(135deg,var(--indigo),var(--violet));color:white;}
 .sync-btn.pull{background:var(--bg3);color:var(--text);border:1px solid var(--border);}
+
+/* ── LIGHT THEME ── */
+body.light-theme{
+  --bg:#f4f2ff;
+  --bg2:#ffffff;
+  --bg3:#ede9ff;
+  --bg4:#ddd8f8;
+  --text:#1a1630;
+  --text2:#4a4270;
+  --text3:#8a84b0;
+  --border:rgba(99,102,241,0.2);
+  --border2:rgba(99,102,241,0.12);
+  --indigo:#5b58f0;
+  --indigo-light:#6366f1;
+  --indigo-dim:rgba(99,102,241,0.12);
+  --violet:#7c3aed;
+  --violet-dim:rgba(124,58,237,0.12);
+  --amber:#b45309;
+  --amber-dim:rgba(180,83,9,0.1);
+  --sky:#0284c7;
+  --sky-dim:rgba(2,132,199,0.1);
+  --green:#047857;
+  --green-dim:rgba(4,120,87,0.1);
+  --coral:#be123c;
+}
+body.light-theme .night-card{background:#ede9ff;border-color:rgba(99,102,241,0.15);}
+body.light-theme .breath-timer-card{background:rgba(99,102,241,0.06);}
+body.light-theme .cb{background:#ddd8f8;border-color:rgba(99,102,241,0.3);}
+body.light-theme .cb.on{background:var(--indigo);border-color:var(--indigo);}
+body.light-theme .bottom-nav{background:rgba(244,242,255,0.96);border-color:rgba(99,102,241,0.15);}
+body.light-theme .settings-panel{background:#ffffff;}
+body.light-theme .settings-overlay{background:rgba(26,22,48,0.5);}
+body.light-theme input,body.light-theme textarea,body.light-theme select{background:var(--bg3)!important;color:var(--text)!important;border-color:var(--border)!important;}
+body.light-theme .htab-bar{background:var(--bg3);}
+body.light-theme .htab-btn.active{background:var(--bg);}
 </style>
 </head>
 <body>
@@ -773,20 +808,21 @@ svg.ring-svg{display:block;margin:0 auto;}
     </div>
   </div>
 
-  <!-- DATA -->- DATA -->
+  
+    <!-- THEME -->
   <div class="settings-group">
-    <div style="padding:6px 20px 4px;font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;">Data</div>
-    <div class="settings-row" onclick="exportCSV();closeSettings();">
-      <div class="settings-row-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></div>
-      <div><div class="settings-row-label">Export CSV</div><div class="settings-row-sub">Download all your logged data</div></div>
-    </div>
-    <div class="settings-row" onclick="document.getElementById('csv-import-input').click();closeSettings();">
-      <div class="settings-row-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--sky)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></div>
-      <div><div class="settings-row-label">Import CSV</div><div class="settings-row-sub">Merges with existing data — won't erase anything newer</div></div>
+    <div style="padding:12px 20px;">
+      <div style="font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px;">Theme</div>
+      <div style="font-size:11px;color:var(--text3);margin-bottom:10px;" id="theme-auto-label">Auto: light 7am–8pm · dark 8pm–7am</div>
+      <div style="display:flex;gap:8px;">
+        <button id="theme-auto-btn" onclick="setTheme('auto')" style="flex:1;padding:11px 6px;font-size:12px;font-weight:600;font-family:'DM Sans',sans-serif;border-radius:var(--radius-sm);cursor:pointer;border:2px solid transparent;background:linear-gradient(135deg,#f4f2ff 50%,#0f0c1a 50%);color:var(--text);transition:border-color .15s;">Auto</button>
+        <button id="theme-light-btn" onclick="setTheme('light')" style="flex:1;padding:11px 6px;font-size:12px;font-weight:600;font-family:'DM Sans',sans-serif;border-radius:var(--radius-sm);cursor:pointer;border:2px solid transparent;background:#f4f2ff;color:#1a1630;transition:border-color .15s;">Light</button>
+        <button id="theme-dark-btn" onclick="setTheme('dark')" style="flex:1;padding:11px 6px;font-size:12px;font-weight:600;font-family:'DM Sans',sans-serif;border-radius:var(--radius-sm);cursor:pointer;border:2px solid transparent;background:#0f0c1a;color:#f0eeff;transition:border-color .15s;">Dark</button>
+      </div>
     </div>
   </div>
 
-  <!-- RESET -->
+    <!-- RESET -->
   <div class="settings-group">
     <div style="padding:6px 20px 4px;font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;">Reset</div>
     <div class="settings-row" onclick="resetTodayConfirm();">
@@ -3781,6 +3817,7 @@ function openSettings(){
   document.getElementById('settings-overlay').classList.add('open');
   document.getElementById('settings-panel').classList.add('open');
   initGistUI();
+  updateThemeBtns();
 }
 function closeSettings(){
   document.getElementById('settings-overlay').classList.remove('open');
@@ -4250,7 +4287,51 @@ function playChime(allDone){
   }catch(e){console.log('Chime error:',e);}
 }
 
+
+
+// ══════════ THEME ══════════
+function isLightHour(){
+  const h=new Date().getHours();
+  return h>=7&&h<20; // light 7am–8pm, dark 8pm–7am
+}
+function setTheme(mode){
+  localStorage.setItem('theme',mode);
+  applyCurrentTheme();
+  updateThemeBtns();
+}
+function applyCurrentTheme(){
+  const mode=localStorage.getItem('theme')||'auto';
+  const useLight=mode==='light'||(mode==='auto'&&isLightHour());
+  document.body.classList.toggle('light-theme',useLight);
+}
+function loadTheme(){
+  applyCurrentTheme();
+  updateThemeBtns();
+  // Re-check every 5 minutes for auto mode
+  setInterval(()=>{
+    if((localStorage.getItem('theme')||'auto')==='auto')applyCurrentTheme();
+  },5*60*1000);
+}
+function updateThemeBtns(){
+  const mode=localStorage.getItem('theme')||'auto';
+  const highlight='var(--indigo-light)';
+  ['auto','light','dark'].forEach(m=>{
+    const btn=document.getElementById('theme-'+m+'-btn');
+    if(btn)btn.style.borderColor=mode===m?highlight:'transparent';
+  });
+  const lbl=document.getElementById('theme-auto-label');
+  if(lbl){
+    if(mode==='auto'){
+      const useLight=isLightHour();
+      lbl.textContent='Auto: currently '+( useLight?'light (until 8pm)':'dark (until 7am)');
+    } else {
+      lbl.textContent='Auto: light 7am–8pm · dark 8pm–7am';
+    }
+  }
+}
+
 // ══════════ BOOT ══════════
+loadTheme();
 maybeShowIntro();
 initMovement();
 initHabTabs();
