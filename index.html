@@ -1904,8 +1904,8 @@ habVD.setHours(0,0,0,0);
 let mvmtView='today',mSaveTimer=null,hSaveTimer=null,wkSaveTimer=null,guideIdx=0;
 VD.setHours(0,0,0,0);
 
-const dk=d=>d.toISOString().split('T')[0];
-const dic=d=>{const x=Math.floor((d-SD)/86400000);return x<0?-1:(x%7)+1;};
+const dk=d=>{const y=d.getFullYear();const m=String(d.getMonth()+1).padStart(2,'0');const day=String(d.getDate()).padStart(2,'0');return`${y}-${m}-${day}`;};
+const dic=d=>{const dow=d.getDay();return dow===0?1:dow+1;}; // Sun=1,Mon=2,Tue=3,Wed=4,Thu=5,Fri=6,Sat=7
 const wn=d=>{const x=Math.floor((d-SD)/86400000);return x<0?0:Math.floor(x/7)+1;};
 const gph=w=>w<=5?1:w<=10?2:w<=14?3:4;
 const wy=(item,ph)=>ph>=4?'':ph===3?(item.wb||''):ph===2?(item.wb||item.w||''):(item.w||'');
@@ -2763,15 +2763,12 @@ function initMovement(){renderInterval();
   const saved=localStorage.getItem('plan_start_date');
   if(saved){
     SD=new Date(saved+'T00:00:00');SD.setHours(0,0,0,0);
-    // Ensure SD is a Sunday (snap back if not)
-    if(SD.getDay()!==0){SD.setDate(SD.getDate()-SD.getDay());localStorage.setItem('plan_start_date',dk(SD));}
     showMvmtMain();
   }else showMvmtSetup();
 }
 function showMvmtSetup(){document.getElementById('mvmt-setup').style.display='block';document.getElementById('mvmt-main').style.display='none';}
 function showMvmtMain(){document.getElementById('mvmt-setup').style.display='none';document.getElementById('mvmt-main').style.display='block';renderMovement();}
-function setupPlan(){const v=document.getElementById('sinp').value;if(!v)return;SD=new Date(v);SD.setHours(0,0,0,0);// Snap to Sunday
-const dow=SD.getDay();if(dow!==0)SD.setDate(SD.getDate()-dow);localStorage.setItem('plan_start_date',SD.toISOString().split('T')[0]);VD=new Date();VD.setHours(0,0,0,0);showMvmtMain();}
+function setupPlan(){const v=document.getElementById('sinp').value;if(!v)return;SD=new Date(v+'T00:00:00');SD.setHours(0,0,0,0);localStorage.setItem('plan_start_date',dk(SD));VD=new Date();VD.setHours(0,0,0,0);showMvmtMain();}
 
 function renderMovement(){
   const week=wn(VD),ph=gph(week),dn=dic(VD);
@@ -2779,7 +2776,7 @@ function renderMovement(){
   document.getElementById('msind').textContent='';
   const dN=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
   document.getElementById('ddisp').textContent=dN[VD.getDay()]+', '+MTHS[VD.getMonth()]+' '+VD.getDate();
-  if(dn===-1||week>TOTAL){
+  if(week<1||week>TOTAL){
     document.getElementById('pbadge').textContent='';document.getElementById('wlabel').textContent=week<1?'Before start':'Complete!';
     document.getElementById('pname').textContent='';document.getElementById('tbadge').textContent='';
     document.getElementById('pips').innerHTML='';document.getElementById('bwrap').innerHTML='';
