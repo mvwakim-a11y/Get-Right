@@ -1642,15 +1642,8 @@ function getActiveHabitIds(week){
 // HABIT_IDS as a getter — always returns the currently-active subset
 
 
-// Returns only the habits active for the current week
-function getActiveHabitIds(week){
-  const w=week||wn(new Date())||0;
-  return ALL_HABIT_IDS.filter(id=>(HABIT_UNLOCK[id]||0)<=w);
-}
-
-// HABIT_IDS as a getter — always returns the currently-active subset
-const HABIT_IDS=ALL_HABIT_IDS; // full list for data compatibility (counts, exports)
-// Use getActiveHabitIds(currentWeek) for display and completion tracking
+// HABIT_IDS for data compatibility (counts, exports)
+const HABIT_IDS=ALL_HABIT_IDS;
 const WEEKLY_IDS=['wk-laundry','wk-grooming','wk-sheets','wk-groceries','wk-planning','wk-social','wk-book','wk-olivia','wk-shot-wed','wk-mail','wk-financial','wk-bathroom','wk-floors','wk-outreach'];
 const WEEKLY_LABELS={
   'wk-laundry':{label:'Laundry',sub:'Wash, dry, put away — not just wash.',icon:'',day:6},
@@ -1692,7 +1685,7 @@ VD.setHours(0,0,0,0);
 
 const dk=d=>{const y=d.getFullYear();const m=String(d.getMonth()+1).padStart(2,'0');const day=String(d.getDate()).padStart(2,'0');return`${y}-${m}-${day}`;};
 const dic=d=>{const dow=d.getDay();return dow===0?1:dow+1;}; // Sun=1,Mon=2,Tue=3,Wed=4,Thu=5,Fri=6,Sat=7
-const wn=d=>{const x=Math.floor((d-SD)/86400000);return x<0?0:Math.floor(x/7)+1;};
+const wn=d=>{if(!SD)return 0;const x=Math.floor((d-SD)/86400000);return x<0?0:Math.floor(x/7)+1;};
 const gph=w=>w<=5?1:w<=10?2:w<=14?3:4;
 const wy=(item,ph)=>ph>=4?'':ph===3?(item.wb||''):ph===2?(item.wb||item.w||''):(item.w||'');
 
@@ -4089,11 +4082,6 @@ if ('serviceWorker' in navigator && location.protocol === 'https:') {
       });
     }).catch(err => console.log('SW registration failed:', err));
   });
-  // When SW controller changes (after skipWaiting), reload
-  let refreshing = false;
-  navigator.serviceWorker.addEventListener('controllerchange', () => {
-    if (!refreshing) { refreshing = true; }
-  });
 }
 
 // ── AUDIO CHIME ──
@@ -4263,3 +4251,6 @@ if ('serviceWorker' in navigator && location.protocol === 'https:') {
     }).catch(err => console.log('SW registration failed:', err));
   });
 }
+</script>
+</body>
+</html>
