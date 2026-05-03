@@ -42,7 +42,6 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;fon
 .orb2{position:fixed;bottom:60px;left:-120px;width:340px;height:340px;background:radial-gradient(circle,rgba(99,102,241,.12) 0%,transparent 70%);pointer-events:none;z-index:0;}
 
 /* NAV */
-.bottom-nav{position:fixed;bottom:0;left:0;right:0;height:calc(var(--nav-h) + env(safe-area-inset-bottom));padding-bottom:env(safe-area-inset-bottom);background:rgba(15,12,26,0.94);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid var(--border2);display:flex;z-index:100;}
 .nav-dot{width:4px;height:4px;border-radius:50%;background:var(--indigo-light);opacity:0;transition:opacity .15s;}
 .nav-btn.on .nav-dot{opacity:1;}
 
@@ -55,7 +54,6 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;fon
 .page-title{font-family:'DM Serif Display',serif;font-size:26px;color:var(--text);line-height:1.2;margin:4px 0 3px;}
 .page-sub{font-size:12px;color:var(--text3);}
 
-.card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:10px;}
 .cb{width:24px;height:24px;border:1.5px solid var(--bg4);border-radius:7px;cursor:pointer;flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;transition:all .12s;background:var(--bg3);position:relative;touch-action:manipulation;}
 .cb.on{background:linear-gradient(135deg,var(--indigo),var(--violet));border-color:transparent;}
 .cb::before{content:'';position:absolute;inset:-10px;}content:'';display:block;width:5px;height:9px;border:2px solid white;border-top:none;border-left:none;transform:rotate(45deg) translate(-1px,-1px);}
@@ -101,7 +99,6 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;fon
 .move-kid-row::before{content:'';position:absolute;left:20px;top:0;bottom:0;width:1px;background:var(--border);}
 .move-kid-row:last-child{border-bottom:none;}
 .week-grid{display:flex;flex-direction:column;gap:10px;margin-top:14px;}
-.week-card{border:1px solid var(--border);border-radius:var(--radius);padding:15px 16px;background:var(--bg2);}
 .wc-head{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
 .wc-day{font-family:'DM Serif Display',serif;font-size:15px;color:var(--text);}
 .today-dot{width:6px;height:6px;border-radius:50%;background:var(--indigo-light);flex-shrink:0;}
@@ -168,23 +165,12 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;fon
 .hab-summary{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;margin-top:6px;display:flex;justify-content:space-between;align-items:center;}
 
 /* GUIDE */
-.guide-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:12px;}
-.guide-header{padding:16px 16px 12px;display:flex;align-items:flex-start;gap:12px;}
-.guide-icon{display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:var(--radius-sm);flex-shrink:0;margin-top:1px;}
-.guide-items{border-top:1px solid var(--border2);}
-.guide-item{padding:11px 16px;border-bottom:1px solid var(--border2);display:flex;gap:10px;align-items:flex-start;}
-.guide-item:last-child{border-bottom:none;}
-.gi-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:6px;}
-.gi-text{font-size:14px;color:var(--text2);line-height:1.6;}
-.gi-text strong{color:var(--text);font-weight:500;}
-.gi-text em{color:var(--text3);font-style:normal;font-size:12px;display:block;margin-top:2px;}
-.warn-note{background:rgba(251,191,36,.07);border:1px solid rgba(251,191,36,.2);border-radius:var(--radius-sm);padding:12px 14px;font-size:13px;color:var(--amber);line-height:1.6;margin-bottom:12px;}
 
 /* GUIDE VISUAL COMPONENTS */
 .feat-callout{background:linear-gradient(135deg,rgba(99,102,241,.12),rgba(139,92,246,.08));border-left:3px solid var(--indigo-light);padding:14px 16px;}
 .feat-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--indigo-light);margin-bottom:6px;}
 .feat-text{font-size:14px;color:var(--text);line-height:1.65;}
-.guide-group-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text3);padding:10px 16px 4px;border-top:1px solid var(--border2);}
+
 .two-col{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--border2);}
 .tc-item{padding:12px 14px;font-size:13px;color:var(--text2);line-height:1.5;border-bottom:1px solid var(--border2);}
 .tc-item:nth-child(odd){border-right:1px solid var(--border2);}
@@ -252,7 +238,6 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;fon
 .phase-bar-wrap{display:flex;gap:3px;height:10px;border-radius:5px;overflow:hidden;margin:6px 0;}
 .phase-seg{height:100%;transition:opacity .2s;}
 .ph-seg-1{background:var(--green);} .ph-seg-2{background:var(--indigo-light);} .ph-seg-3{background:#c084fc;} .ph-seg-4{background:var(--coral);}
-.phase-cursor{width:2px;height:16px;background:white;border-radius:1px;position:relative;top:-3px;margin-left:-1px;box-shadow:0 0 4px rgba(255,255,255,.6);}
 .week-bar-grid{display:flex;gap:3px;align-items:flex-end;height:60px;margin:6px 0 4px;}
 .wbar{flex:1;border-radius:2px 2px 0 0;min-height:2px;transition:height .3s;}
 .wbar-label{font-size:10px;color:var(--text3);text-align:center;margin-top:2px;}
@@ -263,21 +248,16 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;fon
 .stat-label{font-size:13px;color:var(--text2);}
 .stat-val{font-family:'DM Serif Display',serif;font-size:18px;color:var(--text);}
 .stat-val-sm{font-size:13px;font-weight:600;color:var(--text);}
-.streak-badge{background:linear-gradient(135deg,var(--indigo),var(--violet));color:white;border-radius:var(--radius-sm);padding:6px 14px;display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:500;}
 .metric-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
-.metric-card{background:var(--bg3);border-radius:var(--radius-sm);padding:12px 14px;}
 .phase-legend{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px;}
 .ph-leg{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--text2);}
 .ph-leg-dot{width:8px;height:8px;border-radius:2px;flex-shrink:0;}
-.upcoming-card{background:linear-gradient(135deg,var(--indigo-dim),var(--violet-dim));border:1px solid rgba(99,102,241,.25);border-radius:var(--radius);padding:14px 16px;margin-bottom:10px;}
-.completion-ring-wrap{display:flex;gap:12px;align-items:center;padding:8px 0;}
 .ring-group{text-align:center;flex:1;}
 .ring-label{font-size:11px;color:var(--text3);margin-top:4px;}
 .ring-val{font-size:13px;font-weight:600;color:var(--text);}
 svg.ring-svg{display:block;margin:0 auto;}
 
 /* ── BREATHING TIMER ── */
-.breath-timer-card{background:linear-gradient(135deg,rgba(99,102,241,.1),rgba(139,92,246,.07));border:1px solid rgba(99,102,241,.25);border-radius:var(--radius);padding:14px 16px;margin-bottom:10px;}
 .breath-timer-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
 .breath-timer-title{font-size:14px;font-weight:500;color:var(--text);}
 .breath-dur-row{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
@@ -298,17 +278,11 @@ svg.ring-svg{display:block;margin:0 auto;}
 .g-select-wrap{width:100%;margin:0 0 10px;}
 .g-select{width:100%;padding:9px 14px;font-size:13px;font-family:'DM Sans',sans-serif;font-weight:500;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--bg2);color:var(--text);appearance:none;-webkit-appearance:none;cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%235f5a80' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:34px;}
 .g-select:focus{outline:none;border-color:rgba(99,102,241,.5);}
-.g-nav-btn{width:36px;height:36px;border-radius:50%;border:1px solid var(--border);background:var(--bg2);color:var(--text2);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;transition:all .15s;touch-action:manipulation;}
-.g-nav-btn:disabled{opacity:.25;cursor:not-allowed;}
-.g-nav-btn:not(:disabled):hover{background:var(--bg3);color:var(--text);}
+
 .g-card-meta{text-align:center;}
 .g-card-title{font-family:'DM Serif Display',serif;font-size:15px;color:var(--text);line-height:1.2;}
 .g-card-count{font-size:11px;color:var(--text3);margin-top:2px;}
 .guide-dot-row{display:flex;gap:5px;justify-content:center;margin-bottom:12px;}
-.g-dot{width:6px;height:6px;border-radius:50%;background:var(--bg4);cursor:pointer;transition:all .2s;}
-.g-dot.on{background:var(--indigo-light);width:18px;border-radius:3px;}
-.guide-panel{display:none;animation:fadeUp .22s ease both;}
-.guide-panel.on{display:block;}
 
 /* ── WEEKLY HABITS ── */
 .week-progress{display:flex;gap:3px;margin:6px 0 0;}
@@ -318,27 +292,7 @@ svg.ring-svg{display:block;margin:0 auto;}
 .badge-monthly{background:rgba(251,191,36,.1);color:var(--amber);border:1px solid rgba(251,191,36,.2);}
 
 /* ── NEW GUIDE VISUAL STYLES ── */
-.guide-summary{padding:10px 16px 12px;border-bottom:1px solid var(--border2);font-size:12px;color:var(--text2);line-height:1.65;font-style:italic;}
-.gi-grid{padding:10px 12px;display:flex;flex-direction:column;gap:7px;}
-.gi-chip{display:flex;gap:11px;align-items:flex-start;padding:11px 13px;border-radius:var(--radius-sm);border:1px solid var(--border2);background:var(--bg3);}
-.gi-chip.do{border-left:3px solid var(--green);background:linear-gradient(90deg,rgba(52,211,153,.06),var(--bg3));}
-.gi-chip.avoid{border-left:3px solid var(--coral);background:linear-gradient(90deg,rgba(251,113,133,.06),var(--bg3));}
-.gi-chip.key{border-left:3px solid var(--indigo-light);background:linear-gradient(90deg,rgba(99,102,241,.07),var(--bg3));}
-.gi-chip.note{border-left:3px solid var(--amber);background:linear-gradient(90deg,rgba(251,191,36,.06),var(--bg3));}
-.gi-chip.research{border-left:3px solid #c084fc;background:linear-gradient(90deg,rgba(139,92,246,.07),var(--bg3));}
-.gi-chip.tip{border-left:3px solid var(--sky);background:linear-gradient(90deg,rgba(56,189,248,.06),var(--bg3));}
-.gi-chip-icon{font-size:18px;flex-shrink:0;line-height:1;margin-top:1px;}
-.gi-chip-body{flex:1;}
-.gi-badge{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:2px 7px;border-radius:8px;display:inline-block;margin-bottom:4px;}
-.gb-do{background:var(--green-dim);color:var(--green);}
-.gb-avoid{background:var(--coral-dim);color:var(--coral);}
-.gb-key{background:var(--indigo-dim);color:var(--indigo-light);}
-.gb-note{background:var(--amber-dim);color:var(--amber);}
-.gb-research{background:var(--violet-dim);color:#c084fc;}
-.gb-tip{background:var(--sky-dim);color:var(--sky);}
-.gi-headline{font-size:14px;font-weight:600;color:var(--text);line-height:1.3;margin-bottom:3px;}
-.gi-body{font-size:12px;color:var(--text2);line-height:1.6;}
-.gi-source{font-size:11px;color:var(--text3);margin-top:4px;font-style:italic;}
+
 .compare-wrap{padding:10px 12px;display:grid;grid-template-columns:1fr 1fr;gap:7px;}
 .compare-card{border-radius:var(--radius-sm);padding:11px 12px;border:1px solid;display:flex;flex-direction:column;gap:4px;}
 .cc-do{background:linear-gradient(135deg,rgba(52,211,153,.08),rgba(52,211,153,.03));border-color:rgba(52,211,153,.25);}
@@ -506,7 +460,6 @@ svg.ring-svg{display:block;margin:0 auto;}
 .book-header{padding:12px 16px 10px;display:flex;align-items:center;justify-content:space-between;}
 .book-count-badge{font-size:11px;font-weight:600;padding:3px 10px;border-radius:12px;background:var(--violet-dim);color:#c084fc;border:1px solid rgba(139,92,246,.2);}
 .book-list{border-top:1px solid var(--border2);}
-.book-row{display:flex;gap:10px;align-items:flex-start;padding:11px 16px;border-bottom:1px solid var(--border2);}
 .book-row:last-child{border-bottom:none;}
 .book-num{font-size:11px;font-weight:700;color:var(--violet);background:var(--violet-dim);border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
 .book-info{flex:1;}
@@ -531,29 +484,17 @@ svg.ring-svg{display:block;margin:0 auto;}
 
 /* ── SECTION LABELS — SVG icon + small caps ── */
 
-
 /* ── GUIDE ICON ── */
 .guide-icon-wrap{display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:var(--radius-sm);flex-shrink:0;background:var(--bg3);border:1px solid var(--border2);}
-.guide-tag{display:inline-flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:4px 10px;border-radius:6px;flex-shrink:0;margin-top:2px;}
-.gt-pos{background:rgba(56,189,248,.1);color:var(--sky);border:1px solid rgba(56,189,248,.2);}
-.gt-sleep{background:var(--indigo-dim);color:var(--indigo-light);border:1px solid rgba(99,102,241,.2);}
-.gt-jaw{background:var(--amber-dim);color:var(--amber);border:1px solid rgba(251,191,36,.2);}
-.gt-habit{background:var(--green-dim);color:var(--green);border:1px solid rgba(52,211,153,.2);}
-.gt-oral{background:var(--violet-dim);color:#c084fc;border:1px solid rgba(139,92,246,.2);}
-.gt-hydration{background:var(--sky-dim);color:var(--sky);border:1px solid rgba(56,189,248,.15);}
-.gt-science{background:rgba(251,113,133,.1);color:var(--coral);border:1px solid rgba(251,113,133,.2);}
 
 /* ── REFINED CARDS ── */
 .card{background:var(--bg2);border:1px solid var(--border2);border-radius:var(--radius);overflow:hidden;margin-bottom:10px;transition:border-color .15s;}
 .card-row{display:flex;gap:12px;align-items:center;padding:12px 14px;border-bottom:1px solid rgba(255,255,255,.04);min-height:44px;}
 .card-row:last-child{border-bottom:none;}
 .stat-card{background:var(--bg2);border:1px solid var(--border2);border-radius:var(--radius);overflow:hidden;margin-bottom:10px;}
-.guide-card{background:var(--bg2);border:1px solid var(--border2);border-radius:var(--radius);overflow:hidden;margin-bottom:12px;}
 
 /* ── REFINED GUIDE HEADER ── */
-.guide-header{padding:16px 16px 12px;display:flex;align-items:flex-start;gap:14px;}
-.guide-title{font-family:'DM Serif Display',serif;font-size:19px;color:var(--text);margin-bottom:4px;line-height:1.2;}
-.guide-desc{font-size:12px;color:var(--text2);line-height:1.6;}
+
 .guide-summary{padding:0 16px 12px;font-size:12px;color:var(--text2);line-height:1.65;font-style:italic;border-bottom:1px solid var(--border2);}
 
 /* ── REFINED WEEK CARD ── */
@@ -597,7 +538,6 @@ svg.ring-svg{display:block;margin:0 auto;}
 .night-card{background:linear-gradient(135deg,rgba(30,20,60,.6),var(--bg2));border:1px solid rgba(99,102,241,.15);border-radius:var(--radius);overflow:hidden;margin-bottom:10px;}
 
 /* ── WARN NOTE ── */
-.warn-note{background:rgba(99,102,241,.07);border:1px solid rgba(99,102,241,.18);border-radius:var(--radius-sm);padding:12px 14px;font-size:12px;color:var(--text2);line-height:1.65;margin-bottom:14px;}
 
 /* ── STREAK BADGE ── */
 .streak-badge{background:linear-gradient(135deg,rgba(99,102,241,.15),rgba(139,92,246,.12));border:1px solid rgba(99,102,241,.25);color:white;border-radius:var(--radius-sm);padding:10px 16px;display:inline-flex;align-items:center;gap:10px;font-size:13px;font-weight:500;}
@@ -611,7 +551,6 @@ svg.ring-svg{display:block;margin:0 auto;}
 .brand-wordmark{display:flex;flex-direction:column;}
 .brand-name{font-family:'DM Serif Display',serif;font-size:20px;color:var(--text);letter-spacing:.01em;line-height:1;}
 .brand-sub{font-size:10px;color:var(--text3);letter-spacing:.1em;text-transform:uppercase;margin-top:2px;}
-.brand-right{margin-left:auto;display:flex;flex-direction:column;align-items:flex-end;gap:2px;}
 
 /* ── HABITS NAV ── */
 .hab-nav button:disabled{opacity:.3;cursor:not-allowed;}
@@ -641,7 +580,6 @@ svg.ring-svg{display:block;margin:0 auto;}
 .int-adj:disabled{opacity:.3;cursor:not-allowed;}
 
 /* ── QUICK STATS BAR ── */
-.quick-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:0 0 14px;background:var(--bg2);border:1px solid var(--border2);border-radius:var(--radius);padding:12px;}
 .qs-cell{display:flex;flex-direction:column;gap:4px;}
 .qs-label{font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;}
 .qs-bar{height:5px;background:var(--bg4);border-radius:3px;overflow:hidden;}
@@ -696,7 +634,6 @@ svg.ring-svg{display:block;margin:0 auto;}
 /* Intention card */
 .intention-card{background:linear-gradient(135deg,rgba(99,102,241,.07),rgba(139,92,246,.04));border:1px solid rgba(99,102,241,.18);border-radius:var(--radius);padding:12px 14px;margin-bottom:12px;}
 .intention-label{font-size:10px;font-weight:700;color:var(--indigo-light);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;}
-.intention-input{width:100%;background:transparent;border:none;outline:none;font-size:15px;font-family:'DM Serif Display',serif;color:var(--text);line-height:1.6;resize:none;min-height:40px;}
 .intention-input::placeholder{color:var(--text3);font-style:italic;font-size:14px;}
 
 /* Completion ring */
@@ -793,9 +730,7 @@ body.light-theme .htab-btn.active{background:var(--bg);}
 .collapsible-body{padding-top:2px;margin-bottom:6px;}
 .collapsible-body.collapsed{display:none;}
 
-
 /* ── WEEKLY DAY GROUPS ── */
-.wk-day-group{margin-bottom:4px;}
 .wk-day-header{display:flex;align-items:center;gap:10px;padding:10px 14px 8px;border-radius:var(--radius-sm) var(--radius-sm) 0 0;margin-bottom:1px;min-height:44px;}
 .wk-day-name{font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;}
 .wk-day-date{font-size:11px;font-weight:500;opacity:.7;}
@@ -888,44 +823,6 @@ a,button,input[type='button'],input[type='submit'],input[type='reset'],select,la
   <div style="padding:14px 20px;"><button onclick="closeSettings()" style="width:100%;padding:11px;font-size:14px;font-family:'DM Sans',sans-serif;font-weight:600;background:var(--bg3);color:var(--text2);border:1px solid var(--border2);border-radius:var(--radius-sm);cursor:pointer;">Close</button></div>
 </div>
 
-<div id="intro-overlay" style="display:none;position:fixed;inset:0;background:rgba(15,12,26,0.96);z-index:200;overflow-y:auto;padding:20px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);">
-  <div style="max-width:480px;margin:40px auto;background:var(--bg2);border:1px solid var(--border2);border-radius:var(--radius);padding:24px;">
-    <div style="text-align:center;margin-bottom:20px;">
-      <svg width="48" height="48" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <defs><linearGradient id="intro-grad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#6366f1"/><stop offset="100%" stop-color="#8b5cf6"/></linearGradient></defs>
-        <circle cx="20" cy="20" r="19" stroke="url(#intro-grad)" stroke-width="1.5" fill="rgba(99,102,241,0.1)"/>
-        <path d="M5 20 L9 20 L12 11 L16 29 L20 20 L24 20 L27 13 L31 27 L35 20" stroke="url(#intro-grad)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-      <h2 style="font-family:'DM Serif Display',serif;font-size:26px;color:var(--text);margin:14px 0 4px;">Welcome to Cadence</h2>
-      <div style="font-size:13px;color:var(--text3);">Michelle · 27 · 20-week plan</div>
-    </div>
-    <div style="font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:18px;">
-      Cadence is your personal health and habit tracker — built around your specific goals: posture, breathing, jaw tension, and the move to Denver.
-    </div>
-    <div style="background:var(--bg3);border:1px solid var(--border2);border-radius:var(--radius-sm);padding:14px;margin-bottom:14px;">
-      <div style="font-size:10px;font-weight:700;color:var(--indigo-light);letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px;">How it's organized</div>
-      <div style="display:flex;flex-direction:column;gap:10px;font-size:13px;color:var(--text2);line-height:1.5;">
-        <div><strong style="color:var(--text);">Move</strong> — your daily workout, the 20-week schedule, music links, and an interval timer for circuit work.</div>
-        <div><strong style="color:var(--text);">Habits</strong> — every daily habit, water/meals/steps trackers, breathing & jaw timers, mood &amp; sleep ratings, weekly and monthly goals.</div>
-        <div><strong style="color:var(--text);">Guide</strong> — research-backed reference cards on posture, sleep, jaw, breathing, and bruxism. Read when you need a refresher.</div>
-        <div><strong style="color:var(--text);">Progress</strong> — your streak, 14-day trends, weekly completion, Pepcid reduction tracking, and CSV export.</div>
-      </div>
-    </div>
-    <div style="background:var(--bg3);border:1px solid var(--border2);border-radius:var(--radius-sm);padding:14px;margin-bottom:18px;">
-      <div style="font-size:10px;font-weight:700;color:var(--violet);letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px;">A few things to know</div>
-      <ul style="margin:0;padding-left:18px;font-size:12px;color:var(--text2);line-height:1.7;">
-        <li>Tap to log doses, water, meals — counters save automatically</li>
-        <li>Use Prev / Next buttons in Move and Habits to view past days</li>
-        <li>You can add your own custom habits and assign them to any time of day</li>
-        <li>Every dose of Pepcid is just for tracking — the goal is fewer over time</li>
-        <li>Audio chimes work after the first tap — iOS quirk</li>
-      </ul>
-    </div>
-    <button onclick="dismissIntro()" style="width:100%;padding:13px;font-size:14px;font-weight:600;font-family:'DM Sans',sans-serif;background:linear-gradient(135deg,var(--indigo),var(--violet));color:white;border:none;border-radius:var(--radius-sm);cursor:pointer;">Get started</button>
-  </div>
-</div>
-
-<div class="orb"></div><div class="orb2"></div>
 
 <!-- ═══════════ MOVEMENT ═══════════ -->
 <div id="sec-movement" class="section on">
@@ -1577,8 +1474,9 @@ a,button,input[type='button'],input[type='submit'],input[type='reset'],select,la
   </div><!-- end overview -->
 
   <div class="htab-section" id="htab-manage">
+  <div class="slbl"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--indigo-light)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg><span class="slbl-text" style="color:var(--indigo-light);">Custom habits</span></div>
   <div class="custom-habit-section">
-    <div style="font-size:12px;color:var(--text2);line-height:1.6;margin-bottom:10px;">Add habits that show up alongside the built-in ones in the section you choose. Use arrows to reorder within a section.</div>
+    <div style="font-size:12px;color:var(--text3);line-height:1.6;margin-bottom:10px;">Habits added here appear in the section you choose alongside built-in ones.</div>
     <div id="custom-habits-list"></div>
     <div class="add-habit-row" style="flex-direction:column;gap:6px;">
       <input type="text" id="custom-habit-input" class="add-habit-input" placeholder="Add a custom daily habit..." />
@@ -1622,179 +1520,6 @@ a,button,input[type='button'],input[type='submit'],input[type='reset'],select,la
   </div>
 </div><!-- end manage -->
 </div><!-- end sec-habits -->
-
-<!-- ═══════════ GUIDE ═══════════ -->
-<div id="sec-guide" class="section">
-  <div class="brand-bar"><svg width="24" height="24" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Cadence">
-  <defs><linearGradient id="cad-g2" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#6366f1"/><stop offset="100%" stop-color="#8b5cf6"/></linearGradient></defs>
-  <circle cx="20" cy="20" r="19" stroke="url(#cad-g2)" stroke-width="1.5" fill="rgba(99,102,241,0.08)"/>
-  <path d="M5 20 L9 20 L12 11 L16 29 L20 20 L24 20 L27 13 L31 27 L35 20" stroke="url(#cad-g2)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-</svg><div class="brand-wordmark"><div class="brand-name">Cadence</div><div class="brand-sub">Guide</div></div><button class="settings-cog" onclick="openSettings()" aria-label="Settings" style="margin-left:auto;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg></button></div>
-  <div class="section-title" style="margin-bottom:4px;">Body manual</div>
-  <div class="section-subtitle" style="margin-bottom:14px;">Reference cards — internalize until automatic</div>
-
-  <div class="guide-carousel-header">
-    <button class="g-nav-btn" id="g-prev" onclick="goGuide(-1)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
-    <div class="g-card-meta">
-      <div class="g-card-title" id="g-card-title">Sitting posture</div>
-      <div class="g-card-count" id="g-card-count">1 of 8</div>
-    </div>
-    <button class="g-nav-btn" id="g-next" onclick="goGuide(1)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
-  </div>
-  <div class="g-select-wrap">
-    <select class="g-select" id="g-select" onchange="setGuide(parseInt(this.value))">
-      <option value="0">Sitting posture</option>
-      <option value="1">Standing posture</option>
-      <option value="2">Couch &amp; bed working</option>
-      <option value="3">Sleep positions</option>
-      <option value="4">Jaw resting state</option>
-      <option value="5">Oral fixation</option>
-      <option value="6">Hydration in Denver</option>
-      <option value="7">Breathing patterns</option>
-      <option value="8">Stopping the grind</option>
-    </select>
-  </div>
-  <div class="guide-dot-row" id="guide-dots"></div>
-
-  <!-- PANEL 0: SITTING -->
-  <div class="guide-panel on" data-idx="0">
-    <div class="guide-card">
-      <div class="guide-header"><div class="guide-icon-wrap"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--sky)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"  aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg></div><div><div class="guide-title">Sitting posture</div><div class="guide-desc">The position you're in most — and the one doing the most damage unchecked.</div></div></div>
-      <div class="guide-summary">The goal isn't rigid perfect posture for 8 hours. It's frequent small resets and position variety throughout the day.</div>
-      <div class="gi-grid">
-        <div class="gi-chip do"><div class="gi-chip-icon" style="font-size:10px;font-weight:700;color:var(--text3);width:28px;text-align:center;letter-spacing:.04em;text-transform:uppercase;padding-top:1px;">form</div><div class="gi-chip-body"><span class="gi-badge gb-do">Do this</span><div class="gi-headline">Sit on your sit bones, not your tailbone</div><div class="gi-body">Scoot forward slightly — feel two bony points under each glute. The moment you slump back, your lumbar loads and your shoulders round forward.</div></div></div>
-        <div class="gi-chip do"><div class="gi-chip-icon" style="font-size:10px;font-weight:700;color:var(--text3);width:28px;text-align:center;letter-spacing:.04em;text-transform:uppercase;padding-top:1px;">screen</div><div class="gi-chip-body"><span class="gi-badge gb-do">Do this</span><div class="gi-headline">Screen at eye level</div><div class="gi-body">Looking down at a laptop adds ~10 lbs of load per inch of forward head. Prop your screen, use a stand, or get an external monitor.</div></div></div>
-        <div class="gi-chip do"><div class="gi-chip-icon" style="font-size:10px;font-weight:700;color:var(--text3);width:28px;text-align:center;letter-spacing:.04em;text-transform:uppercase;padding-top:1px;">posture</div><div class="gi-chip-body"><span class="gi-badge gb-do">Do this</span><div class="gi-headline">Drop your shoulders, don't brace them</div><div class="gi-body">Actively releasing the brace trains the nervous system. The band work and yin are making this the natural default — for now, just notice and release.</div></div></div>
-        <div class="gi-chip note"><div class="gi-chip-icon" style="font-size:10px;font-weight:700;color:var(--text3);width:28px;text-align:center;letter-spacing:.04em;text-transform:uppercase;padding-top:1px;">variety</div><div class="gi-chip-body"><span class="gi-badge gb-note">Key insight</span><div class="gi-headline">No position is correct for 8 hours</div><div class="gi-body">Shift, fidget, stand. Research is clear — sustained static posture causes more harm than moderate movement. Variety is the goal.</div></div></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- PANEL 1: STANDING -->
-  <div class="guide-panel" data-idx="1">
-    <div class="guide-card">
-      <div class="guide-header"><div class="guide-icon-wrap"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--sky)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"  aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg></div><div><div class="guide-title">Standing posture</div><div class="guide-desc">Better than sitting — but only if the mechanics are right.</div></div></div>
-      <div class="gi-grid">
-        <div class="gi-chip do"><div class="gi-chip-icon" style="font-size:10px;font-weight:700;color:var(--text3);width:28px;text-align:center;letter-spacing:.04em;text-transform:uppercase;padding-top:1px;">balance</div><div class="gi-chip-body"><span class="gi-badge gb-do">Do this</span><div class="gi-headline">Weight even across both feet</div><div class="gi-body">Most people load one hip chronically. Stand hip-width apart, equal pressure in heels and balls of both feet. This alone fixes a lot.</div></div></div>
-        <div class="gi-chip do"><div class="gi-chip-icon" style="font-size:10px;font-weight:700;color:var(--text3);width:28px;text-align:center;letter-spacing:.04em;text-transform:uppercase;padding-top:1px;">knees</div><div class="gi-chip-body"><span class="gi-badge gb-do">Do this</span><div class="gi-headline">Soft knee bend — never locked</div><div class="gi-body">Locked knees compress the joint and push the pelvis forward. An almost imperceptible flex changes the whole chain above it.</div></div></div>
-        <div class="gi-chip note"><div class="gi-chip-icon" style="font-size:10px;font-weight:700;color:var(--text3);width:28px;text-align:center;letter-spacing:.04em;text-transform:uppercase;padding-top:1px;">swim</div><div class="gi-chip-body"><span class="gi-badge gb-note">Swimmer note</span><div class="gi-headline">Watch for anterior pelvic tilt</div><div class="gi-body">Butt sticking out, lower back arched. Common in swimmers from hip flexor tightness. Lightly engage lower abs. Dragon pose is correcting this structurally — the standing cue reinforces it.</div></div></div>
-        <div class="gi-chip tip"><div class="gi-chip-icon" style="font-size:10px;font-weight:700;color:var(--text3);width:28px;text-align:center;letter-spacing:.04em;text-transform:uppercase;padding-top:1px;">target</div><div class="gi-chip-body"><span class="gi-badge gb-tip">Target shape</span><div class="gi-headline">Ribs stacked over hips, chest open</div><div class="gi-body">Imagine breathing into your back as well as your front — this naturally lifts the ribcage without flaring it forward. Ears over shoulders, shoulders over hips, hips over ankles.</div></div></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- PANEL 2: COUCH/BED -->
-  <div class="guide-panel" data-idx="2">
-    <div class="guide-card">
-      <div class="guide-header"><div class="guide-icon-wrap"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c084fc" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"  aria-hidden="true"><path d="M2 9V6a2 2 0 012-2h16a2 2 0 012 2v3M2 9a2 2 0 000 4v1h20v-1a2 2 0 000-4zM20 13v4H4v-4"/></svg></div><div><div class="guide-title">Couch & bed working</div><div class="guide-desc">You're going to do it — here's how to make it significantly less damaging.</div></div></div>
-      <div class="gi-grid">
-        <div class="gi-chip do"><div class="gi-chip-icon" style="font-size:10px;font-weight:700;color:var(--text3);width:28px;text-align:center;letter-spacing:.04em;text-transform:uppercase;padding-top:1px;">support</div><div class="gi-chip-body"><span class="gi-badge gb-do">Non-negotiable</span><div class="gi-headline">Firm lumbar support, always</div><div class="gi-body">A rolled towel or firm pillow at the lower back. Without it, a soft couch collapses your spine within 5 minutes. This single addition changes everything about couch working.</div></div></div>
-        <div class="gi-chip do"><div class="gi-chip-icon" style="font-size:10px;font-weight:700;color:var(--text3);width:28px;text-align:center;letter-spacing:.04em;text-transform:uppercase;padding-top:1px;">angle</div><div class="gi-chip-body"><span class="gi-badge gb-do">Do this</span><div class="gi-headline">Prop your screen toward eye level</div><div class="gi-body">Laptop in lap = 45° neck angle for hours. A lap desk, pillow stack, or even a shoebox gets you closer. Imperfect is still dramatically better than nothing.</div></div></div>
-        <div class="gi-chip tip"><div class="gi-chip-icon" style="font-size:10px;font-weight:700;color:var(--text3);width:28px;text-align:center;letter-spacing:.04em;text-transform:uppercase;padding-top:1px;">timer</div><div class="gi-chip-body"><span class="gi-badge gb-tip">Habit trigger</span><div class="gi-headline">Stand break every 45–60 min</div><div class="gi-body">Set a timer. Two minutes upright resets circulation and spinal loading. Your concentration will also improve — brief movement breaks measurably increase focus.</div></div></div>
-        <div class="gi-chip avoid"><div class="gi-chip-icon" style="font-size:10px;font-weight:700;color:var(--text3);width:28px;text-align:center;letter-spacing:.04em;text-transform:uppercase;padding-top:1px;">avoid</div><div class="gi-chip-body"><span class="gi-badge gb-avoid">Avoid</span><div class="gi-headline">Extended side-lying work</div><div class="gi-body">20 min here or there is fine. Extended sessions cause uneven neck loading and shoulder compression on the bottom arm. If you're watching something, fine — if you're working, find a better position.</div></div></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- PANEL 3: SLEEP POSITIONS -->
-  <div class="guide-panel" data-idx="3">
-    <div class="guide-card">
-      <div class="guide-header"><div class="guide-icon-wrap"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--indigo-light)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"  aria-hidden="true"><path d="M2 4v16M22 4v16M2 12h20M6 12V8a2 2 0 012-2h8a2 2 0 012 2v4"/></svg></div><div><div class="guide-title">Sleep positions</div><div class="guide-desc">7 hours of bad position undoes a lot of good daily work.</div></div></div>
-      <div class="guide-summary">Your shoulder pain almost certainly comes from position — either sleeping on the painful side, or a pillow that's too flat for side sleeping.</div>
-      <div class="compare-wrap">
-        <div class="compare-card cc-do"><span class="cc-label do">Best</span><div class="cc-title">Side sleeping</div><div class="cc-body">Pillow between knees. Pillow fills full ear-to-shoulder gap. Painful shoulder faces <strong>up</strong>.</div></div>
-        <div class="compare-card cc-ok"><span class="cc-label ok">↗ Also good</span><div class="cc-title">Back sleeping</div><div class="cc-body">Pillow under knees. Thinner head pillow. Shoulders externally rotate — that's correct, not wrong.</div></div>
-      </div>
-      <div class="compare-full cc-avoid" style="border:1px solid rgba(251,113,133,.25);background:linear-gradient(90deg,rgba(251,113,133,.07),var(--bg3));margin:0 12px 10px;border-radius:var(--radius-sm);padding:11px 12px;">
-        <span class="cc-label av">Avoid</span>
-        <div class="cc-title" style="color:var(--text);font-size:13px;font-weight:600;margin:3px 0;">Stomach sleeping</div>
-        <div class="cc-body" style="font-size:12px;color:var(--text2);">Forces hours of neck rotation, compresses lumbar, locks shoulders in internal rotation — directly reinforcing every pattern you're trying to undo.</div>
-      </div>
-      <div class="gi-grid" style="padding-top:4px;">
-        <div class="gi-chip note"><div class="gi-chip-icon" style="font-size:10px;font-weight:700;color:var(--text3);width:28px;text-align:center;letter-spacing:.04em;text-transform:uppercase;padding-top:1px;">pillow</div><div class="gi-chip-body"><span class="gi-badge gb-note">Pillow tip</span><div class="gi-headline">Your pillow is probably too flat</div><div class="gi-body">Side sleepers need a firm, tall pillow that fills the full head-to-shoulder gap. If your neck is bent downward during sleep you'll wake up in pain regardless of position.</div></div></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- PANEL 4: JAW -->
-  <div class="guide-panel" data-idx="4">
-    <div class="guide-card">
-      <div class="guide-header"><div class="guide-icon-wrap"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"  aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg></div><div><div class="guide-title">Jaw resting state</div><div class="guide-desc">You already have the position right. The work is training the system that drives clenching.</div></div></div>
-      <div class="guide-summary">Tongue on roof of mouth is correct whether awake or asleep. Grinding during sleep is NOT caused by jaw position — it's driven by nervous system arousal during sleep microarousals.</div>
-      <div class="gi-grid">
-        <div class="gi-chip do"><div class="gi-chip-icon" style="font-size:10px;font-weight:700;color:var(--text3);width:28px;text-align:center;letter-spacing:.04em;text-transform:uppercase;padding-top:1px;">rest</div><div class="gi-chip-body"><span class="gi-badge gb-do">N position</span><div class="gi-headline">Lips together · teeth slightly apart · tongue to palate</div><div class="gi-body">You already do this naturally. The goal is making it fully automatic — especially during concentration, screen time, and driving.</div></div></div>
-        <div class="gi-chip note"><div class="gi-chip-icon" style="font-size:10px;font-weight:700;color:var(--text3);width:28px;text-align:center;letter-spacing:.04em;text-transform:uppercase;padding-top:1px;">phone</div><div class="gi-chip-body"><span class="gi-badge gb-note">Habit anchor</span><div class="gi-headline">Jaw check every time you pick up your phone</div><div class="gi-body">Teeth should not be touching unless you're eating or speaking. 50 micro-checks a day builds the awareness that stops daytime clenching.</div></div></div>
-        <div class="gi-chip key"><div class="gi-chip-icon" style="font-size:10px;font-weight:700;color:var(--text3);width:28px;text-align:center;letter-spacing:.04em;text-transform:uppercase;padding-top:1px;">breathe</div><div class="gi-chip-body"><span class="gi-badge gb-key">Root cause</span><div class="gi-headline">The breathwork IS the treatment</div><div class="gi-body">Box breathing and extended exhale lower the cortisol and autonomic arousal that trigger sleep bruxism. 4–6 weeks of daily consistency shows measurable change. Jaw exercises manage the symptom — breathwork addresses the cause.</div></div></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- PANEL 5: ORAL FIXATION -->
-  <div class="guide-panel" data-idx="5">
-    <div class="guide-card">
-      <div class="guide-header"><div class="guide-icon-wrap"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"  aria-hidden="true"><path d="M12 22a7 7 0 007-7c0-2-1-3.9-1.5-5.5S16 6 16 4c0 0-3 2-4 5.5C11 7 9 5 8 4c0 2-.5 3-1 4.5S5 13 5 15a7 7 0 007 7z"/></svg></div><div><div class="guide-title">Oral fixation — redirects</div><div class="guide-desc">The urge is real. Redirect toward things that don't worsen your jaw.</div></div></div>
-      <div class="guide-summary">Oral fixation is often a displaced stress response — the same state driving the clenching. When the urge is strong, that's a signal to breathe first.</div>
-      <div class="quick-grid">
-        <div class="quick-card"><div class="qc-icon" style="font-size:18px;font-weight:700;color:var(--sky);">H₂O</div><div class="qc-label">Water</div><div class="qc-sub">Best option. Oral + hydration + hands busy.</div></div>
-        <div class="quick-card"><div class="qc-icon" style="font-size:18px;font-weight:700;color:var(--green);">Tea</div><div class="qc-label">Herbal tea</div><div class="qc-sub">Calming, satisfying, adds to hydration.</div></div>
-        <div class="quick-card"><div class="qc-icon" style="font-size:18px;font-weight:700;color:var(--violet);">Mint</div><div class="qc-label">Mints</div><div class="qc-sub">Low jaw load vs. gum. Sugar-free only.</div></div>
-      </div>
-      <div class="gi-grid" style="padding-top:4px;">
-        <div class="gi-chip note"><div class="gi-chip-icon" style="font-size:10px;font-weight:700;color:var(--text3);width:28px;text-align:center;letter-spacing:.04em;text-transform:uppercase;padding-top:1px;">limit</div><div class="gi-chip-body"><span class="gi-badge gb-note">Limit</span><div class="gi-headline">Crunchy veg — occasional snack, not constant</div><div class="gi-body">Fine as a snack. Not an all-day habit — prolonged chewing loads the masseter, already overworked by bruxism.</div></div></div>
-        <div class="gi-chip avoid"><div class="gi-chip-icon" style="font-size:10px;font-weight:700;color:var(--text3);width:28px;text-align:center;letter-spacing:.04em;text-transform:uppercase;padding-top:1px;">avoid</div><div class="gi-chip-body"><span class="gi-badge gb-avoid">Avoid</span><div class="gi-headline">Daily gum chewing</div><div class="gi-body">Exactly the repetitive masseter loading that worsens bruxism. Occasional use is fine. Daily is counterproductive to everything your jaw exercises are building.</div></div></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- PANEL 6: HYDRATION -->
-  <div class="guide-panel" data-idx="6">
-    <div class="guide-card">
-      <div class="guide-header"><div class="guide-icon-wrap"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--sky)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"  aria-hidden="true"><path d="M12 2.69l5.66 5.66a8 8 0 11-11.31 0z"/></svg></div><div><div class="guide-title">Hydration in Denver</div><div class="guide-desc">At 5,280 ft with low humidity, dehydration is faster and sneakier than at sea level.</div></div></div>
-      <div class="guide-summary">You lose water with every single exhale. At altitude, you breathe faster and each breath carries more vapor. Drink on schedule — thirst lags dehydration.</div>
-      <div class="compare-wrap" style="grid-template-columns:1fr 1fr;">
-        <div class="compare-card cc-do" style="align-items:center;text-align:center;"><span class="cc-label do">Denver goal</span><div style="font-family:'DM Serif Display',serif;font-size:32px;color:var(--teal);margin:4px 0;">12</div><div class="cc-body">cups / day<br>~96 oz / 3L</div></div>
-        <div class="compare-card cc-note" style="align-items:center;text-align:center;"><span class="cc-label nt">Workout days</span><div style="font-family:'DM Serif Display',serif;font-size:32px;color:var(--amber);margin:4px 0;">+2</div><div class="cc-body">extra cups per<br>hour of exercise</div></div>
-      </div>
-      <div class="gi-grid" style="padding-top:4px;">
-        <div class="gi-chip tip"><div class="gi-chip-icon" style="font-size:10px;font-weight:700;color:var(--text3);width:28px;text-align:center;letter-spacing:.04em;text-transform:uppercase;padding-top:1px;">salt</div><div class="gi-chip-body"><span class="gi-badge gb-tip">Workout days</span><div class="gi-headline">Add electrolytes, not just water</div><div class="gi-body">Plain water at altitude is less effective without minerals. A pinch of sea salt in your bottle or an electrolyte tablet — not sugary sports drinks.</div></div></div>
-        <div class="gi-chip note"><div class="gi-chip-icon" style="font-size:10px;font-weight:700;color:var(--text3);width:28px;text-align:center;letter-spacing:.04em;text-transform:uppercase;padding-top:1px;">coffee</div><div class="gi-chip-body"><span class="gi-badge gb-note">Watch this</span><div class="gi-headline">Coffee and alcohol hit harder at altitude</div><div class="gi-body">Both are diuretics with amplified effect at elevation. For every coffee, drink an equal amount of water alongside it. Alcohol before bed also measurably increases grinding episodes.</div></div></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- PANEL 7: BREATHING PATTERNS -->
-  <div class="guide-panel" data-idx="7">
-    <div class="guide-card">
-      <div class="guide-header"><div class="guide-icon-wrap"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--indigo-light)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12c0-3 2-5 5-5s4 2 4 4 1 4 4 4 5-2 5-5"/></svg></div><div><div class="guide-title">Breathing patterns</div><div class="guide-desc">A short reference for the breathing techniques used throughout this plan.</div></div></div>
-      <div class="guide-summary">All three patterns shift your nervous system toward parasympathetic (calm). Use the breathing timer in the Habits tab to time yourself.</div>
-      <div class="gi-grid">
-        <div class="gi-chip key"><div class="gi-chip-icon" style="font-size:10px;font-weight:700;color:var(--text3);width:28px;text-align:center;letter-spacing:.04em;text-transform:uppercase;padding-top:1px;">478</div><div class="gi-chip-body"><span class="gi-badge gb-key">For sleep</span><div class="gi-headline">4-7-8 breathing</div><div class="gi-body"><strong>Inhale for 4 seconds. Hold for 7. Exhale slowly for 8.</strong> The long exhale activates the vagus nerve, dropping heart rate. Best done lying down before sleep. Start with 3–4 cycles, work up to 8.</div></div></div>
-        <div class="gi-chip do"><div class="gi-chip-icon" style="font-size:10px;font-weight:700;color:var(--text3);width:28px;text-align:center;letter-spacing:.04em;text-transform:uppercase;padding-top:1px;">box</div><div class="gi-chip-body"><span class="gi-badge gb-do">For focus / stress</span><div class="gi-headline">Box breathing</div><div class="gi-body"><strong>4 in · 4 hold · 4 out · 4 hold.</strong> Equal-length sides, hence "box". Used by Navy SEALs and elite athletes. Best when you feel anxious, before a stressful task, or when you catch yourself clenching during the day. 5–10 cycles.</div></div></div>
-        <div class="gi-chip note"><div class="gi-chip-icon" style="font-size:10px;font-weight:700;color:var(--text3);width:28px;text-align:center;letter-spacing:.04em;text-transform:uppercase;padding-top:1px;">ext</div><div class="gi-chip-body"><span class="gi-badge gb-note">For wind-down</span><div class="gi-headline">Extended exhale</div><div class="gi-body"><strong>4 in · 8 out (or any 1:2 ratio).</strong> Simpler than 4-7-8, no breath hold. Good for transitioning out of work mode in the evening, or any time you need to take the edge off. 5 minutes.</div></div></div>
-        <div class="gi-chip research"><div class="gi-chip-icon" style="font-size:10px;font-weight:700;color:var(--text3);width:28px;text-align:center;letter-spacing:.04em;text-transform:uppercase;padding-top:1px;">nose</div><div class="gi-chip-body"><span class="gi-badge gb-research">For altitude</span><div class="gi-headline">Nasal-only breathing during exercise</div><div class="gi-body">Breathe through your nose only during Zone 2 cardio. Forces slower, more efficient breathing — the basis of Patrick McKeown's Oxygen Advantage method. If you can't maintain it, slow your pace. Builds CO₂ tolerance, which directly reduces grinding.</div></div></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- PANEL 8: BRUXISM RESEARCH -->
-  <div class="guide-panel" data-idx="8">
-    <div class="guide-card">
-      <div class="guide-header"><div class="guide-icon-wrap"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--coral)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"  aria-hidden="true"><path d="M9 3h6M5 21L9 9M19 21L15 9"/><line x1="5" y1="21" x2="19" y2="21"/></svg></div><div><div class="guide-title">Stopping the grind</div><div class="guide-desc">Sleep bruxism is centrally mediated — your nervous system during microarousals. You can't consciously stop it, but you can reduce how often and how hard it fires.</div></div></div>
-      <div class="guide-summary">Everything in this plan — breathwork, nasal training, morning sunlight, yin yoga — directly addresses the upstream causes of bruxism. It's the mechanism, not a side benefit.</div>
-      <div class="gi-grid">
-        <div class="gi-chip key"><div class="gi-chip-icon" style="font-size:10px;font-weight:700;color:var(--text3);width:28px;text-align:center;letter-spacing:.04em;text-transform:uppercase;padding-top:1px;">why</div><div class="gi-chip-body"><span class="gi-badge gb-key">What it is</span><div class="gi-headline">A neurological event, not a positional one</div><div class="gi-body">Caused by microarousals triggering ANS activation. Jaw position, tongue, occlusion — none of these cause it. Research has entirely moved away from peripheral/dental explanations.<br><span style="font-size:11px;color:var(--text3);">Thomas et al., JADA 2024</span></div></div></div>
-        <div class="gi-chip research"><div class="gi-chip-icon" style="font-size:10px;font-weight:700;color:var(--text3);width:28px;text-align:center;letter-spacing:.04em;text-transform:uppercase;padding-top:1px;">rct</div><div class="gi-chip-body"><span class="gi-badge gb-research">RCT Evidence</span><div class="gi-headline">Respiratory training reduces grinding</div><div class="gi-body">12 weeks of respiratory muscle training significantly reduced sleep bruxism. Your breathwork plan is doing exactly this.<br><span style="font-size:11px;color:var(--text3);">NIH-indexed RCT, 2024</span></div></div></div>
-        <div class="gi-chip research"><div class="gi-chip-icon" style="font-size:10px;font-weight:700;color:var(--text3);width:28px;text-align:center;letter-spacing:.04em;text-transform:uppercase;padding-top:1px;">airway</div><div class="gi-chip-body"><span class="gi-badge gb-research">Airway link</span><div class="gi-headline">Nasal breathing training is directly therapeutic</div><div class="gi-body">When the airway collapses during sleep, the jaw reflexively clenches to reopen it. Nasal training addresses this root cause — not just altitude.</div></div></div>
-        <div class="gi-chip note"><div class="gi-chip-icon" style="font-size:10px;font-weight:700;color:var(--text3);width:28px;text-align:center;letter-spacing:.04em;text-transform:uppercase;padding-top:1px;">supp</div><div class="gi-chip-body"><span class="gi-badge gb-note">Worth trying</span><div class="gi-headline">Magnesium glycinate before bed — 300–400mg</div><div class="gi-body">~75% of Americans are below the RDA. Deficiency → muscle hyperactivity + elevated cortisol + poor sleep. Ask your doctor first.<br><span style="font-size:11px;color:var(--text3);">Ploceniak 1990; Boyle et al. 2017</span></div></div></div>
-        <div class="gi-chip avoid"><div class="gi-chip-icon" style="font-size:10px;font-weight:700;color:var(--text3);width:28px;text-align:center;letter-spacing:.04em;text-transform:uppercase;padding-top:1px;">avoid</div><div class="gi-chip-body"><span class="gi-badge gb-avoid">High leverage</span><div class="gi-headline">Alcohol before bed measurably increases grinding</div><div class="gi-body">Disrupts sleep architecture, increases microarousals, consistently increases bruxism frequency. One of the highest-impact behavioral changes available.</div></div></div>
-        <div class="gi-chip do"><div class="gi-chip-icon" style="font-size:10px;font-weight:700;color:var(--text3);width:28px;text-align:center;letter-spacing:.04em;text-transform:uppercase;padding-top:1px;">guard</div><div class="gi-chip-body"><span class="gi-badge gb-do">Insurance</span><div class="gi-headline">Wear your night guard every night</div><div class="gi-body">Doesn't stop grinding but prevents tooth damage. Behavioral and breathwork changes take 4–8 weeks. The guard protects you in the meantime.</div></div></div>
-        <div class="gi-chip tip"><div class="gi-chip-icon" style="font-size:10px;font-weight:700;color:var(--text3);width:28px;text-align:center;letter-spacing:.04em;text-transform:uppercase;padding-top:1px;">botox</div><div class="gi-chip-body"><span class="gi-badge gb-tip">If severe</span><div class="gi-headline">Ask about Botox (masseter injections)</div><div class="gi-body">Moderate evidence for reducing grinding force, effects 3–6 months. Worth discussing with your dentist if you have significant tooth wear or TMJ pain.</div></div></div>
-      </div>
-    </div>
-  
-</div>
-
-</div><!-- end sec-guide -->
 
 <!-- ═══════════ PROGRESS ═══════════ -->
 <div id="sec-progress" class="section">
@@ -1881,10 +1606,7 @@ a,button,input[type='button'],input[type='submit'],input[type='reset'],select,la
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
     Habits<div class="nav-dot"></div>
   </button>
-  <button class="nav-btn" onclick="switchSection('guide',this)" id="navbtn-guide">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
-    Guide<div class="nav-dot"></div>
-  </button>
+  
   <button class="nav-btn" onclick="switchSection('progress',this)" id="navbtn-progress">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
     Progress<div class="nav-dot"></div>
@@ -1910,6 +1632,15 @@ const HABIT_UNLOCK={
   'posture-a1':6,'posture-a2':6,'eye-2020':6,'reading':6,'night-screens':6,
   'jaw-n':11,'night-jaw-check':11,
 };
+
+// Returns only the habits active for the current week
+function getActiveHabitIds(week){
+  const w=week||wn(new Date())||0;
+  return ALL_HABIT_IDS.filter(id=>(HABIT_UNLOCK[id]||0)<=w);
+}
+
+// HABIT_IDS as a getter — always returns the currently-active subset
+
 
 // Returns only the habits active for the current week
 function getActiveHabitIds(week){
@@ -1967,12 +1698,12 @@ const wy=(item,ph)=>ph>=4?'':ph===3?(item.wb||''):ph===2?(item.wb||item.w||''):(
 
 // ── SECTION SWITCH ──
 function switchSection(name,btn){
-  ['movement','habits','guide','progress'].forEach(s=>{
+  ['movement','habits','progress'].forEach(s=>{
     document.getElementById('sec-'+s).classList.toggle('on',s===name);
     document.getElementById('navbtn-'+s).classList.toggle('on',s===name);
   });
   if(name==='habits'){renderHabits();switchHTab(currentHTab||'overview');}
-  if(name==='guide')initGuide();
+
   if(name==='progress'){loadProgress();}
 }
 
@@ -1982,43 +1713,6 @@ const GUIDE_PANELS=[
   {title:'Sleep positions'},{title:'Jaw resting state'},{title:'Oral fixation'},
   {title:'Hydration in Denver'},{title:'Breathing patterns'},{title:'Stopping the grind'}
 ];
-function initGuide(){
-  renderGuide();
-  const wrap=document.querySelector('#sec-guide');
-  if(!wrap._swipe){
-    let tx=0;
-    wrap.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;},{passive:true});
-    wrap.addEventListener('touchend',e=>{
-      const diff=tx-e.changedTouches[0].clientX;
-      if(Math.abs(diff)>48)goGuide(diff>0?1:-1);
-    },{passive:true});
-    wrap._swipe=true;
-  }
-}
-function goGuide(dir){
-  guideIdx=Math.max(0,Math.min(GUIDE_PANELS.length-1,guideIdx+dir));
-  renderGuide();
-}
-function setGuide(i){guideIdx=i;renderGuide();}
-function renderGuide(){
-  document.querySelectorAll('.guide-panel').forEach((p,i)=>{
-    p.classList.toggle('on',i===guideIdx);
-  });
-  const titleEl=document.getElementById('g-card-title');
-  const countEl=document.getElementById('g-card-count');
-  const prevBtn=document.getElementById('g-prev');
-  const nextBtn=document.getElementById('g-next');
-  const dotsEl=document.getElementById('guide-dots');
-  const selEl=document.getElementById('g-select');
-  if(titleEl)titleEl.textContent=GUIDE_PANELS[guideIdx].title;
-  if(countEl)countEl.textContent=(guideIdx+1)+' of '+GUIDE_PANELS.length;
-  if(prevBtn)prevBtn.disabled=guideIdx===0;
-  if(nextBtn)nextBtn.disabled=guideIdx===GUIDE_PANELS.length-1;
-  if(selEl)selEl.value=guideIdx;
-  if(dotsEl){
-    dotsEl.innerHTML=GUIDE_PANELS.map((_,i)=>`<div class="g-dot${i===guideIdx?' on':''}" onclick="setGuide(${i})"></div>`).join('');
-  }
-}
 
 // ══════════ JAW TIMER — 3 rounds × 2 min ══════════
 let ROUND_DUR=120;const TOTAL_ROUNDS=3;
@@ -2406,7 +2100,9 @@ function renderWeeklyHabits(){
 }
 function toggleWeekly(id,el){
   weekHabDD.completed[id]=!weekHabDD.completed[id];
-  updateWeeklyCount();triggerWkSave();
+  // Save synchronously first so renderWeeklyHabits reads the updated state
+  try{localStorage.setItem(getWeekKey(),JSON.stringify(weekHabDD));}catch(e){}
+  updateWeeklyCount();
   renderWeeklyHabits(); // re-render to re-sort completed to bottom of group
 }
 function updateWeeklyCount(){
@@ -3971,17 +3667,8 @@ function renderCustomCounters(){
 
 
 // ══════════ INTRO / WELCOME ══════════
-function dismissIntro(){
-  const ov=document.getElementById('intro-overlay');
-  if(ov)ov.style.display='none';
-  localStorage.setItem('intro_seen','1');
-}
-function maybeShowIntro(){
-  if(!localStorage.getItem('intro_seen')&&!localStorage.getItem('plan_start_date')){
-    const ov=document.getElementById('intro-overlay');
-    if(ov)ov.style.display='block';
-  }
-}
+function dismissIntro(){}
+function maybeShowIntro(){}
 
 // ══════════ SETTINGS ══════════
 function openSettings(){
@@ -4555,7 +4242,6 @@ function initHabitUI(){
 }
 // ══════════ BOOT ══════════
 loadTheme();
-maybeShowIntro();
 initMovement();
 initHabTabs();
 
@@ -4577,7 +4263,3 @@ if ('serviceWorker' in navigator && location.protocol === 'https:') {
     }).catch(err => console.log('SW registration failed:', err));
   });
 }
-
-</script>
-</body>
-</html>
