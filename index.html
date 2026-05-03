@@ -2762,7 +2762,7 @@ function initMovement(){renderInterval();
   VD=new Date();VD.setHours(0,0,0,0);
   const saved=localStorage.getItem('plan_start_date');
   if(saved){
-    SD=new Date(saved);SD.setHours(0,0,0,0);
+    SD=new Date(saved+'T00:00:00');SD.setHours(0,0,0,0);
     // Ensure SD is a Sunday (snap back if not)
     if(SD.getDay()!==0){SD.setDate(SD.getDate()-SD.getDay());localStorage.setItem('plan_start_date',dk(SD));}
     showMvmtMain();
