@@ -784,6 +784,22 @@ body.light-theme .settings-overlay{background:rgba(26,22,48,0.5);}
 body.light-theme input,body.light-theme textarea,body.light-theme select{background:var(--bg3)!important;color:var(--text)!important;border-color:var(--border)!important;}
 body.light-theme .htab-bar{background:var(--bg3);}
 body.light-theme .htab-btn.active{background:var(--bg);}
+
+/* ── COLLAPSIBLE SECTIONS ── */
+.collapsible-section{}
+.collapsible-header{cursor:pointer;user-select:none;-webkit-user-select:none;display:flex;align-items:center;gap:8px;width:100%;}
+.collapsible-header .slbl{flex:1;margin:0;pointer-events:none;}
+.collapsible-chevron{flex-shrink:0;color:var(--text3);transition:transform .2s;width:16px;height:16px;margin-left:auto;}
+.collapsible-header.collapsed .collapsible-chevron{transform:rotate(-90deg);}
+.collapsible-body{overflow:hidden;transition:opacity .2s;}
+.collapsible-body.collapsed{display:none;}
+
+/* ── DRAG HANDLE ── */
+.drag-handle{display:flex;flex-direction:column;gap:3px;padding:10px 12px 10px 4px;cursor:grab;touch-action:none;align-items:center;justify-content:center;flex-shrink:0;opacity:.35;}
+.drag-handle:active{cursor:grabbing;opacity:.7;}
+.drag-handle span{display:block;width:14px;height:1.5px;background:var(--text3);border-radius:1px;}
+.card.dragging{opacity:.5;border:1px dashed var(--indigo-light)!important;background:var(--bg3)!important;}
+.card.drag-over{border-top:2px solid var(--indigo-light)!important;}
 </style>
 </head>
 <body>
@@ -2215,6 +2231,8 @@ function renderHabits(){
   updateHabCount();
   renderIntention();
   renderCustomCounters();
+  // Re-apply UI after render
+  requestAnimationFrame(()=>{initHabitUI();});
 }
 
 // ══════════ PEPCID COUNTER ══════════
@@ -4334,6 +4352,162 @@ function updateThemeBtns(){
   }
 }
 
+
+// ══════════ COLLAPSIBLE SECTIONS ══════════
+const CHEVRON_SVG='<svg class="collapsible-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>';
+
+function initCollapsible(){
+  // Find all slbl elements within the habits section
+  const habSec=document.getElementById('sec-habits');
+  if(!habSec)return;
+  const slbls=habSec.querySelectorAll('.slbl');
+  slbls.forEach(slbl=>{
+    // Skip if already wrapped
+    if(slbl.closest('.collapsible-header'))return;
+    // Find section id: use text content as key
+    const sectionId='sec-'+slbl.textContent.trim().toLowerCase().replace(/[^a-z0-9]/g,'-');
+    const isCollapsed=localStorage.getItem('col_'+sectionId)==='1';
+    // Create collapsible header
+    const header=document.createElement('div');
+    header.className='collapsible-header'+(isCollapsed?' collapsed':'');
+    header.dataset.sectionId=sectionId;
+    // Move slbl into header
+    slbl.parentNode.insertBefore(header,slbl);
+    header.appendChild(slbl);
+    header.insertAdjacentHTML('beforeend',CHEVRON_SVG);
+    // Wrap following cards in a body div
+    const body=document.createElement('div');
+    body.className='collapsible-body'+(isCollapsed?' collapsed':'');
+    body.dataset.sectionId=sectionId;
+    header.parentNode.insertBefore(body,header.nextSibling);
+    // Move all sibling cards/non-header elements into body until next header or end
+    let next=body.nextSibling;
+    while(next&&!next.classList?.contains('collapsible-header')&&!next.classList?.contains('slbl')&&next.id!=='habit-unlock-banner'){
+      const toMove=next;
+      next=next.nextSibling;
+      body.appendChild(toMove);
+    }
+    // Click handler
+    header.addEventListener('click',()=>{
+      const collapsed=header.classList.toggle('collapsed');
+      body.classList.toggle('collapsed',collapsed);
+      localStorage.setItem('col_'+sectionId, collapsed?'1':'0');
+    });
+  });
+}
+
+// ══════════ DRAG TO REORDER ══════════
+const DRAG_HANDLE_HTML='<div class="drag-handle" title="Drag to reorder"><span></span><span></span><span></span><span></span><span></span><span></span></div>';
+
+function initDragOrder(){
+  const habSec=document.getElementById('sec-habits');
+  if(!habSec)return;
+  // Add handles to all habit cards
+  habSec.querySelectorAll('.card').forEach(card=>{
+    if(card.querySelector('.drag-handle'))return;
+    const row=card.querySelector('.card-row');
+    if(!row)return;
+    const handle=document.createElement('div');
+    handle.className='drag-handle';
+    handle.title='Drag to reorder';
+    // 6 dots
+    for(let i=0;i<6;i++){const s=document.createElement('span');handle.appendChild(s);}
+    row.insertBefore(handle,row.firstChild);
+    // Touch drag
+    handle.addEventListener('touchstart',onDragStart,{passive:false});
+  });
+  // Make each collapsible-body a drop zone
+  habSec.querySelectorAll('.collapsible-body').forEach(body=>{
+    initDropZone(body);
+  });
+}
+
+let dragCard=null,dragClone=null,dragStartY=0,dragOffsetY=0,dragBody=null;
+function onDragStart(e){
+  e.preventDefault();
+  const card=e.currentTarget.closest('.card');
+  if(!card)return;
+  dragCard=card;
+  dragBody=card.closest('.collapsible-body');
+  const touch=e.touches[0];
+  const rect=card.getBoundingClientRect();
+  dragOffsetY=touch.clientY-rect.top;
+  dragStartY=touch.clientY;
+  // Create floating clone
+  dragClone=card.cloneNode(true);
+  dragClone.style.cssText=`position:fixed;left:${rect.left}px;top:${rect.top}px;width:${rect.width}px;z-index:9999;opacity:.9;pointer-events:none;box-shadow:0 8px 30px rgba(0,0,0,.5);border:1px solid var(--indigo-light);border-radius:var(--radius);`;
+  document.body.appendChild(dragClone);
+  card.classList.add('dragging');
+  document.addEventListener('touchmove',onDragMove,{passive:false});
+  document.addEventListener('touchend',onDragEnd);
+}
+function onDragMove(e){
+  if(!dragClone||!dragCard)return;
+  e.preventDefault();
+  const touch=e.touches[0];
+  dragClone.style.top=(touch.clientY-dragOffsetY)+'px';
+  // Find card under touch
+  dragClone.style.display='none';
+  const el=document.elementFromPoint(touch.clientX,touch.clientY);
+  dragClone.style.display='';
+  if(!el)return;
+  const target=el.closest('.card');
+  if(target&&target!==dragCard&&target.closest('.collapsible-body')===dragBody){
+    // Show insert indicator
+    document.querySelectorAll('.drag-over').forEach(c=>c.classList.remove('drag-over'));
+    target.classList.add('drag-over');
+  }
+}
+function onDragEnd(e){
+  if(!dragCard||!dragClone)return;
+  document.removeEventListener('touchmove',onDragMove);
+  document.removeEventListener('touchend',onDragEnd);
+  dragClone.remove();dragClone=null;
+  dragCard.classList.remove('dragging');
+  const over=document.querySelector('.drag-over');
+  if(over&&over!==dragCard&&dragBody){
+    const cards=[...dragBody.querySelectorAll(':scope>.card')];
+    const fromIdx=cards.indexOf(dragCard);
+    const toIdx=cards.indexOf(over);
+    if(fromIdx!==-1&&toIdx!==-1){
+      if(fromIdx<toIdx)over.after(dragCard);else over.before(dragCard);
+      saveSectionOrder(dragBody);
+    }
+    over.classList.remove('drag-over');
+  }
+  dragCard=null;dragBody=null;
+}
+function initDropZone(body){}
+
+function saveSectionOrder(body){
+  const sectionId=body.dataset.sectionId||'unknown';
+  const cards=[...body.querySelectorAll(':scope>.card')];
+  const order=cards.map(c=>{
+    const cb=c.querySelector('[data-hid]');
+    return cb?cb.dataset.hid:'';
+  }).filter(Boolean);
+  if(order.length)localStorage.setItem('horder_'+sectionId,JSON.stringify(order));
+}
+
+function applySavedOrder(body){
+  const sectionId=body.dataset.sectionId||'unknown';
+  const saved=localStorage.getItem('horder_'+sectionId);
+  if(!saved)return;
+  try{
+    const order=JSON.parse(saved);
+    order.forEach(hid=>{
+      const card=[...body.querySelectorAll(':scope>.card')].find(c=>c.querySelector(`[data-hid="${hid}"]`));
+      if(card)body.appendChild(card); // move to end in order
+    });
+  }catch(e){}
+}
+
+function initHabitUI(){
+  initCollapsible();
+  // Apply saved order AFTER collapsible (bodies exist now)
+  document.getElementById('sec-habits')?.querySelectorAll('.collapsible-body').forEach(applySavedOrder);
+  initDragOrder();
+}
 // ══════════ BOOT ══════════
 loadTheme();
 maybeShowIntro();
