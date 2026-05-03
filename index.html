@@ -784,6 +784,46 @@ body.light-theme .settings-overlay{background:rgba(26,22,48,0.5);}
 body.light-theme input,body.light-theme textarea,body.light-theme select{background:var(--bg3)!important;color:var(--text)!important;border-color:var(--border)!important;}
 body.light-theme .htab-bar{background:var(--bg3);}
 body.light-theme .htab-btn.active{background:var(--bg);}
+
+/* ── COLLAPSIBLE SECTIONS ── */
+.collapsible-header{cursor:pointer;user-select:none;-webkit-user-select:none;display:flex;align-items:center;width:100%;margin:1.6rem 0 0;}
+.collapsible-header .slbl{flex:1;margin:0 0 .6rem;pointer-events:none;}
+.collapsible-chevron{flex-shrink:0;color:var(--text3);transition:transform .2s ease;width:16px;height:16px;margin-left:6px;margin-bottom:.5rem;}
+.collapsible-header.collapsed .collapsible-chevron{transform:rotate(-90deg);}
+.collapsible-body{padding-top:2px;margin-bottom:6px;}
+.collapsible-body.collapsed{display:none;}
+
+
+/* ── WEEKLY DAY GROUPS ── */
+.wk-day-group{margin-bottom:4px;}
+.wk-day-header{display:flex;align-items:center;gap:10px;padding:10px 14px 8px;border-radius:var(--radius-sm) var(--radius-sm) 0 0;margin-bottom:1px;}
+.wk-day-name{font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;}
+.wk-day-date{font-size:11px;font-weight:500;opacity:.7;}
+.wk-day-count{margin-left:auto;font-size:10px;font-weight:600;opacity:.6;}
+.wk-day-sun{background:rgba(251,191,36,.1);color:var(--amber);}
+.wk-day-mon{background:rgba(56,189,248,.1);color:var(--sky);}
+.wk-day-tue{background:rgba(99,102,241,.1);color:var(--indigo-light);}
+.wk-day-wed{background:rgba(139,92,246,.1);color:var(--violet);}
+.wk-day-thu{background:rgba(52,211,153,.1);color:var(--green);}
+.wk-day-fri{background:rgba(192,132,252,.1);color:#c084fc;}
+.wk-day-sat{background:rgba(251,113,133,.1);color:var(--coral);}
+.wk-day-any{background:var(--bg3);color:var(--text3);}
+.wk-day-group .card{border-radius:0;margin-bottom:1px;}
+.wk-day-group .card:last-child{border-radius:0 0 var(--radius-sm) var(--radius-sm);margin-bottom:0;}
+.wk-day-group{margin-bottom:12px;border-radius:var(--radius-sm);overflow:hidden;border:1px solid var(--border2);}
+.wk-assign-pill{font-size:10px;font-weight:600;padding:3px 8px;border-radius:10px;border:1px solid var(--border2);background:var(--bg3);color:var(--text3);cursor:pointer;white-space:nowrap;flex-shrink:0;touch-action:manipulation;}
+
+/* ── BOOK STATUS COLORS ── */
+.book-row{border-left:3px solid transparent;}
+.book-status-reading{border-left-color:var(--sky);}
+.book-status-finished{border-left-color:var(--green);}
+.book-status-hold{border-left-color:var(--amber);}
+.book-status-plan{border-left-color:var(--text3);}
+.book-status-pill{display:inline-block;font-size:10px;font-weight:700;padding:3px 9px;border-radius:10px;margin-top:5px;letter-spacing:.04em;}
+.book-status-pill.reading{background:rgba(56,189,248,.12);color:var(--sky);border:1px solid rgba(56,189,248,.3);}
+.book-status-pill.finished{background:rgba(52,211,153,.12);color:var(--green);border:1px solid rgba(52,211,153,.3);}
+.book-status-pill.hold{background:rgba(251,191,36,.12);color:var(--amber);border:1px solid rgba(251,191,36,.3);}
+.book-status-pill.plan{background:var(--bg3);color:var(--text3);border:1px solid var(--border2);}
 </style>
 </head>
 <body>
@@ -1018,6 +1058,16 @@ body.light-theme .htab-btn.active{background:var(--bg);}
   <div class="intention-card">
     <div class="intention-label">Today's intention</div>
     <textarea class="intention-input" id="daily-intention" placeholder="Set one intention for today..." rows="2" oninput="saveIntention()"></textarea>
+  </div>
+
+  <!-- WEEKLY PROGRESS -->
+  <div id="weekly-progress-wrap" style="background:var(--bg2);border:1px solid var(--border2);border-radius:var(--radius);padding:10px 14px;margin-bottom:10px;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+      <div style="font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;">This week</div>
+      <div style="font-size:16px;font-family:'DM Serif Display',serif;color:var(--violet);" id="weekly-pct">0%</div>
+    </div>
+    <div class="week-progress" id="week-progress"></div>
+    <div style="font-size:11px;color:var(--text3);margin-top:4px;" id="weekly-count">0 of 14 complete</div>
   </div>
 
   <!-- HABIT TABS -->
@@ -1492,6 +1542,7 @@ body.light-theme .htab-btn.active{background:var(--bg);}
 
   <div class="htab-section" id="htab-overview">
 
+
   <!-- WEEKLY -->
   <div class="slbl"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--violet)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"  aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><span class="slbl-text" style="color:var(--violet);">Weekly</span></div>
   <div style="font-size:12px;color:var(--text3);margin:-8px 0 10px;">These reset every Monday. Check them off as the week goes on.</div>
@@ -1499,14 +1550,7 @@ body.light-theme .htab-btn.active{background:var(--bg);}
   <div id="weekly-wrap">
     <!-- rendered by JS -->
   </div>
-  <div id="weekly-progress-wrap" style="background:var(--bg2);border:1px solid var(--border2);border-radius:var(--radius);padding:12px 16px;margin-top:4px;">
-    <div style="display:flex;justify-content:space-between;align-items:center;">
-      <div style="font-size:13px;font-weight:500;color:var(--text);">This week</div>
-      <div style="font-size:20px;font-family:'DM Serif Display',serif;color:var(--violet);" id="weekly-pct">0%</div>
-    </div>
-    <div class="week-progress" id="week-progress"></div>
-    <div style="font-size:11px;color:var(--text3);margin-top:4px;" id="weekly-count">0 of 6 complete</div>
-  </div>
+
 
   <!-- BOOKS -->
   <div class="slbl"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#c084fc" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"  aria-hidden="true"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg><span class="slbl-text" style="color:#c084fc;">Books read</span></div>
@@ -1874,20 +1918,20 @@ const HABIT_IDS=ALL_HABIT_IDS; // full list for data compatibility (counts, expo
 // Use getActiveHabitIds(currentWeek) for display and completion tracking
 const WEEKLY_IDS=['wk-laundry','wk-grooming','wk-sheets','wk-groceries','wk-planning','wk-social','wk-book','wk-olivia','wk-shot-wed','wk-mail','wk-financial','wk-bathroom','wk-floors','wk-outreach'];
 const WEEKLY_LABELS={
-  'wk-laundry':{label:'Laundry',sub:'Wash, dry, put away — not just wash.',icon:''},
-  'wk-grooming':{label:'Grooming',sub:'Eyebrows, body hair, any regular maintenance.',icon:''},
-  'wk-sheets':{label:'Clean bedsheets',sub:'Weekly. Huge for sleep quality and skin health.',icon:''},
-  'wk-groceries':{label:'Grocery shop',sub:'Plan meals first, then shop. Prevents last-minute bad choices.',icon:''},
-  'wk-planning':{label:'Weekly planning session',sub:'20 min Sunday — review the week ahead, set 3 priorities.',icon:''},
-  'wk-social':{label:'Intentional connection',sub:'Call or see someone you care about. Easy to let slide in a new city.',icon:''},
-  'wk-book':{label:'Book writing session',sub:'Minimum 30–60 min of uninterrupted writing. Protect this time — treat it like a meeting with yourself.',icon:''},
-  'wk-olivia':{label:'Date night or intentional Olivia time',sub:'A real date, a long walk, a night in that\'s actually present. Relationships drift without intentional time.',icon:''},
-  'wk-shot-wed':{label:'Wednesday night shot',sub:'Weekly injection — Wednesday nights. Check off after administering.',icon:''},
-  'wk-mail':{label:'Check physical mail',sub:'Collect, open, and action or file everything. Easy to forget, important not to let pile up.',icon:''},
-  'wk-financial':{label:'Financial check-in',sub:'Scan bank and credit card statements. Catch anything unexpected. 5 minutes.',icon:''},
-  'wk-bathroom':{label:'Bathroom clean (10 min)',sub:'Wipe sink, toilet, mirror, quick floor sweep. Prevents the slow build that becomes a project.',icon:''},
-  'wk-floors':{label:'Vacuum or sweep',sub:'Main living areas. Especially important with the cats — dander and hair accumulate fast.',icon:''},
-  'wk-outreach':{label:'Messages + outreach',sub:"Reply to any outstanding messages. Reach out to one person you've been meaning to contact.",icon:''},
+  'wk-laundry':{label:'Laundry',sub:'Wash, dry, put away — not just wash.',icon:'',day:6},
+  'wk-grooming':{label:'Grooming',sub:'Eyebrows, body hair, any regular maintenance.',icon:'',day:6},
+  'wk-sheets':{label:'Clean bedsheets',sub:'Weekly. Huge for sleep quality and skin health.',icon:'',day:6},
+  'wk-groceries':{label:'Grocery shop',sub:'Plan meals first, then shop. Prevents last-minute bad choices.',icon:'',day:6},
+  'wk-planning':{label:'Weekly planning session',sub:'20 min Sunday — review the week ahead, set 3 priorities.',icon:'',day:0},
+  'wk-social':{label:'Intentional connection',sub:'Call or see someone you care about. Easy to let slide in a new city.',icon:'',day:null},
+  'wk-book':{label:'Book writing session',sub:'Minimum 30–60 min of uninterrupted writing. Protect this time.',icon:'',day:null},
+  'wk-olivia':{label:'Date night / Olivia time',sub:'A real date, a long walk, a night in that\'s actually present.',icon:'',day:5},
+  'wk-shot-wed':{label:'Wednesday injection',sub:'Weekly shot — Wednesday nights. Check off after administering.',icon:'',day:3},
+  'wk-mail':{label:'Check physical mail',sub:'Collect, open, and action or file everything. Easy to let pile up.',icon:'',day:1},
+  'wk-financial':{label:'Financial check-in',sub:'Scan bank and credit card statements. Catch anything unexpected. 5 min.',icon:'',day:1},
+  'wk-bathroom':{label:'Bathroom clean',sub:'Wipe sink, toilet, mirror, quick floor sweep.',icon:'',day:6},
+  'wk-floors':{label:'Vacuum or sweep',sub:'Main living areas — especially important with the cats.',icon:'',day:6},
+  'wk-outreach':{label:'Messages + outreach',sub:"Reply to outstanding messages. Reach out to one person you've been meaning to contact.",icon:'',day:null},
 };
 const MONTHLY_IDS=['mo-rent','mo-haircut','mo-olivia-special','mo-cc-review','mo-subscriptions','mo-prescription','mo-phone-backup','mo-breast-exam','mo-fridge','mo-car','mo-appt-check','mo-documents'];
 const MONTHLY_LABELS={
@@ -2215,6 +2259,8 @@ function renderHabits(){
   updateHabCount();
   renderIntention();
   renderCustomCounters();
+  // Re-apply UI after render
+  requestAnimationFrame(()=>{initHabitUI();});
 }
 
 // ══════════ PEPCID COUNTER ══════════
@@ -2242,6 +2288,37 @@ function getWeekKey(){
   const mon=new Date(d);mon.setDate(diff);
   return 'wkhab_'+dk(mon);
 }
+// Day display config
+const WK_DAYS=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+const WK_DAY_CLASS=['sun','mon','tue','wed','thu','fri','sat'];
+
+// Get user-overridden day for a weekly habit (falls back to label default)
+function getWkDay(id){
+  const overrides=JSON.parse(localStorage.getItem('wk_day_overrides')||'{}');
+  if(overrides[id]!==undefined)return overrides[id];
+  const info=WEEKLY_LABELS[id];
+  return info&&info.day!==undefined?info.day:null;
+}
+function setWkDay(id,day){
+  const overrides=JSON.parse(localStorage.getItem('wk_day_overrides')||'{}');
+  overrides[id]=day;
+  localStorage.setItem('wk_day_overrides',JSON.stringify(overrides));
+  renderWeeklyHabits();
+}
+function cycleWkDay(id){
+  // Cycle: null → 0(Sun) → 1 → ... → 6(Sat) → null
+  const cur=getWkDay(id);
+  const next=cur===null?0:cur===6?null:cur+1;
+  setWkDay(id,next);
+}
+
+function getWeekDates(){
+  // Returns array of 7 Date objects for the current week (Sun-Sat)
+  const today=new Date();today.setHours(0,0,0,0);
+  const sun=new Date(today);sun.setDate(today.getDate()-today.getDay());
+  return Array.from({length:7},(_,i)=>{const d=new Date(sun);d.setDate(sun.getDate()+i);return d;});
+}
+
 function renderWeeklyHabits(){
   const wkey=getWeekKey();
   weekHabDD={completed:{}};
@@ -2249,10 +2326,61 @@ function renderWeeklyHabits(){
   if(sv){try{weekHabDD=JSON.parse(sv);}catch(e){}}
   const wrap=document.getElementById('weekly-wrap');
   if(!wrap)return;
-  wrap.innerHTML=WEEKLY_IDS.map(id=>{
-    const info=WEEKLY_LABELS[id];const chk=!!weekHabDD.completed[id];
-    return`<div class="card" style="margin-bottom:8px;"><div class="card-row"><div class="cb${chk?' on':''}" data-wid="${id}"></div><div style="flex:1;"><div class="item-label${chk?' done':''}" id="wlbl-${id}">${info.label}</div><div class="item-sub">${info.sub}</div></div><span class="ph-badge badge-weekly" style="font-size:10px;margin-top:2px;">Weekly</span></div></div>`;
+
+  const weekDates=getWeekDates();
+  const today=new Date();today.setHours(0,0,0,0);
+
+  // Group IDs by assigned day
+  const groups={};// key: 0-6 or 'any'
+  WEEKLY_IDS.forEach(id=>{
+    const day=getWkDay(id);
+    const key=day!==null?day:'any';
+    if(!groups[key])groups[key]=[];
+    groups[key].push(id);
+  });
+
+  // Build ordered group keys: 0-6 in order, then 'any'
+  const orderedKeys=[...Array.from({length:7},(_,i)=>i).filter(i=>groups[i])];
+  if(groups['any'])orderedKeys.push('any');
+
+  function cardHtml(id){
+    const info=WEEKLY_LABELS[id];
+    const chk=!!weekHabDD.completed[id];
+    const day=getWkDay(id);
+    const pillLabel=day!==null?WK_DAYS[day]:'Any day';
+    return`<div class="card" data-done="${chk?'true':'false'}" style="margin-bottom:1px;">
+      <div class="card-row">
+        <div class="cb${chk?' on':''}" data-wid="${id}"></div>
+        <div style="flex:1;">
+          <div class="item-label${chk?' done':''}" id="wlbl-${id}">${info.label}</div>
+          <div class="item-sub">${info.sub}</div>
+        </div>
+        <button class="wk-assign-pill" onclick="cycleWkDay('${id}')" title="Tap to change day">${pillLabel}</button>
+      </div>
+    </div>`;
+  }
+
+  wrap.innerHTML=orderedKeys.map(key=>{
+    const ids=groups[key];
+    // Sort: incomplete first, complete last
+    const sorted=[...ids.filter(id=>!weekHabDD.completed[id]),...ids.filter(id=>weekHabDD.completed[id])];
+    const isAny=key==='any';
+    const dayIdx=isAny?null:key;
+    const dayClass=isAny?'any':WK_DAY_CLASS[dayIdx];
+    const dayName=isAny?'Any day':WK_DAYS[dayIdx];
+    const dateStr=isAny?'Assign a day':weekDates[dayIdx].toLocaleDateString('en-US',{month:'short',day:'numeric'});
+    const isToday=!isAny&&weekDates[dayIdx]&&weekDates[dayIdx].getTime()===today.getTime();
+    const done=ids.filter(id=>weekHabDD.completed[id]).length;
+    return`<div class="wk-day-group">
+      <div class="wk-day-header wk-day-${dayClass}">
+        <span class="wk-day-name">${dayName}${isToday?' · Today':''}</span>
+        <span class="wk-day-date">${dateStr}</span>
+        <span class="wk-day-count">${done}/${ids.length}</span>
+      </div>
+      ${sorted.map(id=>cardHtml(id)).join('')}
+    </div>`;
   }).join('');
+
   wrap.querySelectorAll('[data-wid]').forEach(el=>el.addEventListener('click',function(){toggleWeekly(this.dataset.wid,this);}));
   updateWeeklyCount();
 }
@@ -3309,7 +3437,7 @@ function addBook(){
   const no=document.getElementById('book-note-input');
   if(!ti||!ti.value.trim())return;
   const books=getBooks();
-  books.push({id:'bk_'+Date.now(),title:ti.value.trim(),author:au?.value.trim()||'',note:no?.value.trim()||'',date:new Date().toISOString().split('T')[0]});
+  books.push({id:'bk_'+Date.now(),title:ti.value.trim(),author:au?.value.trim()||'',note:no?.value.trim()||'',status:'Plan to read'});
   saveBooks(books);
   ti.value='';if(au)au.value='';if(no)no.value='';
   renderBooks();
@@ -3324,19 +3452,41 @@ function renderBooks(){
   const badgeEl=document.getElementById('book-count-badge');
   if(badgeEl)badgeEl.textContent=books.length+' book'+(books.length!==1?'s':'');
   if(!listEl)return;
-  if(books.length===0){listEl.innerHTML='<div class="book-empty">No books logged yet. Add your first read below.</div>';return;}
-  listEl.innerHTML=books.map((b,i)=>`
-    <div class="book-row">
+  if(books.length===0){listEl.innerHTML='<div class="book-empty">No books yet — add one below.</div>';return;}
+  const STATUSES=['Reading','Finished','On hold','Plan to read'];
+  const STATUS_MAP={
+    'Reading':   {cls:'reading', pill:'reading'},
+    'Finished':  {cls:'finished',pill:'finished'},
+    'On hold':   {cls:'hold',    pill:'hold'},
+    'Plan to read':{cls:'plan',  pill:'plan'},
+  };
+  listEl.innerHTML=books.map((b,i)=>{
+    const status=b.status||'Plan to read';
+    const sm=STATUS_MAP[status]||STATUS_MAP['Plan to read'];
+    const opts=STATUSES.map(s=>`<option value="${s}"${s===status?' selected':''}>${s}</option>`).join('');
+    return`<div class="book-row book-status-${sm.cls}">
       <div class="book-num">${i+1}</div>
-      <div class="book-info">
+      <div class="book-info" style="flex:1;">
         <div class="book-title">${escHtml(b.title)}</div>
         ${b.author?`<div class="book-author">by ${escHtml(b.author)}</div>`:''}
         ${b.note?`<div class="book-note">"${escHtml(b.note)}"</div>`:''}
-        <div class="book-date">${b.date}</div>
+        <div style="display:flex;align-items:center;gap:8px;margin-top:5px;flex-wrap:wrap;">
+          <span class="book-status-pill ${sm.pill}">${status}</span>
+          <select onchange="setBookStatus('${b.id}',this.value)" style="font-size:14px;font-family:'DM Sans',sans-serif;background:var(--bg3);border:1px solid var(--border2);border-radius:6px;padding:3px 8px;color:var(--text2);cursor:pointer;">${opts}</select>
+        </div>
       </div>
       <button class="book-del" onclick="deleteBook('${b.id}')">×</button>
-    </div>`).join('');
+    </div>`;
+  }).join('');
 }
+
+function setBookStatus(id,status){
+  const books=getBooks();
+  const b=books.find(x=>x.id===id);
+  if(b){b.status=status;localStorage.setItem('books_read',JSON.stringify(books));renderBooks();}
+}
+
+
 function escHtml(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 
 // ══════════ CUSTOM HABITS ══════════
@@ -3968,9 +4118,7 @@ function initHabTabs(){
 
 // ══════════ WEEKLY REVIEW ══════════
 function renderWeeklyReview(){
-  const wrap=document.getElementById('weekly-review-wrap');
-  if(!wrap)return;
-  wrap.style.display='block';
+  // weekly review button is in Overview tab — always visible
 }
 function openWeeklyReview(){
   const today=new Date();
@@ -4334,6 +4482,59 @@ function updateThemeBtns(){
   }
 }
 
+
+// ══════════ COLLAPSIBLE SECTIONS ══════════
+const CHEVRON_SVG='<svg class="collapsible-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>';
+
+function initCollapsible(){
+  // Find all slbl elements within the habits section
+  const habSec=document.getElementById('sec-habits');
+  if(!habSec)return;
+  const slbls=habSec.querySelectorAll('.slbl');
+  slbls.forEach(slbl=>{
+    // Skip if already wrapped
+    if(slbl.closest('.collapsible-header'))return;
+    // Find section id: use text content as key
+    const sectionId='sec-'+slbl.textContent.trim().toLowerCase().replace(/[^a-z0-9]/g,'-');
+    const isCollapsed=localStorage.getItem('col_'+sectionId)==='1';
+    // Create collapsible header
+    const header=document.createElement('div');
+    header.className='collapsible-header'+(isCollapsed?' collapsed':'');
+    header.dataset.sectionId=sectionId;
+    // Move slbl into header
+    slbl.parentNode.insertBefore(header,slbl);
+    header.appendChild(slbl);
+    header.insertAdjacentHTML('beforeend',CHEVRON_SVG);
+    // Wrap following cards in a body div
+    const body=document.createElement('div');
+    body.className='collapsible-body'+(isCollapsed?' collapsed':'');
+    body.dataset.sectionId=sectionId;
+    header.parentNode.insertBefore(body,header.nextSibling);
+    // Move all sibling cards/non-header elements into body until next header or end
+    let next=body.nextSibling;
+    while(next&&!next.classList?.contains('collapsible-header')&&!next.classList?.contains('slbl')&&next.id!=='habit-unlock-banner'){
+      const toMove=next;
+      next=next.nextSibling;
+      body.appendChild(toMove);
+    }
+    // Click handler
+    header.addEventListener('click',()=>{
+      const collapsed=header.classList.toggle('collapsed');
+      body.classList.toggle('collapsed',collapsed);
+      localStorage.setItem('col_'+sectionId, collapsed?'1':'0');
+    });
+  });
+}
+
+// ══════════ DRAG TO REORDER ══════════
+const DRAG_HANDLE_HTML='<div class="drag-handle" title="Drag to reorder"><span></span><span></span><span></span><span></span><span></span><span></span></div>';
+
+function initDragOrder(){}
+
+
+function initHabitUI(){
+  initCollapsible();
+}
 // ══════════ BOOT ══════════
 loadTheme();
 maybeShowIntro();
