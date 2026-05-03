@@ -15,6 +15,13 @@
 <title>Cadence · Michelle</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <style>
+/* ── iPHONE 13 PRO OPTIMIZATIONS ── */
+*{-webkit-tap-highlight-color:transparent;}
+html{-webkit-text-size-adjust:100%;}
+body{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
+input,textarea,select{font-size:16px!important;-webkit-appearance:none;border-radius:var(--radius-sm);}
+button{-webkit-appearance:none;touch-action:manipulation;}
+
 :root{
   --indigo:#6366f1;--indigo-light:#818cf8;--indigo-dim:rgba(99,102,241,0.15);
   --violet:#8b5cf6;--violet-dim:rgba(139,92,246,0.15);
@@ -26,7 +33,7 @@
   --amber:#fbbf24;--amber-dim:rgba(251,191,36,0.12);
   --coral:#fb7185;--coral-dim:rgba(251,113,133,0.12);
   --teal:#2dd4bf;--teal-dim:rgba(45,212,191,0.12);
-  --radius:16px;--radius-sm:10px;--nav-h:62px;
+  --radius:16px;--radius-sm:10px;--nav-h:64px;
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;margin:0;padding:0;}
 html{background:var(--bg);}
@@ -40,7 +47,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;fon
 .nav-btn.on .nav-dot{opacity:1;}
 
 /* SECTIONS */
-.section{display:none;max-width:640px;margin:0 auto;padding:20px 18px 24px;position:relative;z-index:1;}
+.section{display:none;max-width:640px;margin:0 auto;padding:16px 16px 24px;position:relative;z-index:1;}
 .section.on{display:block;}
 
 /* SHARED */
@@ -49,9 +56,9 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;fon
 .page-sub{font-size:12px;color:var(--text3);}
 
 .card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:10px;}
-.cb{width:22px;height:22px;border:1.5px solid var(--bg4);border-radius:6px;cursor:pointer;flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center;transition:all .12s;background:var(--bg3);}
+.cb{width:24px;height:24px;border:1.5px solid var(--bg4);border-radius:7px;cursor:pointer;flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;transition:all .12s;background:var(--bg3);position:relative;}
 .cb.on{background:linear-gradient(135deg,var(--indigo),var(--violet));border-color:transparent;}
-.cb.on::after{content:'';display:block;width:5px;height:9px;border:2px solid white;border-top:none;border-left:none;transform:rotate(45deg) translate(-1px,-1px);}
+.cb::before{content:'';position:absolute;inset:-10px;}content:'';display:block;width:5px;height:9px;border:2px solid white;border-top:none;border-left:none;transform:rotate(45deg) translate(-1px,-1px);}
 .item-label{font-size:14px;line-height:1.4;font-weight:500;color:var(--text);}
 .item-label.done{text-decoration:line-through;color:var(--text3);font-weight:400;}
 .item-sub{font-size:12px;color:var(--text2);margin-top:4px;line-height:1.55;}
@@ -420,7 +427,7 @@ svg.ring-svg{display:block;margin:0 auto;}
 .rating-row{display:flex;gap:8px;align-items:center;padding:12px 16px;}
 .rating-label{font-size:13px;font-weight:500;color:var(--text);flex:1;}
 .rating-emojis{display:flex;gap:4px;}
-.rating-emoji{width:34px;height:34px;border-radius:50%;border:1.5px solid var(--border2);background:var(--bg3);cursor:pointer;font-size:13px;font-weight:700;color:var(--text2);display:flex;align-items:center;justify-content:center;transition:all .12s;flex-shrink:0;font-family:'DM Serif Display',serif;}
+.rating-emoji{width:44px;height:44px;border-radius:50%;border:1.5px solid var(--border2);background:var(--bg3);cursor:pointer;font-size:14px;font-weight:700;color:var(--text2);display:flex;align-items:center;justify-content:center;transition:all .12s;flex-shrink:0;font-family:'DM Serif Display',serif;touch-action:manipulation;}
 .rating-emoji.sel{border-color:var(--indigo-light);background:var(--indigo-dim);color:var(--indigo-light);transform:scale(1.12);}
 .gratitude-area{padding:0 16px 14px;}
 .gratitude-ta{width:100%;min-height:70px;font-size:13px;padding:10px 12px;border:1px solid var(--border2);border-radius:var(--radius-sm);background:var(--bg3);color:var(--text);font-family:'DM Sans',sans-serif;resize:none;}
@@ -538,7 +545,7 @@ svg.ring-svg{display:block;margin:0 auto;}
 
 /* ── REFINED CARDS ── */
 .card{background:var(--bg2);border:1px solid var(--border2);border-radius:var(--radius);overflow:hidden;margin-bottom:10px;transition:border-color .15s;}
-.card-row{display:flex;gap:12px;align-items:flex-start;padding:13px 16px;border-bottom:1px solid rgba(255,255,255,.04);}
+.card-row{display:flex;gap:12px;align-items:flex-start;padding:12px 14px;border-bottom:1px solid rgba(255,255,255,.04);min-height:44px;}
 .card-row:last-child{border-bottom:none;}
 .stat-card{background:var(--bg2);border:1px solid var(--border2);border-radius:var(--radius);overflow:hidden;margin-bottom:10px;}
 .guide-card{background:var(--bg2);border:1px solid var(--border2);border-radius:var(--radius);overflow:hidden;margin-bottom:12px;}
@@ -555,7 +562,7 @@ svg.ring-svg{display:block;margin:0 auto;}
 
 /* ── NAV REFINEMENT ── */
 .bottom-nav{position:fixed;bottom:0;left:0;right:0;height:calc(var(--nav-h) + env(safe-area-inset-bottom));padding-bottom:env(safe-area-inset-bottom);background:rgba(12,9,22,0.96);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:1px solid rgba(139,92,246,.12);display:flex;z-index:100;}
-.nav-btn{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;border:none;background:transparent;color:var(--text3);cursor:pointer;font-family:'DM Sans',sans-serif;font-size:10px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;padding:8px 0;transition:color .15s;}
+.nav-btn{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;border:none;background:transparent;color:var(--text3);cursor:pointer;font-family:'DM Sans',sans-serif;font-size:10px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;padding:10px 0;transition:color .15s;touch-action:manipulation;min-height:44px;}
 .nav-btn.on{color:var(--indigo-light);}
 .nav-btn svg{width:20px;height:20px;}
 
@@ -600,7 +607,7 @@ svg.ring-svg{display:block;margin:0 auto;}
 .phase-cursor{width:2px;height:18px;background:white;border-radius:1px;position:relative;top:-4px;margin-left:-1px;box-shadow:0 0 6px rgba(255,255,255,.8);}
 
 /* ── LOGO / BRAND ── */
-.brand-bar{display:flex;align-items:center;gap:10px;margin-bottom:18px;padding-bottom:14px;border-bottom:1px solid var(--border2);}
+.brand-bar{display:flex;align-items:center;gap:10px;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid var(--border2);}
 .brand-wordmark{display:flex;flex-direction:column;}
 .brand-name{font-family:'DM Serif Display',serif;font-size:20px;color:var(--text);letter-spacing:.01em;line-height:1;}
 .brand-sub{font-size:10px;color:var(--text3);letter-spacing:.1em;text-transform:uppercase;margin-top:2px;}
@@ -641,7 +648,7 @@ svg.ring-svg{display:block;margin:0 auto;}
 .qs-fill{height:100%;border-radius:3px;transition:width .3s;}
 .qs-val{font-size:11px;color:var(--text2);font-weight:500;}
 
-.reorder-btn{background:var(--bg3);border:1px solid var(--border2);color:var(--text3);width:24px;height:18px;font-size:10px;cursor:pointer;border-radius:3px;display:flex;align-items:center;justify-content:center;padding:0;line-height:1;}
+.reorder-btn{background:var(--bg3);border:1px solid var(--border2);color:var(--text3);min-width:36px;min-height:36px;font-size:10px;cursor:pointer;border-radius:6px;display:flex;align-items:center;justify-content:center;padding:0;line-height:1;touch-action:manipulation;}
 .reorder-btn:hover:not(:disabled){color:var(--indigo-light);}
 .reorder-btn:disabled{opacity:.25;cursor:not-allowed;}
 
@@ -660,17 +667,17 @@ svg.ring-svg{display:block;margin:0 auto;}
 .settings-handle{width:36px;height:4px;background:var(--border);border-radius:2px;margin:12px auto 0;}
 .settings-title{font-family:'DM Serif Display',serif;font-size:18px;color:var(--text);padding:14px 20px 10px;}
 .settings-group{border-top:1px solid var(--border2);padding:10px 0;}
-.settings-row{display:flex;align-items:center;gap:12px;padding:12px 20px;cursor:pointer;}
+.settings-row{display:flex;align-items:center;gap:12px;padding:14px 20px;cursor:pointer;min-height:52px;touch-action:manipulation;}
 .settings-row:active{background:var(--bg3);}
 .settings-row-icon{width:32px;height:32px;border-radius:8px;background:var(--bg3);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .settings-row-label{font-size:14px;color:var(--text);font-weight:500;flex:1;}
 .settings-row-sub{font-size:11px;color:var(--text3);margin-top:1px;}
-.settings-cog{background:none;border:none;padding:4px;cursor:pointer;color:var(--text3);display:flex;align-items:center;justify-content:center;border-radius:6px;}
+.settings-cog{background:none;border:none;padding:10px;cursor:pointer;color:var(--text3);display:flex;align-items:center;justify-content:center;border-radius:6px;touch-action:manipulation;margin:-6px;}
 .settings-cog:hover{color:var(--text);background:var(--bg3);}
 
 /* ── HABITS TABS ── */
 .htab-bar{display:flex;gap:3px;margin:0 0 14px;background:var(--bg3);border-radius:var(--radius-sm);padding:3px;border:1px solid var(--border2);}
-.htab-btn{flex:1;padding:7px 2px;font-size:10px;font-weight:700;font-family:'DM Sans',sans-serif;text-transform:uppercase;letter-spacing:.06em;border:none;border-radius:7px;cursor:pointer;background:transparent;color:var(--text3);transition:all .15s;white-space:nowrap;}
+.htab-btn{flex:1;padding:8px 2px;font-size:10px;font-weight:700;font-family:'DM Sans',sans-serif;text-transform:uppercase;letter-spacing:.04em;border:none;border-radius:7px;cursor:pointer;background:transparent;color:var(--text3);transition:all .15s;white-space:nowrap;min-height:36px;touch-action:manipulation;}
 .htab-btn.active{background:var(--bg);color:var(--text);box-shadow:0 1px 6px rgba(0,0,0,.4);}
 .htab-btn.active.tab-morning{color:var(--amber);}
 .htab-btn.active.tab-midday{color:var(--sky);}
@@ -716,7 +723,7 @@ svg.ring-svg{display:block;margin:0 auto;}
 #weekly-review-wrap button:hover{opacity:.9;}
 
 /* Quick stats nicer styling */
-.quick-stats{margin:0 0 14px;background:var(--bg2);border:1px solid var(--border2);border-radius:var(--radius);padding:14px 14px 12px;}
+.quick-stats{margin:0 0 12px;background:var(--bg2);border:1px solid var(--border2);border-radius:var(--radius);padding:12px;}
 
 /* Intention card textarea resize handle hidden on iOS */
 .intention-input{-webkit-user-select:text;user-select:text;}
@@ -798,7 +805,7 @@ body.light-theme .htab-btn.active{background:var(--bg);}
         <div style="font-size:10px;font-weight:700;color:var(--indigo-light);letter-spacing:.1em;text-transform:uppercase;">Cloud backup</div>
       </div>
       <div style="font-size:12px;color:var(--text2);line-height:1.65;margin-bottom:10px;">Backs up your data to a private GitHub Gist — protects against Safari clearing your storage.<br><a href="https://github.com/settings/tokens/new?scopes=gist&description=Cadence" target="_blank" style="color:var(--indigo-light);">Create a token</a> (gist scope only), paste it below.</div>
-      <input type="text" id="gist-token-input" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" style="width:100%;padding:10px 12px;font-size:12px;font-family:'DM Sans',sans-serif;border:1px solid rgba(99,102,241,.4);border-radius:var(--radius-sm);background:var(--bg3);color:var(--text);outline:none;box-sizing:border-box;"/>
+      <input type="text" id="gist-token-input" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" style="width:100%;padding:10px 12px;font-size:16px;font-family:'DM Sans',sans-serif;border:1px solid rgba(99,102,241,.4);border-radius:var(--radius-sm);background:var(--bg3);color:var(--text);outline:none;box-sizing:border-box;"/>
       <div id="gist-token-saved" style="font-size:11px;color:var(--text3);margin-top:5px;margin-bottom:10px;min-height:14px;line-height:1.5;"></div>
       <div class="sync-row">
         <button class="sync-btn push" onclick="gistPush()">Back up now</button>
@@ -1292,7 +1299,7 @@ body.light-theme .htab-btn.active{background:var(--bg);}
         <div style="font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;">Building current meal</div>
         <div id="meal-builder-foods" style="display:flex;flex-direction:column;gap:5px;margin-bottom:8px;"></div>
         <div style="display:flex;gap:6px;">
-          <input type="text" id="meal-food-input" placeholder="Add a food (e.g. eggs, toast, banana)" style="flex:1;padding:9px 12px;font-size:13px;font-family:'DM Sans',sans-serif;border:1px solid var(--border2);border-radius:var(--radius-sm);background:var(--bg2);color:var(--text);outline:none;" onkeydown="if(event.key==='Enter')addFoodToMeal()"/>
+          <input type="text" id="meal-food-input" placeholder="Add a food (e.g. eggs, toast, banana)" style="flex:1;padding:9px 12px;font-size:16px;font-family:'DM Sans',sans-serif;border:1px solid var(--border2);border-radius:var(--radius-sm);background:var(--bg2);color:var(--text);outline:none;" onkeydown="if(event.key==='Enter')addFoodToMeal()"/>
           <button onclick="addFoodToMeal()" style="padding:9px 12px;font-size:12px;font-weight:600;font-family:'DM Sans',sans-serif;background:var(--bg4);color:var(--text);border:1px solid var(--border2);border-radius:var(--radius-sm);cursor:pointer;flex-shrink:0;">+ Food</button>
         </div>
         <button id="meal-save-btn" onclick="saveMeal()" disabled style="width:100%;margin-top:8px;padding:10px;font-size:13px;font-weight:600;font-family:'DM Sans',sans-serif;background:linear-gradient(135deg,var(--amber),#f97316);color:var(--bg);border:none;border-radius:var(--radius-sm);cursor:pointer;opacity:.4;">Save meal</button>
@@ -1358,9 +1365,9 @@ body.light-theme .htab-btn.active{background:var(--bg);}
   <div style="background:var(--bg2);border:1px solid var(--border2);border-radius:var(--radius-sm);padding:12px;margin-bottom:10px;">
     <div style="font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;">Add a counter</div>
     <div style="display:flex;flex-direction:column;gap:8px;">
-      <input type="text" id="counter-name-input" placeholder="What habit are you tracking? (e.g. Scrolling, Snacks)" style="padding:9px 12px;font-size:13px;font-family:'DM Sans',sans-serif;border:1px solid var(--border2);border-radius:var(--radius-sm);background:var(--bg3);color:var(--text);outline:none;"/>
+      <input type="text" id="counter-name-input" placeholder="What habit are you tracking? (e.g. Scrolling, Snacks)" style="padding:9px 12px;font-size:16px;font-family:'DM Sans',sans-serif;border:1px solid var(--border2);border-radius:var(--radius-sm);background:var(--bg3);color:var(--text);outline:none;"/>
       <div style="display:flex;gap:8px;align-items:center;">
-        <input type="number" id="counter-goal-input" placeholder="Daily limit" min="1" max="99" style="width:110px;padding:9px 12px;font-size:13px;font-family:'DM Sans',sans-serif;border:1px solid var(--border2);border-radius:var(--radius-sm);background:var(--bg3);color:var(--text);outline:none;"/>
+        <input type="number" id="counter-goal-input" placeholder="Daily limit" min="1" max="99" style="width:110px;padding:9px 12px;font-size:16px;font-family:'DM Sans',sans-serif;border:1px solid var(--border2);border-radius:var(--radius-sm);background:var(--bg3);color:var(--text);outline:none;"/>
         <select id="counter-dir-input" style="flex:1;padding:9px 12px;font-size:13px;font-family:'DM Sans',sans-serif;border:1px solid var(--border2);border-radius:var(--radius-sm);background:var(--bg3);color:var(--text);outline:none;">
           <option value="max">Stay under limit (bad habit)</option>
           <option value="min">Hit target (good habit)</option>
@@ -4006,7 +4013,7 @@ function openWeeklyReview(){
     <div style="margin-bottom:16px;">${summary||'<div style="color:var(--text3);font-style:italic;font-size:13px;">No data logged this week yet.</div>'}</div>
     <div style="background:var(--bg3);border:1px solid var(--border2);border-radius:var(--radius-sm);padding:12px 14px;margin-bottom:16px;">
       <div style="font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;">Reflection</div>
-      <textarea placeholder="What worked? What's one thing to adjust?" style="width:100%;min-height:80px;background:transparent;border:none;outline:none;font-size:13px;font-family:'DM Sans',sans-serif;color:var(--text);resize:none;line-height:1.6;box-sizing:border-box;" oninput="localStorage.setItem('weekly_reflection_${wkKey}',this.value)">${localStorage.getItem('weekly_reflection_'+wkKey)||''}</textarea>
+      <textarea placeholder="What worked? What's one thing to adjust?" style="width:100%;min-height:80px;background:transparent;border:none;outline:none;font-size:16px;font-family:'DM Sans',sans-serif;color:var(--text);resize:none;line-height:1.6;box-sizing:border-box;" oninput="localStorage.setItem('weekly_reflection_${wkKey}',this.value)">${localStorage.getItem('weekly_reflection_'+wkKey)||''}</textarea>
     </div>
     <button onclick="this.closest('[style*=position]').remove()" style="width:100%;padding:12px;font-size:14px;font-weight:600;font-family:'DM Sans',sans-serif;background:linear-gradient(135deg,var(--indigo),var(--violet));color:white;border:none;border-radius:var(--radius-sm);cursor:pointer;">Done</button>
   </div>`;
