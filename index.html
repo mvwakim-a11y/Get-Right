@@ -1130,6 +1130,23 @@ button, .nav-btn, .htab-btn, .cb, .bsp, .wk-assign-pill, .settings-cog,
   flex-shrink: 0;
 }
 
+
+/* ── Progress page structural classes ── */
+.upcom-card{background:var(--bg2);border:1px solid var(--border2);border-radius:var(--radius);padding:14px 16px;}
+.prog-bar-outer{background:var(--bg4);border-radius:4px;height:8px;overflow:hidden;}
+.prog-bar-inner{height:100%;background:var(--indigo-light);border-radius:4px;transition:width .4s ease;}
+
+/* ── htab-section colour variants (already inherits .htab-section) ── */
+.htab-section-day{}
+.htab-section-trackers{}
+
+/* ── Jaw round card rendered by renderTimer ── */
+.jaw-round-card{min-height:16px;}
+
+/* ── Book form input ── */
+.add-book-input{flex:1;padding:8px 10px;font-size:16px;background:var(--bg3);
+  border:0.5px solid var(--border2);border-radius:var(--radius-sm);color:var(--text);
+  font-family:'DM Sans',sans-serif;}
 </style>
 </head>
 <body>
@@ -1456,11 +1473,7 @@ button, .nav-btn, .htab-btn, .cb, .bsp, .wk-assign-pill, .settings-cog,
       <div style="flex:1;"><div class="item-label" id="hlbl-jaw-m">Jaw exercise — morning</div><div class="item-sub">Three rounds of two minutes (default — you can adjust). Use the timer below and follow the specific sequence your dentist gave you.</div></div>
       <span class="ph-badge badge-jaw" style="font-size:10px;margin-top:2px;">6 min</span>
     </div>
-    <div style="display:flex;gap:6px;margin-bottom:8px;">
-        <div id="jaw-timer-0" class="jaw-round-card"></div>
-        <div id="jaw-timer-1" class="jaw-round-card"></div>
-        <div id="jaw-timer-2" class="jaw-round-card"></div>
-      </div>
+    <div id="jaw-timer-m"></div>
   </div>
 
   <div class="card">
@@ -1610,11 +1623,13 @@ button, .nav-btn, .htab-btn, .cb, .bsp, .wk-assign-pill, .settings-cog,
       <div class="steps-num" id="steps-num" style="font-family:'DM Serif Display',serif;font-size:36px;color:var(--sky);text-align:center;">0</div>
     </div>
     <div style="text-align:center;font-size:12px;color:var(--text3);margin-bottom:12px;">steps today</div>
-    <div style="display:flex;gap:6px;justify-content:center;">
-      <button class="water-btn minus" onclick="adjSteps(-1000)" style="font-size:11px;width:auto;padding:0 12px;">−1k</button>
-      <button class="water-btn minus" onclick="adjSteps(-500)" style="font-size:11px;width:auto;padding:0 12px;">−500</button>
-      <button class="water-btn plus" onclick="adjSteps(500)" style="font-size:11px;width:auto;padding:0 12px;">+500</button>
-      <button class="water-btn plus" onclick="adjSteps(1000)" style="font-size:11px;width:auto;padding:0 12px;">+1k</button>
+    <div style="display:flex;gap:5px;justify-content:center;flex-wrap:wrap;">
+      <button class="water-btn minus" onclick="adjSteps(-1000)" style="font-size:11px;width:auto;padding:0 10px;">−1k</button>
+      <button class="water-btn minus" onclick="adjSteps(-500)" style="font-size:11px;width:auto;padding:0 10px;">−500</button>
+      <button class="water-btn minus" onclick="adjSteps(-100)" style="font-size:11px;width:auto;padding:0 10px;">−100</button>
+      <button class="water-btn plus" onclick="adjSteps(100)" style="font-size:11px;width:auto;padding:0 10px;">+100</button>
+      <button class="water-btn plus" onclick="adjSteps(500)" style="font-size:11px;width:auto;padding:0 10px;">+500</button>
+      <button class="water-btn plus" onclick="adjSteps(1000)" style="font-size:11px;width:auto;padding:0 10px;">+1k</button>
     </div>
   </div>
 
@@ -1668,11 +1683,27 @@ button, .nav-btn, .htab-btn, .cb, .bsp, .wk-assign-pill, .settings-cog,
   <div class="slbl"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--indigo-light)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"  aria-hidden="true"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><span class="slbl-text" style="color:var(--indigo-light);">Night</span></div>
 
   <!-- NIGHT ROUTINE CARD -->
+
+  <!-- NIGHT HABITS -->
+  <div class="card"><div class="card-row"><div class="cb" onclick="toggleHabit('dishes',this)" data-hid="dishes"></div><div style="flex:1;"><div class="item-label" id="hlbl-dishes">Dishes done</div><div class="item-sub">Kitchen clean before bed. Waking up to a clean kitchen changes your morning state.</div></div></div></div>
+  <div class="card"><div class="card-row"><div class="cb" onclick="toggleHabit('jaw-n',this)" data-hid="jaw-n"></div><div style="flex:1;"><div class="item-label" id="hlbl-jaw-n">Jaw release PM</div><div class="item-sub">Third jaw session — use the timer above. Three rounds, two minutes each.</div></div></div></div>
+  <div class="card"><div class="card-row"><div class="cb" onclick="toggleHabit('cats-pm',this)" data-hid="cats-pm"></div><div style="flex:1;"><div class="item-label" id="hlbl-cats-pm">Feed cats PM</div><div class="item-sub">Evening feed + fresh water check.</div></div></div></div>
+  <div class="card"><div class="card-row"><div class="cb" onclick="toggleHabit('skincare-pm',this)" data-hid="skincare-pm"></div><div style="flex:1;"><div class="item-label" id="hlbl-skincare-pm">Skincare PM</div><div class="item-sub">Cleanse, moisturise, and any treatments. Consistency here compounds.</div></div></div></div>
+  <div class="card"><div class="card-row"><div class="cb" onclick="toggleHabit('floss',this)" data-hid="floss"></div><div style="flex:1;"><div class="item-label" id="hlbl-floss">Floss</div><div class="item-sub">Every night. Jaw tension and dental health are directly linked.</div></div></div></div>
+  <div class="card"><div class="card-row"><div class="cb" onclick="toggleHabit('night-screens',this)" data-hid="night-screens"></div><div style="flex:1;"><div class="item-label" id="hlbl-night-screens">Screens off 30 min before bed</div><div class="item-sub">Blue light suppresses melatonin. This single habit improves sleep quality measurably.</div></div></div></div>
+  <div class="card"><div class="card-row"><div class="cb" onclick="toggleHabit('night-jaw-massage',this)" data-hid="night-jaw-massage"></div><div style="flex:1;"><div class="item-label" id="hlbl-night-jaw-massage">Jaw massage</div><div class="item-sub">30 sec circular massage on masseter muscles (cheeks). Releases daily tension before sleep.</div></div></div></div>
+  <div class="card"><div class="card-row"><div class="cb" onclick="toggleHabit('supps-pm',this)" data-hid="supps-pm"></div><div style="flex:1;"><div class="item-label" id="hlbl-supps-pm">Magnesium glycinate</div><div class="item-sub">400mg with water before bed. Directly reduces bruxism severity and improves sleep depth.</div></div></div></div>
+  <div class="card"><div class="card-row"><div class="cb" onclick="toggleHabit('night-breathe',this)" data-hid="night-breathe"></div><div style="flex:1;"><div class="item-label" id="hlbl-night-breathe">Breathing practice</div><div class="item-sub">4-7-8: inhale 4s · hold 7s · exhale 8s. Or box breathing: 4s each side. All patterns shift your nervous system toward parasympathetic. Use the breathing timer above. Nasal breathing only — mouth breathing during sleep increases grinding severity.</div></div></div></div>
+  <div class="card"><div class="card-row"><div class="cb" onclick="toggleHabit('night-position',this)" data-hid="night-position"></div><div style="flex:1;"><div class="item-label" id="hlbl-night-position">Set your sleep position</div><div class="item-sub">Side sleeping: pillow fills the full ear-to-shoulder gap, another between your knees. Back sleeping: thin pillow, knees supported. Avoid stomach — it rotates your neck and strains your jaw all night. 7 hours of bad position undoes good daily work.</div></div></div></div>
+  <div class="card"><div class="card-row"><div class="cb" onclick="toggleHabit('gratitude-done',this)" data-hid="gratitude-done"></div><div style="flex:1;"><div class="item-label" id="hlbl-gratitude-done">Gratitude written</div><div class="item-sub">Use the field above. One specific thing. Shifts your nervous system out of threat mode before sleep.</div></div></div></div>
+  <div class="card"><div class="card-row"><div class="cb" onclick="toggleHabit('night-jaw-check',this)" data-hid="night-jaw-check"></div><div style="flex:1;"><div class="item-label" id="hlbl-night-jaw-check">Final jaw check</div><div class="item-sub">Tongue on roof, teeth apart, lips closed. This is the last thing you check before your eyes close.</div></div></div></div>
+
+  
+
   <div class="night-card">
     <div class="night-header" id="night-header">Night routine</div>
 
-    <!-- JAW TIMER NOTE -->
-    <div style="font-size:11px;color:var(--text3);padding:4px 0 10px;border-bottom:1px solid var(--border2);margin-bottom:10px;">Jaw timer is in the morning section — use it again here for your final release session.</div>
+
 
     <!-- BREATHING TIMER -->
     <div class="slbl" style="font-size:9px;margin:10px 0 6px;"><span class="slbl-text" style="color:var(--sky);">Breathing practice</span></div>
@@ -1712,20 +1743,6 @@ button, .nav-btn, .htab-btn, .cb, .bsp, .wk-assign-pill, .settings-cog,
     </div>
 
   </div><!-- end night-card -->
-
-  <!-- NIGHT HABITS -->
-  <div class="card"><div class="card-row"><div class="cb" onclick="toggleHabit('dishes',this)" data-hid="dishes"></div><div style="flex:1;"><div class="item-label" id="hlbl-dishes">Dishes done</div><div class="item-sub">Kitchen clean before bed. Waking up to a clean kitchen changes your morning state.</div></div></div></div>
-  <div class="card"><div class="card-row"><div class="cb" onclick="toggleHabit('jaw-n',this)" data-hid="jaw-n"></div><div style="flex:1;"><div class="item-label" id="hlbl-jaw-n">Jaw release PM</div><div class="item-sub">Third jaw session — use the timer above. Three rounds, two minutes each.</div></div></div></div>
-  <div class="card"><div class="card-row"><div class="cb" onclick="toggleHabit('cats-pm',this)" data-hid="cats-pm"></div><div style="flex:1;"><div class="item-label" id="hlbl-cats-pm">Feed cats PM</div><div class="item-sub">Evening feed + fresh water check.</div></div></div></div>
-  <div class="card"><div class="card-row"><div class="cb" onclick="toggleHabit('skincare-pm',this)" data-hid="skincare-pm"></div><div style="flex:1;"><div class="item-label" id="hlbl-skincare-pm">Skincare PM</div><div class="item-sub">Cleanse, moisturise, and any treatments. Consistency here compounds.</div></div></div></div>
-  <div class="card"><div class="card-row"><div class="cb" onclick="toggleHabit('floss',this)" data-hid="floss"></div><div style="flex:1;"><div class="item-label" id="hlbl-floss">Floss</div><div class="item-sub">Every night. Jaw tension and dental health are directly linked.</div></div></div></div>
-  <div class="card"><div class="card-row"><div class="cb" onclick="toggleHabit('night-screens',this)" data-hid="night-screens"></div><div style="flex:1;"><div class="item-label" id="hlbl-night-screens">Screens off 30 min before bed</div><div class="item-sub">Blue light suppresses melatonin. This single habit improves sleep quality measurably.</div></div></div></div>
-  <div class="card"><div class="card-row"><div class="cb" onclick="toggleHabit('night-jaw-massage',this)" data-hid="night-jaw-massage"></div><div style="flex:1;"><div class="item-label" id="hlbl-night-jaw-massage">Jaw massage</div><div class="item-sub">30 sec circular massage on masseter muscles (cheeks). Releases daily tension before sleep.</div></div></div></div>
-  <div class="card"><div class="card-row"><div class="cb" onclick="toggleHabit('supps-pm',this)" data-hid="supps-pm"></div><div style="flex:1;"><div class="item-label" id="hlbl-supps-pm">Magnesium glycinate</div><div class="item-sub">400mg with water before bed. Directly reduces bruxism severity and improves sleep depth.</div></div></div></div>
-  <div class="card"><div class="card-row"><div class="cb" onclick="toggleHabit('night-breathe',this)" data-hid="night-breathe"></div><div style="flex:1;"><div class="item-label" id="hlbl-night-breathe">Breathing practice</div><div class="item-sub">4-7-8: inhale 4s · hold 7s · exhale 8s. Or box breathing: 4s each side. All patterns shift your nervous system toward parasympathetic. Use the breathing timer above. Nasal breathing only — mouth breathing during sleep increases grinding severity.</div></div></div></div>
-  <div class="card"><div class="card-row"><div class="cb" onclick="toggleHabit('night-position',this)" data-hid="night-position"></div><div style="flex:1;"><div class="item-label" id="hlbl-night-position">Set your sleep position</div><div class="item-sub">Side sleeping: pillow fills the full ear-to-shoulder gap, another between your knees. Back sleeping: thin pillow, knees supported. Avoid stomach — it rotates your neck and strains your jaw all night. 7 hours of bad position undoes good daily work.</div></div></div></div>
-  <div class="card"><div class="card-row"><div class="cb" onclick="toggleHabit('gratitude-done',this)" data-hid="gratitude-done"></div><div style="flex:1;"><div class="item-label" id="hlbl-gratitude-done">Gratitude written</div><div class="item-sub">Use the field above. One specific thing. Shifts your nervous system out of threat mode before sleep.</div></div></div></div>
-  <div class="card"><div class="card-row"><div class="cb" onclick="toggleHabit('night-jaw-check',this)" data-hid="night-jaw-check"></div><div style="flex:1;"><div class="item-label" id="hlbl-night-jaw-check">Final jaw check</div><div class="item-sub">Tongue on roof, teeth apart, lips closed. This is the last thing you check before your eyes close.</div></div></div></div>
 
   </div><!-- end night -->
 
@@ -1823,7 +1840,8 @@ button, .nav-btn, .htab-btn, .cb, .bsp, .wk-assign-pill, .settings-cog,
     <button onclick="openWeeklyReview()" style="width:100%;padding:13px 16px;font-size:14px;font-weight:600;font-family:'DM Sans',sans-serif;background:linear-gradient(135deg,rgba(99,102,241,.15),rgba(139,92,246,.12));color:var(--indigo-light);border:1px solid rgba(99,102,241,.3);border-radius:var(--radius);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Weekly review</button>
   </div>
 
-  <div class="upcom-card" id="prog-greeting" style="margin-bottom:14px;"></div>
+  <div class="upcom-card" id="prog-greeting" style="margin-bottom:6px;"></div>
+  <div id="prog-greeting-sub" style="font-size:12px;color:var(--text3);font-style:italic;padding:0 4px 14px;line-height:1.6;"></div>
 
   <div class="stat-card" style="margin-bottom:14px;" id="prog-timeline-card">
     <div class="stat-card-header"><div class="stat-card-title">20-week plan</div></div>
@@ -1833,7 +1851,7 @@ button, .nav-btn, .htab-btn, .cb, .bsp, .wk-assign-pill, .settings-cog,
         <span style="font-size:11px;color:var(--text3);" id="prog-weeks-left"></span>
       </div>
       <div class="prog-bar-outer" style="margin-bottom:10px;"><div class="prog-bar-inner" id="prog-phase-bar" style="width:0%;"></div></div>
-      <div style="font-size:12px;color:var(--text2);line-height:1.6;" id="prog-phase-desc"></div>
+      <div style="font-size:12px;color:var(--text2);line-height:1.6;" id="prog-phase-info"></div>
     </div>
   </div>
 
@@ -1904,7 +1922,8 @@ button, .nav-btn, .htab-btn, .cb, .bsp, .wk-assign-pill, .settings-cog,
 
 <!-- end sec-progress -->
 
-</div><!-- end sec-progress -->
+</div><!-- end sec-progress -
+
 
 <!-- BOTTOM NAV -->
 <nav class="bottom-nav">
@@ -1913,7 +1932,7 @@ button, .nav-btn, .htab-btn, .cb, .bsp, .wk-assign-pill, .settings-cog,
     Movement<div class="nav-dot"></div>
   </button>
   <button class="nav-btn" onclick="switchSection('habits',this)" id="navbtn-habits">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
     Habits<div class="nav-dot"></div>
   </button>
   <button class="nav-btn" onclick="switchSection('progress',this)" id="navbtn-progress">
@@ -1925,6 +1944,7 @@ button, .nav-btn, .htab-btn, .cb, .bsp, .wk-assign-pill, .settings-cog,
 <input type="file" id="csv-import-input" accept=".csv" style="display:none;" onchange="importCSV(this)">
 
 <script>
+
 const MTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
 const PNAMES=['Foundation','Build','Strengthen','Peak & Integrate'];
 const TOTAL=20;
@@ -2734,9 +2754,15 @@ function changeHabDay(dir){
   // Don't navigate past today
   const today=new Date();today.setHours(0,0,0,0);
   if(d>today)return;
+  // Flush any pending debounced save before switching days
+  clearTimeout(hSaveTimer);
+  try{localStorage.setItem('habday_'+dk(habVD),JSON.stringify(habDD));}catch(e){}
   habVD=d;renderHabits();
 }
 function goHabToday(){
+  // Flush any pending debounced save before jumping to today
+  clearTimeout(hSaveTimer);
+  try{localStorage.setItem('habday_'+dk(habVD),JSON.stringify(habDD));}catch(e){}
   habVD=new Date();habVD.setHours(0,0,0,0);renderHabits();
 }
 
@@ -2802,8 +2828,8 @@ function renderWater(){
 
 function triggerHabSave(){
   clearTimeout(hSaveTimer);
-  const today=new Date();today.setHours(0,0,0,0);
-  hSaveTimer=setTimeout(()=>{try{localStorage.setItem('habday_'+dk(today),JSON.stringify(habDD));}catch(e){}},500);
+  const saveDate=new Date(habVD);  // always save to the day being viewed
+  hSaveTimer=setTimeout(()=>{try{localStorage.setItem('habday_'+dk(saveDate),JSON.stringify(habDD));}catch(e){}},500);
 }
 
 // ══════════ MOVEMENT ══════════
@@ -3904,19 +3930,7 @@ function adjustMeals(delta){
 function getCustomCounters(){
   try{return JSON.parse(localStorage.getItem('custom_counters'))||[];}catch(e){return[];}
 }
-function addCustomCounter(){
-  const name=document.getElementById('counter-name-input')?.value.trim();
-  const goalEl=document.getElementById('counter-goal-input');
-  const dir=document.getElementById('counter-dir-input')?.value||'max';
-  const goal=parseInt(goalEl?.value)||5;
-  if(!name)return;
-  const counters=getCustomCounters();
-  counters.push({id:'ctr_'+Date.now(),name,goal,dir});
-  localStorage.setItem('custom_counters',JSON.stringify(counters));
-  if(document.getElementById('counter-name-input'))document.getElementById('counter-name-input').value='';
-  if(goalEl)goalEl.value='';
-  renderCustomCounters();
-}
+// addCustomCounter removed — custom counters UI no longer present
 function deleteCustomCounter(id){
   const counters=getCustomCounters().filter(c=>c.id!==id);
   localStorage.setItem('custom_counters',JSON.stringify(counters));
@@ -4050,13 +4064,19 @@ async function gistPush(){
     const fileContent=JSON.stringify(data,null,2);
     let gistId=localStorage.getItem('gist_id');
     if(gistId){
-      const res=await fetch(GITHUB_API+'/gists/'+gistId,{
-        method:'PATCH',headers:gistHeaders(token),
-        body:JSON.stringify({files:{[GIST_FILE]:{content:fileContent}}})
-      });
-      if(res.status===404){localStorage.removeItem('gist_id');gistId=null;}
-      else if(res.status===401)throw new Error('Token invalid. Check it and try again.');
-      else if(!res.ok)throw new Error('Update failed: HTTP '+res.status);
+      // Retry up to 2 times for transient errors (429 rate-limit, 5xx server)
+      let patchRes,attempts=0;
+      while(attempts<2){
+        patchRes=await fetch(GITHUB_API+'/gists/'+gistId,{
+          method:'PATCH',headers:gistHeaders(token),
+          body:JSON.stringify({files:{[GIST_FILE]:{content:fileContent}}})
+        });
+        if(patchRes.status===429){await new Promise(r=>setTimeout(r,1500));attempts++;continue;}
+        break;
+      }
+      if(patchRes.status===404){localStorage.removeItem('gist_id');gistId=null;}
+      else if(patchRes.status===401)throw new Error('Token invalid. Check it and try again.');
+      else if(!patchRes.ok)throw new Error('Update failed: HTTP '+patchRes.status);
     }
     if(!gistId){
       const res=await fetch(GITHUB_API+'/gists',{
@@ -4142,9 +4162,9 @@ function openWeeklyReview(){
       try{
         const dd=JSON.parse(sv);
         const customIds=getCustomHabits().map(h=>h.id);
-        const allIds=[...HABIT_IDS,...customIds];
-        const done=allIds.filter(id=>dd.completed&&dd.completed[id]).length;
-        const pct=allIds.length>0?Math.round((done/allIds.length)*100):0;
+        const dayIds=[...getActiveHabitIds(wn(d)),...customIds];
+        const done=dayIds.filter(id=>dd.completed&&dd.completed[id]).length;
+        const pct=dayIds.length>0?Math.round((done/dayIds.length)*100):0;
         totalHab+=pct;daysLogged++;
         summary+=`<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border2);font-size:13px;">
           <span style="color:var(--text2);">${days[d.getDay()]} ${d.getDate()}</span>
@@ -4208,7 +4228,7 @@ function renderHabitBreakdown(){
   if(!wrap)return;
   const last14=getDateRange(14);
   const allIds=getActiveHabitIds(wn(new Date()));
-  const counts={};allIds.forEach(id=>counts[id]=0);
+  const counts={};const activeDays={};allIds.forEach(id=>{counts[id]=0;activeDays[id]=0;});
   let totalDays=0,bestDay=null,bestDayPct=0;
   const MORNING_IDS=['medication','cats-am','make-bed','tidy-am','sunlight','morning-water','skincare-am','spf','supps-am','jaw-m','posture-m'];
   const DAY_IDS=['jaw-a','posture-a1','eye-2020','posture-a2','caffeine','reading'];
@@ -4220,17 +4240,29 @@ function renderHabitBreakdown(){
     totalDays++;
     try{
       const dd=JSON.parse(sv);
-      allIds.forEach(id=>{if(dd.completed&&dd.completed[id])counts[id]++;});
-      sc.m+=MORNING_IDS.length?Math.round((MORNING_IDS.filter(id=>dd.completed&&dd.completed[id]).length/MORNING_IDS.length)*100):0;
-      sc.d+=DAY_IDS.length?Math.round((DAY_IDS.filter(id=>dd.completed&&dd.completed[id]).length/DAY_IDS.length)*100):0;
-      sc.n+=NIGHT_IDS.length?Math.round((NIGHT_IDS.filter(id=>dd.completed&&dd.completed[id]).length/NIGHT_IDS.length)*100):0;
-      sc.md++;sc.dd++;sc.nd++;
+      const dayActiveSet=new Set(getActiveHabitIds(wn(day)));
+      allIds.forEach(id=>{if(dayActiveSet.has(id)){activeDays[id]++;if(dd.completed&&dd.completed[id])counts[id]++;}});
+      const dayActive=getActiveHabitIds(wn(day));
+      const activeM=MORNING_IDS.filter(id=>dayActive.includes(id));
+      const activeD=DAY_IDS.filter(id=>dayActive.includes(id));
+      const activeN=NIGHT_IDS.filter(id=>dayActive.includes(id));
+      if(activeM.length){sc.m+=Math.round((activeM.filter(id=>dd.completed&&dd.completed[id]).length/activeM.length)*100);sc.md++;}
+      if(activeD.length){sc.d+=Math.round((activeD.filter(id=>dd.completed&&dd.completed[id]).length/activeD.length)*100);sc.dd++;}
+      if(activeN.length){sc.n+=Math.round((activeN.filter(id=>dd.completed&&dd.completed[id]).length/activeN.length)*100);sc.nd++;}
     }catch(e){}
   });
   getDateRange(7).forEach(d=>{
     const sv=localStorage.getItem('habday_'+dk(d));
     if(!sv)return;
-    try{const dd=JSON.parse(sv);const done=allIds.filter(id=>dd.completed&&dd.completed[id]).length;const pct=allIds.length?Math.round((done/allIds.length)*100):0;if(pct>bestDayPct){bestDayPct=pct;bestDay=d;}}catch(e){}
+    try{
+      const dd=JSON.parse(sv);
+      const dayActive=getActiveHabitIds(wn(d));
+      const customIds=getCustomHabits().map(h=>h.id);
+      const dayIds=[...dayActive,...customIds];
+      const done=dayIds.filter(id=>dd.completed&&dd.completed[id]).length;
+      const pct=dayIds.length?Math.round((done/dayIds.length)*100):0;
+      if(pct>bestDayPct){bestDayPct=pct;bestDay=d;}
+    }catch(e){}
   });
   if(totalDays===0){wrap.innerHTML='<div style="font-size:12px;color:var(--text3);font-style:italic;padding:10px 0;">Log habits for 2+ days to see your breakdown.</div>';return;}
   const mAvg=sc.md?Math.round(sc.m/sc.md):0;
@@ -4239,9 +4271,10 @@ function renderHabitBreakdown(){
   const barColor=pct=>pct>=80?'var(--green)':pct>=60?'var(--indigo-light)':pct>=40?'var(--amber)':'var(--coral)';
   const LABELS={'medication':'Medication','cats-am':'Feed cats AM','make-bed':'Make bed','tidy-am':'Morning tidy','sunlight':'Sunlight','morning-water':'Water first','skincare-am':'Skincare AM','spf':'SPF','supps-am':'Vitamin D','jaw-m':'Jaw AM','posture-m':'Posture AM','jaw-a':'Jaw midday','posture-a1':'Stand break','eye-2020':'20-20-20','posture-a2':'Posture PM','caffeine':'No caffeine 2pm','reading':'Reading','dishes':'Dishes','jaw-n':'Jaw PM','cats-pm':'Feed cats PM','skincare-pm':'Skincare PM','floss':'Floss','night-screens':'Screens off','night-jaw-massage':'Jaw massage','supps-pm':'Magnesium','night-breathe':'Breathing','night-position':'Sleep position','gratitude-done':'Gratitude','night-jaw-check':'Jaw check'};
   const getLabel=id=>LABELS[id]||id.replace(/-/g,' ');
-  const sorted=[...allIds].sort((a,b)=>counts[b]-counts[a]);
+  const rate=id=>activeDays[id]>0?counts[id]/activeDays[id]:0;
+  const sorted=[...allIds].filter(id=>activeDays[id]>0).sort((a,b)=>rate(b)-rate(a));
   const best=sorted.slice(0,3);
-  const worst=[...allIds].filter(id=>counts[id]<totalDays*0.4).sort((a,b)=>counts[a]-counts[b]).slice(0,3);
+  const worst=[...allIds].filter(id=>activeDays[id]>=2&&rate(id)<0.5).sort((a,b)=>rate(a)-rate(b)).slice(0,3);
   wrap.innerHTML=`
     <div style="margin-bottom:14px;">
       <div style="font-size:10px;font-weight:800;color:var(--text2);text-transform:uppercase;letter-spacing:.14em;margin-bottom:8px;">Completion by section (14-day avg)</div>
@@ -4253,8 +4286,8 @@ function renderHabitBreakdown(){
       </div>`).join('')}
     </div>
     ${bestDay?`<div style="background:var(--bg3);border-radius:var(--radius-sm);padding:10px 12px;margin-bottom:10px;font-size:12px;color:var(--text2);"><strong style="color:var(--green);">Best day</strong> — ${new Date(bestDay).toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'})}: ${bestDayPct}%</div>`:''}
-    ${best.length?`<div style="margin-bottom:10px;"><div style="font-size:10px;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;">Most consistent</div>${best.map(id=>`<div style="display:flex;justify-content:space-between;font-size:12px;padding:3px 0;color:var(--text2);"><span>${getLabel(id)}</span><span style="font-weight:600;color:var(--text);">${counts[id]}/${totalDays}</span></div>`).join('')}</div>`:''}
-    ${worst.length?`<div><div style="font-size:10px;font-weight:700;color:var(--amber);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;">Needs attention</div>${worst.map(id=>`<div style="display:flex;justify-content:space-between;font-size:12px;padding:3px 0;color:var(--text2);"><span>${getLabel(id)}</span><span style="font-weight:600;color:var(--amber);">${counts[id]}/${totalDays}</span></div>`).join('')}</div>`:''}
+    ${best.length?`<div style="margin-bottom:10px;"><div style="font-size:10px;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;">Most consistent</div>${best.map(id=>`<div style="display:flex;justify-content:space-between;font-size:12px;padding:3px 0;color:var(--text2);"><span>${getLabel(id)}</span><span style="font-weight:600;color:var(--text);">${counts[id]}/${activeDays[id]}</span></div>`).join('')}</div>`:''}
+    ${worst.length?`<div><div style="font-size:10px;font-weight:700;color:var(--amber);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;">Needs attention</div>${worst.map(id=>`<div style="display:flex;justify-content:space-between;font-size:12px;padding:3px 0;color:var(--text2);"><span>${getLabel(id)}</span><span style="font-weight:600;color:var(--amber);">${counts[id]}/${activeDays[id]}</span></div>`).join('')}</div>`:''}
   `;
 }
 function renderDayOfWeekPattern(){
@@ -4262,15 +4295,16 @@ function renderDayOfWeekPattern(){
   const dayTotals=[0,0,0,0,0,0,0];
   const dayCounts=[0,0,0,0,0,0,0];
   const dayNames=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-  const allIds=allActiveHabitIds();
+  const customIds=getCustomHabits().map(h=>h.id);
   dates30.forEach(d=>{
     const sv=localStorage.getItem('habday_'+dk(d));
     if(!sv)return;
     try{
       const dd=JSON.parse(sv);
       const dow=d.getDay();
-      const done=allIds.filter(id=>dd.completed&&dd.completed[id]).length;
-      const pct=allIds.length?Math.round((done/allIds.length)*100):0;
+      const dayIds=[...getActiveHabitIds(wn(d)),...customIds];
+      const done=dayIds.filter(id=>dd.completed&&dd.completed[id]).length;
+      const pct=dayIds.length?Math.round((done/dayIds.length)*100):0;
       dayTotals[dow]+=pct;dayCounts[dow]++;
     }catch(e){}
   });
@@ -4566,6 +4600,7 @@ if ('serviceWorker' in navigator && location.protocol === 'https:') {
     }).catch(err => console.log('SW registration failed:', err));
   });
 }
+
 </script>
 </body>
 </html>
