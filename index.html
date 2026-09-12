@@ -1147,6 +1147,45 @@ button, .nav-btn, .htab-btn, .cb, .bsp, .wk-assign-pill, .settings-cog,
 .add-book-input{flex:1;padding:8px 10px;font-size:16px;background:var(--bg3);
   border:0.5px solid var(--border2);border-radius:var(--radius-sm);color:var(--text);
   font-family:'DM Sans',sans-serif;}
+
+/* ─ Sept 13 restart visual cleanup ─ */
+
+/* Remove double border on night-card (polish block added it twice) */
+.night-card {
+  border-left: none;
+}
+
+/* Trackers: consistent card padding */
+.water-tracker, .steps-card {
+  padding: 16px;
+}
+
+/* Tighten the section top so brand bar doesn't float */
+#sec-habits, #sec-movement, #sec-progress {
+  padding-top: 16px;
+}
+
+/* Collapsible chevron alignment */
+.collapsible-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  user-select: none;
+}
+
+/* Overview monthly/weekly wrap consistent gap */
+#weekly-wrap, #monthly-wrap {
+  margin-bottom: 8px;
+}
+
+/* Rating row spacing */
+.rating-emojis {
+  display: flex;
+  gap: 6px;
+  flex-wrap: nowrap;
+  align-items: center;
+}
 </style>
 </head>
 <body>
@@ -1221,7 +1260,7 @@ button, .nav-btn, .htab-btn, .cb, .bsp, .wk-assign-pill, .settings-cog,
       <div class="section-eyebrow" style="margin-bottom:6px;">Cadence · 20-week program</div>
       <h2 style="font-family:'DM Serif Display',serif;font-size:26px;color:var(--text);margin:0 0 8px;">Michelle's plan</h2>
       <p style="font-size:14px;color:var(--text2);margin:0 0 20px;line-height:1.7;">Pick any date — the app will start your plan on the Sunday of that week. Workouts run Sunday–Thursday, rest days Friday and Saturday.</p>
-      <input type="date" id="sinp" class="date-inp" value="2026-05-04"/>
+      <input type="date" id="sinp" class="date-inp" value="2026-09-13"/>
       <button class="pri-btn" onclick="setupPlan()">Begin plan<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-left:6px;"><polyline points="9 18 15 12 9 6"/></svg></button>
     </div>
   </div>
@@ -3055,10 +3094,10 @@ function renderProgressGreeting(){
     'Every habit you build now is infrastructure for the person you\u2019re becoming.',
     'The hard part is showing up. You’re already doing that.',
     'Strength compounds. So does consistency.',
-    'Four months of work about to pay off in Denver.',
+    'You’re here. Denver, DU, all of it. The habits make it stick.',
   ];
   if(el){
-    if(week<1)el.textContent='Plan starts May 10th';
+    if(week<1)el.textContent='Plan starts Sept 13th';
     else if(week>TOTAL)el.textContent='20 weeks complete.';
     else el.textContent='Week '+Math.min(week,TOTAL)+' · Phase '+ph+' · '+PHASE_NAMES[ph-1];
   }
@@ -3246,7 +3285,7 @@ function renderUpcoming(){
     {ph:2,wks:[6,7,8],title:'Focus: adding load and volume',body:'Posture circuit gets heavier. Cardio longer. Yoga more athletic. Your body has the movement patterns now — time to stress them.'},
     {ph:2,wks:[9,10],title:'Approaching Phase 3',body:'Strengthen phase ahead: single-arm rows, 45–50 min Zone 2, advanced yoga sequences. The structural changes from Phase 1–2 start becoming visible.'},
     {ph:3,wks:[11,12,13],title:'Focus: structural strengthening',body:'Hanging knee raises, longer yin holds, CO₂ breath hold intervals. This is where the biggest posture changes lock in. Stay consistent with the yin.'},
-    {ph:3,wks:[14,15],title:'Approaching Peak phase',body:'Final 5 weeks: L-sit progression, 45–50 min Zone 2, yoga nidra, advanced CO₂ sets. DU program starts Sept 4 — these habits will carry forward.'},
+    {ph:3,wks:[14,15],title:'Approaching Peak phase',body:'Final 5 weeks: L-sit progression, 45–50 min Zone 2, yoga nidra, advanced CO₂ sets. These habits are already carrying forward into your DU year.'},
     {ph:4,wks:[16,17,18,19,20],title:'Peak & Integrate',body:'The habits are mostly automatic by now. Denver altitude work is paying off. Keep the breathing practice and yin regardless of what the schedule looks like at DU.'},
   ];
   const match=UPCOMING.find(u=>u.ph===ph&&u.wks.includes(week));
@@ -3688,226 +3727,6 @@ function renderPepcidAnalysis(){
       +'<span>30 days ago</span><span>Today</span></div>';
   }
 }
-
-
-function renderProgressGreeting(){
-  const today=new Date();today.setHours(0,0,0,0);
-  const week=wn(today);const ph=gph(week);
-  const el=document.getElementById('prog-greeting');
-  const sub=document.getElementById('prog-greeting-sub');
-  const PHASE_NAMES=['Foundation','Build','Strengthen','Peak & Integrate'];
-  const MESSAGES=[
-    'Every habit you build now is infrastructure for the person you\u2019re becoming.',
-    'The hard part is showing up. You’re already doing that.',
-    'Strength compounds. So does consistency.',
-    'Four months of work about to pay off in Denver.',
-  ];
-  if(el){
-    if(week<1)el.textContent='Plan starts May 10th';
-    else if(week>TOTAL)el.textContent='20 weeks complete.';
-    else el.textContent='Week '+Math.min(week,TOTAL)+' · Phase '+ph+' · '+PHASE_NAMES[ph-1];
-  }
-  if(sub){
-    if(week>=1&&week<=TOTAL)sub.textContent=MESSAGES[ph-1];
-    else if(week>TOTAL)sub.textContent='The habits are yours now, regardless of any program.';
-    else sub.textContent='Your 20-week plan to build posture, lungs, stress resilience, and daily structure.';
-  }
-}
-
-function renderPhaseTimeline(){
-  const today=new Date();today.setHours(0,0,0,0);
-  const week=wn(today);const ph=gph(week);
-  const badge=document.getElementById('prog-week-badge');
-  const bar=document.getElementById('prog-phase-bar');
-  const info=document.getElementById('prog-phase-info');
-  if(!bar)return;
-  if(badge){badge.textContent='Week '+Math.min(week,TOTAL)+' of '+TOTAL;badge.className='ph-badge ph-'+Math.min(ph,4);}
-  // Build 20-week bar
-  const phColors=['var(--green)','var(--indigo-light)','#c084fc','var(--coral)'];
-  const phBounds=[[1,5],[6,10],[11,15],[16,20]];
-  let html='<div class="phase-bar-wrap">';
-  for(let w=1;w<=TOTAL;w++){
-    const wph=gph(w);
-    const isCur=w===week;
-    const isPast=w<week;
-    html+=`<div class="phase-seg ph-seg-${wph}" style="flex:1;opacity:${isPast?0.9:isCur?1:0.28};" title="Week ${w}"></div>`;
-    if(isCur)html+=`<div class="phase-cursor"></div>`;
-  }
-  html+='</div>';
-  bar.innerHTML=html;
-  const PHASE_DESCS=['Foundation: learning movement, building daily habits, establishing breathing practice.','Build: adding resistance work, extending cardio, stepping up yoga intensity.','Strengthen: athletic yoga, full posture circuit, breath hold intervals, longer Zone 2.','Peak & Integrate: advanced sequences, CO₂ tolerance training, habits fully automated.'];
-  const weeksLeft=Math.max(0,TOTAL-week+1);
-  if(info){
-    if(week<1)info.textContent='Plan starts on '+localStorage.getItem('plan_start_date')+'.';
-    else if(week>TOTAL)info.textContent='20 weeks complete. The habits are yours now.';
-    else info.innerHTML=`<strong style="color:var(--text);">Phase ${ph} · ${['Foundation','Build','Strengthen','Peak & Integrate'][ph-1]}</strong><br>${PHASE_DESCS[ph-1]}<br><span style="color:var(--text3);font-size:12px;">${weeksLeft} week${weeksLeft!==1?'s':''} remaining in plan</span>`;
-  }
-}
-
-function getDateRange(days){
-  const dates=[];
-  for(let i=days-1;i>=0;i--){
-    const d=new Date();d.setHours(0,0,0,0);d.setDate(d.getDate()-i);dates.push(d);
-  }
-  return dates;
-}
-
-function renderStreakAndMetrics(){
-  const dates=getDateRange(30);
-  let streak=0;let broke=false;
-  for(let i=dates.length-1;i>=0;i--){
-    const d=dates[i];
-    if(d>new Date())continue;
-    const sv=localStorage.getItem('habday_'+dk(d));
-    if(!sv){if(i<dates.length-1)broke=true;break;}
-    let dd={completed:{},water:0,meals:0};
-    try{dd=JSON.parse(sv);}catch(e){}
-    const aIds2=getActiveHabitIds(wn(d));const done=aIds2.filter(id=>dd.completed[id]).length;
-    const pct=aIds2.length>0?Math.round((done/aIds2.length)*100):0;
-    if(pct>=50&&!broke)streak++;
-    else broke=true;
-  }
-  const snum=document.getElementById('streak-num');
-  const sdesc=document.getElementById('streak-desc');
-  if(snum)snum.textContent=streak;
-  if(sdesc){
-    if(streak===0)sdesc.textContent='Complete ≥50% of daily habits each day to build your streak.';
-    else if(streak<7)sdesc.textContent=`${streak} day${streak!==1?'s':''} — keep going. 7 days is your first milestone.`;
-    else if(streak<21)sdesc.textContent=`${streak} days — strong. Research shows 21 days is where behaviors begin to feel automatic.`;
-    else sdesc.textContent=`${streak} days — this is the threshold where habits become identity, not effort.`;
-  }
-  // 7-day metrics
-  const last7=getDateRange(7);
-  let totWater=0,totMeals=0,totHabPct=0,totMovPct=0,totSteps=0,totPepcid=0,dataPoints=0,stepDays=0,pepcidDays=0;
-  last7.forEach(d=>{
-    const hSv=localStorage.getItem('habday_'+dk(d));
-    const mSv=localStorage.getItem('mpday_'+dk(d));
-    if(hSv){
-      let dd={completed:{},water:0,meals:0,steps:0,pepcid:0};try{dd=JSON.parse(hSv);}catch(e){}
-      totWater+=dd.water||0;totMeals+=dd.meals||0;
-      totSteps+=dd.steps||0;if(dd.steps>0)stepDays++;
-      totPepcid+=dd.pepcid||0;pepcidDays++;
-      const aIds3=getActiveHabitIds(wn(d));totHabPct+=aIds3.length>0?Math.round(((aIds3.filter(id=>dd.completed[id]).length)/aIds3.length)*100):0;
-      dataPoints++;
-    }
-    if(mSv){
-      let md={completed:{}};try{md=JSON.parse(mSv);}catch(e){}
-      const dn=dic(d);
-      if(dn>0&&dn<6){
-        const sc=sched(dn,gph(wn(d)));
-        const ids=allMIds(sc);
-        const done=ids.filter(i=>md.completed[i]).length;
-        totMovPct+=ids.length>0?Math.round((done/ids.length)*100):0;
-      }
-    }
-  });
-  const n=Math.max(dataPoints,1);
-  const setMet=(id,val,suffix)=>{const el=document.getElementById(id);if(el)el.textContent=val+suffix;};
-  setMet('metric-water',dataPoints>0?Math.round(totWater/n):0,' cups');
-  setMet('metric-meals',dataPoints>0?(totMeals/n).toFixed(1):0,'');
-  setMet('metric-habits',dataPoints>0?Math.round(totHabPct/n):0,'%');
-  setMet('metric-move',dataPoints>0?Math.round(totMovPct/n):0,'%');
-  // Mood + sleep trend
-  let totMood=0,totSleep=0,moodDays=0,sleepDays=0;
-  last7.forEach(d=>{const sv=localStorage.getItem('habday_'+dk(d));if(sv){try{const dd=JSON.parse(sv);if(dd.mood>0){totMood+=dd.mood;moodDays++;}if(dd.sleepQual>0){totSleep+=dd.sleepQual;sleepDays++;}}catch(e){}}});
-  const mEl=document.getElementById('metric-mood');const slEl=document.getElementById('metric-sleep');
-  const moodEmojis=['','Low','Tired','Neutral','Good','Great'];const sleepEmojis=['','Poor','Light','Okay','Good','Great'];
-  if(mEl)mEl.textContent=moodDays>0?moodEmojis[Math.round(totMood/moodDays)]+' · '+(totMood/moodDays).toFixed(1):'—';
-  if(slEl)slEl.textContent=sleepDays>0?sleepEmojis[Math.round(totSleep/sleepDays)]+' · '+(totSleep/sleepDays).toFixed(1):'—';
-}
-
-function render14DayBars(){
-  const dates=getDateRange(14);
-  const maxH=56;
-  let habBars='',habLabels='',movBars='',movLabels='';
-  const dayLetters=['S','M','T','W','T','F','S'];
-  dates.forEach(d=>{
-    const dl=dayLetters[d.getDay()];
-    const hSv=localStorage.getItem('habday_'+dk(d));
-    let habPct=0;
-    if(hSv){let dd={completed:{}};try{dd=JSON.parse(hSv);}catch(e){}const aIds=allActiveHabitIds();habPct=aIds.length>0?Math.round((aIds.filter(id=>dd.completed[id]).length/aIds.length)*100):0;}
-    const hH=Math.max(2,Math.round((habPct/100)*maxH));
-    const hColor=habPct>=80?'var(--green)':habPct>=50?'var(--indigo-light)':habPct>0?'var(--violet)':'var(--bg4)';
-    habBars+=`<div class="wbar-wrap"><div class="wbar" style="height:${hH}px;background:${hColor};" title="${habPct}%"></div><div class="wbar-label">${dl}</div></div>`;
-    const mSv=localStorage.getItem('mpday_'+dk(d));
-    let movPct=0;
-    if(mSv){
-      let md={completed:{}};try{md=JSON.parse(mSv);}catch(e){}
-      const dn=dic(d);
-      if(dn>0&&dn<6){const sc=sched(dn,gph(wn(d)));const ids=allMIds(sc);const done=ids.filter(i=>md.completed[i]).length;movPct=ids.length>0?Math.round((done/ids.length)*100):0;}
-      else if(dn>=6)movPct=100; // rest days count as complete
-    }
-    const mH=Math.max(2,Math.round((movPct/100)*maxH));
-    const mColor=movPct>=80?'var(--green)':movPct>=50?'var(--sky)':movPct>0?'var(--indigo-light)':'var(--bg4)';
-    movBars+=`<div class="wbar-wrap"><div class="wbar" style="height:${mH}px;background:${mColor};" title="${movPct}%"></div><div class="wbar-label">${dl}</div></div>`;
-  });
-  const hbEl=document.getElementById('hab-bars');const mbEl=document.getElementById('move-bars');
-  if(hbEl)hbEl.innerHTML=habBars;if(mbEl)mbEl.innerHTML=movBars;
-  // Legend
-  const legend='<div style="display:flex;gap:12px;margin-top:6px;font-size:11px;color:var(--text3);">'+
-    '<span style="display:flex;align-items:center;gap:4px;"><span style="width:8px;height:8px;border-radius:2px;background:var(--green);display:inline-block;"></span>80%+</span>'+
-    '<span style="display:flex;align-items:center;gap:4px;"><span style="width:8px;height:8px;border-radius:2px;background:var(--indigo-light);display:inline-block;"></span>50–79%</span>'+
-    '<span style="display:flex;align-items:center;gap:4px;"><span style="width:8px;height:8px;border-radius:2px;background:var(--violet);display:inline-block;"></span>&lt;50%</span></div>';
-  const hbl=document.getElementById('hab-bar-labels');const mbl=document.getElementById('move-bar-labels');
-  if(hbl)hbl.innerHTML=legend;if(mbl)mbl.innerHTML=legend.replace('var(--violet)','var(--sky)');
-}
-
-function renderWeeklyHistory(){
-  const wrap=document.getElementById('weekly-history');
-  if(!wrap)return;
-  // Get last 8 weeks
-  let rows='';
-  for(let w=0;w<8;w++){
-    const monday=new Date();monday.setHours(0,0,0,0);
-    const dayOfWeek=monday.getDay();const diff=monday.getDate()-(dayOfWeek===0?6:dayOfWeek-1);
-    monday.setDate(diff-(w*7));
-    const wkey='wkhab_'+dk(monday);
-    const sv=localStorage.getItem(wkey);
-    let done=0;
-    if(sv){try{const d=JSON.parse(sv);done=WEEKLY_IDS.filter(id=>d.completed[id]).length;}catch(e){}}
-    const pct=Math.round((done/WEEKLY_IDS.length)*100);
-    const color=pct>=80?'var(--green)':pct>=50?'var(--indigo-light)':pct>0?'var(--violet)':'var(--bg4)';
-    const label=w===0?'This week':w===1?'Last week':`${w} weeks ago`;
-    rows+=`<div style="display:flex;align-items:center;gap:10px;">
-      <div style="font-size:12px;color:var(--text3);width:90px;flex-shrink:0;">${label}</div>
-      <div style="flex:1;height:8px;background:var(--bg4);border-radius:4px;overflow:hidden;">
-        <div style="width:${pct}%;height:100%;background:${color};border-radius:4px;transition:width .4s;"></div>
-      </div>
-      <div style="font-size:12px;color:var(--text2);width:40px;text-align:right;">${done}/${WEEKLY_IDS.length}</div>
-    </div>`;
-  }
-  wrap.innerHTML=rows||'<div style="font-size:13px;color:var(--text3);">No weekly data yet — complete some weekly habits first.</div>';
-}
-
-function renderUpcoming(){
-  const wrap=document.getElementById('prog-upcoming');
-  if(!wrap)return;
-  const today=new Date();today.setHours(0,0,0,0);
-  const week=wn(today);const ph=gph(week);
-  if(week<1||week>TOTAL){wrap.innerHTML='';return;}
-  const UPCOMING=[
-    {ph:1,wks:[1,2,3],title:'Focus: build the foundation',body:'Beginner vinyasa, daily breathing, posture resets. Consistency over intensity. Nothing should feel hard yet — if it does, scale back.'},
-    {ph:1,wks:[4,5],title:'Approaching Phase 2',body:'In the coming weeks: cable rows and face pulls unlock at the gym, Zone 2 cardio duration increases to 30–35 min, yoga moves to intermediate sequences.'},
-    {ph:2,wks:[6,7,8],title:'Focus: adding load and volume',body:'Posture circuit gets heavier. Cardio longer. Yoga more athletic. Your body has the movement patterns now — time to stress them.'},
-    {ph:2,wks:[9,10],title:'Approaching Phase 3',body:'Strengthen phase ahead: single-arm rows, 45–50 min Zone 2, advanced yoga sequences. The structural changes from Phase 1–2 start becoming visible.'},
-    {ph:3,wks:[11,12,13],title:'Focus: structural strengthening',body:'Hanging knee raises, longer yin holds, CO₂ breath hold intervals. This is where the biggest posture changes lock in. Stay consistent with the yin.'},
-    {ph:3,wks:[14,15],title:'Approaching Peak phase',body:'Final 5 weeks: L-sit progression, 45–50 min Zone 2, yoga nidra, advanced CO₂ sets. DU program starts Sept 4 — these habits will carry forward.'},
-    {ph:4,wks:[16,17,18,19,20],title:'Peak & Integrate',body:'The habits are mostly automatic by now. Denver altitude work is paying off. Keep the breathing practice and yin regardless of what the schedule looks like at DU.'},
-  ];
-  const match=UPCOMING.find(u=>u.ph===ph&&u.wks.includes(week));
-  if(match){
-    wrap.innerHTML=`<div class="upcoming-card">
-      <div class="upcoming-label">What to focus on</div>
-      <div class="upcoming-title">${match.title}</div>
-      <div class="upcoming-body">${match.body}</div>
-    </div>`;
-  }
-}
-
-
-// ══════════ MUSIC QUICKLAUNCH ══════════
-
-// ══════════ DAILY INTENTION ══════════
 function saveIntention(){
   const el=document.getElementById('daily-intention');
   if(!el)return;
