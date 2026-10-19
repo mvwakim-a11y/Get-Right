@@ -1186,6 +1186,36 @@ button, .nav-btn, .htab-btn, .cb, .bsp, .wk-assign-pill, .settings-cog,
   flex-wrap: nowrap;
   align-items: center;
 }
+
+/* ── PRACTICE LIBRARY ─────────────────────────────────────────── */
+.practice-card{background:var(--bg2);border:0.5px solid var(--border2);border-radius:var(--radius);margin-bottom:8px;overflow:hidden;transition:border-color .15s;}
+.practice-card.pc-open{border-color:var(--indigo-light);}
+.practice-card-hdr{display:flex;align-items:flex-start;padding:12px 14px;cursor:pointer;gap:4px;touch-action:manipulation;-webkit-tap-highlight-color:transparent;}
+.practice-card-hdr:active{opacity:.8;}
+.practice-flag{font-size:18px;line-height:1;flex-shrink:0;margin-top:1px;}
+.practice-name{font-size:14px;font-weight:600;color:var(--text);letter-spacing:-.01em;line-height:1.3;}
+.practice-tagline{font-size:12px;color:var(--text2);line-height:1.5;margin-top:2px;}
+.practice-chevron{font-size:18px;color:var(--text3);transition:transform .2s cubic-bezier(0.32,0.72,0,1);display:block;line-height:1;}
+.pc-badge{background:var(--indigo-dim);color:var(--indigo-light);border-radius:20px;font-size:11px;font-weight:700;padding:2px 7px;letter-spacing:.01em;}
+.practice-body{padding:0 14px 14px;}
+.practice-origin-row{margin-bottom:10px;}
+.practice-origin-chip{font-size:11px;font-weight:600;color:var(--text3);background:var(--bg3);border:0.5px solid var(--border2);border-radius:20px;padding:3px 9px;letter-spacing:.02em;}
+.practice-desc{font-size:13px;color:var(--text2);line-height:1.65;margin-bottom:12px;}
+.practice-actions{margin-top:4px;}
+.practice-log-btn{font-size:13px;font-weight:600;background:var(--indigo-dim);color:var(--indigo-light);border:0.5px solid rgba(99,102,241,.3);border-radius:8px;padding:8px 16px;cursor:pointer;touch-action:manipulation;}
+.practice-log-btn:active{transform:scale(.96);opacity:.85;}
+.practice-log-form{background:var(--bg3);border-radius:10px;padding:12px;margin-bottom:10px;}
+.dur-pill-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;}
+.dur-pill{font-size:12px;font-weight:600;background:var(--bg4);color:var(--text2);border:0.5px solid var(--border2);border-radius:20px;padding:6px 12px;cursor:pointer;touch-action:manipulation;transition:all .12s;}
+.dur-pill.sel{background:var(--indigo-dim);color:var(--indigo-light);border-color:rgba(99,102,241,.4);}
+.dur-pill:active{transform:scale(.94);}
+.practice-note-ta{width:100%;box-sizing:border-box;background:var(--bg2);border:0.5px solid var(--border2);border-radius:8px;color:var(--text);font-size:14px;padding:8px 10px;font-family:'DM Sans',sans-serif;resize:none;}
+.practice-note-ta:focus{outline:none;border-color:var(--indigo-light);}
+.practice-hist-list{margin-top:8px;border-top:0.5px solid var(--border2);padding-top:8px;}
+.practice-hist-row{display:flex;align-items:baseline;gap:8px;padding:4px 0;font-size:12px;}
+.practice-hist-date{color:var(--text3);font-weight:500;flex-shrink:0;}
+.practice-hist-dur{color:var(--indigo-light);font-weight:600;flex-shrink:0;}
+.practice-hist-note{color:var(--text2);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 </style>
 </head>
 <body>
@@ -1250,114 +1280,76 @@ button, .nav-btn, .htab-btn, .cb, .bsp, .wk-assign-pill, .settings-cog,
 
 <!-- ═══════════ MOVEMENT ═══════════ -->
 <div id="sec-movement" class="section on">
-  <div id="mvmt-setup" style="display:none;">
-    <div class="setup-card">
-      <div style="margin-bottom:16px;"><svg width="48" height="48" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <defs><linearGradient id="cad-setup" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#6366f1"/><stop offset="100%" stop-color="#8b5cf6"/></linearGradient></defs>
-  <circle cx="20" cy="20" r="19" stroke="url(#cad-setup)" stroke-width="1.5" fill="rgba(99,102,241,0.1)"/>
-  <path d="M5 20 L9 20 L12 11 L16 29 L20 20 L24 20 L27 13 L31 27 L35 20" stroke="url(#cad-setup)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-</svg></div>
-      <div class="section-eyebrow" style="margin-bottom:6px;">Cadence · 20-week program</div>
-      <h2 style="font-family:'DM Serif Display',serif;font-size:26px;color:var(--text);margin:0 0 8px;">Michelle's plan</h2>
-      <p style="font-size:14px;color:var(--text2);margin:0 0 20px;line-height:1.7;">Pick any date — the app will start your plan on the Sunday of that week. Workouts run Sunday–Thursday, rest days Friday and Saturday.</p>
-      <input type="date" id="sinp" class="date-inp" value="2026-09-13"/>
-      <button class="pri-btn" onclick="setupPlan()">Begin plan<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-left:6px;"><polyline points="9 18 15 12 9 6"/></svg></button>
-    </div>
-  </div>
-  <div id="mvmt-main" style="display:none;">
+  <div id="mvmt-main">
     <div class="brand-bar"><svg width="36" height="36" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Cadence">
-  <defs>
-    <linearGradient id="cad-grad" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#6366f1"/>
-      <stop offset="100%" stop-color="#8b5cf6"/>
-    </linearGradient>
-  </defs>
+  <defs><linearGradient id="cad-grad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#6366f1"/><stop offset="100%" stop-color="#8b5cf6"/></linearGradient></defs>
   <circle cx="20" cy="20" r="19" stroke="url(#cad-grad)" stroke-width="1.5" fill="rgba(99,102,241,0.08)"/>
   <path d="M5 20 L9 20 L12 11 L16 29 L20 20 L24 20 L27 13 L31 27 L35 20" stroke="url(#cad-grad)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-</svg><div class="brand-wordmark"><div class="brand-name">Cadence</div><div class="brand-sub" id="mvmt-week-label">Week — · —</div></div><div style="display:flex;align-items:center;gap:10px;margin-left:auto;"><div id="msind" style="color:var(--green);font-size:12px;"></div><button class="settings-cog" onclick="openSettings()" aria-label="Settings" style="margin-left:auto;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg></button></div></div>
-    <div style="display:flex;align-items:flex-start;justify-content:space-between;">
-      <div>
-        <div class="app-eyebrow">Cadence · Movement</div>
-        <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
-          <span id="pbadge" class="ph-badge ph-1">Phase 1</span>
-          <span id="wlabel" style="font-size:12px;color:var(--text3);">Week 1 of 18</span>
-          <span id="tbadge" class="type-badge"></span>
-        </div>
-        <div id="ddisp" class="page-title"></div>
-        <div id="pname" class="page-sub"></div>
+</svg><div class="brand-wordmark"><div class="brand-name">Cadence</div><div class="brand-sub">Immersion</div></div><div style="margin-left:auto;display:flex;align-items:center;gap:8px;"><span id="academic-label" style="font-size:11px;font-weight:600;color:var(--indigo-light);opacity:.8;letter-spacing:.01em;"></span><button class="settings-cog" onclick="openSettings()" aria-label="Settings"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg></button></div></div>
+
+    <!-- BREATHWORK -->
+    <div class="slbl" style="margin-top:4px;"><span class="slbl-text" style="color:var(--indigo-light);">Breathwork</span></div>
+    <div id="practice-cards-breathwork"></div>
+
+    <!-- SOMATIC -->
+    <div class="slbl"><span class="slbl-text" style="color:var(--violet);">Somatic</span></div>
+    <div id="practice-cards-somatic"></div>
+
+    <!-- MOVEMENT -->
+    <div class="slbl"><span class="slbl-text" style="color:var(--green);">Movement</span></div>
+    <div id="practice-cards-movement"></div>
+
+    <!-- SESSION TIMER -->
+    <div class="slbl" style="margin-top:8px;"><span class="slbl-text">Session Timer</span></div>
+    <div class="card interval-card">
+      <div class="interval-header" onclick="toggleIntervalCard()">
+        <span class="interval-title">Session Timer</span>
+        <span id="int-toggle-label" style="font-size:11px;color:var(--text3);">Tap to open</span>
       </div>
-    </div>
-    <div class="pip-row" id="pips"></div>
-    <div class="tab-row">
-      <button class="tab on" onclick="switchMvmt('today',this)">Today</button>
-      <button class="tab" onclick="switchMvmt('week',this)">This week</button>
-    </div>
-    <div id="mvmt-today">
-      <div class="nav-row">
-        <button onclick="changeDay(-1)"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px;"><polyline points="15 18 9 12 15 6"/></svg>Prev</button>
-        <button class="tbtn" onclick="goToday()">Today</button>
-        <button onclick="changeDay(1)">Next<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-left:4px;"><polyline points="9 18 15 12 9 6"/></svg></button>
-      </div>
-      <div class="prog-wrap"><div class="prog-fill" id="pfill" style="width:0%"></div></div>
-      <div class="prog-lbl" id="plabel"></div>
-      <div class="slbl"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--indigo-light)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg><span class="slbl-text" style="color:var(--indigo-light);">Daily practice</span></div>
-      <div id="bwrap"></div>
-      <div class="slbl" id="plbl">Today's practice</div>
-      <div id="awrap"></div>
-      <div id="music-wrap"></div>
-      <div class="interval-card">
-        <div class="interval-header" onclick="toggleIntervalCard()">
-          <span class="interval-title">Interval / circuit timer</span>
-          <span id="int-toggle-label" style="font-size:11px;color:var(--text3);">Tap to open</span>
-        </div>
-        <div class="interval-body" id="interval-body">
-          <div class="int-config">
-            <div class="int-field">
-              <div class="int-field-label">Work</div>
-              <div class="int-time-display-val"><span class="int-val" id="int-work-val">30</span><span class="int-phase-label">sec</span></div>
-              <div class="int-adj-row">
-                <button class="int-adj" onclick="adjInt('work',-60)">−1m</button>
-                <button class="int-adj" onclick="adjInt('work',-5)">−5s</button>
-                <button class="int-adj" onclick="adjInt('work',5)">+5s</button>
-                <button class="int-adj" onclick="adjInt('work',60)">+1m</button>
-              </div>
-            </div>
-            <div class="int-field">
-              <div class="int-field-label">Rest</div>
-              <div class="int-time-display-val"><span class="int-val" id="int-rest-val">10</span><span class="int-phase-label">sec</span></div>
-              <div class="int-adj-row">
-                <button class="int-adj" onclick="adjInt('rest',-60)">−1m</button>
-                <button class="int-adj" onclick="adjInt('rest',-5)">−5s</button>
-                <button class="int-adj" onclick="adjInt('rest',5)">+5s</button>
-                <button class="int-adj" onclick="adjInt('rest',60)">+1m</button>
-              </div>
-            </div>
-            <div class="int-field">
-              <div class="int-field-label">Rounds</div>
-              <div class="int-time-display-val"><span class="int-val" id="int-rounds-val">3</span><span class="int-phase-label">sets</span></div>
-              <div class="int-adj-row">
-                <button class="int-adj" onclick="adjInt('rounds',-1)">−1</button>
-                <button class="int-adj" onclick="adjInt('rounds',1)">+1</button>
-              </div>
+      <div class="interval-body" id="interval-body" style="display:none;">
+        <div class="int-config">
+          <div class="int-field">
+            <div class="int-field-label">Active</div>
+            <div class="int-time-display-val"><span class="int-val" id="int-work-val">120</span><span class="int-phase-label">sec</span></div>
+            <div class="int-adj-row">
+              <button class="int-adj" onclick="adjInt('work',-60)">−1m</button>
+              <button class="int-adj" onclick="adjInt('work',-5)">−5s</button>
+              <button class="int-adj" onclick="adjInt('work',5)">+5s</button>
+              <button class="int-adj" onclick="adjInt('work',60)">+1m</button>
             </div>
           </div>
-          <div class="int-round-row" id="int-round-pips"></div>
-          <div class="int-display">
-            <div class="int-time" id="int-time-display">00:30</div>
-            <div class="int-status idle" id="int-status">Ready</div>
+          <div class="int-field">
+            <div class="int-field-label">Rest</div>
+            <div class="int-time-display-val"><span class="int-val" id="int-rest-val">30</span><span class="int-phase-label">sec</span></div>
+            <div class="int-adj-row">
+              <button class="int-adj" onclick="adjInt('rest',-60)">−1m</button>
+              <button class="int-adj" onclick="adjInt('rest',-5)">−5s</button>
+              <button class="int-adj" onclick="adjInt('rest',5)">+5s</button>
+              <button class="int-adj" onclick="adjInt('rest',60)">+1m</button>
+            </div>
           </div>
-          <div class="int-progress"><div class="int-progress-fill" id="int-progress-fill" style="width:0%;background:var(--green);"></div></div>
-          <div class="int-btn-row">
-            <button class="int-btn go" id="int-go-btn" onclick="intToggle()">Start</button>
-            <button class="int-btn reset-btn" onclick="intReset()">Reset</button>
+          <div class="int-field">
+            <div class="int-field-label">Rounds</div>
+            <div class="int-time-display-val"><span class="int-val" id="int-rounds-val">3</span><span class="int-phase-label">sets</span></div>
+            <div class="int-adj-row">
+              <button class="int-adj" onclick="adjInt('rounds',-1)">−1</button>
+              <button class="int-adj" onclick="adjInt('rounds',1)">+1</button>
+            </div>
           </div>
         </div>
+        <div class="int-round-row" id="int-round-pips"></div>
+        <div class="int-display">
+          <div class="int-time" id="int-time-display">2:00</div>
+          <div class="int-status idle" id="int-status">Ready</div>
+        </div>
+        <div class="int-progress"><div class="int-progress-fill" id="int-progress-fill" style="width:0%;background:var(--green);"></div></div>
+        <div class="int-btn-row">
+          <button class="int-btn go" id="int-go-btn" onclick="intToggle()">Start</button>
+          <button class="int-btn reset-btn" onclick="intReset()">Reset</button>
+        </div>
       </div>
-      <button class="link-btn" onclick="showMvmtSetup()">Change start date</button>
     </div>
-    <div id="mvmt-week" style="display:none;">
-      <div class="week-grid" id="wgrid"></div>
-    </div>
+
   </div>
 </div>
 
@@ -1564,6 +1556,14 @@ button, .nav-btn, .htab-btn, .cb, .bsp, .wk-assign-pill, .settings-cog,
         <li><strong>Chest open</strong>, string pulling crown of head up</li>
         <li><strong>Jaw check</strong> — unclench right now</li>
       </ul>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-row">
+      <div class="cb" data-hid="study" onclick="toggleHabit('study',this)"></div>
+      <div style="flex:1;"><div class="item-label" id="hlbl-study">3h study block</div><div class="item-sub">Minimum 3 focused hours of coursework. Break it into sessions if needed — the total is what counts. No phone, no passive tabs.</div></div>
+      <span class="ph-badge" style="font-size:10px;background:rgba(56,189,248,.1);color:var(--sky);border:1px solid rgba(56,189,248,.2);">3 hrs</span>
     </div>
   </div>
 
@@ -1967,10 +1967,10 @@ button, .nav-btn, .htab-btn, .cb, .bsp, .wk-assign-pill, .settings-cog,
 <!-- BOTTOM NAV -->
 <nav class="bottom-nav">
   <button class="nav-btn on" onclick="switchSection('movement',this)" id="navbtn-movement">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-    Movement<div class="nav-dot"></div>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22C6.5 22 2 17.5 2 12S6.5 2 12 2s10 4.5 10 10-4.5 10-10 10z"/><path d="M8 12c0-2.2 1.8-4 4-4s4 1.8 4 4-1.8 4-4 4"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></svg>
+    Immersion<div class="nav-dot"></div>
   </button>
-  <button class="nav-btn" onclick="switchSection('habits',this)" id="navbtn-habits">
+    <button class="nav-btn" onclick="switchSection('habits',this)" id="navbtn-habits">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
     Habits<div class="nav-dot"></div>
   </button>
@@ -1989,11 +1989,11 @@ const PNAMES=['Foundation','Build','Strengthen','Peak & Integrate'];
 const TOTAL=20;
 const WATER_GOAL=12;
 // All habits in order — progressive unlock by week
-const ALL_HABIT_IDS=['medication','cats-am','make-bed','tidy-am','sunlight','morning-water','skincare-am','spf','supps-am','jaw-m','posture-m','jaw-a','posture-a1','eye-2020','posture-a2','caffeine','reading','dishes','jaw-n','cats-pm','skincare-pm','floss','night-screens','night-jaw-massage','supps-pm','night-breathe','night-position','gratitude-done','night-jaw-check'];
+const ALL_HABIT_IDS=['study','medication','cats-am','make-bed','tidy-am','sunlight','morning-water','skincare-am','spf','supps-am','jaw-m','posture-m','jaw-a','posture-a1','eye-2020','posture-a2','caffeine','reading','dishes','jaw-n','cats-pm','skincare-pm','floss','night-screens','night-jaw-massage','supps-pm','night-breathe','night-position','gratitude-done','night-jaw-check'];
 
 // Unlock schedule — week number when each habit becomes active
 const HABIT_UNLOCK={
-  'medication':0,'cats-am':0,'morning-water':0,'supps-am':0,
+  'study':0,'medication':0,'cats-am':0,'morning-water':0,'supps-am':0,
   'jaw-m':0,'cats-pm':0,'supps-pm':0,'floss':0,
   'make-bed':1,'tidy-am':1,'dishes':1,'night-breathe':1,'gratitude-done':1,
   'sunlight':3,'skincare-am':3,'spf':3,'posture-m':3,'jaw-a':3,
@@ -2974,54 +2974,17 @@ function updateMProg(sc){
   document.getElementById('plabel').textContent=`${done} of ${tot} complete`;
 }
 
-function initMovement(){renderInterval();
+function initMovement(){
   VD=new Date();VD.setHours(0,0,0,0);
-  const saved=localStorage.getItem('plan_start_date');
-  if(saved){
-    SD=new Date(saved+'T00:00:00');SD.setHours(0,0,0,0);
-    showMvmtMain();
-  }else showMvmtSetup();
+  renderPractices();
+  renderInterval();
+  updateAcademicLabel();
+  showMvmtMain();
 }
 function showMvmtSetup(){document.getElementById('mvmt-setup').style.display='block';document.getElementById('mvmt-main').style.display='none';}
-function showMvmtMain(){document.getElementById('mvmt-setup').style.display='none';document.getElementById('mvmt-main').style.display='block';renderMovement();}
-function setupPlan(){const v=document.getElementById('sinp').value;if(!v)return;SD=new Date(v+'T00:00:00');SD.setHours(0,0,0,0);localStorage.setItem('plan_start_date',dk(SD));VD=new Date();VD.setHours(0,0,0,0);showMvmtMain();}
-
-function renderMovement(){
-  const week=wn(VD),ph=gph(week),dn=dic(VD);
-  movDD={completed:{}};const sv=localStorage.getItem('mpday_'+dk(VD));if(sv){try{movDD=JSON.parse(sv);}catch(e){}}
-  document.getElementById('msind').textContent='';
-  const dN=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-  document.getElementById('ddisp').textContent=dN[VD.getDay()]+', '+MTHS[VD.getMonth()]+' '+VD.getDate();
-  const wkLbl=document.getElementById('mvmt-week-label');
-  if(wkLbl){if(week<1)wkLbl.textContent='Set start date';else if(week>TOTAL)wkLbl.textContent='Complete!';else wkLbl.textContent='Week '+week+' · '+['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][VD.getDay()];}
-  if(week<1||week>TOTAL){
-    document.getElementById('pbadge').textContent='';document.getElementById('wlabel').textContent=week<1?'Before start':'Complete!';
-    document.getElementById('pname').textContent='';document.getElementById('tbadge').textContent='';
-    document.getElementById('pips').innerHTML='';document.getElementById('bwrap').innerHTML='';
-    document.getElementById('awrap').innerHTML=`<p style="font-size:15px;color:var(--text2);padding:1.5rem 0;">${week<1?'Navigate forward to your start date.':'5 months complete. The work is now who you are.'}</p>`;
-    document.getElementById('pfill').style.width='0%';document.getElementById('plabel').textContent='';
-    if(mvmtView==='week')renderWeek();return;
-  }
-  const pb=document.getElementById('pbadge');pb.textContent='Phase '+ph;pb.className='ph-badge ph-'+ph;
-  document.getElementById('wlabel').textContent=`Week ${Math.min(week,TOTAL)} of ${TOTAL}`;
-  document.getElementById('pname').textContent=PNAMES[ph-1];
-  const pips=document.getElementById('pips');pips.innerHTML='';
-  for(let i=1;i<=TOTAL;i++){const p=document.createElement('div');p.className='pip'+(i<week?' done':i===week?' now':'');pips.appendChild(p);}
-  const sc=sched(dn,ph);
-  const tb=document.getElementById('tbadge');
-  if(sc.day){tb.textContent=sc.day.l;tb.className='type-badge '+sc.day.tc;}else{tb.textContent='Rest';tb.className='type-badge badge-rest';}
-  const bwrap=document.getElementById('bwrap');bwrap.innerHTML=`<div class="anim">`+renderMGrp(sc.br,ph,'rgba(99,102,241,.35)')+`</div>`;bindMCbs(bwrap);
-  const awrap=document.getElementById('awrap');
-  if(!sc.day){
-    document.getElementById('plbl').textContent='Rest day';
-    renderMusic(0);
-    awrap.innerHTML=`<div class="rest-card anim"><div style="font-size:28px;font-weight:700;color:var(--indigo-light);margin-bottom:10px;font-family:'DM Serif Display',serif;">Rest</div><div class="rest-title">Active Recovery</div><div class="rest-sub">A 20–30 min walk is all you need.<br/>Adaptation happens during rest, not training.</div></div>`;
-  }else{
-    document.getElementById('plbl').textContent=sc.day.l;
-    awrap.innerHTML=`<div class="anim">`+sc.day.groups.map(g=>renderMGrp(g,ph)).join('')+`</div>`;bindMCbs(awrap);
-    renderMusic(dn);
-  }
-  updateMProg(sc);if(mvmtView==='week')renderWeek();
+function showMvmtMain(){
+  const m=document.getElementById('mvmt-main');
+  if(m)m.style.display='';
 }
 
 function renderWeek(){
@@ -3097,7 +3060,7 @@ function renderProgressGreeting(){
     'You’re here. Denver, DU, all of it. The habits make it stick.',
   ];
   if(el){
-    if(week<1)el.textContent='Plan starts Sept 13th';
+    if(week<1)el.textContent='Plan starts Oct 4th';
     else if(week>TOTAL)el.textContent='20 weeks complete.';
     else el.textContent='Week '+Math.min(week,TOTAL)+' · Phase '+ph+' · '+PHASE_NAMES[ph-1];
   }
@@ -3129,7 +3092,7 @@ function renderPhaseTimeline(){
   }
   html+='</div>';
   bar.innerHTML=html;
-  const PHASE_DESCS=['Foundation: learning movement, building daily habits, establishing breathing practice.','Build: adding resistance work, extending cardio, stepping up yoga intensity.','Strengthen: athletic yoga, full posture circuit, breath hold intervals, longer Zone 2.','Peak & Integrate: advanced sequences, CO₂ tolerance training, habits fully automated.'];
+  const PHASE_DESCS=['Foundation: grad school rhythm + daily habits + movement baseline.','Build: adding resistance work, extending cardio, stepping up yoga intensity.','Strengthen: athletic yoga, full posture circuit, breath hold intervals, longer Zone 2.','Peak & Integrate: advanced sequences, CO₂ tolerance training, habits fully automated.'];
   const weeksLeft=Math.max(0,TOTAL-week+1);
   if(info){
     if(week<1)info.textContent='Plan starts on '+localStorage.getItem('plan_start_date')+'.';
@@ -4050,7 +4013,7 @@ function renderHabitBreakdown(){
   const counts={};const activeDays={};allIds.forEach(id=>{counts[id]=0;activeDays[id]=0;});
   let totalDays=0,bestDay=null,bestDayPct=0;
   const MORNING_IDS=['medication','cats-am','make-bed','tidy-am','sunlight','morning-water','skincare-am','spf','supps-am','jaw-m','posture-m'];
-  const DAY_IDS=['jaw-a','posture-a1','eye-2020','posture-a2','caffeine','reading'];
+  const DAY_IDS=['study','jaw-a','posture-a1','eye-2020','posture-a2','caffeine','reading'];
   const NIGHT_IDS=['dishes','jaw-n','cats-pm','skincare-pm','floss','night-screens','night-jaw-massage','supps-pm','night-breathe','night-position','gratitude-done','night-jaw-check'];
   const sc={m:0,d:0,n:0,md:0,dd:0,nd:0};
   last14.forEach(day=>{
@@ -4397,6 +4360,297 @@ function initHabitUI(){
   initCollapsible();
 }
 // ══════════ BOOT ══════════
+
+// ══════════════════════════════════════════════════════════════════
+// ACADEMIC CALENDAR
+// ══════════════════════════════════════════════════════════════════
+const ACADEMIC_CALENDAR=[
+  {start:'2026-09-08',end:'2026-11-20',label:'Fall Quarter · Week {n} of 11'},
+  {start:'2026-11-21',end:'2027-01-03',label:'Winter Break'},
+  {start:'2027-01-04',end:'2027-03-19',label:'Winter Quarter · Week {n} of 11'},
+  {start:'2027-03-20',end:'2027-03-28',label:'Spring Break'},
+  {start:'2027-03-29',end:'2027-06-10',label:'Spring Quarter · Week {n} of 11'},
+  {start:'2027-06-11',end:'2027-09-12',label:'Summer Break'},
+  {start:'2027-09-13',end:'2027-11-23',label:'Fall Quarter · Week {n} of 11'},
+  {start:'2027-11-24',end:'2028-01-02',label:'Winter Break'},
+  {start:'2028-01-03',end:'2028-03-17',label:'Winter Quarter · Week {n} of 11'},
+  {start:'2028-03-18',end:'2028-03-26',label:'Spring Break'},
+  {start:'2028-03-27',end:'2028-06-08',label:'Spring Quarter · Week {n} of 11'},
+];
+
+function getAcademicLabel(date){
+  const d=new Date(date);d.setHours(0,0,0,0);
+  for(const p of ACADEMIC_CALENDAR){
+    const s=new Date(p.start+'T00:00:00');const e=new Date(p.end+'T00:00:00');
+    if(d>=s&&d<=e){
+      if(p.label.includes('{n}')){
+        const n=Math.floor((d-s)/(7*24*60*60*1000))+1;
+        return p.label.replace('{n}',n);
+      }
+      return p.label;
+    }
+  }
+  return '';
+}
+
+function updateAcademicLabel(){
+  const lbl=getAcademicLabel(new Date());
+  const el=document.getElementById('academic-label');
+  if(el)el.textContent=lbl;
+}
+
+// ══════════════════════════════════════════════════════════════════
+// PRACTICE LIBRARY
+// ══════════════════════════════════════════════════════════════════
+const PRACTICE_LIBRARY=[
+  // ─── BREATHWORK ───────────────────────────────────────────────
+  {id:'diaphragmatic',category:'breathwork',originFlag:'🔬',originLabel:'Western Clinical',
+   name:'Diaphragmatic Breathing',
+   tagline:'Foundational belly breath — the universal starting point for all somatic regulation work.',
+   description:'The clinical bedrock. The diaphragm descends on inhale, expanding the abdomen before the chest. The 7-11 variant (7 in, 11 out) maximizes parasympathetic activation by extending the exhale — what your coursework calls "turning off false panic alarms." Breath retraining from this baseline is the first intervention in most anxiety, panic, and somatic protocols. Know it deeply; you will teach it constantly.'},
+
+  {id:'box-breathing',category:'breathwork',originFlag:'🔬',originLabel:'Western / Military',
+   name:'Box Breathing',
+   tagline:'Equal-count four-phase cycle — regulation without destabilization.',
+   description:'Formalized in US military and first-responder contexts (notably Navy SEAL training) as a tool for performance under acute threat. Four equal counts: inhale–hold–exhale–hold. The symmetry prevents CO₂ dysregulation while giving the nervous system a predictable attentional anchor. Your coursework names this "rhythmic breathing." Translates directly to pre-competition athlete prep and acute client crisis moments.'},
+
+  {id:'4-7-8',category:'breathwork',originFlag:'🔬',originLabel:'Western Clinical',
+   name:'4-7-8 / Sighing Exhalation',
+   tagline:'Extended exhale with audible sigh — immediate downregulation, with an expressive release.',
+   description:'Dr. Andrew Weil\'s formalization of a classical yogic ratio. Inhale 4, hold 7, exhale audibly for 8. The extended hold builds CO₂, triggering a stronger parasympathetic rebound on release. Your coursework frames this as "sighing exhalation" — the audible quality also serves a somatic-expressive function, releasing held tension in chest and throat. Useful as a session-opening intervention.'},
+
+  {id:'coherence',category:'breathwork',originFlag:'🔬',originLabel:'Western / HRV Research',
+   name:'Coherence Breathing',
+   tagline:'5.5 breaths per minute to maximize heart rate variability — precise and measurable.',
+   description:'Emerged from HeartMath Institute research and refined by Stephen Elliott and cardiologist David Lehrer. Inhaling and exhaling at 5.5-second intervals creates resonance between respiratory rhythm and baroreflex sensitivity, maximizing HRV. More specific than "deep breathing," with quantifiable outcomes. Growing evidence base in trauma recovery, anxiety, and performance settings. Gives you something measurable to track with clients.'},
+
+  {id:'pranayama',category:'breathwork',originFlag:'🌿',originLabel:'Indian / Classical Yoga',
+   name:'Pranayama',
+   tagline:'The classical Indian science of breath as a vehicle for regulating life force (prāṇa).',
+   description:'One of the eight limbs of Ashtanga yoga as codified by Patanjali (approx. 400 CE). Prāṇāyāma means extension of the life force — the operating premise is that breath and mind are directly linked, so controlling one regulates the other. An umbrella for dozens of techniques with distinct physiological effects: energizing, calming, heating, cooling. Most Western breath techniques derive from this system without naming it. Know the source.'},
+
+  {id:'nadi-shodhana',category:'breathwork',originFlag:'🌿',originLabel:'Indian / Classical Yoga',
+   name:'Nadi Shodhana',
+   tagline:'Alternate nostril breathing — balancing the solar and lunar energy channels.',
+   description:'A specific pranayama alternating breath through left and right nostrils using mudra hand positions, rooted in the Hatha Yoga Pradipika (15th century). Left nostril = ida nadi (cooling, lunar, parasympathetic); right = pingala (heating, solar, sympathetic). Western research confirms asymmetric nasal breathing affects cortical hemispheric activity — partially validating the traditional model from an unexpected direction. A meeting point for your two frameworks.'},
+
+  {id:'kapalabhati',category:'breathwork',originFlag:'🌿',originLabel:'Indian / Classical Yoga',
+   name:'Kapalabhati',
+   tagline:'Rapid forceful exhales for energizing and cleansing — not everything is calming.',
+   description:'Literally "skull-shining breath" in Sanskrit — a kriya (cleansing practice) from Hatha yoga. Short, sharp, forceful exhales through the nose driven by abdominal pumping, with passive inhales. Activates the sympathetic nervous system: increases alertness, core heat, mental clarity. Contraindicated in anxiety and panic contexts. Clinically important as a counterexample to the Western default that all breathwork equals downregulation.'},
+
+  {id:'holotropic',category:'breathwork',originFlag:'🔬',originLabel:'Western / Transpersonal',
+   name:'Holotropic Breathwork',
+   tagline:'Extended hyperventilation to access non-ordinary states for therapeutic processing.',
+   description:'Developed by Stanislav and Christina Grof in the 1970s as a legal alternative to LSD-assisted psychotherapy following its prohibition. Accelerated breathing over 2-3 hours, paired with evocative music, induces non-ordinary states Grof theorized access transpersonal and biographical material. Requires trained facilitation; contraindicated in many presentations. Relevant as a Western formalization of what ritual breathwork traditions achieve — and as a cautionary example of why container and training matter.'},
+
+  {id:'buteyko',category:'breathwork',originFlag:'🔬',originLabel:'Western / Soviet Clinical',
+   name:'Buteyko Method',
+   tagline:'Reduced-volume nasal breathing to restore CO₂ tolerance — counter-intuitive and evidence-based.',
+   description:'Developed by Ukrainian physician Konstantin Buteyko in the 1950s. Premise: modern humans chronically over-breathe, depleting CO₂ and paradoxically reducing cellular oxygen delivery via the Bohr effect. The method trains nasal breathing, controlled pauses, and volume reduction. Evidence base for asthma, sleep apnea, anxiety, and athletic performance. Counter-intuitive for a clinician trained to encourage "bigger breaths." Teaches you to question the obvious.'},
+
+  // ─── SOMATIC ──────────────────────────────────────────────────
+  {id:'pmr',category:'somatic',originFlag:'🔬',originLabel:'Western / Behavioral',
+   name:'Progressive Muscle Relaxation',
+   tagline:'Systematic tension-and-release — teaching the body to recognize and voluntarily let go.',
+   description:'Edmund Jacobson\'s 1920s discovery at the University of Chicago: mental anxiety cannot coexist with physically relaxed muscle tissue. Tense 5-7 seconds, release 20-30 seconds, work progressively through muscle groups. Your coursework covers Differential PMR (tensing only task-relevant muscles), Passive PMR (releasing without tensing first), and momentary muscle checks. All three adaptations matter for performance work. Foundational behavioral somatic intervention with an extensive evidence base.'},
+
+  {id:'autogenic',category:'somatic',originFlag:'🔬',originLabel:'Western / German Clinical',
+   name:'Autogenic Training',
+   tagline:'Self-directed suggestion to produce heaviness, warmth, and regulated rhythm in the body.',
+   description:'Johannes Schultz developed this in 1920s Berlin, adapting Western hypnotherapy and yogic principles. Six progressive formulae guide the practitioner: heaviness (muscular relaxation), warmth (vascular dilation), calm cardiac rhythm, regulated breathing, solar plexus warmth, cool forehead. Technically self-hypnosis operating through the autonomic nervous system. Widely used in European sport psychology. Slower to learn than PMR but produces deeper regulation.'},
+
+  {id:'somatic-experiencing',category:'somatic',originFlag:'🔬',originLabel:'Western / Trauma Therapy',
+   name:'Somatic Experiencing',
+   tagline:'Titrated tracking of bodily sensation to complete interrupted trauma response cycles.',
+   description:'Peter Levine developed this from ethology: animals in the wild routinely shake off trauma and return to baseline; humans often don\'t, leaving incomplete defensive responses frozen in the body. SE works through pendulation (oscillating between activation and resource) and titration (small, manageable doses of somatic activation) to allow the nervous system to complete what it couldn\'t. Highly relevant for trauma-informed performance work — a growing area in sport psychology.'},
+
+  {id:'feldenkrais',category:'somatic',originFlag:'🔬',originLabel:'Western / Neuroscience-Based',
+   name:'Feldenkrais Method',
+   tagline:'Slow, varied movements that re-educate the nervous system — neuroplasticity before the word existed.',
+   description:'Moshe Feldenkrais — Israeli physicist and judo practitioner — developed Awareness Through Movement in the 1950s-70s from principles that anticipated modern neuroplasticity research. Tiny, varied movements create new sensorimotor pathways, bypassing habitual tension and compensation patterns. Appears in your coursework\'s Western somatic list. Particularly useful for athletes with chronic injury patterns and for clients who are in their heads — the movement is too subtle for the analytical mind to control.'},
+
+  {id:'alexander',category:'somatic',originFlag:'🔬',originLabel:'Western / Postural',
+   name:'Alexander Technique',
+   tagline:'Re-educating the head-neck-spine relationship to release chronic unnecessary effort.',
+   description:'F.M. Alexander — Australian actor — developed this in the 1890s after repeatedly losing his voice on stage. He observed himself using excessive muscular effort he called "misuse" and developed hands-on instruction to restore "primary control" — the natural poise of the head leading movement. Now standard in performing arts training (RADA requires it). Increasingly applied in sport and somatic therapy for its specificity about habitual tension patterns. Your coursework lists it; it\'s worth experiencing in person.'},
+
+  {id:'body-mind-centering',category:'somatic',originFlag:'🔬',originLabel:'Western / Somatic',
+   name:'Body-Mind Centering',
+   tagline:'Embodied anatomy — learning the body\'s systems from the inside out.',
+   description:'Bonnie Bainbridge Cohen developed BMC from dance, neurodevelopmental therapy, and Eastern movement. It explores how each body system — bones, organs, fluids, nervous system, glands — has a distinct movement quality that informs consciousness. Unusual in Western somatic work for its attention to embryological development and organ support as psychological resources. Your coursework lists it alongside Feldenkrais and Alexander. Relevant for advanced somatic practice; the most experiential of the three.'},
+
+  {id:'tre',category:'somatic',originFlag:'🔬',originLabel:'Western / Trauma',
+   name:'TRE — Tension & Trauma Releasing Exercises',
+   tagline:'Induced therapeutic tremoring to discharge chronic stress held in the psoas and core.',
+   description:'David Berceli developed TRE from cross-cultural observations of spontaneous tremoring after traumatic events and Levine\'s trauma theory. A sequence of exercises fatigues the leg muscles to trigger the body\'s natural neurogenic tremor mechanism — shaking that Berceli argues discharges accumulated stress and restores nervous system regulation. Self-directed once learned, which makes it accessible for client self-practice. Strong practitioner interest in trauma-informed performance settings.'},
+
+  {id:'hakomi',category:'somatic',originFlag:'🌀',originLabel:'Hybrid / Western-Buddhist-Taoist',
+   name:'Hakomi',
+   tagline:'Mindfulness-centered somatic therapy — the body as a doorway to core material.',
+   description:'Ron Kurtz developed Hakomi in the 1970s, explicitly naming Buddhist (mindfulness, non-violence, beginner\'s mind) and Taoist (going with the grain, organicity) principles alongside Western body psychotherapy. Works by bringing the client into mindful somatic awareness, then introducing gentle experiments — a touch, a word, a posture — to surface core beliefs held in physical form. One of the more academically rigorous body psychotherapy systems. Hakomi means "how do you stand in relation to these many realms?" in Hopi.'},
+
+  {id:'gestalt-reich',category:'somatic',originFlag:'🔬',originLabel:'Western / Humanistic-Psychoanalytic',
+   name:'Gestalt Bodywork & Character Armor',
+   tagline:'Present-moment somatic contact as the path through emotional blockage — not around it.',
+   description:'Wilhelm Reich (Austrian psychoanalyst, 1920s) argued that suppressed emotion lives in muscular holding patterns he called "character armor." Fritz Perls built on this in Gestalt therapy (1940s-60s), using observation of somatic cues — jaw tension, fist clenching, breath holding — as live data in the room. Your coursework covers this extensively: the "Lose your mind, come to your senses" directive, body part dialogues, and feeling-the-actual experiments. Reich is the precursor to virtually all modern somatic therapy, though rarely credited.'},
+
+  // ─── MOVEMENT ─────────────────────────────────────────────────
+  {id:'qigong',category:'movement',originFlag:'🌿',originLabel:'Chinese / Taoist-Buddhist',
+   name:'Qigong',
+   tagline:'Coordinated breath, movement, and intention to cultivate and regulate vital energy (qi).',
+   description:'A practice documented in Chinese texts over 2,000 years, integrating slow movement, controlled breathing, and meditative intent to regulate qi (vital energy) through the body\'s meridian channels. Medical qigong is foundational to Chinese medicine; martial qigong is the basis of tai chi. The mind-body principle — where attention goes, qi follows — is functionally similar to Western motor imagery research, which makes it a bridge concept for your TPE work. Growing evidence base for anxiety, chronic pain, and autonomic regulation.'},
+
+  {id:'tai-chi',category:'movement',originFlag:'🌿',originLabel:'Chinese / Taoist Martial Art',
+   name:'Tai Chi (Taijiquan)',
+   tagline:'Slow continuous martial sequences as moving meditation — effortless action through non-resistance.',
+   description:'Originating in Chen village, Henan province, China (c. 17th century) as a Taoist internal martial art. The slow, continuous forms practiced today cultivate proprioceptive awareness, breath-movement coordination, and meditative presence. The core principle — yielding to rather than opposing force — directly embodies the Taoist concepts of wuwei and mushin your coursework discusses through Dr. Aska Sakuta. Extensive research base for balance, cognitive function, and anxiety reduction. A rare case where the ancient framework and the RCT evidence agree.'},
+
+  {id:'yin-yoga',category:'movement',originFlag:'🌀',originLabel:'Hybrid / Western-Chinese',
+   name:'Yin Yoga',
+   tagline:'Long-held passive postures targeting fascia and meridian lines — the slow version that actually changes tissue.',
+   description:'Codified by Paul Grilley and Sarah Powers in the 1990s-2000s, drawing on Taoist yoga (Tao Yin) and Traditional Chinese Medicine meridian theory, adapted for Western bodies. Postures are held 3-5 minutes in passive release — targeting fascia, ligaments, and joint capsules rather than muscle. Each posture corresponds to a meridian line. A hybridization that is honest about its dual sources. Contrasts sharply with active yang approaches; particularly relevant for nervous system regulation through long, held surrender rather than effortful practice.'},
+
+  {id:'5rhythms',category:'movement',originFlag:'🔬',originLabel:'Western / Ecstatic Movement',
+   name:'5Rhythms',
+   tagline:'Free-form movement through five wave phases — releasing patterned holding without choreography.',
+   description:'Developed by Gabrielle Roth in New York in the 1970s. Five energetic states — Flowing, Staccato, Chaos, Lyrical, Stillness — each with a corresponding physical quality. The Wave moves through all five in sequence using music to guide transitions. No choreography: the practice is surrendering to what the body wants to do. Draws on shamanic, theatrical, and Gestalt influences. Used therapeutically for body image work, trauma, and creative expression. Interesting contrast to qigong and tai chi — form vs. formlessness.'},
+
+  {id:'nihon-buyo',category:'movement',originFlag:'🌿',originLabel:'Japanese / Classical Dance',
+   name:'Nihon-buyo (日本舞踊)',
+   tagline:'Repetitive psychosomatic training to transfer conscious movement into automatic embodied expression.',
+   description:'Traditional Japanese classical dance, arising from Noh theater and Kabuki traditions (Edo period, 17th-19th century). Your coursework cites it for the principle of psychosomatic training — drilling precise movement forms until they bypass conscious processing and become automatic. Directly parallels Fitts and Posner\'s motor learning stages but within a framework that views the body as a vehicle for cultural memory and spiritual expression, not just skill acquisition. Transmission is traditionally oral and physical, not verbal.'},
+
+  {id:'forest-bathing',category:'movement',originFlag:'🌿',originLabel:'Japanese / Nature-Based',
+   name:'Forest Bathing (Shinrin-yoku / 森林浴)',
+   tagline:'Slow sensory immersion in forest environments — not hiking, not meditation, not exercise.',
+   description:'Coined by Japan\'s Ministry of Agriculture, Forestry and Fisheries in 1982 as a public health practice, drawing on ancient Shinto reverence for nature as spiritually alive. The practice is deliberately not goal-directed: no destination, no pace target, just sensory presence among trees. Research from Chiba University documents significant reductions in cortisol, blood pressure, and sympathetic activity versus urban walking. Phytoncides — airborne tree compounds — appear to enhance NK cell immune activity. The most accessible somatic practice with the strongest empirical support for stress.'},
+
+  {id:'walking-meditation',category:'movement',originFlag:'🌀',originLabel:'Hybrid / Buddhist-Contemporary',
+   name:'Walking Meditation',
+   tagline:'Deliberate attention-anchored walking as formal practice — distinct from mindful walking.',
+   description:'Found across Buddhist traditions as a structured meditative form: Zen kinhin (slow circumambulation between sitting periods), Theravada cankama (measured deliberate pacing), Thich Nhat Hanh\'s contemporary "walking on the earth" practice. These are not "mindful walking" in the colloquial sense — they are formal practices with specific attentional objects (foot contact, breath, sensation). Western mindfulness programs (MBSR) have absorbed and secularized these forms. For your practice: worth knowing the lineage distinction between formal kinhin and a mindful walk with Apollo.'},
+];
+
+// ══════════════════════════════════════════════════════════════════
+// PRACTICE LOG
+// ══════════════════════════════════════════════════════════════════
+function getPracticeLogs(){
+  try{return JSON.parse(localStorage.getItem('practice_logs')||'[]');}catch(e){return [];}
+}
+
+function getPracticeCount(id){
+  return getPracticeLogs().filter(l=>l.id===id).length;
+}
+
+function savePracticeLog(id){
+  const durEl=document.querySelector(`#plog-${id} .dur-pill.sel`);
+  const noteEl=document.getElementById(`pnote-${id}`);
+  const dur=durEl?parseInt(durEl.dataset.dur):0;
+  if(!dur){if(durEl===null)alert('Pick a duration first.');return;}
+  const logs=getPracticeLogs();
+  logs.push({id,date:dk(new Date()),dur,note:noteEl?noteEl.value.trim():'',ts:Date.now()});
+  localStorage.setItem('practice_logs',JSON.stringify(logs));
+  cancelPracticeLog(id);
+  // Update count badge
+  const badge=document.getElementById(`pc-badge-${id}`);
+  if(badge){badge.textContent=getPracticeCount(id);badge.style.display='';}
+  renderPracticeHistory(id);
+}
+
+function cancelPracticeLog(id){
+  const logForm=document.getElementById(`plog-${id}`);
+  const actEl=document.getElementById(`pact-${id}`);
+  if(logForm)logForm.style.display='none';
+  if(actEl)actEl.style.display='';
+  // Clear selections
+  document.querySelectorAll(`#plog-${id} .dur-pill`).forEach(b=>b.classList.remove('sel'));
+  const noteEl=document.getElementById(`pnote-${id}`);
+  if(noteEl)noteEl.value='';
+}
+
+function openPracticeLog(id){
+  const logForm=document.getElementById(`plog-${id}`);
+  const actEl=document.getElementById(`pact-${id}`);
+  if(logForm)logForm.style.display='block';
+  if(actEl)actEl.style.display='none';
+}
+
+function selectPracticeDur(id,dur){
+  document.querySelectorAll(`#plog-${id} .dur-pill`).forEach(b=>b.classList.remove('sel'));
+  const btn=document.getElementById(`pdur-${id}-${dur}`);
+  if(btn){btn.classList.add('sel');}
+}
+
+function renderPracticeHistory(id){
+  const el=document.getElementById(`phist-${id}`);
+  if(!el)return;
+  const logs=getPracticeLogs().filter(l=>l.id===id).slice(-4).reverse();
+  if(!logs.length){el.innerHTML='';return;}
+  el.innerHTML=`<div class="practice-hist-list">${logs.map(l=>{
+    const d=new Date(l.date+'T00:00:00');
+    const label=MTHS[d.getMonth()].slice(0,3)+' '+d.getDate();
+    return `<div class="practice-hist-row"><span class="practice-hist-date">${label}</span><span class="practice-hist-dur">${l.dur}m</span>${l.note?`<span class="practice-hist-note">${l.note}</span>`:''}</div>`;
+  }).join('')}</div>`;
+}
+
+function togglePractice(id){
+  const body=document.getElementById(`pbody-${id}`);
+  const chev=document.getElementById(`pchev-${id}`);
+  const card=document.getElementById(`pc-${id}`);
+  if(!body)return;
+  const open=body.style.display==='none'||body.style.display==='';
+  body.style.display=open?'block':'none';
+  if(chev)chev.style.transform=open?'rotate(90deg)':'rotate(0deg)';
+  if(card)card.classList.toggle('pc-open',open);
+  if(open)renderPracticeHistory(id);
+}
+
+function renderPractices(){
+  ['breathwork','somatic','movement'].forEach(cat=>{
+    const container=document.getElementById(`practice-cards-${cat}`);
+    if(!container)return;
+    const practices=PRACTICE_LIBRARY.filter(p=>p.category===cat);
+    container.innerHTML=practices.map(p=>{
+      const count=getPracticeCount(p.id);
+      const durBtns=[5,10,15,20,30,45].map(m=>
+        `<button class="dur-pill" id="pdur-${p.id}-${m}" data-dur="${m}" onclick="selectPracticeDur('${p.id}',${m})">${m}m</button>`
+      ).join('');
+      return `<div class="practice-card" id="pc-${p.id}">
+  <div class="practice-card-hdr" onclick="togglePractice('${p.id}')">
+    <div style="display:flex;align-items:flex-start;gap:9px;flex:1;min-width:0;">
+      <span class="practice-flag">${p.originFlag}</span>
+      <div style="min-width:0;">
+        <div class="practice-name">${p.name}</div>
+        <div class="practice-tagline">${p.tagline}</div>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:6px;flex-shrink:0;padding-left:8px;">
+      <span class="pc-badge" id="pc-badge-${p.id}" style="${count>0?'':'display:none;'}">${count||''}</span>
+      <span class="practice-chevron" id="pchev-${p.id}">›</span>
+    </div>
+  </div>
+  <div class="practice-body" id="pbody-${p.id}" style="display:none;">
+    <div class="practice-origin-row"><span class="practice-origin-chip">${p.originFlag} ${p.originLabel}</span></div>
+    <div class="practice-desc">${p.description}</div>
+    <div class="practice-log-form" id="plog-${p.id}" style="display:none;">
+      <div class="dur-pill-row">${durBtns}</div>
+      <textarea id="pnote-${p.id}" class="practice-note-ta" placeholder="Notes (optional)..." rows="2"></textarea>
+      <div style="display:flex;gap:8px;margin-top:8px;">
+        <button class="add-habit-btn" style="flex:1;font-size:13px;" onclick="savePracticeLog('${p.id}')">Save session</button>
+        <button class="water-btn minus" style="font-size:12px;" onclick="cancelPracticeLog('${p.id}')">Cancel</button>
+      </div>
+    </div>
+    <div class="practice-actions" id="pact-${p.id}">
+      <button class="practice-log-btn" onclick="openPracticeLog('${p.id}')">Log session</button>
+    </div>
+    <div id="phist-${p.id}"></div>
+  </div>
+</div>`;
+    }).join('');
+  });
+}
+
 loadTheme();
 initMovement();
 initHabTabs();
@@ -4419,7 +4673,6 @@ if ('serviceWorker' in navigator && location.protocol === 'https:') {
     }).catch(err => console.log('SW registration failed:', err));
   });
 }
-
 </script>
 </body>
 </html>
